@@ -1,0 +1,145 @@
+---
+title: How to make a website using blogdown and github
+author: Corrie
+date: '2018-05-13'
+slug: how-to-make-a-website-using-blogdown-and-github
+categories:
+  - R
+tags:
+  - blogdown
+  - github
+  - R
+comments: yes
+image: images/tea_with_books.jpg
+share: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+In this post, I will describe how to build your own webpage (more specific, a blog) using blogdown and have it hosted on your github.
+
+There are two steps:
+
+Test $\alpha = 0.5 $
+twek
+
+- Set up your github repo so it can serve as a web page
+- Build your website using blogdown
+
+# Set up Github
+Let's start with setting up your github. This is actually super simple, you only need to create a new repository with the name `<yourusername>.github.io`. So if you don't have a github account yet, you can take this into account when picking your username. 
+
+To create the github repo, simply head to your github profile and create a new repository. The only important thing really is to give it this name as said above. Clone the repository to your local machine and you're already set up for the next step.
+
+For a more step by step explanation with pictures (and a first hello world commit to your webpage), check this link: https://pages.github.com/
+
+# Set up blogdown
+Now comes the more complicated part: We need to install and set up blogdown, then set up the generated web page so that it looks like your web page and not like the example page and finally start adding some content.
+## Install blogdown and Hugo
+```{r blogdown, echo=TRUE, eval=FALSE}
+# install blogdown package if you don't have yet and install hugo
+install.packages("blogdown")
+library(blogdown)
+install_hugo()
+```
+This will install the latest version of Hugo for you (and tell you to where it has been installed).
+To set up the page, we can use the command `new_site()`. For some reason, the help function didn't work for me on any commands from the blogdown package. The `new_site()` command takes as input the directory where to save the site. Note that this directory needs to be empty! I created a folder `blogdown_source` in my project folder for this. Also note that if you don't give an absolute path to the folder, it will use the current working directory, so maybe better check which one that is. This folder can also not be in your github page folder, since your github page folder can only contain the files of the final rendered web page and blogdown creates a whole bunch more.
+We also need to specify which theme we want to use, so head over to https://themes.gohugo.io and go select one you fancy. I recommend you to have a look at the demo page for a theme (if provided), I only went by the picture and then noticed later that I didn't like the style of the menu. I also wanted to have a theme that has social media support, so if this is important for you, check that it's included. If you want to change the theme later, you should repeat the whole process (empty directory and create new site).
+```{r echo=TRUE, eval=FALSE}
+getwd() # check the current working directory
+new_site(dir="blogdown_source",
+         theme = "vjeantet/hugo-theme-casper",
+         format = "toml")
+```
+I used the theme casper, the string given in the command is the name of the github repository. The parameter `format` is about which format the configuration file is. `toml` is actually the default, but it could also be a `.yaml` file, so set the parameter accordingly to the theme. You should find this information on the theme page.
+
+And voila, there goes your blogdown web site! R actually creates the directory given by you if it doesn't exist (or complains if it exists and isn't empty). It also creates a first sample entry written in R Markdown and serves you the web site (locally).
+
+## Make it your page
+Now that you have a page, the only thing missing, is to make it your personal page. That is, change some titles, write some first content and maybe add some pictures.
+For that, let's have a look at the folders and file created by blogdown.
+
+There are some empty folders and two folders containg files and folders related to the first automatically generated blog post. Also, there is the configuration file `config.toml`. Let's have a look at this one first:
+This file tells Hugo how to configure your website. It will look slightly different for different themes, but some elements are always the same. 
+I will just talk about the basics I need, if you want to know more, check [here](https://gohugo.io/getting-started/configuration/).
+
+* `baseURL` this is the URL of your web page, that is, since we use github: `baseURL = "https://<name>.github.io/"`
+* `title` the title of your page, be create ;)
+* `description` for a short description of your web page
+* `theme` this should have the theme that you are using
+* `publishDir` specifies the folder where Hugo writes the final static web page, that is the html files etc. Since we want to publish our web page via the gihub repo, we need to set this to the folder of the <name>.github.io folder: `publishDir = "../<name>.github.io"`. 
+
+
+By the way, you can either have your site served by R while making changes and then see the updates, or, if you're like me and stopped serving in between (using the command `servr::daemon_stop("<some ID>")` kindly provided when starting to serve), you can restart serving by running `serve_site()` (it needs to be run in the directory of your blogdown source code).
+If you set the `publishDir` parameter to your github repo and then serve the site again, you should also that all the files in the `public/` folder are copied to the github repo.
+This means, we can already publish it to the world and have our first version online! Just go to the folder `<name>.github.io`, add all the files generated by blogdown, commit and push it to github:
+``` {bash}
+cd path/to/<name>.github.io
+git add .
+git commit -m "first blogdown commit"
+git push
+```
+The only thing missing now, is to personalize the page and to publish some content. I will start with the personalization.
+### A bit of personalization..
+On the theme page, there was an example page for my theme, that had a bunch more content and images than what I created so I had a look at the source code of the example page and the `config.toml` provided there. The config file had quite a few more parameters, many of them were self explanatory, so I added the one that seem fit for my purpose:
+```
+[params]
+  author = "author"
+  githubName = "<yourname>"
+  twitterName = "<yourname>"
+  cover = "images/cover_polenord.jpg"
+```
+These parameters might be quite different for your config file. One thing to note here, any files referenced here (such as the image for the cover), needs to be in the folder `static/`. So I created the folder `images/` there and added the picture. When you serve the site again, it will then be added to your public folder. That was already enough personalization for me (at least at this step). As mentioned before, at this step I noticed that I didn't like the menu that much, so for now, I omitted it, maybe I will split to a different theme some other time.
+
+### Adding some first content
+Page is all up and already looking nice, now let's add our first own content. There are two commands in blogdown that let you create content: `new_content()` and `new_post()`. The last one is just a shortcut for `new_content(path='post/')`. These commands create a new RMarkdown or a markdown file in the folder `content/` (or further down the path in the folder `content/post/`). Since my page is supposed to be like a blog, I will create a new post.
+```{r, eval=FALSE}
+new_post(title='My very first post', ext=".Rmd")
+```
+This creates an RMarkdown file `2018-05-10-my-first-post.Rmd` containing a header similar to this one:
+```
+---
+title: My very first post
+author: Corrie
+date: '2018-05-11'
+slug: my-very-first-post
+categories: ["R"]
+tags: ["blogdown", "hello world"]
+comments: yes
+share: yes
+---
+```
+The header is generated according to the file `default.md` which can be found in the folder `themes/<yourtheme>/archetypes/`. My default file actually had a different formatting at first and every time I generated a new post, I got some error messages and the posts weren't properly rendered. If you have similar problems, make sure your default file has the correct format.
+Underneath the header, you can now write your blog post as an RMarkdown.
+
+If you use R Studio, you can also use Addins: instead of using a command, R Studio provides a nice graphical interface for creating new posts and also easier serving.
+
+Now let's publish all our work! Make sure you have served all changes and push all changes to your github repo. Happy blogging!
+
+### Some Notes on Customizing your Theme
+If you don't know much about html or css, it can be quite a task to make any changes to the layout. Even moving a main menu from left to right or some other minor change that you might assume to be simple can require some effort (it took me at least a day to put a _Home_ and _About Me_ button in the upper left corner). So here some tips that might be helpful for anyone in the same position.
+
+- __Don't be afraid to break anything__
+I did a lot of trial and error. Making some changes here and there and just see what happens. If you make some changes here in this file, where does it appear in the generated web page? (if it does at all). It might also be helpful to delete some files or code chunks, I assume not all files generated by blogdown are actually needed. In the end, I didn't use the menu structure provided by the Casper theme, so I could delete a few code chungs.
+- __Use the inspector tool of your browser__
+In Chrome, you can use _F12_ to open the source code of any web page and make some live changes. These changes will only appear in your browser in that session and don't save, but it is a good way to try out different settings and also to find out where the settings used came from.
+- __Get familiar with the structure provided__
+A lot of interesting stuff is happening in the `.html` files in the `layouts` folder of your theme. As far as I can tell, Hugo takes the parameters from your configuration file and plugs them into these files:
+``` {html, eval=FALSE}
+{{ partial "header.html" . }}
+
+{{if .Params.image}}
+  <header class="main-header post-head" style="background-image: url({{.Params.image }})">
+{{else}}
+  <header class="main-header post-head no-cover">
+```
+This code means, that it first uses the `header.html` file in the `partials` folder. If then the parameter `image` is given, it uses the header class with background image, otherwise the header class with no cover. So everything in curly braces is not html, but some Hugo magic.
+
+- __Learn some basic CSS__
+My brother was so helpful to explain me some basics of CSS and how it works with html. The classes used in the html files are defined in some CSS files in the `static` folder. The CSS file defines the style for each class (e.g. font size etc) and everything that uses this class then has this style. So if you want to make changes to these style classes, you need to make some changes in the css files.
+- __Be wary of caches__
+I had a few times the problem that I noticed some changes to persist, even after I deleted the files that I had created to make these changes. At some point I realized that I had only deleted the files in the `content` folder but not where all the generated final files were copied to for serving. There is probably a more proper way of dealing with this problem, but I was too lazy for that and just emptied the serving folder and have them all generated again.
+
+
+[comment]: <> (To use code highlighting: https://amber.rbind.io/blog/2017/11/15/syntax-highlighting/)
