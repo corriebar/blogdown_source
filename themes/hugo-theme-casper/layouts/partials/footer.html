@@ -11,5 +11,6 @@
     {{ if .Site.Params.customFooterPartial }}
         {{ partial .Site.Params.customFooterPartial . }}
     {{ end }}
+    {{ partial "footer_mathjax" . }}
 </body>
 </html>

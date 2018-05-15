@@ -19,11 +19,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 In this post, I will describe how to build your own webpage (more specific, a blog) using blogdown and have it hosted on your github.
 
-There are two steps:
-
-Test $\alpha = 0.5 $
-twek
-
 - Set up your github repo so it can serve as a web page
 - Build your website using blogdown
 

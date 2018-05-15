@@ -6,7 +6,7 @@ publishDir = "../corriebar.github.io"
 paginate = 5
 disqusshortname = "corriebar-github-io"
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown", "_files$", "_cache$"]
-
+disable_mathjax = false
 
 
 [params]
@@ -19,7 +19,3 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown", "_files$", "_cache$"]
   twitterName = "corrieaar"
   #hideSuggestions = false
   RSSlinks = true
-  highlightjsVersion = "9.11.0"
-  highlightjsCDN = "//cdn.bootcss.com"
-  highlightjsLang = ["r", "yaml"]
-  highlightjsTheme = "github"
