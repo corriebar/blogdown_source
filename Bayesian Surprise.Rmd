@@ -1,0 +1,31 @@
+---
+title: "Bayesian Surprise"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Notes
+based on: http://ilab.usc.edu/surprise/
+- Bayesian surprise quantifies how data affects natural or artificial observers, by measuring differences between posterior and prior beliefs of the observers.
+- surprise can exist only in the presence of uncertainty, which can arise from intrinsic stochasticity, missing information, or limited computing resources
+- surprise can only be defined in a relative, subjective, manner and is related to the expectations of the observer
+- the only consistent definition of surprise must involve: 
+  (1) probabilistic concepts to cope with uncertainty; and 
+  (2) prior and posterior distributions to capture subjective expectations.
+- we formally measure surprise elicited by quantifying the distance (or dissimilarity) between the posterior and prior distributions 
+- using the relative entropy or Kullback-Leibler (KL) divergence
+- A unit of surprise --- a wow --- may then be defined for a single model M as the amount of surprise corresponding to a two-fold variation between $P(M|D)$ and $P(M)$, i.e., as log $P(M|D)/P(M)$ (with log taken in base 2).
+
+- Snow TV example:
+  - turning on the TV, different prior probability which channel might be on
+  - after a few video frames, high posterior probability for e.g. CNN -> not much more surprise after that, just reinforcing existing belief
+  - if the frame then changes to snow, there is a high surprise (signalling an unusual event such as bad weather, electricity problems etc)
+  - after a few frames snow, no more surprise
+  
+- surprise resolves the classical paradox that random snow, although in the long term the most boring of all television programs, carries the largest amount of Shannon information
+- This paradox arises from the fact that there are many more possible random images than there exists natural images
+- more informative data may not always be more important, interesting, worthy of attention, or surprising
+  
