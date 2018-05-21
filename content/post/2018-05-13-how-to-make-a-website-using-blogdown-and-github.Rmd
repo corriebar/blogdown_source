@@ -137,4 +137,7 @@ My brother was so helpful to explain me some basics of CSS and how it works with
 I had a few times the problem that I noticed some changes to persist, even after I deleted the files that I had created to make these changes. At some point I realized that I had only deleted the files in the `content` folder but not where all the generated final files were copied to for serving. There is probably a more proper way of dealing with this problem, but I was too lazy for that and just emptied the serving folder and have them all generated again.
 
 
-[comment]: <> (To use code highlighting: https://amber.rbind.io/blog/2017/11/15/syntax-highlighting/)
+<!---
+To use code highlighting: https://amber.rbind.io/blog/2017/11/15/syntax-highlighting/)
+MathJax Support: https://github.com/rstudio/blogdown/issues/36)
+--->

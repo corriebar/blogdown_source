@@ -7,6 +7,7 @@ paginate = 5
 disqusshortname = "corriebar-github-io"
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown", "_files$", "_cache$"]
 disable_mathjax = false
+comments = true
 
 
 [params]
