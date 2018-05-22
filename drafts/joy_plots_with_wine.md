@@ -4,7 +4,7 @@ author: "Corrie"
 date: '2018-05-22'
 output:
   html_document: 
-    fig_height: 7
+    fig_height: 8
     fig_width: 9
     keep_md: yes
   html_notebook: default
@@ -137,10 +137,6 @@ wine_fct %>% select(variety, price) %>%
   ggplot(aes(x=price, y=variety)) + geom_density_ridges(rel_min_height=0.05, scale=4) 
 ```
 
-```
-## Picking joint bandwidth of 2.37
-```
-
 ![](joy_plots_with_wine_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
 
 The `scale` parameter in `geom_density_ridges()` determines how stacked the distributions are. For `scale=1`, the maximum point of one density would just touch the baseline of the density above. Thus, the higher this number, the more overlap you have but more densities fit on top of each other.
@@ -154,10 +150,6 @@ wine_fct %>% select(variety, price) %>%
   ggplot(aes(x=price, y=variety)) + geom_density_ridges(rel_min_height=0.05, scale=4) 
 ```
 
-```
-## Picking joint bandwidth of 2.37
-```
-
 ![](joy_plots_with_wine_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
 
 
@@ -166,7 +158,6 @@ To get the plots nicely colored, the package also provides a function for improv
 
 ```r
 library(viridis)
-# which variety has the highest price?
 wine_fct %>% select(variety, price) %>%
   filter(price <= 100 & variety != "Other") %>%
   mutate(variety = fct_reorder(variety, price)) %>%

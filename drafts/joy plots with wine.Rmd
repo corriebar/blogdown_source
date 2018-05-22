@@ -4,7 +4,7 @@ author: "Corrie"
 date: '2018-05-22'
 output:
   html_document: 
-    fig_height: 7
+    fig_height: 8
     fig_width: 9
     keep_md: yes
   html_notebook: default
@@ -81,7 +81,7 @@ This plot looks more reasonable. It is still a bit difficult to read, so one mig
 ## The Joy plots
 One of the first questions that came to my mind, is if some varieties are more expensive than others. Now this is a task where I find ridgeplots very useful. We have quite many varieties and for each of them there is a distribution for their price. The ridgeplot stacks these distribution on top of each other, creating some overlap. You do lose some information this way but you can get a good overview.
 I cut off the price at 100 (I assume \$) since the plot otherwise skews very heavily, it seems some wines sell for a few thousand dollars. I also remove the level "Other" for this plot.
-```{r}
+```{r message=FALSE}
 library(ggridges)
 # which variety has the highest price?
 wine_fct %>% select(variety, price) %>%
@@ -94,7 +94,7 @@ The `scale` parameter in `geom_density_ridges()` determines how stacked the dist
 
 Notice also the use of `fct_reorder()`: it sorts the variety levels by the median of their price (in ascending order). For comparison, see below without the ordering. Not only does it look more chaotic, but it is also harder to see which variety actually has the higher prices.
 
-```{r}
+```{r message=FALSE}
 wine_fct %>% select(variety, price) %>%
   filter(price <= 100 & variety != "Other") %>%
   ggplot(aes(x=price, y=variety)) + geom_density_ridges(rel_min_height=0.05, scale=4) 
@@ -106,7 +106,6 @@ The ridgeplot package also kindly provides a theme that makes ridgeline plots lo
 To get the plots nicely colored, the package also provides a function for improved coloring of the densities. `geom_density_ridges_gradient()` allows for color changes along the x axis. It works well with the package `viridis`. Check out this nice looking plot:
 ```{r message=FALSE}
 library(viridis)
-# which variety has the highest price?
 wine_fct %>% select(variety, price) %>%
   filter(price <= 100 & variety != "Other") %>%
   mutate(variety = fct_reorder(variety, price)) %>%
