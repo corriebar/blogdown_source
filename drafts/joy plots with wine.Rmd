@@ -76,12 +76,12 @@ This plot looks more reasonable. It is still a bit difficult to read, so one mig
 
 ## The Joy plots
 One of the first questions that came to my mind, is if some varieties are more expensive than others. Now this is a task where I find ridgeplots very useful. We have quite many varieties and for each of them there is a distribution for their price. The ridgeplot stacks these distribution on top of each other, creating some overlap. You do lose some information this way but you can get a good overview.
-I cut off the price at 100 (I assume \$) since the plot otherwise skews very heavily, it seems some wines sell for a few thousand dollars. 
+I cut off the price at 100 (I assume \$) since the plot otherwise skews very heavily, it seems some wines sell for a few thousand dollars. I also remove the level "Other" for this plot.
 ```{r}
 library(ggridges)
 # which variety has the highest price?
 wine_fct %>% select(variety, price) %>%
-  filter(price <= 100) %>%
+  filter(price <= 100 & variety != "Other") %>%
   mutate(variety = fct_reorder(variety, price, .fun = median)) %>%
   ggplot(aes(x=price, y=variety)) + geom_density_ridges(rel_min_height=0.05, scale=4) 
 ```
@@ -92,7 +92,7 @@ Notice also the use of `fct_reorder()`: it sorts the variety levels by the media
 
 ```{r}
 wine_fct %>% select(variety, price) %>%
-  filter(price <= 100) %>%
+  filter(price <= 100 & variety != "Other") %>%
   ggplot(aes(x=price, y=variety)) + geom_density_ridges(rel_min_height=0.05, scale=4) 
 
 ```
