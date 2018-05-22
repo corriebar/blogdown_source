@@ -163,7 +163,7 @@ wine_fct %>% select(variety, price) %>%
   mutate(variety = fct_reorder(variety, price)) %>%
   ggplot(aes(x=price, y=variety, fill=..x..)) + geom_density_ridges_gradient(rel_min_height=0.05, scale=4) +
   scale_fill_viridis(option="E")  + 
-  theme_ridges(font_size = 10) + theme(legend.position = "none")
+  theme_ridges(font_size = 12) + theme(legend.position = "none")
 ```
 
 ![](joy_plots_with_wine_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
