@@ -4,6 +4,8 @@ author: "Corrie"
 date: '2018-05-22'
 output:
   html_document: 
+    fig_height: 7
+    fig_width: 9
     keep_md: yes
   html_notebook: default
 slug: joy-plots-with-wine
