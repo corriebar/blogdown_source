@@ -1,5 +1,5 @@
 ---
-title: Scraping the Web or How to find a Flat
+title: Scraping the web or how to find a flat
 author: Corrie
 date: '2018-10-03'
 categories:
@@ -66,26 +66,26 @@ page_list &lt;- glue(page_url)</code></pre>
   head(3)</code></pre>
 <pre><code>{xml_nodeset (3)}
 [1] &lt;li class=&quot;result-list__top-banner result-list__first-slot backgroun ...
-[2] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;107591640&quot;&gt;&lt;div&gt;&lt;article  ...
-[3] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;75189490&quot;&gt;&lt;div&gt;&lt;article d ...</code></pre>
+[2] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;96801682&quot;&gt;&lt;div&gt;&lt;article d ...
+[3] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;87684135&quot;&gt;&lt;div&gt;&lt;article d ...</code></pre>
 <p>We now see that the first item in the list is not actually a listing but a banner. The listings are all of the class <code>result-list__listing</code>. To extract only the nodes of a certain class, we give the parameter <code>.class-name</code> to <code>html_nodes()</code>. So to get only the listings, we give the parameter <code>.result-list__listing</code>:</p>
 <pre class="r"><code>first_page %&gt;%
   html_nodes(&quot;.result-list__listing&quot;) %&gt;%
   head(3)</code></pre>
 <pre><code>{xml_nodeset (3)}
-[1] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;107591640&quot;&gt;&lt;div&gt;&lt;article  ...
-[2] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;75189490&quot;&gt;&lt;div&gt;&lt;article d ...
-[3] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;107591632&quot;&gt;&lt;div&gt;&lt;article  ...</code></pre>
+[1] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;96801682&quot;&gt;&lt;div&gt;&lt;article d ...
+[2] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;87684135&quot;&gt;&lt;div&gt;&lt;article d ...
+[3] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;107513055&quot;&gt;&lt;div&gt;&lt;article  ...</code></pre>
 <p>Perfect, now we have a list of all listings.</p>
 <p>We could now either just scrape the information for each listing that is displayed on the front page (such as total rent, number of rooms etc) or get the link to the listing and scrape the information from there. We will do the second option here.</p>
 <p>Looking again at the source code, we find the following <code>&lt;a href=&quot;/expose/123456&quot;&gt;</code>. That means, the link is given as a relative path and has the same form for each listing. The number in the link is also given as <code>data-id</code> as attribute in the <code>&lt;li&gt;</code> node. The attributes of a node are not part of the node content (and hence are not output via <code>html_text()</code>). In <code>rvest</code>, we can get attributes using the function <code>xml_attr()</code>.</p>
 <pre class="r"><code>(listing_ids &lt;- first_page %&gt;%
   html_nodes(&quot;.result-list__listing&quot;) %&gt;%
   xml_attr(&quot;data-id&quot;))</code></pre>
-<pre><code> [1] &quot;107591640&quot; &quot;75189490&quot;  &quot;107591632&quot; &quot;107525852&quot; &quot;107591573&quot;
- [6] &quot;107591201&quot; &quot;107591462&quot; &quot;45066619&quot;  &quot;107591492&quot; &quot;107591483&quot;
-[11] &quot;107591465&quot; &quot;107591434&quot; &quot;106945170&quot; &quot;107591284&quot; &quot;107591494&quot;
-[16] &quot;107591394&quot; &quot;107559424&quot; &quot;76914708&quot;  &quot;106179632&quot; &quot;106534086&quot;</code></pre>
+<pre><code> [1] &quot;96801682&quot;  &quot;87684135&quot;  &quot;107513055&quot; &quot;107325427&quot; &quot;107591254&quot;
+ [6] &quot;107591220&quot; &quot;89233331&quot;  &quot;93739727&quot;  &quot;107591535&quot; &quot;107591463&quot;
+[11] &quot;68890908&quot;  &quot;107591252&quot; &quot;107591640&quot; &quot;75189490&quot;  &quot;107591632&quot;
+[16] &quot;107525852&quot; &quot;107591573&quot; &quot;107591201&quot; &quot;107591462&quot; &quot;45066619&quot; </code></pre>
 <p>This gives us all the information we need to create a list of all listings:</p>
 <pre class="r"><code>listing_url &lt;- &quot;https://www.immobilienscout24.de/expose/&quot;
 listing_list &lt;- str_c(listing_url, listing_ids)</code></pre>

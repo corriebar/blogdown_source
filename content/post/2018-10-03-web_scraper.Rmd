@@ -1,5 +1,5 @@
 ---
-title: Scraping the Web or How to find a Flat
+title: Scraping the web or how to find a flat
 author: Corrie
 date: '2018-10-03'
 categories:
