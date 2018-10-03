@@ -2,7 +2,7 @@
   {{ with .NextInSection }}
       <a class="read-next-story" style="no-cover" href="{{ .RelPermalink }}">
           <section class="post">
-              <h2>{{.Title}}</h2>
+              <h5>{{.Title}}</h5>
               <!-- <p>{{ substr .Summary 0  }}</p> -->
           </section>
       </a>
@@ -10,8 +10,9 @@
   {{ with .PrevInSection }}
       <a class="read-next-story prev" style="no-cover" href="{{ .RelPermalink }}">
           <section class="post">
-              <h2>{{.Title}}</h2>
+              <h5>{{.Title}}</h5>
           </section>
       </a>
-  {{ end }}
+      {{end}}
+
 </aside>

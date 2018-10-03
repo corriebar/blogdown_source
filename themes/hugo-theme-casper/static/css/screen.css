@@ -1020,7 +1020,7 @@ body.nav-opened .menu-button .word {
 }
 
 /* Add a little circle in the middle of the border-bottom on our .post
-   just for the lolz and stylepoints. */
+   just for the lolz and stylepoints. 
 .post:after {
     display: block;
     content: "";
@@ -1034,7 +1034,7 @@ body.nav-opened .menu-button .word {
     background: #FFF;
     border-radius: 100%;
     box-shadow: #FFF 0 0 0 5px;
-}
+}*/
 
 body:not(.post-template) .post-title {
     font-size: 3.6rem;
@@ -2021,58 +2021,58 @@ body:not(.post-template) .post-title {
     min-width: 50%;
     text-decoration: none;
     position: relative;
-    text-align: center;
+    text-align: left;
     color: #fff;
-    background: #222 no-repeat center center;
+    background: #fff no-repeat center center;
     background-size: cover;
     overflow: hidden;
 }
-.read-next-story:hover:before {
-    background: rgba(0,0,0,0.8);
-    transition: all 0.2s ease;
+.read-next-story.prev {
+    text-align: right;
 }
-.read-next-story:hover .post:before {
-    color: #222;
-    background: #fff;
-    transition: all 0.2s ease;
-}
+
 
 .read-next-story:before {
     content: "";
-    display: block;
+    display: inline-block;
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(0,0,0,0.7);
+    background: rgba(255,255,255,0.7);
     transition: all 0.5s ease;
 }
 
-.read-next-story .post {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
+
+.read-next-story .post h4 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     border-bottom: none;
 }
 
 .read-next-story .post:before {
-    content: "Read This Next";
-    padding: 4px 10px 5px;
+    content: "Next post";
+    padding: -1px 10px 5px;
     text-transform: uppercase;
     font-size: 1.1rem;
     font-family: "Open Sans", sans-serif;
-    color: rgba(255,255,255,0.8);
+    color: rgba(0,0,0,0.8);
     border: rgba(255,255,255,0.5) 1px solid;
     border-radius: 4px;
     transition: all 0.5s ease;
+    text-align:left;
 }
 .read-next-story.prev .post:before {
-    content: "You Might Enjoy";
+    content: "Previous post";
+    text-align:right;
 }
 
-.read-next-story h2 {
+.read-next-story h5 {
     margin-top: 1rem;
-    color: #fff;
+    color: #000;
+    font-size:2rem;
+    font-weight:normal;
 }
 
 .read-next-story p {
@@ -2094,7 +2094,7 @@ body:not(.post-template) .post-title {
     border-color: rgba(0,0,0,0.2);
 }
 
-.read-next-story.no-cover h2 {
+.read-next-story.no-cover h4 {
     color: rgba(0,0,0,0.8);
 }
 

@@ -11,12 +11,12 @@ comments = true
 
 
 [params]
-  description = "about machine learning, statistics  and bits related to data science"
+  description = "about data, statistics  and everything in between"
   author = "Corrie"
   logo = ""
   cover = "images/tea_with_books.jpg"
   githubName = "corriebar"
   hideHUGOSupport = true
   twitterName = "corrieaar"
-  #hideSuggestions = false
+  hideSuggestions = true
   RSSlinks = true

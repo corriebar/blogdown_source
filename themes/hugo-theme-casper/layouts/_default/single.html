@@ -66,8 +66,12 @@
 
     <section class="post-content">
       {{ .Content }}
+    
     </section>
 
+{{if not .Params.hideSuggestions }}
+  {{ partial "suggestions.html" . }}
+{{ end }}
 
   <footer class="post-footer">
 
@@ -83,8 +87,6 @@
 
 </main>
 
-{{if not .Params.hideSuggestions }}
-  {{ partial "suggestions.html" . }}
-{{ end }}
+
 
 {{ partial "footer.html" . }}
