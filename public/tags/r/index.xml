@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Samples of Thoughts</title>
-    <link>/</link>
-    <description>Recent content on Samples of Thoughts</description>
+    <title>R on Samples of Thoughts</title>
+    <link>/tags/r/</link>
+    <description>Recent content in R on Samples of Thoughts</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 03 Oct 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/r/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -28,15 +28,6 @@
       <guid>/post/how-to-make-a-website-using-blogdown-and-github/</guid>
       <description>In this post, I will describe how to build your own webpage (more specific, a blog) using blogdown and have it hosted on your github.
  Set up your github repo so it can serve as a web page Build your website using blogdown  Set up Github Let’s start with setting up your github. This is actually super simple, you only need to create a new repository with the name &amp;lt;yourusername&amp;gt;.</description>
-    </item>
-    
-    <item>
-      <title>Welcome to my blog!</title>
-      <link>/post/my-first-post/</link>
-      <pubDate>Fri, 11 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/post/my-first-post/</guid>
-      <description>Hello World! I’m Corrie and this is my blog where I plan to occasionally write about interesting topics. Interesting topics is of course entirely subjective and for me, machine learning, statistics (in particular the Bayesian flavor), and data science sound very exciting, so most of my posts will touch any of these topics. As a Mathematician by training, I spent quite some time during my studies with differential geometry, topology, and number theory (knots and prime numbers are cool!</description>
     </item>
     
   </channel>
