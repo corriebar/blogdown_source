@@ -3,6 +3,8 @@ library(rvest)         # for scraping
 library(stringr)       # for string manipulation
 library(glue)          # evaluate expressions in strings
 library(jsonlite)      # to handle json data
+library(foreach)       # to run in parallel
+library(doMC)          # backend to run in parallel (only for linux)
  
 url <- "https://www.immobilienscout24.de/Suche/S-2/Wohnung-Miete"
 
@@ -51,11 +53,17 @@ get_listing_data <- function(listing_url){
   
   
   list_l %>% map_if(is_empty, function(x) {NA}) %>%
-  as.tibble
+    as.tibble
 }
- 
 
-for (i in 1:last_page_number) {
+
+#### in parallel
+n_cores <- detectCores()
+registerDoMC(n_cores)
+
+foreach(i=1:last_page_number) %dopar% {
+  cat(paste("Page", i), stdout() )
+  
   link <- page_list[i]
   page <- try(read_html(link))
   if (!any(class(page) == "try-error") ){
@@ -66,8 +74,8 @@ for (i in 1:last_page_number) {
     
     map(listing_list, get_listing_data) %>%
       bind_rows() %>%
-      write_csv(paste0("../../rohdaten/",format(Sys.time(), "%Y-%m-%d-%H%M%S"), " page ",i, ".csv" ) )
+      write_csv(paste0("../rawdata/",str_pad(i, 4, pad="0"), "_", format(Sys.time(), "%Y-%m-%d-%H%M%S"), ".csv" ) )
   }
+  cat(paste("Page saved"), stdout() )
+  link
 }
-
-
