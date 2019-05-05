@@ -1,0 +1,143 @@
+---
+title: Reproducible (Data) Science with Docker and R
+author: Corrie
+date: '2019-05-05'
+slug: reproducible-data-science
+categories:
+  - R
+tags:
+  - docker
+  - R
+comments: yes
+image: images/tea_with_books.jpg
+menu: ''
+share: yes
+---
+
+
+In my data team at work, we've been using Docker for a while now. At least, the engineers in our team have been using it, we data scientists have been very reluctant to pick it up so far. Why bother with a new tool (that seems complicated) when you don't see the reason, right? 
+
+Until I wanted to redo this analysis I had done four months ago and it wasn't working. I had updated my R version in between, now a bunch of packages were missing and even after installing the missing packages, there were still error messages. That was the moment, I wished I had dockerized this analysis. 
+
+## What actually is Docker? 
+For the uninitiated, let me try to give a short summary of what Docker is. With Docker, you can wrap everything that's needed for your analysis (or your web app, or your service, or anything basically) in a nice self-contained package. A description of such a package is called image and an instance of such an image is called container. That sounds rather abstract, so let me give an example. In my analysis, I use `RStan` which is a bit more complicated to install compared to a normal R package. Depending on your operating system, you might have to install a C++ compiler before, check that some configuration are properly set up and then compile everything from source. I already went a few time through this process and already messed up a few times as well, so it's not much fun. So instead of just sharing my R script and have people go through the whole installation process when they want to check my analysis, I can set up a Docker image that contains a fixed operating system environment (usually a light-weight Linux version) with the RStan installation already set up. This image can then be shared and it will work everywhere the same. No more situations where your colleague gets an error on her machine but on yours, everything works just fine.
+
+So, what is the difference between image and container? An image is kind of the blueprint. When you create an image, you specify how it is build, what operating system environment to use, what packages to install etc. When you want to run it, you create a container based on this image. I've seen someone compare it to the difference between `install.package()` and `library()`
+
+## And what is it useful for?
+As already mentioned above, Docker can be great when you want to share your analysis and want to make sure it not just works on your computer, but also on your colleagues or some strangers computer. It's also very commonly used in software development to make sure the app doesn't just work on the developers machine but also on a server. This doesn't sound like a use case for data scientist, but imagine you have a very computing intense analysis to run. Maybe some deep learning training or running an MCMC model. If you run it on your own computer, your machine might be blocked for the next few hours or even days. With docker, you can wrap your code in a container and then have it executed on a remote server with more computing power.
+Another use case is when you want to use a more complex library. For example, instead of going through the whole RStan installation process, I can just check online if someone already prepared a docker image for that, download it and just run it from the container, no installing hassle anymore.
+
+So to summarize, Docker is useful to
+- share analysises so they run everywhere, out of the box;
+- run your code on a server;
+- use a library without having to go through the installation hassle.
+
+## Building the image
+I'll describe here how to use Docker to build an image of an analysis. As example, I'll use the analysis I mentioned above which uses RStan for the statistical analysis and, as a further complication, some packages for geospatial data that have some complicated dependencies.
+
+To build our image, we'll need a `Dockerfile`. A `Dockerfile` is basically a recipe describing how to build our image.
+```
+cd your-analysis
+touch Dockerfile
+```
+
+Every `Dockerfile` must start with a `FROM` statement. The `FROM` statement declares the dependencies of your image. You can for example base your image on an Ubuntu-image. For an R-based image, we can use [rocker](https://hub.docker.com/u/rocker). They have a whole collection of different R-images: `rocker/r-base` is the most basic one whereas `rocker/verse` includes the `tidyverse` packages. I will use one here that already includes the Stan installation process: [RStan image](https://hub.docker.com/r/jackinovik/docker-stan). It itself is based on `rocker/verse`.
+So our first line becomes this:
+
+```
+FROM jackinovik/docker-stan:v0.2.0
+```
+
+If you want to have a look at the image, you can download it from [Dockerhub](https://hub.docker.com) and run it as follows:
+```
+docker pull jackinovik/docker-stan:v0.2.0
+docker run --rm -e PASSWORD=password -p 8787:8787 jackinovik/docker-stan:v0.2.0
+```
+The basic command to run a container is simply `docker run maintainer/image-name`. Here, we've added the following parameters
+- `--rm`, this ensures the container is deleted after we quit. This way you won't have any abandoned containers that still run in the background.
+- `-p 8787:8787` tells docker that we'll be using a port to access the container.
+- `-e PASSWORD=password`, try running it without it and it will complain. You just need to set a password, for now, using a simple password such as "password" will be fine.
+- `v0.2.0` says we want to use this specific version of the docker container. By default, if you don't specify the version, docker will use the tag `latest` instead. This docker container doesn't have a `latest`-tag so we specify the version instead.
+
+To see what happened when you started the container, you need to open http://localhost:8787/ in your browser: To login, use the user `rstudio` and the password you just created and then you can use RStudio in your browser. You can try using some packages: it comes with `RStan` and other Stan packages, as well as all `tidyverse`-packages already installed. 
+
+You'll notice that in the file section of RStudio, there are only two files that came with the container. The container is basically empty, so we need to add our analysis files from our (host) machine into the container. 
+We can do this as follows:
+
+```
+docker run --rm -e PASSWORD=password -p 8787:8787 -v ~/Documents/my-analysis:/home/rstudio/my-analysis jackinovik/docker-stan:v0.2.0
+```
+This way, we link a volume, in this example the folder of my analysis to share with the Docker container. That means, the container can see everything in this folder and also it can save files in this folder that won't get deleted when the container is deleted.
+
+## Build your own docker image
+So now, we can check if our analysis can run inside the container. Most likely, it won't because some packages are still missing. What I like to do, is to first work inside the container and try to install everything from inside. Everything I install inside will be deleted again once I close the container but this way it's easy to check if there are no problems when installing a package. Everytime I install a package, I add it to the recipe for building the image. We do this by adding a `RUN` section to our `Dockerfile`:
+
+```
+RUN R -e "install.packages('xaringan')"
+```
+Alternatively, we can also write
+```
+RUN install2.r --error package_name
+```
+To install more than one package, we can either write a `RUN` statement for each package, or we can chain them as follows:
+```
+RUN install2.r --error \
+  package1 \
+  package2 \
+  last_package 
+```
+After having added all packages that we want to use inside the Docker to our Dockerfile, we need to compile it. 
+To do so, we buld a new docker container from the Dockerfile:
+```
+docker build -t "my-docker-analysis" .
+```
+Here, the parameter `-t` means the name (or tag) of the container, here the name is `my-analysis`. With `.` we tell docker to build the container with the Dockerfile in this folder. To then run the docker container, we use the same command as above, only now we change the name:
+```
+docker run --rm -e PASSWORD=password -p 8787:8787 -v ~/Documents/my-analysis:/home/rstudio/my-analysis my-docker-analysis
+```
+We can then check if the analysis runs. If it does, great we're done. If not, we need to add more statements to the Dockerfile.
+While it looks cleaner to chain the commands in the Dockerfile, there is an advantage to writing a new `RUN` statement for each new package, especially when building the docker container iteratively. Everytime we build the docker container again, docker installs all packages defined in the Dockerfile. However, it caches the image, so when you build the same Dockerfile again, it only runs the commands again that were changed in the file.
+
+## Adding more dependencies
+Now you might say, if it's only about installing R packages, I could just write this in my R script as follows:
+```{r, eval=F}
+if (!require(rgeos)) install.packages("rgeos")
+```
+However, some packages (including this one) might need some extra-dependencies outside of R and these are especially annoying to install, because it might take some time to find out how to properly install it. Now this is where Docker is especially handy, since you can specify all needed dependencies in the Dockerfile. 
+We can just add any `RUN` command to the Dockerfile but I always find it handy to try the commands in the running container beforehand to see if they do what I expect them to do.
+First, to see which docker containers are running right now, we run the following command:
+```
+docker ps
+```
+This gives a list of all running containers. Each container has a container ID but also a more convenient name, such as for example `distracted_kirch`. To now enter the container, we run the following:
+```
+docker exec -it distracted_kirch /bin/bash
+```
+This will iteractively (`-it`) execute the bash inside the container so than we can now run commands in the command line.
+Because the container is like a fresh Ubuntu installation, you might have to run `apt-get update` before running any install commands.
+Once we have determined all dependencies that are needed for our analysis, we can add them as follows to our Dockerfile:
+```
+RUN apt-get update \
+   && apt-get install -y --no-install-recommends \
+       libgdal-dev \
+       libgeos-dev
+```
+In my case, these were dependencies needed for some plotting functions for geographical data. Since they are needed before the installation of the R plotting packages, the line also goes before the line installing all R packages.
+
+## Including data in your container
+So far, we've been sharing a folder from our host with the docker container. This has the advantage that whatever happens in this folders, will happen both in the container as well as on the host machine. If the R script for example generates some plot files and saves them in this folder, they will still be in this folder after you close the docker container. 
+Another option would be to specify in the Dockerfile which files to copy inside the container:
+```
+RUN mkdir /home/rstudio/my-analysis
+COPY . /home/rstudio/my-analysis
+```
+This first creates the folder `my-analysis` and then copies all files from the folder where you build the Dockerfile into this folder.
+Unfortunately, if you want to get any files resulting from this analysis, you still need to share the corresponding folder when running the docker container.
+
+## Sharing your container
+A simple way to then share your container is to just share the Dockerfile (including all needed file) for example in a Github repo and then any person who wants to run the analysis, runs
+```
+docker build -t "fancy-analysis" .
+docker run --rm -e PASSWORD=password -p 8787:8787 fancy-analysis
+```
