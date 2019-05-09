@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>Berlin</title>
+      <link>/tags/berlin/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/berlin/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>R</title>
       <link>/tags/r/</link>
       <pubDate>Sun, 05 May 2019 00:00:00 +0000</pubDate>
@@ -26,6 +35,15 @@
       <pubDate>Sun, 05 May 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>flats</title>
+      <link>/tags/flats/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/flats/</guid>
       <description></description>
     </item>
     

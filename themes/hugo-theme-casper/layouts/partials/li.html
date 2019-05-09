@@ -10,8 +10,11 @@
         {{end}}
     </section>
     <footer class="post-meta">
-        
-
+        {{ if .Site.Params.readingTime }}
+            <p class="post-reading post-line">
+            <span>{{ .Site.Params.readingTimeText }} {{ .Page.ReadingTime }} min</span>
+            </p>
+        {{end}}
         {{ if or .Params.author .Site.Params.author}}
             {{$authorname := or .Params.author .Site.Params.author }}
             {{$authoravatar := or .Params.authoravatar .Site.Params.logo }}

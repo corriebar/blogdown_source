@@ -7,6 +7,8 @@ categories:
 tags:
   - R
   - scraping
+  - Berlin
+  - flats
 slug: scraping-the-web-or-how-to-find-a-flat
 comments: yes
 image: images/tea_with_books.jpg
@@ -14,11 +16,11 @@ share: yes
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, comment=NA)
+knitr::opts_chunk$set(echo = TRUE, comment=NA, eval=T)
 ```
-Berlin is a great city that used to have the reputation of affordable rents. While for sure there are still other cities much more expensive, the rents in Berlin have risen considerably. Or so says everyone of my friends and my colleagues and so does it feel looking at renting listings. But let's try to put some data to these feelings and maybe find out in the mean time if there's still a secret neighborhood in Berlin resisting the raising prices and who knows, maybe the data can even tell us if the neighborhood Wedding is indeed "coming".
+Berlin is a great city that used to have the reputation of affordable rents. While for sure other cities are still much more expensive, the rents in Berlin have risen considerably. Or so says everyone of my friends and my colleagues and so does it feel looking at renting listings. I decided to have a look myself at the data to find out if there's still a secret neighborhood in Berlin resisting the raising prices and who knows, maybe the data can even tell us if the neighborhood Wedding is indeed "coming".
 
-For this, I will scrape the web page [Immoscout](https://www.immobilienscout24.de) for rental flats. It is the biggest platform in Germany, offering not just rental housing but also real estate. In this article, I will concentrate on the rental offers, I don't yet feel like buying a house.
+For this, I will scrape the web page [Immoscout](https://www.immobilienscout24.de) for rental flats. It is the biggest platform in Germany, offering not just rental housing but also real estate. In this article, I concentrate on the rental offers, but only minor changes would be needed to scrape houses for sale.
 ```{r}
 url <- "https://www.immobilienscout24.de/Suche/S-2/Wohnung-Miete"
 ```
@@ -46,23 +48,23 @@ If you know a bit of HTML, then you know that `<div>` represents an HTML node fo
 - `<table>` is a table (surprise)
 
 The usual structure in an HTML file is such, that the tag for a node embraces its content: `<tag>content</tag>`. 
-To access any HTML node, we can use the function `html_nodes()`. First, we load in the first page and can then access any HTML node as follow:
+To access any HTML node, we use the function `html_nodes()`. We load in the first page and then access any HTML node as follow:
 
 ```{r}
 first_page <- read_html(url)
 first_page %>%
   html_nodes("div") %>%
-  head(3)
+  head(2)
 ```
 
-We're not actually interested in all divisions but only the one with the ID `"pageSelection"`. To get this specific node, we use `#` to denote that it's an ID. In this division, there is a select node which contains all options. We can access the nested nodes as follows:
+We're not actually interested in all divisions but only the one with the ID `"pageSelection"`. To get this specific node, we use `#` to denote that it's an ID. In this division, there is a select node which contains all options. We access the nested nodes as follows:
 ```{r}
 first_page %>%
   html_nodes("#pageSelection  > select > option") %>%
-  head(3)
+  head(2)
 ```
 
-From this, it is now very easy to obtain the last page number. With `html_text()`, we extract the values for each node as text, which gives us then a vector of page numbers. The length of this vector is then the number of pages:
+From this, it is now easy to obtain the last page number. With `html_text()`, we extract the values for each node as text, which gives us a vector of page numbers. The length of this vector is the number of pages:
 
 ```{r}
 (last_page_number <- first_page %>%
@@ -71,38 +73,38 @@ From this, it is now very easy to obtain the last page number. With `html_text()
   length())
 ```
 
-As next step, we can generate a list that contains the URLs of each page. At this website, the page number is inserted somewhere in the middle of the URL for which we will take advantage of the package glue, which evaluates expressions in curly braces in strings:
+As next step, we generate a list that contains the URLs of each page. At this website, the page number is inserted somewhere in the middle of the URL for which we use the package `glue`. Glue expressions in curly braces in strings, similar to Pythons f-strings:
 ```{r}
 page_url <- "https://www.immobilienscout24.de/Suche/S-2/P-{pages}/Wohnung-Miete"
 pages <- 1:last_page_number
 page_list <- glue(page_url)
 ```
 
-Now that we have a list for all pages, we need to find out how to actually get the information of each listing. Going back to the source code of the website, we see that the listings are contained in an unordered list (`<ul>`) with the ID `"resultListItems"` where each listing is a node with the tag `<li>`.
+Now that we have a list for all page urls, we need to find out how to actually get the information of each listing. Going back to the source code of the website, we see that the listings are contained in an unordered list (`<ul>`) with the ID `"resultListItems"` where each listing is a node with the tag `<li>`.
 ```{r}
 first_page %>%
   html_nodes("#resultListItems > li") %>%
-  head(3)
+  head(2)
 ```
-We now see that the first item in the list is not actually a listing but a banner. The listings are all of the class `result-list__listing`. To extract only the nodes of a certain class, we give the parameter `.class-name` to `html_nodes()`. So to get only the listings, we give the parameter `.result-list__listing`:
+We now see that the first item in the list is not actually a listing but a banner. The listings are of the class `result-list__listing`. To extract only the nodes of a certain class, we give the parameter `.class-name` to `html_nodes()`. So to get only the listings, we give the parameter `.result-list__listing`:
 ```{r}
 first_page %>%
   html_nodes(".result-list__listing") %>%
-  head(3)
+  head(2)
 ```
 
 Perfect, now we have a list of all listings.
 
-We could now either just scrape the information for each listing that is displayed on the front page (such as total rent, number of rooms etc) or get the link to the listing and scrape the information from there. We will do the second option here.
+We could now either just scrape the information for each listing that is displayed on the front page (such as total rent, number of rooms etc) or get the link to the listing and scrape the information (with more details) from the full listing. We will do the second option here.
 
-Looking again at the source code, we find the following `<a href="/expose/123456">`. That means, the link is given as a relative path and has the same form for each listing. The number in the link is also given as `data-id` as attribute in the `<li>` node. The attributes of a node are not part of the node content (and hence are not output via `html_text()`). In `rvest`, we can get attributes using the function `xml_attr()`.
+Looking again at the source code, we find the following `<a href="/expose/123456">`. That means, the link is given as a relative path and has the same form for each listing. The number in the link is also given as `data-id` as attribute in the `<li>` node. The attributes of a node are not part of the node content (and hence are not output via `html_text()`). In `rvest`, we access attributes using the function `xml_attr()`.
 ```{r}
 (listing_ids <- first_page %>%
   html_nodes(".result-list__listing") %>%
   xml_attr("data-id"))
 ```
 
-This gives us all the information we need to create a list of all listings:
+This gives us all the information we need to create a list of all listing IDs:
 ```{r}
 listing_url <- "https://www.immobilienscout24.de/expose/"
 listing_list <- str_c(listing_url, listing_ids)
@@ -122,7 +124,7 @@ list_l <- list_page %>%
   fromJSON()
 ```
 
-If you wonder what the cryptic regex means, here is a very rough breakdown: The first group, that is the first parentheses, look for the pattern `"keyValues = "` and then match the group in the second parentheses. This is called a positive lookbehind. The second group then matches everything in curly braces. Since regex is something I can never quit remember for long, I usually just go to [this page](https://regex101.com/), copy paste the text in which I'm searching a certain pattern and then try until I find something that works. Unfortunately, the page only has a few regex flavors, but I found the python flavor to be close enough. One difference in R is, that to escape special characters, you need two backslashes instead of the usual one.
+If you wonder what the cryptic regex means, here is a very rough breakdown: The first group, that is the first parentheses, looks for the pattern `"keyValues = "` to then check if whatever comes afterswards matches with the second parentheses. This is called a positive lookbehind. The second group matches everything in curly braces. Since regex is something I can never quit remember for long, I usually just go to [this page](https://regex101.com/), copy paste the text in which I'm searching a certain pattern and then try until I find something that works. Unfortunately, the page only has a few regex flavors, but the python flavor seems to be close enough. One difference in R is, that to escape special characters, you need two backslashes instead of the usual one.
 
 Back to the listings, there are two information I would like to have that is not contained in the dictionary: The text description of the object and the text about the facilities. Luckily, there are much easier to find than the dictionary:
 ```{r}
@@ -140,13 +142,13 @@ For identifiability reasons, we should also add the ID of the listing itself. Th
 list_l$id <- listing_ids[1]
 ```
 
-For further analysis, we can then transform the list to a data frame:
+For further analysis, we then transform the list to a data frame:
 ```{r}
 list_df <- list_l %>%
   map_if(is_empty, function(x) {
     NA
   }) %>%
-  as.tibble()
+  as_tibble()
 ```
 Let's wrap this up in a little function:
 ```{r}
@@ -171,7 +173,6 @@ get_listing_data <- function(listing_url) {
 
   # extract id back from url
   list_l$id <- str_extract(listing_url, "(?<=/)\\d+")
-
 
   list_l %>%
     map_if(is_empty, function(x) {
@@ -202,8 +203,8 @@ for (i in 1:last_page_number) {
 }
 ```
 
-Now, since the process of scraping is rather slow, I used the library `foreach` to run the whole thing in parallel. This only requires a few small changes to the code above. I'm no expert on parallel computing, but apparently it is needed to first register the multicore parallel backend which is done by the package `doMC`. Note that the parallel backend is system-specific, so if you run Windows or Mac, you will need a different library. Also, since the files are generated in parallel, the time stamp is not a good file name, if you want to sort the files by page, thus I put the page identifier at the front of the file name. 
-The parallel backend unfortunately makes it a bit difficult to get the print output. To check the process of the script, I just checked how many files were already in the folder. Even with the parallel backend, going through all pages takes quite a while (depending on your internet connection), for me it was more than a day so at some point I just decided that I had collected enough data and stopped the script. 
+Now, since the process of scraping is rather slow, I used the library `foreach` to run the whole thing in parallel. This only requires a few small changes to the code above. I'm no expert on parallel computing, but apparently it is needed to first register the multicore parallel backend which is done by the package `doMC`. Note that the parallel backend is system-specific, so if you run Windows or Mac, you will need a different library. Also, since the files are generated in parallel, the time stamp is not a good file name for sorting the files by page, so I instead put the page number at the front of the file name. 
+Even with the parallel backend, going through all pages takes quite a while (depending on your internet connection), for me it was more than a day so at some point I just decided that I had collected enough data and stopped the script. 
 ```{r, eval=FALSE}
 library(foreach)     # to run in parallel
 library(doMC)        # backend to run in parallel (only for linux)
@@ -211,7 +212,6 @@ n_cores <- detectCores()
 registerDoMC(n_cores)
 
 foreach(i = 1:last_page_number) %dopar% {
-  # cat(paste("Page", i), stdout() )
 
   link <- page_list[i]
   page <- try(read_html(link))
@@ -227,7 +227,6 @@ foreach(i = 1:last_page_number) %dopar% {
       write_csv(paste0("../rawdata/", str_pad(i, 4, pad = "0"), "_", 
                        format(Sys.time(), "%Y-%m-%d-%H%M%S"), ".csv"))
   }
-  # cat(paste("Page saved"), stdout() )
   link
 }
 ```

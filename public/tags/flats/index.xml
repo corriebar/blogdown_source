@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Samples of Thoughts</title>
-    <link>/post/</link>
-    <description>Recent content in Posts on Samples of Thoughts</description>
+    <title>flats on Samples of Thoughts</title>
+    <link>/tags/flats/</link>
+    <description>Recent content in flats on Samples of Thoughts</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 05 May 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/flats/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -21,41 +21,12 @@
     </item>
     
     <item>
-      <title>Reproducible (Data) Science with Docker and R</title>
-      <link>/post/reproducible-data-science/</link>
-      <pubDate>Sun, 05 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/post/reproducible-data-science/</guid>
-      <description>In my data team at work, we’ve been using Docker for a while now. At least, the engineers in our team have been using it, we data scientists have been very reluctant to pick it up so far. Why bother with a new tool (that seems complicated) when you don’t see the reason, right?
-Until I wanted to redo this analysis I had done four months ago and it wasn’t working.</description>
-    </item>
-    
-    <item>
       <title>Scraping the web or how to find a flat</title>
       <link>/post/scraping-the-web-or-how-to-find-a-flat/</link>
       <pubDate>Wed, 03 Oct 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/scraping-the-web-or-how-to-find-a-flat/</guid>
       <description>Berlin is a great city that used to have the reputation of affordable rents. While for sure other cities are still much more expensive, the rents in Berlin have risen considerably. Or so says everyone of my friends and my colleagues and so does it feel looking at renting listings. I decided to have a look myself at the data to find out if there’s still a secret neighborhood in Berlin resisting the raising prices and who knows, maybe the data can even tell us if the neighborhood Wedding is indeed “coming”.</description>
-    </item>
-    
-    <item>
-      <title>How to make a website using blogdown and github</title>
-      <link>/post/how-to-make-a-website-using-blogdown-and-github/</link>
-      <pubDate>Sun, 13 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/post/how-to-make-a-website-using-blogdown-and-github/</guid>
-      <description>In this post, I will describe how to build your own webpage (more specific, a blog) using blogdown and have it hosted on your github.
- Set up your github repo so it can serve as a web page Build your website using blogdown  Set up Github Let’s start with setting up your github. This is actually super simple, you only need to create a new repository with the name &amp;lt;yourusername&amp;gt;.</description>
-    </item>
-    
-    <item>
-      <title>Welcome to my blog!</title>
-      <link>/post/my-first-post/</link>
-      <pubDate>Fri, 11 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/post/my-first-post/</guid>
-      <description>Hello World! I’m Corrie and this is my blog where I plan to occasionally write about interesting topics. Interesting topics is of course entirely subjective and for me, machine learning, statistics (in particular the Bayesian flavor), and data science sound very exciting, so most of my posts will touch any of these topics. As a Mathematician by training, I spent quite some time during my studies with differential geometry, topology, and number theory (knots and prime numbers are cool!</description>
     </item>
     
   </channel>

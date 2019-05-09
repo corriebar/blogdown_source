@@ -1,5 +1,5 @@
 theme = "hugo-theme-casper"
-baseURL = "https://corriebar.github.io/"
+baseURL = "https://www.samples-of-thoughts.com/"
 languageCode = "en-us"
 title = "Samples of Thoughts"
 publishDir = "public"
@@ -20,3 +20,5 @@ comments = true
   twitterName = "corrieaar"
   hideSuggestions = true
   RSSlinks = true
+  readingTime = true
+  readingTimeText = "Estimated reading time:"
