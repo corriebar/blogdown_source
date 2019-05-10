@@ -205,6 +205,8 @@ for (i in 1:last_page_number) {
 
 Now, since the process of scraping is rather slow, I used the library `foreach` to run the whole thing in parallel. This only requires a few small changes to the code above. I'm no expert on parallel computing, but apparently it is needed to first register the multicore parallel backend which is done by the package `doMC`. Note that the parallel backend is system-specific, so if you run Windows or Mac, you will need a different library. Also, since the files are generated in parallel, the time stamp is not a good file name for sorting the files by page, so I instead put the page number at the front of the file name. 
 Even with the parallel backend, going through all pages takes quite a while (depending on your internet connection), for me it was more than a day so at some point I just decided that I had collected enough data and stopped the script. 
+
+_Edit: I ran the script again some months later and it took less than 3hs, so I probably had really bad internet the first time._
 ```{r, eval=FALSE}
 library(foreach)     # to run in parallel
 library(doMC)        # backend to run in parallel (only for linux)

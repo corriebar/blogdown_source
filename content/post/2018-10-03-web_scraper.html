@@ -59,7 +59,7 @@ first_page %&gt;%
   html_nodes(&quot;#pageSelection &gt; select &gt; option&quot;) %&gt;%
   html_text() %&gt;%
   length())</code></pre>
-<pre><code>[1] 4813</code></pre>
+<pre><code>[1] 4807</code></pre>
 <p>As next step, we generate a list that contains the URLs of each page. At this website, the page number is inserted somewhere in the middle of the URL for which we use the package <code>glue</code>. Glue expressions in curly braces in strings, similar to Pythons f-strings:</p>
 <pre class="r"><code>page_url &lt;- &quot;https://www.immobilienscout24.de/Suche/S-2/P-{pages}/Wohnung-Miete&quot;
 pages &lt;- 1:last_page_number
@@ -69,25 +69,25 @@ page_list &lt;- glue(page_url)</code></pre>
   html_nodes(&quot;#resultListItems &gt; li&quot;) %&gt;%
   head(2)</code></pre>
 <pre><code>{xml_nodeset (2)}
-[1] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;98966400&quot;&gt;&lt;div&gt;&lt;article d ...
-[2] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;111421030&quot;&gt;&lt;div&gt;&lt;article  ...</code></pre>
+[1] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;111435440&quot;&gt;&lt;div&gt;&lt;article  ...
+[2] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;111435439&quot;&gt;&lt;div&gt;&lt;article  ...</code></pre>
 <p>We now see that the first item in the list is not actually a listing but a banner. The listings are of the class <code>result-list__listing</code>. To extract only the nodes of a certain class, we give the parameter <code>.class-name</code> to <code>html_nodes()</code>. So to get only the listings, we give the parameter <code>.result-list__listing</code>:</p>
 <pre class="r"><code>first_page %&gt;%
   html_nodes(&quot;.result-list__listing&quot;) %&gt;%
   head(2)</code></pre>
 <pre><code>{xml_nodeset (2)}
-[1] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;98966400&quot;&gt;&lt;div&gt;&lt;article d ...
-[2] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;111421030&quot;&gt;&lt;div&gt;&lt;article  ...</code></pre>
+[1] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;111435440&quot;&gt;&lt;div&gt;&lt;article  ...
+[2] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;111435439&quot;&gt;&lt;div&gt;&lt;article  ...</code></pre>
 <p>Perfect, now we have a list of all listings.</p>
 <p>We could now either just scrape the information for each listing that is displayed on the front page (such as total rent, number of rooms etc) or get the link to the listing and scrape the information (with more details) from the full listing. We will do the second option here.</p>
 <p>Looking again at the source code, we find the following <code>&lt;a href=&quot;/expose/123456&quot;&gt;</code>. That means, the link is given as a relative path and has the same form for each listing. The number in the link is also given as <code>data-id</code> as attribute in the <code>&lt;li&gt;</code> node. The attributes of a node are not part of the node content (and hence are not output via <code>html_text()</code>). In <code>rvest</code>, we access attributes using the function <code>xml_attr()</code>.</p>
 <pre class="r"><code>(listing_ids &lt;- first_page %&gt;%
   html_nodes(&quot;.result-list__listing&quot;) %&gt;%
   xml_attr(&quot;data-id&quot;))</code></pre>
-<pre><code> [1] &quot;98966400&quot;  &quot;111421030&quot; &quot;111420551&quot; &quot;98777928&quot;  &quot;95816608&quot; 
- [6] &quot;111421023&quot; &quot;111421022&quot; &quot;111420893&quot; &quot;111421003&quot; &quot;111421002&quot;
-[11] &quot;111420986&quot; &quot;111420004&quot; &quot;111420925&quot; &quot;111420866&quot; &quot;103325277&quot;
-[16] &quot;111420901&quot; &quot;111420896&quot; &quot;111420895&quot; &quot;111420627&quot; &quot;111420881&quot;</code></pre>
+<pre><code> [1] &quot;111435440&quot; &quot;111435439&quot; &quot;111435410&quot; &quot;111408552&quot; &quot;111435412&quot;
+ [6] &quot;111435409&quot; &quot;109526982&quot; &quot;111435403&quot; &quot;111435399&quot; &quot;111435067&quot;
+[11] &quot;111435395&quot; &quot;111435390&quot; &quot;111304080&quot; &quot;111309205&quot; &quot;111435388&quot;
+[16] &quot;111407200&quot; &quot;111434987&quot; &quot;111435366&quot; &quot;111357519&quot; &quot;111435337&quot;</code></pre>
 <p>This gives us all the information we need to create a list of all listing IDs:</p>
 <pre class="r"><code>listing_url &lt;- &quot;https://www.immobilienscout24.de/expose/&quot;
 listing_list &lt;- str_c(listing_url, listing_ids)</code></pre>
@@ -167,6 +167,7 @@ So far, we only have a single data point. We now need to piece everything togeth
 }</code></pre>
 <p>Now, since the process of scraping is rather slow, I used the library <code>foreach</code> to run the whole thing in parallel. This only requires a few small changes to the code above. I’m no expert on parallel computing, but apparently it is needed to first register the multicore parallel backend which is done by the package <code>doMC</code>. Note that the parallel backend is system-specific, so if you run Windows or Mac, you will need a different library. Also, since the files are generated in parallel, the time stamp is not a good file name for sorting the files by page, so I instead put the page number at the front of the file name.
 Even with the parallel backend, going through all pages takes quite a while (depending on your internet connection), for me it was more than a day so at some point I just decided that I had collected enough data and stopped the script.</p>
+<p><em>Edit: I ran the script again some months later and it took less than 3hs, so I probably had really bad internet the first time.</em></p>
 <pre class="r"><code>library(foreach)     # to run in parallel
 library(doMC)        # backend to run in parallel (only for linux)
 n_cores &lt;- detectCores()
