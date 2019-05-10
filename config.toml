@@ -1,5 +1,5 @@
 theme = "hugo-theme-casper"
-baseURL = "./"
+baseURL = "https://samples-of-thoughts.com/"
 languageCode = "en-us"
 title = "Samples of Thoughts"
 publishDir = "public"
