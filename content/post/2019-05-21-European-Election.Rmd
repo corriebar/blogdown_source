@@ -51,7 +51,8 @@ df %>%
 The _FDP_ (the economic liberal party) and the _CDU_ (conservative party) nominate both almost twice as many candidates as there are seats available! The SPD (social democratic party) only has more candidates than seats since it has many replacement candidates. Die PARTEI is a satire party, so I'm not really surprised they show up with too many candidates. _ÖDP_, a small ecological party that never got elected into the Bundestag, also seems rather ambitious with 96 candidates. Looking them up, I found out the _ÖDP_ does has one seat in the current parliament.
 
 ## A gender-balanced parliament?
-Right now, about a third of the members of European parliament (MEPs) are women. We can check the data on how good the chances are that the new parliament might sport more women (at least on the German seats). Since we've seen before that some parties have many more candidates than seats available, it might be misleading to look at all candidates. Instead, it gives a better picture to look at the "Spitzenkandidaten", that is the leading candidates
+Right now, about a third of the members of European parliament (MEPs) are women. We can check the data on how good the chances are that the new parliament might sport more women (at least on the German seats). Since we've seen before that some parties have many more candidates than seats available, it might be misleading to look at all candidates. Instead, it gives a better picture to look at the "Spitzenkandidaten", that is the leading candidates:
+
 ```{r, echo=F}
 all <- df %>%
   ggplot(aes(x=Geschlecht, fill=Geschlecht)) + 

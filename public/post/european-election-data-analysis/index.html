@@ -316,7 +316,7 @@ Almost all parties have the same candidate list for all of Germany, the only par
 </div>
 <div id="a-gender-balanced-parliament" class="section level2">
 <h2>A gender-balanced parliament?</h2>
-<p>Right now, about a third of the members of European parliament (MEPs) are women. We can check the data on how good the chances are that the new parliament might sport more women (at least on the German seats). Since we’ve seen before that some parties have many more candidates than seats available, it might be misleading to look at all candidates. Instead, it gives a better picture to look at the “Spitzenkandidaten”, that is the leading candidates</p>
+<p>Right now, about a third of the members of European parliament (MEPs) are women. We can check the data on how good the chances are that the new parliament might sport more women (at least on the German seats). Since we’ve seen before that some parties have many more candidates than seats available, it might be misleading to look at all candidates. Instead, it gives a better picture to look at the “Spitzenkandidaten”, that is the leading candidates:</p>
 <pre class="r"><code>top &lt;- df %&gt;%
   filter( Listenplatz &lt;= 10 &amp; Kennzeichen == &quot;Bewerber&quot;) %&gt;%
   ggplot(aes(x=Geschlecht, fill=Geschlecht)) + 
