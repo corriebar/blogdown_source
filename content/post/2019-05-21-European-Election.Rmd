@@ -1,5 +1,5 @@
 ---
-title: "Analysing the European Election: Looking at the Candidates"
+title: "Analyzing the European Election: Looking at the Candidates"
 author: "Corrie"
 date: '2019-05-21'
 categories:
@@ -22,7 +22,7 @@ Unfortunately, European politics are complex and this is also mirrored in the qu
 Reading through some of the names on the ballot paper, I thought it might be interesting to do a small data analysis and to compare some of the parties by their candidate composition.
 
 Conveniently, the data is provided by the government in a [csv-file](https://www.bundeswahlleiter.de/dam/jcr/0f8779e8-c05b-4247-be85-6317fbb5ae4d/ew19_kandidaten.zip). 
-Almost all parties have the same candidate list for all of Germany, the only party that has differing lists for each state is _CDU/CSU_. Depending on the analysis, I sometimes collapse _CDU_ and _CSU_ to a single party or only consider their liste for Berlin.
+Almost all parties have the same candidate list for all of Germany, the only party that has differing lists for each state is _CDU/CSU_. Depending on the analysis, I sometimes collapse _CDU_ and _CSU_ to a single party or only consider their list for Berlin.
 ```{r, echo=F}
 library(tidyverse)
 library(lubridate)
@@ -48,10 +48,10 @@ df %>%
   filter(n >= 96) %>% arrange(-n) %>% kable()
 ```
 
-The _FDP_ (the economic liberal party) and the _CDU_ (conservative party) nominate both almost twice as many candidates as there are seats avaiable! The SPD (social democratic party) only has more candidates than seats since it has many replacement candidates. Die PARTEI is a satire party, so I'm not really surprised they show up with too many candidates. _ÖDP_, a small ecological party that never got elected into the Bundestag, also seems rather ambitious with 96 candidates. Looking them up, I found out the _ÖDP_ does has one seat in the current parliament.
+The _FDP_ (the economic liberal party) and the _CDU_ (conservative party) nominate both almost twice as many candidates as there are seats available! The SPD (social democratic party) only has more candidates than seats since it has many replacement candidates. Die PARTEI is a satire party, so I'm not really surprised they show up with too many candidates. _ÖDP_, a small ecological party that never got elected into the Bundestag, also seems rather ambitious with 96 candidates. Looking them up, I found out the _ÖDP_ does has one seat in the current parliament.
 
 ## A gender-balanced parliament?
-Right now, about a third of the members of european parliament (MEPs) are women. We can check the data on how good the chances are that the new parliament might sport more women (at least on the German seats). Since we've seen before that some parties have many more candidates than seats available, it might be misleading to look at all candidates. Instead, it gives a better picture to look at the "Spitzenkandidaten", that is the leading candidates
+Right now, about a third of the members of European parliament (MEPs) are women. We can check the data on how good the chances are that the new parliament might sport more women (at least on the German seats). Since we've seen before that some parties have many more candidates than seats available, it might be misleading to look at all candidates. Instead, it gives a better picture to look at the "Spitzenkandidaten", that is the leading candidates
 ```{r, echo=F}
 all <- df %>%
   ggplot(aes(x=Geschlecht, fill=Geschlecht)) + 
@@ -107,7 +107,7 @@ df %>%
   coord_flip() + theme_minimal() + theme(panel.grid = element_blank())
 ```
 
-_Die Linke_, the left party, has exactly 50% female and male candidates, wheras the Green (_GRÜNE_) party and the _SPD_ have a very slight female bias. All three parties are rather left-leaning. The other three bigger parties, all more conservative, have a male bias that is especially strong for the _FDP_ and _AfD_. The _AfD_ is far-right so I'm not surprised by their poor gender ratio but I didn't expect the _FDP_ to do so poorly as well. I expected them be more on the same line as _CDU/CSU_, around 40% of females.
+_Die Linke_, the left party, has exactly 50% female and male candidates, whereas the Green (_GRÜNE_) party and the _SPD_ have a very slight female bias. All three parties are rather left-leaning. The other three bigger parties, all more conservative, have a male bias that is especially strong for the _FDP_ and _AfD_. The _AfD_ is far-right so I'm not surprised by their poor gender ratio but I didn't expect the _FDP_ to do so poorly as well. I expected them be more on the same line as _CDU/CSU_, around 40% of females.
 
 Having seen the gender ratio of the six main parties, it would be interesting to check which parties show the most extreme gender ratio. I classified gender ratios as extreme if they were above 75% or below 25%.
 
@@ -142,7 +142,7 @@ df %>%
   coord_flip() + theme_minimal() + theme(panel.grid = element_blank())
 ```
 
-The feminist party _DIE FRAUEN_ has only female candidates but this isn't really surprising given their name. The only other party with a rather extreme female bias is the animal protection party _TIERSCHUTZ hier!_. The list of parties with an extreme male bias is comparable long: 15 parties, so more than a third of all parties on the ballot, have less than 25% female candidates. There are the right-leaning to far-right parties: III. Weg, _AfD_ and _DIE RECHTE_ (interestingly, the neo-Nazi party _NPD_ is not listed here and thus has a better gender ratio than for example the _FDP_). The list further includes many small conservative parties such as _ÖDP_ (ecological party), _BP_ (bavaria party) and _Bündnis C_ (christian party). I found especially curious the family party _FAMILIE_: 0 female candidates, draw your own conclusion what image they have of a family. The parties _SGP_ (socialist equality party) and _BIG_ (party for innovation and equity/fairness) have equality or equity in their name but it doesn't seem to apply to gender equality.
+The feminist party _DIE FRAUEN_ has only female candidates but this isn't really surprising given their name. The only other party with a rather extreme female bias is the animal protection party _TIERSCHUTZ hier!_. The list of parties with an extreme male bias is comparable long: 15 parties, so more than a third of all parties on the ballot, have less than 25% female candidates. There are the right-leaning to far-right parties: _III. Weg_, _AfD_ and _DIE RECHTE_ (interestingly, the neo-Nazi party _NPD_ is not listed here and thus has a better gender ratio than for example the _FDP_). The list further includes many small conservative parties such as _ÖDP_ (ecological party), _BP_ (Bavaria party) and _Bündnis C_ (christian party). I found especially curious the family party _FAMILIE_: 0 female candidates, draw your own conclusion what image they have of a family. The parties _SGP_ (socialist equality party) and _BIG_ (party for innovation and equity/fairness) have equality or equity in their name but it doesn't seem to apply to gender equality.
 The internet party _PIRATEN_ apparently follows the nerd stereotype with mostly male candidates.
 
 
@@ -199,10 +199,10 @@ df %>%
   coord_flip()
 ```
 
-About one third of candidates work in Business Management and Administration which makes the single largest area of employment. One thing to note here is that the job key doesn't provide information if someone works as a CEO or low-level employee, it really only gives the area. The only exception to this is the category Students. By definition, these candidates are right now in education about to earn either a high-school diploma, a bacheor's degree or a PhD. Also, students is the sixth largest group, closley followed by pensioners, both of which are group I didn't expect to be that well reprented in the candidate pool. 
+About one third of candidates work in Business Management and Administration which makes the single largest area of employment. One thing to note here is that the job key doesn't provide information if someone works as a CEO or low-level employee, it really only gives the area. The only exception to this is the category Students. By definition, these candidates are right now in education about to earn either a high-school diploma, a bachelor's degree or a PhD. Also, students is the sixth largest group, closely followed by pensioners, both of which are groups I didn't expect to be that well represented in the candidate pool. 
 
 ## Generation change
-There are a few clichees out there regarding politics and age: Young people don't care about politics (there are many polls showing young people vote at a lesser rate than older people). Politicians are always old people. While this data set is not the right one to answer how much truth there is to these stereotypes, we can check to some degree if young people aspire to become full-time politicians:
+There are a few cliches out there regarding politics and age: Young people don't care about politics (there are many polls showing young people vote at a lesser rate than older people). Politicians are always old people. While this data set is not the right one to answer how much truth there is to these stereotypes, we can check to some degree if young people aspire to become full-time politicians:
 ```{r}
 df <- df %>%
   mutate(age = year(today())- Geburtjahr)
@@ -216,7 +216,7 @@ df %>%
   labs(title="Are all politicians old?") 
 ```
 
-Interestingly, the age distribution is bimodal, that is, we have a peak at 30 years old and one at 55 years old. Of course not all candidates are elected into the parliament and most likely rookie candidates are more often delegated to later places in the list. So we shouldn't expect the elected parliament to have a similar age distribution. But this figure is at least an indicator that young people (if you consider people around 25 still young) are interested and especially also active in politics.
+Interestingly, the age distribution is bi-modal, that is, we have a peak at 30 years old and one at 55 years old. Of course not all candidates are elected into the parliament and most likely rookie candidates are more often delegated to later places in the list. So we shouldn't expect the elected parliament to have a similar age distribution. But this figure is at least an indicator that young people (if you consider people around 25 still young) are interested and especially also active in politics.
 
 ```{r, dpi=250, out.height='7cm'}
 df %>%
@@ -235,11 +235,11 @@ df %>%
   labs(x="Median Age", y="", title="Which are the youngest and oldest parties?")
 ```
 
-The party Volksabstimmung (Democracy by referendum, they used to be far-right) has a median age of 65 years, meaning most of its candidates are older than this. It is even older than the party Graue Panther, a party for pensioners. On the other side is the party DIE DIREKTE that similarly to the party Volksabstimmung supports direct democracy (without any far-right history though) with a median age of 25. The latter party originated from a student initiative and almost all its candidates are students. Surprisingly, the conservative _CSU_ party that probably for many invokes the image of an old, white male politician has a median age that places it in the younger parties, right below Volt.
+The party _Volksabstimmung_ (Democracy by referendum, they used to be far-right) has a median age of 65 years, meaning most of its candidates are older than this. It is even older than the party _Graue Panther_, a party for pensioners. On the other side is the party DIE DIREKTE that similarly to the party _Volksabstimmung_ supports direct democracy (without any far-right history though) with a median age of 25. The latter party originated from a student initiative and almost all its candidates are students. Surprisingly, the conservative _CSU_ party that probably for many invokes the image of an old, white male politician has a median age that places it in the younger parties, right below Volt.
 
 ## Where do you come from?
 
-The data also provides us with the birth place for each candidate which gives us the opportunity to check how many candidates were born in a country other than Germany. Unfortunately, the birth place only names the city but not the country. To obtain the country, I used the Google Geocoding API. Only three cities could not be identified by Googles API which was easy to code by hand.
+The data also provides us with the birth place for each candidate which gives us the opportunity to check how many candidates were born in a country other than Germany. Unfortunately, the birth place only names the city but not the country. To obtain the country, I used the Google Geocoding API. Only three cities could not be identified by Google's API which was easy to code by hand.
 ```{r, eval=F}
 library(ggmap)
 
@@ -275,7 +275,7 @@ write_csv(country_mapping, "../../data/country_mapping.csv")
 country_mapping <- read_csv("../../data/country_mapping.csv")
 ```
 
-Not very surprisingly, most candidates were born in Gemany:
+Not very surprisingly, most candidates were born in Germany:
 ```{r}
 df <- df %>%
   left_join(country_mapping, by=c("Geburtsort"="city")) 

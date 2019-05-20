@@ -14,13 +14,13 @@
 
 
 
-<meta name="twitter:title" content="Analysing the European Election: Looking at the Candidates"/>
+<meta name="twitter:title" content="Analyzing the European Election: Looking at the Candidates"/>
 <meta name="twitter:description" content=""/>
 <meta name="twitter:site" content="@corrieaar"/>
 
 
 
-  	<meta property="og:title" content="Analysing the European Election: Looking at the Candidates &middot; Samples of Thoughts" />
+  	<meta property="og:title" content="Analyzing the European Election: Looking at the Candidates &middot; Samples of Thoughts" />
   	<meta property="og:site_name" content="Samples of Thoughts" />
   	<meta property="og:url" content="/post/european-election-data-analysis/" />
 
@@ -41,7 +41,7 @@
     
     
 
-    <title>Analysing the European Election: Looking at the Candidates &middot; Samples of Thoughts</title>
+    <title>Analyzing the European Election: Looking at the Candidates &middot; Samples of Thoughts</title>
 
     
     <meta name="description" content="The European Election is coming up and for the first time I have the impression this election is actually talked about and might have an impact. I don’t remembe" />
@@ -97,8 +97,8 @@
             
         ]
     },
-    "headline": "Analysing the European Election: Looking at the Candidates",
-    "name": "Analysing the European Election: Looking at the Candidates",
+    "headline": "Analyzing the European Election: Looking at the Candidates",
+    "name": "Analyzing the European Election: Looking at the Candidates",
     "wordCount":  2194 ,
     "timeRequired": "PT11M",
     "inLanguage": {
@@ -234,7 +234,7 @@
   <article class="post post">
 
     <header class="post-header">
-        <h1 class="post-title">Analysing the European Election: Looking at the Candidates</h1>
+        <h1 class="post-title">Analyzing the European Election: Looking at the Candidates</h1>
         <small></small>
 
         <section class="post-meta">
@@ -267,7 +267,7 @@
 Unfortunately, European politics are complex and this is also mirrored in the quantity of parties that are up for vote in Germany. In Germany alone, there are 40 parties on the ballot paper and in total 1.380 candidates are trying to get one of the 96 seats allocated for Germany. No joke, my ballot paper was almost as long as I’m tall!
 Reading through some of the names on the ballot paper, I thought it might be interesting to do a small data analysis and to compare some of the parties by their candidate composition.</p>
 <p>Conveniently, the data is provided by the government in a <a href="https://www.bundeswahlleiter.de/dam/jcr/0f8779e8-c05b-4247-be85-6317fbb5ae4d/ew19_kandidaten.zip">csv-file</a>.
-Almost all parties have the same candidate list for all of Germany, the only party that has differing lists for each state is <em>CDU/CSU</em>. Depending on the analysis, I sometimes collapse <em>CDU</em> and <em>CSU</em> to a single party or only consider their liste for Berlin.</p>
+Almost all parties have the same candidate list for all of Germany, the only party that has differing lists for each state is <em>CDU/CSU</em>. Depending on the analysis, I sometimes collapse <em>CDU</em> and <em>CSU</em> to a single party or only consider their list for Berlin.</p>
 <div id="how-many-candidates-are-in-a-party" class="section level2">
 <h2>How many candidates are in a party?</h2>
 <p>While the ballot paper only shows the top ten candidates for each party (or less if the party has less), many of them have more candidates. Interestingly, some parties have ambitiously many:</p>
@@ -312,11 +312,11 @@ Almost all parties have the same candidate list for all of Germany, the only par
 </tr>
 </tbody>
 </table>
-<p>The <em>FDP</em> (the economic liberal party) and the <em>CDU</em> (conservative party) nominate both almost twice as many candidates as there are seats avaiable! The SPD (social democratic party) only has more candidates than seats since it has many replacement candidates. Die PARTEI is a satire party, so I’m not really surprised they show up with too many candidates. <em>ÖDP</em>, a small ecological party that never got elected into the Bundestag, also seems rather ambitious with 96 candidates. Looking them up, I found out the <em>ÖDP</em> does has one seat in the current parliament.</p>
+<p>The <em>FDP</em> (the economic liberal party) and the <em>CDU</em> (conservative party) nominate both almost twice as many candidates as there are seats available! The SPD (social democratic party) only has more candidates than seats since it has many replacement candidates. Die PARTEI is a satire party, so I’m not really surprised they show up with too many candidates. <em>ÖDP</em>, a small ecological party that never got elected into the Bundestag, also seems rather ambitious with 96 candidates. Looking them up, I found out the <em>ÖDP</em> does has one seat in the current parliament.</p>
 </div>
 <div id="a-gender-balanced-parliament" class="section level2">
 <h2>A gender-balanced parliament?</h2>
-<p>Right now, about a third of the members of european parliament (MEPs) are women. We can check the data on how good the chances are that the new parliament might sport more women (at least on the German seats). Since we’ve seen before that some parties have many more candidates than seats available, it might be misleading to look at all candidates. Instead, it gives a better picture to look at the “Spitzenkandidaten”, that is the leading candidates</p>
+<p>Right now, about a third of the members of European parliament (MEPs) are women. We can check the data on how good the chances are that the new parliament might sport more women (at least on the German seats). Since we’ve seen before that some parties have many more candidates than seats available, it might be misleading to look at all candidates. Instead, it gives a better picture to look at the “Spitzenkandidaten”, that is the leading candidates</p>
 <pre class="r"><code>top &lt;- df %&gt;%
   filter( Listenplatz &lt;= 10 &amp; Kennzeichen == &quot;Bewerber&quot;) %&gt;%
   ggplot(aes(x=Geschlecht, fill=Geschlecht)) + 
@@ -330,10 +330,10 @@ plot_grid(top, all)</code></pre>
 <p><img src="/post/2019-05-21-European-Election_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>The top candidates have a slightly more equal gender-ratio but nevertheless the gender ratio in the candidates seems the same as the ratio in the old parliament. However, there are 40 parties and all of them have 5 to 10 top candidates but the top candidates of the big party surely have better chances of entering the parliament. It is thus more reasonable to look at the gender ratio for each party. Since the bigger parties have good chances to get more than the top ten candidates in the parliament, we will look at the whole candidate pool for these parties. Also, I’ve pooled the parties <em>CDU</em> and <em>CSU</em> together for this plot:
 <img src="/post/2019-05-21-European-Election_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<p><em>Die Linke</em>, the left party, has exactly 50% female and male candidates, wheras the Green (<em>GRÜNE</em>) party and the <em>SPD</em> have a very slight female bias. All three parties are rather left-leaning. The other three bigger parties, all more conservative, have a male bias that is especially strong for the <em>FDP</em> and <em>AfD</em>. The <em>AfD</em> is far-right so I’m not surprised by their poor gender ratio but I didn’t expect the <em>FDP</em> to do so poorly as well. I expected them be more on the same line as <em>CDU/CSU</em>, around 40% of females.</p>
+<p><em>Die Linke</em>, the left party, has exactly 50% female and male candidates, whereas the Green (<em>GRÜNE</em>) party and the <em>SPD</em> have a very slight female bias. All three parties are rather left-leaning. The other three bigger parties, all more conservative, have a male bias that is especially strong for the <em>FDP</em> and <em>AfD</em>. The <em>AfD</em> is far-right so I’m not surprised by their poor gender ratio but I didn’t expect the <em>FDP</em> to do so poorly as well. I expected them be more on the same line as <em>CDU/CSU</em>, around 40% of females.</p>
 <p>Having seen the gender ratio of the six main parties, it would be interesting to check which parties show the most extreme gender ratio. I classified gender ratios as extreme if they were above 75% or below 25%.</p>
 <p><img src="/post/2019-05-21-European-Election_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
-<p>The feminist party <em>DIE FRAUEN</em> has only female candidates but this isn’t really surprising given their name. The only other party with a rather extreme female bias is the animal protection party <em>TIERSCHUTZ hier!</em>. The list of parties with an extreme male bias is comparable long: 15 parties, so more than a third of all parties on the ballot, have less than 25% female candidates. There are the right-leaning to far-right parties: III. Weg, <em>AfD</em> and <em>DIE RECHTE</em> (interestingly, the neo-Nazi party <em>NPD</em> is not listed here and thus has a better gender ratio than for example the <em>FDP</em>). The list further includes many small conservative parties such as <em>ÖDP</em> (ecological party), <em>BP</em> (bavaria party) and <em>Bündnis C</em> (christian party). I found especially curious the family party <em>FAMILIE</em>: 0 female candidates, draw your own conclusion what image they have of a family. The parties <em>SGP</em> (socialist equality party) and <em>BIG</em> (party for innovation and equity/fairness) have equality or equity in their name but it doesn’t seem to apply to gender equality.
+<p>The feminist party <em>DIE FRAUEN</em> has only female candidates but this isn’t really surprising given their name. The only other party with a rather extreme female bias is the animal protection party <em>TIERSCHUTZ hier!</em>. The list of parties with an extreme male bias is comparable long: 15 parties, so more than a third of all parties on the ballot, have less than 25% female candidates. There are the right-leaning to far-right parties: <em>III. Weg</em>, <em>AfD</em> and <em>DIE RECHTE</em> (interestingly, the neo-Nazi party <em>NPD</em> is not listed here and thus has a better gender ratio than for example the <em>FDP</em>). The list further includes many small conservative parties such as <em>ÖDP</em> (ecological party), <em>BP</em> (Bavaria party) and <em>Bündnis C</em> (christian party). I found especially curious the family party <em>FAMILIE</em>: 0 female candidates, draw your own conclusion what image they have of a family. The parties <em>SGP</em> (socialist equality party) and <em>BIG</em> (party for innovation and equity/fairness) have equality or equity in their name but it doesn’t seem to apply to gender equality.
 The internet party <em>PIRATEN</em> apparently follows the nerd stereotype with mostly male candidates.</p>
 </div>
 <div id="what-are-the-candidates-working" class="section level2">
@@ -371,11 +371,11 @@ The internet party <em>PIRATEN</em> apparently follows the nerd stereotype with 
   labs(x=&quot;&quot;, title=&quot;Where do most Top Candidates work?&quot;) +
   coord_flip()</code></pre>
 <p><img src="/post/2019-05-21-European-Election_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
-<p>About one third of candidates work in Business Management and Administration which makes the single largest area of employment. One thing to note here is that the job key doesn’t provide information if someone works as a CEO or low-level employee, it really only gives the area. The only exception to this is the category Students. By definition, these candidates are right now in education about to earn either a high-school diploma, a bacheor’s degree or a PhD. Also, students is the sixth largest group, closley followed by pensioners, both of which are group I didn’t expect to be that well reprented in the candidate pool.</p>
+<p>About one third of candidates work in Business Management and Administration which makes the single largest area of employment. One thing to note here is that the job key doesn’t provide information if someone works as a CEO or low-level employee, it really only gives the area. The only exception to this is the category Students. By definition, these candidates are right now in education about to earn either a high-school diploma, a bachelor’s degree or a PhD. Also, students is the sixth largest group, closely followed by pensioners, both of which are groups I didn’t expect to be that well represented in the candidate pool.</p>
 </div>
 <div id="generation-change" class="section level2">
 <h2>Generation change</h2>
-<p>There are a few clichees out there regarding politics and age: Young people don’t care about politics (there are many polls showing young people vote at a lesser rate than older people). Politicians are always old people. While this data set is not the right one to answer how much truth there is to these stereotypes, we can check to some degree if young people aspire to become full-time politicians:</p>
+<p>There are a few cliches out there regarding politics and age: Young people don’t care about politics (there are many polls showing young people vote at a lesser rate than older people). Politicians are always old people. While this data set is not the right one to answer how much truth there is to these stereotypes, we can check to some degree if young people aspire to become full-time politicians:</p>
 <pre class="r"><code>df &lt;- df %&gt;%
   mutate(age = year(today())- Geburtjahr)
 
@@ -387,7 +387,7 @@ df %&gt;%
   scale_y_continuous(breaks=NULL, name = &quot;&quot;) +
   labs(title=&quot;Are all politicians old?&quot;) </code></pre>
 <p><img src="/post/2019-05-21-European-Election_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
-<p>Interestingly, the age distribution is bimodal, that is, we have a peak at 30 years old and one at 55 years old. Of course not all candidates are elected into the parliament and most likely rookie candidates are more often delegated to later places in the list. So we shouldn’t expect the elected parliament to have a similar age distribution. But this figure is at least an indicator that young people (if you consider people around 25 still young) are interested and especially also active in politics.</p>
+<p>Interestingly, the age distribution is bi-modal, that is, we have a peak at 30 years old and one at 55 years old. Of course not all candidates are elected into the parliament and most likely rookie candidates are more often delegated to later places in the list. So we shouldn’t expect the elected parliament to have a similar age distribution. But this figure is at least an indicator that young people (if you consider people around 25 still young) are interested and especially also active in politics.</p>
 <pre class="r"><code>df %&gt;%
   mutate(Gruppenname = fct_reorder(Gruppenname, age),
          med_age = median(age),
@@ -403,11 +403,11 @@ df %&gt;%
   coord_fixed(ratio=1.5) +
   labs(x=&quot;Median Age&quot;, y=&quot;&quot;, title=&quot;Which are the youngest and oldest parties?&quot;)</code></pre>
 <p><img src="/post/2019-05-21-European-Election_files/figure-html/unnamed-chunk-12-1.png" width="1750" height="7cm" /></p>
-<p>The party Volksabstimmung (Democracy by referendum, they used to be far-right) has a median age of 65 years, meaning most of its candidates are older than this. It is even older than the party Graue Panther, a party for pensioners. On the other side is the party DIE DIREKTE that similarly to the party Volksabstimmung supports direct democracy (without any far-right history though) with a median age of 25. The latter party originated from a student initiative and almost all its candidates are students. Surprisingly, the conservative <em>CSU</em> party that probably for many invokes the image of an old, white male politician has a median age that places it in the younger parties, right below Volt.</p>
+<p>The party <em>Volksabstimmung</em> (Democracy by referendum, they used to be far-right) has a median age of 65 years, meaning most of its candidates are older than this. It is even older than the party <em>Graue Panther</em>, a party for pensioners. On the other side is the party DIE DIREKTE that similarly to the party <em>Volksabstimmung</em> supports direct democracy (without any far-right history though) with a median age of 25. The latter party originated from a student initiative and almost all its candidates are students. Surprisingly, the conservative <em>CSU</em> party that probably for many invokes the image of an old, white male politician has a median age that places it in the younger parties, right below Volt.</p>
 </div>
 <div id="where-do-you-come-from" class="section level2">
 <h2>Where do you come from?</h2>
-<p>The data also provides us with the birth place for each candidate which gives us the opportunity to check how many candidates were born in a country other than Germany. Unfortunately, the birth place only names the city but not the country. To obtain the country, I used the Google Geocoding API. Only three cities could not be identified by Googles API which was easy to code by hand.</p>
+<p>The data also provides us with the birth place for each candidate which gives us the opportunity to check how many candidates were born in a country other than Germany. Unfortunately, the birth place only names the city but not the country. To obtain the country, I used the Google Geocoding API. Only three cities could not be identified by Google’s API which was easy to code by hand.</p>
 <pre class="r"><code>library(ggmap)
 
 get_country &lt;- function(result) {
@@ -434,7 +434,7 @@ country_mapping &lt;- tibble(
                              city == &quot;Alpen&quot; ~ &quot;Germany&quot;,
                              city == &quot;Babone, Kamerum&quot; ~ &quot;Cameroon&quot;,
                              TRUE ~ country))</code></pre>
-<p>Not very surprisingly, most candidates were born in Gemany:</p>
+<p>Not very surprisingly, most candidates were born in Germany:</p>
 <pre class="r"><code>df &lt;- df %&gt;%
   left_join(country_mapping, by=c(&quot;Geburtsort&quot;=&quot;city&quot;)) 
 
@@ -579,7 +579,7 @@ Let’s compare the parties by number of distinct birth countries. To make the c
     
 <section class="share">
   <h4>Share this post</h4>
-  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Analysing%20the%20European%20Election%3a%20Looking%20at%20the%20Candidates&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2fpost%2feuropean-election-data-analysis%2f"
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Analyzing%20the%20European%20Election%3a%20Looking%20at%20the%20Candidates&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2fpost%2feuropean-election-data-analysis%2f"
       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
       <span class="hidden">Twitter</span>
   </a>
