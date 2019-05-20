@@ -1,6 +1,6 @@
 ---
-title: "Analyzing the European Election: Looking at the Candidates"
-author: "Corrie"
+title: 'Analyzing the European Election: Looking at the Candidates'
+author: Corrie
 date: '2019-05-21'
 categories:
   - R
@@ -230,7 +230,7 @@ df %>%
   filter(med <= perc25 | med >= perc75) %>%
   ggplot(aes(x=med, y=Gruppenname)) +
   geom_vline(aes(xintercept = med_age), col="grey") +
-  geom_point(height=1) +
+  geom_point() +
   scale_x_continuous(breaks = c(30, 40, 46, 50, 60)) +
   coord_fixed(ratio=1.5) +
   labs(x="Median Age", y="", title="Which are the youngest and oldest parties?")
