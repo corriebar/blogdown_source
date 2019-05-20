@@ -1,0 +1,12 @@
+---
+title: European Election
+author: ''
+date: '2019-05-21'
+slug: european-election
+categories: []
+tags: []
+comments: yes
+image: images/tea_with_books.jpg
+menu: ''
+share: yes
+---
