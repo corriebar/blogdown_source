@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Election on Samples of Thoughts</title>
+    <link>/tags/election/</link>
+    <description>Recent content in Election on Samples of Thoughts</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 21 May 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/election/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Analysing the European Election: Looking at the Candidates</title>
+      <link>/post/european-election-data-analysis/</link>
+      <pubDate>Tue, 21 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/european-election-data-analysis/</guid>
+      <description>The European Election is coming up and for the first time I have the impression this election is actually talked about and might have an impact. I don’t remember people caring that much about European Elections in the years before, but this of course could also just be because I got more interested in European politics. Unfortunately, European politics are complex and this is also mirrored in the quantity of parties that are up for vote in Germany.</description>
+    </item>
+    
+  </channel>
+</rss>

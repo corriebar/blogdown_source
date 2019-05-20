@@ -309,7 +309,7 @@ first_page %&gt;%
   html_nodes(&quot;#pageSelection &gt; select &gt; option&quot;) %&gt;%
   html_text() %&gt;%
   length())</code></pre>
-<pre><code>[1] 4807</code></pre>
+<pre><code>[1] 4830</code></pre>
 <p>As next step, we generate a list that contains the URLs of each page. At this website, the page number is inserted somewhere in the middle of the URL for which we use the package <code>glue</code>. Glue expressions in curly braces in strings, similar to Pythons f-strings:</p>
 <pre class="r"><code>page_url &lt;- &quot;https://www.immobilienscout24.de/Suche/S-2/P-{pages}/Wohnung-Miete&quot;
 pages &lt;- 1:last_page_number
@@ -319,25 +319,25 @@ page_list &lt;- glue(page_url)</code></pre>
   html_nodes(&quot;#resultListItems &gt; li&quot;) %&gt;%
   head(2)</code></pre>
 <pre><code>{xml_nodeset (2)}
-[1] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;111435440&quot;&gt;&lt;div&gt;&lt;article  ...
-[2] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;111435439&quot;&gt;&lt;div&gt;&lt;article  ...</code></pre>
+[1] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;111614736&quot;&gt;&lt;div&gt;&lt;article  ...
+[2] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;111614728&quot;&gt;&lt;div&gt;&lt;article  ...</code></pre>
 <p>We now see that the first item in the list is not actually a listing but a banner. The listings are of the class <code>result-list__listing</code>. To extract only the nodes of a certain class, we give the parameter <code>.class-name</code> to <code>html_nodes()</code>. So to get only the listings, we give the parameter <code>.result-list__listing</code>:</p>
 <pre class="r"><code>first_page %&gt;%
   html_nodes(&quot;.result-list__listing&quot;) %&gt;%
   head(2)</code></pre>
 <pre><code>{xml_nodeset (2)}
-[1] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;111435440&quot;&gt;&lt;div&gt;&lt;article  ...
-[2] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;111435439&quot;&gt;&lt;div&gt;&lt;article  ...</code></pre>
+[1] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;111614736&quot;&gt;&lt;div&gt;&lt;article  ...
+[2] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;111614728&quot;&gt;&lt;div&gt;&lt;article  ...</code></pre>
 <p>Perfect, now we have a list of all listings.</p>
 <p>We could now either just scrape the information for each listing that is displayed on the front page (such as total rent, number of rooms etc) or get the link to the listing and scrape the information (with more details) from the full listing. We will do the second option here.</p>
 <p>Looking again at the source code, we find the following <code>&lt;a href=&quot;/expose/123456&quot;&gt;</code>. That means, the link is given as a relative path and has the same form for each listing. The number in the link is also given as <code>data-id</code> as attribute in the <code>&lt;li&gt;</code> node. The attributes of a node are not part of the node content (and hence are not output via <code>html_text()</code>). In <code>rvest</code>, we access attributes using the function <code>xml_attr()</code>.</p>
 <pre class="r"><code>(listing_ids &lt;- first_page %&gt;%
   html_nodes(&quot;.result-list__listing&quot;) %&gt;%
   xml_attr(&quot;data-id&quot;))</code></pre>
-<pre><code> [1] &quot;111435440&quot; &quot;111435439&quot; &quot;111435410&quot; &quot;111408552&quot; &quot;111435412&quot;
- [6] &quot;111435409&quot; &quot;109526982&quot; &quot;111435403&quot; &quot;111435399&quot; &quot;111435067&quot;
-[11] &quot;111435395&quot; &quot;111435390&quot; &quot;111304080&quot; &quot;111309205&quot; &quot;111435388&quot;
-[16] &quot;111407200&quot; &quot;111434987&quot; &quot;111435366&quot; &quot;111357519&quot; &quot;111435337&quot;</code></pre>
+<pre><code> [1] &quot;111614736&quot; &quot;111614728&quot; &quot;111614727&quot; &quot;111614724&quot; &quot;111614721&quot;
+ [6] &quot;111614699&quot; &quot;111614332&quot; &quot;111614615&quot; &quot;111614592&quot; &quot;111614589&quot;
+[11] &quot;111614161&quot; &quot;111614526&quot; &quot;111614506&quot; &quot;111614501&quot; &quot;111614500&quot;
+[16] &quot;111614485&quot; &quot;111614195&quot; &quot;111614484&quot; &quot;111614483&quot; &quot;111614472&quot;</code></pre>
 <p>This gives us all the information we need to create a list of all listing IDs:</p>
 <pre class="r"><code>listing_url &lt;- &quot;https://www.immobilienscout24.de/expose/&quot;
 listing_list &lt;- str_c(listing_url, listing_ids)</code></pre>
@@ -450,9 +450,9 @@ foreach(i = 1:last_page_number) %dopar% {
 
   <aside class="read-next">
   
-      <a class="read-next-story" style="no-cover" href="/post/reproducible-data-science/">
+      <a class="read-next-story" style="no-cover" href="/post/european-election-data-analysis/">
           <section class="post">
-              <h5>Reproducible (Data) Science with Docker and R</h5>
+              <h5>Analysing the European Election: Looking at the Candidates</h5>
               
           </section>
       </a>

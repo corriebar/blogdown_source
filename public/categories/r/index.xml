@@ -6,19 +6,18 @@
     <description>Recent content in R on Samples of Thoughts</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 05 May 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 21 May 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Reproducible (Data) Science with Docker and R</title>
-      <link>/post/reproducible-data-science/</link>
-      <pubDate>Sun, 05 May 2019 00:00:00 +0000</pubDate>
+      <title>Analysing the European Election: Looking at the Candidates</title>
+      <link>/post/european-election-data-analysis/</link>
+      <pubDate>Tue, 21 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>/post/reproducible-data-science/</guid>
-      <description>In my data team at work, we’ve been using Docker for a while now. At least, the engineers in our team have been using it, we data scientists have been very reluctant to pick it up so far. Why bother with a new tool (that seems complicated) when you don’t see the reason, right?
-Until I wanted to redo this analysis I had done four months ago and it wasn’t working.</description>
+      <guid>/post/european-election-data-analysis/</guid>
+      <description>The European Election is coming up and for the first time I have the impression this election is actually talked about and might have an impact. I don’t remember people caring that much about European Elections in the years before, but this of course could also just be because I got more interested in European politics. Unfortunately, European politics are complex and this is also mirrored in the quantity of parties that are up for vote in Germany.</description>
     </item>
     
     <item>
