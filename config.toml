@@ -5,7 +5,7 @@ title = "Samples of Thoughts"
 publishDir = "public"
 paginate = 5
 disqusshortname = "corriebar-github-io"
-ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown", "_files$", "_cache$"]
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown", "_files$", "_cache$", "\\.csv$"]
 disable_mathjax = false
 comments = true
 
