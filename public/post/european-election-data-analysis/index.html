@@ -327,12 +327,12 @@ Almost all parties have the same candidate list for all of Germany, the only par
   scale_x_discrete(labels=c(&quot;Male&quot;, &quot;Female&quot;), name=&quot;&quot;) +
   labs(subtitle=&quot;Top Candidates&quot;, title=&quot;How gender-balanced is the candidate pool?\n&quot;)
 plot_grid(top, all)</code></pre>
-<p><img src="/post/2019-05-21-European-Election_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="/post/2019-05-21-european-election_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>The top candidates have a slightly more equal gender-ratio but nevertheless the gender ratio in the candidates seems the same as the ratio in the old parliament. However, there are 40 parties and all of them have 5 to 10 top candidates but the top candidates of the big party surely have better chances of entering the parliament. It is thus more reasonable to look at the gender ratio for each party. Since the bigger parties have good chances to get more than the top ten candidates in the parliament, we will look at the whole candidate pool for these parties. Also, I’ve pooled the parties <em>CDU</em> and <em>CSU</em> together for this plot:
-<img src="/post/2019-05-21-European-Election_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<img src="/post/2019-05-21-european-election_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p><em>Die Linke</em>, the left party, has exactly 50% female and male candidates, whereas the Green (<em>GRÜNE</em>) party and the <em>SPD</em> have a very slight female bias. All three parties are rather left-leaning. The other three bigger parties, all more conservative, have a male bias that is especially strong for the <em>FDP</em> and <em>AfD</em>. The <em>AfD</em> is far-right so I’m not surprised by their poor gender ratio but I didn’t expect the <em>FDP</em> to do so poorly as well. I expected them be more on the same line as <em>CDU/CSU</em>, around 40% of females.</p>
 <p>Having seen the gender ratio of the six main parties, it would be interesting to check which parties show the most extreme gender ratio. I classified gender ratios as extreme if they were above 75% or below 25%.</p>
-<p><img src="/post/2019-05-21-European-Election_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="/post/2019-05-21-european-election_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>The feminist party <em>DIE FRAUEN</em> has only female candidates but this isn’t really surprising given their name. The only other party with a rather extreme female bias is the animal protection party <em>TIERSCHUTZ hier!</em>. The list of parties with an extreme male bias is comparable long: 15 parties, so more than a third of all parties on the ballot, have less than 25% female candidates. There are the right-leaning to far-right parties: <em>III. Weg</em>, <em>AfD</em> and <em>DIE RECHTE</em> (interestingly, the neo-Nazi party <em>NPD</em> is not listed here and thus has a better gender ratio than for example the <em>FDP</em>). The list further includes many small conservative parties such as <em>ÖDP</em> (ecological party), <em>BP</em> (Bavaria party) and <em>Bündnis C</em> (christian party). I found especially curious the family party <em>FAMILIE</em>: 0 female candidates, draw your own conclusion what image they have of a family. The parties <em>SGP</em> (socialist equality party) and <em>BIG</em> (party for innovation and equity/fairness) have equality or equity in their name but it doesn’t seem to apply to gender equality.
 The internet party <em>PIRATEN</em> apparently follows the nerd stereotype with mostly male candidates.</p>
 </div>
@@ -352,7 +352,7 @@ The internet party <em>PIRATEN</em> apparently follows the nerd stereotype with 
   scale_y_continuous(label=percent) +
   labs(y=&quot;&quot;, x=&quot;&quot;, title=&quot;Parties with the highest proportion of \nTop Candidates with a Doctorate&quot;) +
   coord_flip()</code></pre>
-<p><img src="/post/2019-05-21-European-Election_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="/post/2019-05-21-european-election_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>The far-right party <em>AfD</em> has with 50% the highest percentage of doctorates among the candidates, followed by the party <em>LKR</em>, which is actually a split from the <em>AfD</em> (albeit less right). Overall, 8.5% of all candidates have a doctoral degree, while in the general population only about 8% have even any university degree and only 1% have a doctoral degree.</p>
 <p>While the data also provides the job title for each candidate, they’re not standardized so it would be more difficult to analyze. Luckily, on top of the job title, the data also provides us with a job key which indicates the area in which the candidate is working. It took me a while to find a mapping from the job index number to a description but eventually found one provided by the stats department of the <a href="https://statistik.arbeitsagentur.de/Statischer-Content/Grundlagen/Klassifikation-der-Berufe/KldB2010/Systematik-Verzeichnisse/Generische-Publikationen/Systematisches-Verzeichnis-Berufsbenennung.xls">Arbeitsamt</a>.</p>
 <pre class="r"><code>df %&gt;%
@@ -370,7 +370,7 @@ The internet party <em>PIRATEN</em> apparently follows the nerd stereotype with 
   scale_y_continuous(labels = percent, name=&quot;&quot;) +
   labs(x=&quot;&quot;, title=&quot;Where do most Top Candidates work?&quot;) +
   coord_flip()</code></pre>
-<p><img src="/post/2019-05-21-European-Election_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="/post/2019-05-21-european-election_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>About one third of candidates work in Business Management and Administration which makes the single largest area of employment. One thing to note here is that the job key doesn’t provide information if someone works as a CEO or low-level employee, it really only gives the area. The only exception to this is the category Students. By definition, these candidates are right now in education about to earn either a high-school diploma, a bachelor’s degree or a PhD. Also, students is the sixth largest group, closely followed by pensioners, both of which are groups I didn’t expect to be that well represented in the candidate pool.</p>
 </div>
 <div id="generation-change" class="section level2">
@@ -386,7 +386,7 @@ df %&gt;%
   scale_x_continuous(breaks = seq(20, 80, by=10), name=&quot;&quot;) +
   scale_y_continuous(breaks=NULL, name = &quot;&quot;) +
   labs(title=&quot;Are all politicians old?&quot;) </code></pre>
-<p><img src="/post/2019-05-21-European-Election_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="/post/2019-05-21-european-election_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>Interestingly, the age distribution is bi-modal, that is, we have a peak at 30 years old and one at 55 years old. Of course not all candidates are elected into the parliament and most likely rookie candidates are more often delegated to later places in the list. So we shouldn’t expect the elected parliament to have a similar age distribution. But this figure is at least an indicator that young people (if you consider people around 25 still young) are interested and especially also active in politics.</p>
 <pre class="r"><code>df %&gt;%
   mutate(Gruppenname = fct_reorder(Gruppenname, age),
@@ -402,7 +402,7 @@ df %&gt;%
   scale_x_continuous(breaks = c(30, 40, 46, 50, 60)) +
   coord_fixed(ratio=1.5) +
   labs(x=&quot;Median Age&quot;, y=&quot;&quot;, title=&quot;Which are the youngest and oldest parties?&quot;)</code></pre>
-<p><img src="/post/2019-05-21-European-Election_files/figure-html/unnamed-chunk-12-1.png" width="1750" height="7cm" /></p>
+<p><img src="/post/2019-05-21-european-election_files/figure-html/unnamed-chunk-12-1.png" width="1750" height="7cm" /></p>
 <p>The party <em>Volksabstimmung</em> (Democracy by referendum, they used to be far-right) has a median age of 65 years, meaning most of its candidates are older than this. It is even older than the party <em>Graue Panther</em>, a party for pensioners. On the other side is the party DIE DIREKTE that similarly to the party <em>Volksabstimmung</em> supports direct democracy (without any far-right history though) with a median age of 25. The latter party originated from a student initiative and almost all its candidates are students. Surprisingly, the conservative <em>CSU</em> party that probably for many invokes the image of an old, white male politician has a median age that places it in the younger parties, right below Volt.</p>
 </div>
 <div id="where-do-you-come-from" class="section level2">
@@ -480,7 +480,7 @@ df%&gt;%
   geom_bar(fill=&quot;#377EB8&quot;) + coord_flip() +
   labs(x=&quot;&quot;, title=&quot;In which countries were \nthe candidates born?&quot;,
        subtitle = &quot;(Excluding Germany)\n&quot;)</code></pre>
-<p><img src="/post/2019-05-21-European-Election_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p><img src="/post/2019-05-21-european-election_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>Now, are some parties more diverse (in terms of birth places of their candidates) than others or are they relatively equally distributed over the parties?
 Let’s compare the parties by number of distinct birth countries. To make the comparison equal, I restrict to only the top candidates and also restrict the <em>CDU</em> to their top candidates in Berlin. This ensures that each party is represented by at most 10 candidates in this comparison:</p>
 <pre class="r"><code>df %&gt;%
@@ -538,9 +538,9 @@ Let’s compare the parties by number of distinct birth countries. To make the c
   <aside class="read-next">
   
   
-      <a class="read-next-story prev" style="no-cover" href="/post/european-election/">
+      <a class="read-next-story prev" style="no-cover" href="/post/scraping-the-web-or-how-to-find-a-flat/">
           <section class="post">
-              <h5>European Election</h5>
+              <h5>Scraping the web or how to find a flat</h5>
           </section>
       </a>
       
