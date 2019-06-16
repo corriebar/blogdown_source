@@ -5,7 +5,8 @@ title = "Samples of Thoughts"
 publishDir = "public"
 paginate = 5
 disqusshortname = "corriebar-github-io"
-ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown", "_files$", "_cache$"]
+googleAnalytics = "UA-140745376-1"
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown", "_files$", "_cache$", "\\.csv$"]
 disable_mathjax = false
 comments = true
 
@@ -22,3 +23,14 @@ comments = true
   RSSlinks = true
   readingTime = true
   readingTimeText = "Estimated reading time:"
+   # Privacy pack
+  #   Show a cookie consent message to visitors
+  #   Anonymize IP in Google Analytics (if enabled)
+  privacy_pack = true
+  
+[privacy]
+  [privacy.googleAnalytics]
+    anonymizeIP = true
+    disable = false
+    respectDoNotTrack = true
+    useSessionStorage = false
