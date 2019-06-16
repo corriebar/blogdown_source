@@ -1,0 +1,682 @@
+city,country
+Gaggi,Italy
+Künzelsau,Germany
+Hamburg,Germany
+Memmingen,Germany
+Bamberg,Germany
+Stadtoldendorf,Germany
+Augsburg,Germany
+Trier,Germany
+Stralsund,Germany
+Oldenburg (Oldenburg),Germany
+"Bogazköy, Türkei",Turkey
+"Cayirli, Türkei",Turkey
+"Posof, Türkei",Turkey
+Istanbul,Turkey
+"Kigi, Türkei",Turkey
+Sana'a,Yemen
+"Dyala, Irak",Iraq
+"Kairo, Ägypten",Egypt
+Akcadag,Turkey
+Schongau,Germany
+St. Wendel,Germany
+Saarbrücken,Germany
+Rahden (Westf.),Germany
+Freilassing,Germany
+Bremen,Germany
+Eschwege,Germany
+"Szeged, Ungarn",Hungary
+Helmstedt,Germany
+Essen,Germany
+"Toronto, Kanada",Canada
+"Bern, Schweiz",Switzerland
+Zeitz,Germany
+Jena,Germany
+Eitorf,Germany
+Bad Schwartau,Germany
+Landau a.d.Isar,Germany
+"Derik, Türkei",Turkey
+Frunse,Kyrgyzstan
+"Beaconsfield, England",United Kingdom
+Braubach,Germany
+Völklingen,Germany
+Moers,Germany
+Unna,Germany
+Hagen,Germany
+Berlin,Germany
+"Erzincan, Türkei",Turkey
+Neumünster,Germany
+Oelsnitz/Vogtl.,Germany
+Pforzheim,Germany
+Salzgitter,Germany
+Tübingen,Germany
+Namur,Belgium
+Fürth (Bay.),Germany
+Köln,Germany
+Lichfield,United Kingdom
+Eppstein,Germany
+Bad Canstatt,Germany
+Fürth,Germany
+Halle (Westf.),Germany
+"Karacasu, Türkei",Turkey
+Landshut,Germany
+Offenburg,Germany
+Straubing,Germany
+Gudensberg,Germany
+Lüneburg,Germany
+Bocholt,Germany
+München,Germany
+Düsseldorf,Germany
+Karlsruhe,Germany
+Neuburg a.d.Donau,Germany
+Spaichingen,Germany
+Kempten,Germany
+Lahn-Wetzlar,Germany
+Wiesbaden,Germany
+"Duala, Kamerun",Cameroon
+Witten,Germany
+Hamburg-Bergedorf,Germany
+Filderstadt,Germany
+Calbe (Saale),Germany
+Olpe,Germany
+Rosenheim,Germany
+Kirchhellen,Germany
+Ludwigsburg,Germany
+Frankfurt am Main,Germany
+Mönchengladbach,Germany
+Neuwied,Germany
+Pinneberg,Germany
+Fulda,Germany
+Daun,Germany
+Reutlingen (Württ.),Germany
+Hildesheim,Germany
+Lippstadt,Germany
+Limburg a.d. Lahn,Germany
+Hüls (Krefeld),Germany
+Nürnberg,Germany
+Osnabrück,Germany
+Achern,Germany
+Nordhausen,Germany
+Zörbig,Germany
+Preetz,Germany
+Bad Wildungen,Germany
+Stuttgart,Germany
+Dresden,Germany
+Neuruppin,Germany
+Ludwigshafen am Rhein,Germany
+Görisried,Germany
+Neuendettelsau,Germany
+Uslar,Germany
+Perleberg,Germany
+London,United Kingdom
+Frankfurt,Germany
+Bad Essen,Germany
+Berlin-Schmargendorf,Germany
+Emmendingen,Germany
+Hannover,Germany
+Neuenkirchen (Steinfurt),Germany
+Schkeuditz,Germany
+Weimar,Germany
+Clermont-Ferrand,France
+Bonn,Germany
+Werdohl (Lüdenscheid),Germany
+Magdeburg,Germany
+Saarlouis,Germany
+Périgueux,France
+Rheinhausen,Germany
+Buchholz in der Nordheide,Germany
+Peine,Germany
+Lübeck,Germany
+Rudolstadt,Germany
+Lüdersdorf,Germany
+Stutensee,Germany
+Münchberg,Germany
+Budapest,Hungary
+Mülheim an der Ruhr,Germany
+Delmenhorst,Germany
+Erlenbach a.Main,Germany
+Lutherstadt Eisleben,Germany
+Mainz,Germany
+"Wrocław, Polen",Poland
+Krakau,Poland
+Salzburg,Austria
+Freiburg im Breisgau,Germany
+Radebeul,Germany
+Bergisch Gladbach,Germany
+Frankenberg (Eder),Germany
+Bad Brückenau,Germany
+Zweibrücken,Germany
+Gießen,Germany
+"Kabul, Afghanistan",Afghanistan
+Herbolzheim,Germany
+Detmold,Germany
+Wegberg,Germany
+Elsterwerda,Germany
+Wesel,Germany
+Koblenz,Germany
+Eilenburg,Germany
+Sonneberg,Germany
+Löningen,Germany
+Mannheim,Germany
+"Denizli, Türkei",Turkey
+"Antakya, Türkei",Turkey
+Moncalieri,Italy
+Solingen,Germany
+Rom,Italy
+Schlüchtern,Germany
+Duisburg,Germany
+Simmern/ Hunsrück,Germany
+Gelsenkirchen,Germany
+Heppenheim (Bergstraße),Germany
+Bad Kötzting,Germany
+Hamburg-Eimsbüttel,Germany
+"Amasya, Türkei",Turkey
+Cloppenburg,Germany
+Schwäbisch Hall,Germany
+Malatya,Turkey
+Suhl,Germany
+Berlin-Charlottenburg,Germany
+Hamm (Westf.),Germany
+Uslar (Solling),Germany
+Müllheim,Germany
+Bautzen,Germany
+Marburg,Germany
+Würzburg,Germany
+Frankfurt (Oder),Germany
+Kemnath,Germany
+Kiel,Germany
+Hüttental-Weidenau,Germany
+Wittlich,Germany
+Münster,Germany
+"Civril, Türkei",Turkey
+Rodewisch,Germany
+Rehren (Hohnhorst),Germany
+Dortmund,Germany
+Leer,Germany
+Haltern,Germany
+Meerane,Germany
+Ludwigsfelde,Germany
+Oberviechtach,Germany
+Erlangen,Germany
+Oberlahnstein (Lahnstein),Germany
+Kötzting,Germany
+Regensburg,Germany
+Bad Friedrichshall,Germany
+Moskau,Russia
+Eggenfelden,Germany
+"Kirsehir, Türkei",Turkey
+Bielefeld,Germany
+Bad Saarow,Germany
+Schwalmstadt,Germany
+Amberg,Germany
+Bitburg,Germany
+Talas,Kyrgyzstan
+Osterode,Germany
+Oettingen i.Bay.,Germany
+Berchtesgaden,Germany
+Kabul,Afghanistan
+Waiblingen,Germany
+Krefeld,Germany
+Hamm,Germany
+Passau,Germany
+Lauf a.d.Pegnitz,Germany
+Templin,Germany
+Legau,Germany
+Saarburg,Germany
+Henstedt-Ulzburg,Germany
+Königsberg (Ostpr.),Germany
+Bad Nauheim,Germany
+Freising,Germany
+Mühlhausen,Germany
+"Dragomirești, Rumänien",Romania
+Kaiserslautern,Germany
+Tichau,Poland
+Aachen,Germany
+Dieburg,Germany
+Burgsteinfurt,Germany
+Immerath,Germany
+Eichstätt,Germany
+Derenbach,Luxembourg
+Bensheim,Germany
+Mainburg,Germany
+Bad Kreuznach,Germany
+Stadtsteinach,Germany
+Greifswald,Germany
+Bottrop,Germany
+Schwäbisch Gmünd,Germany
+Palomonte,Italy
+Montreuil-sous-Bois,France
+Kirchhain (Lahn),Germany
+Meckenheim,Germany
+Freiburg,Germany
+Offenbach am Main,Germany
+Halle (Saale),Germany
+"Arnissa, Griechenland",Greece
+Coesfeld,Germany
+Las Palmas,Spain
+Lingen (Ems),Germany
+Norden,Germany
+Kiew,Ukraine
+Brandenburg an der Havel,Germany
+Strausberg,Germany
+Münsingen,Germany
+Weißenfels,Germany
+Bretten,Germany
+Bremerhaven,Germany
+Schönebeck,Germany
+Schwandorf,Germany
+Waldhausen,Germany
+"Mechelen, Belgien",Belgium
+Celle,Germany
+Rostock,Germany
+Heilbronn,Germany
+Göppingen,Germany
+Heidenheim-Großkuchen,Germany
+Wolfsburg,Germany
+Oberhausen,Germany
+Dielheim,Germany
+Bad Boll,Germany
+Eschweiler,Germany
+Börtlingen-Zell,Germany
+Ratingen,Germany
+"Konya, Türkei",Turkey
+Neunkirchen,Germany
+Bayreuth,Germany
+Papenburg,Germany
+Meßkirch,Germany
+Idar-Oberstein,Germany
+Zwiesel,Germany
+Braunfels,Germany
+Otterndorf,Germany
+Gifhorn,Germany
+"London, Großbritannien",United Kingdom
+Bad Bramstedt,Germany
+Kitzingen,Germany
+Ulm,Germany
+Wanfried-Völkershausen,Germany
+Böblingen,Germany
+Šumperk,Czechia
+Herford,Germany
+Winterscheid,Germany
+Friedrichshafen,Germany
+Marburg (Lahn),Germany
+Speyer,Germany
+"Shahagunj, Indien",India
+Ankum,Germany
+Leverkusen,Germany
+Bückeburg,Germany
+Preetz (Plön),Germany
+Löbau,Germany
+Coburg,Germany
+Soltau,Germany
+Gerolstein,Germany
+Leipzig,Germany
+Ratzeburg,Germany
+Rodalben,Germany
+Emmerich,Germany
+"Clinton, USA, MD",United States
+"Bamako, Mali",Mali
+Schillingsfürst,Germany
+Aurich,Germany
+Wiebelskirchen,Germany
+Neuss,Germany
+Sarstedt,Germany
+Karl-Marx-Stadt,Germany
+"Ras Al-Khaimah, VAE",United Arab Emirates
+"El Paso, USA, TX",United States
+Spizewka,Russia
+Oberöfflingen,Germany
+Ingolstadt,Germany
+Hildburghausen,Germany
+Remscheid,Germany
+Rotenburg a. d. Fulda,Germany
+Hamburg-Harburg,Germany
+"Osijek, Kroatien",Croatia
+Nottingham,United Kingdom
+Lienen,Germany
+Sigmaringen,Germany
+Ludwigshafen,Germany
+Neumarkt i.d.OPf.,Germany
+Tönisvorst,Germany
+Lank-Latum (Meerbusch),Germany
+Grevenbroich,Germany
+Ebern,Germany
+"Kolwezi, Dem. Rep. Kongo",Democratic Republic of the Congo
+Lörrach,Germany
+Burgstädt,Germany
+Langen,Germany
+Husum,Germany
+Marbach am Neckar,Germany
+Wadern,Germany
+Kusel,Germany
+Wurzen,Germany
+Schönebeck (Elbe),Germany
+Rüdersdorf bei Berlin,Germany
+Darmstadt,Germany
+Kulmbach,Germany
+Bergen-Enkheim,Germany
+"Hrubieszów, Polen",Poland
+Rathenow,Germany
+"Fontainebleau, Frankreich",France
+Traunreut,Germany
+Diepholz,Germany
+Wolmirstedt,Germany
+"W.-P.-St. Guben, DDR (Guben)",Germany
+Pfaffenhofen a.d.Ilm,Germany
+Göttingen,Germany
+"Kamischli, Syrien",Syria
+Erfurt,Germany
+Kirchen,Germany
+Püttlingen,Germany
+Starnberg,Germany
+Kühlungsborn,Germany
+Greven,Germany
+Hoyerswerda,Germany
+Reutlingen,Germany
+Schwelm,Germany
+Heidelberg,Germany
+Stolberg (Rhld.),Germany
+Kassel,Germany
+Werl,Germany
+Weingarten,Germany
+Singen,Germany
+Kempten (Allgäu),Germany
+Räckelwitz,Germany
+Tettnang,Germany
+Kaltenkirchen,Germany
+Meschede (Ruhr),Germany
+Grevesmühlen,Germany
+Blankenburg (Harz),Germany
+Barßel,Germany
+Ründeroth,Germany
+Langenhagen,Germany
+Schwarzenbach,Germany
+Neu-Ulm,Germany
+Ostseebad Zingst,Germany
+Schonach,Germany
+Lindau am Bodensee,Germany
+Braunschweig,Germany
+Stavropol,Russia
+Weil am Rhein,Germany
+Karlstadt,Germany
+Dillenburg,Germany
+Holzen (Schwerte),Germany
+Lübz,Germany
+Rotenburg (Wümme),Germany
+Gera,Germany
+"Astrachan, UdSSR",Russia
+Beuthen,Poland
+Oldenburg,Germany
+Ribnitz-Damgarten,Germany
+Marktheidenfeld (Main),Germany
+"Rustavi, Georgien",Georgia
+Bad Mergentheim,Germany
+Worms,Germany
+Bisten,Germany
+Ravensburg,Germany
+Mechernich,Germany
+Beijing,China
+Bensberg,Germany
+Rochlitz,Germany
+Olsberg,Germany
+Güstrow,Germany
+Tegernsee,Germany
+Kelheim,Germany
+"Novi Pazar, Serbien",Serbia
+Wolfenbüttel,Germany
+Stadthagen,Germany
+Koblenz-Moselweiß,Germany
+Büsum,Germany
+Northeim,Germany
+Erbach (Odenwald),Germany
+Mörel,Switzerland
+Walsheim,Germany
+Forchheim,Germany
+Siegen,Germany
+Lünen,Germany
+Rehren,Germany
+Roth,Germany
+Potsdam,Germany
+Baden-Baden,Germany
+Offenbach,Germany
+Leinefelde,Germany
+Hub (Soyen),Germany
+"Osterode, Polen",Poland
+Klausenburg,Romania
+Gangkofen,Germany
+"Warschau, Polen",Poland
+Rotthalmünster,Germany
+Varel,Germany
+Naumburg (Saale),Germany
+Neubrandenburg,Germany
+Backnang,Germany
+Castrop-Rauxel,Germany
+Geilenkirchen,Germany
+Quierschied,Germany
+Alzey,Germany
+Bad Oeynhausen,Germany
+Dorsten,Germany
+Teterow,Germany
+Aalen,Germany
+Heilbronn-Neckargartach,Germany
+Einbeck,Germany
+"Carsamba, Türkei",Turkey
+Landau in der Pfalz,Germany
+Dinslaken,Germany
+Schwerin,Germany
+Freiberg,Germany
+Villingen-Schwenningen,Germany
+Vilseck,Germany
+"Sfax, Tunesien",Tunisia
+Stuttgart-Hedelfingen,Germany
+Hameln,Germany
+Schlema,Germany
+Schleswig,Germany
+Andernach,Germany
+Dessau,Germany
+Hochstadt am Main,Germany
+Urbach,Germany
+Dülken (Viersen),Germany
+"Develi, Türkei",Turkey
+Clausthal-Zellerfeld,Germany
+Hanau,Germany
+Quedlinburg,Germany
+Boppard,Germany
+Marl,Germany
+St. Ilgen (Leimen),Germany
+Sintra,Portugal
+Lauingen,Germany
+Bad Soden am Taunus,Germany
+Havelberg,Germany
+Neuhaus am Rennweg,Germany
+Neustadt a.d.Aisch,Germany
+Volkach am Main,Germany
+Lovech,Bulgaria
+Ostfildern,Germany
+Miltenberg,Germany
+Wostok,Germany
+Recklinghausen,Germany
+St. Andreasberg / Harz,Germany
+Malsch (Landkreis Karlsruhe),Germany
+Altötting,Germany
+Deggendorf,Germany
+Balingen,Germany
+Steinhöring,Germany
+"Mödling, Österreich",Austria
+Marktredwitz,Germany
+Wilhelmsthal,Germany
+Görlitz,Germany
+Aschaffenburg,Germany
+Bassum,Germany
+Tscheljabinsk,Russia
+Uelzen,Germany
+Dohna,Germany
+Annaberg-Buchholz,Germany
+Rheine,Germany
+Mindelheim,Germany
+Bochum,Germany
+Geislingen an der Steige,Germany
+St. Ingbert,Germany
+Stolzenau,Germany
+"Inuvil, Sri Lanka",Sri Lanka
+Königs Wusterhausen,Germany
+Flensburg,Germany
+Hagenau,France
+Troisdorf,Germany
+"Gleiwitz, Polen",Poland
+Eberswang,Germany
+Wolfen,Germany
+Kandel,Germany
+Stollberg,Germany
+Mühlacker,Germany
+Weibersbrunn,Germany
+Ahlen,Germany
+Neustadt an der Weinstraße,Germany
+Romrod,Germany
+Alfeld (Leine),Germany
+Haldensleben,Germany
+Weiden,Germany
+Homberg (Efze),Germany
+Bergheim (Erft),Germany
+Herdecke,Germany
+Freudenstadt,Germany
+Winsen (Luhe),Germany
+Donauwörth,Germany
+Wanne-Eickel (Herne),Germany
+Köthen (Anhalt),Germany
+"Istanbul, Türkei",Turkey
+Bad Harzburg,Germany
+Stollberg/Erzgeb.,Germany
+"Seydisehir, Türkei",Turkey
+Belzig,Germany
+Bad Urach,Germany
+Bechtsbüttel (Meine),Germany
+Birkesdorf,Germany
+Edewecht,Germany
+Fürfeld,Germany
+Balve,Germany
+Neumarkt,Germany
+Apolda,Germany
+Altenburg,Germany
+Zennern (Wabern),Germany
+Landau,Germany
+Lieser,Germany
+Lübbecke,Germany
+Sömmerda,Germany
+Schaal,France
+Haldern (Rees),Germany
+Alpen,Germany
+Münster (Westf.),Germany
+Wipperfürth,Germany
+Demmin,Germany
+Glogau (Oder),Poland
+Paderborn,Germany
+Bonn-Bad Godesberg,Germany
+Büren,Germany
+Linnich,Germany
+Rastatt,Germany
+Rottweil,Germany
+Weilheim i.OB,Germany
+Wertheim am Main,Germany
+Witten (Ruhr),Germany
+Lindlar,Germany
+Neckarsulm,Germany
+Dernbach,Germany
+Seeheim-Jugenheim,Germany
+Lahnstein,Germany
+Zschopau,Germany
+Leonberg,Germany
+Ottweiler,Germany
+"Reschitza, Rumänien",Romania
+"Bytom (Beuthen), Polen",Poland
+Lichtenfels,Germany
+Enheim,Germany
+Sindelfingen,Germany
+Bad Arolsen,Germany
+Schifferstadt,Germany
+Heide (Holstein),Germany
+Lohne (Oldenburg),Germany
+Esslingen am Neckar,Germany
+Altenhundem,Germany
+Arpe (Schmallenberg),Germany
+Glienicke/Nordbahn,Germany
+Philadelphia,United States
+Nowosibirsk,Russia
+Beckum (Westf.),Germany
+"Babone, Kamerun",Cameroon
+"Bulawayo, Simbabwe",Zimbabwe
+Illingen,Germany
+Maastricht,Netherlands
+Vechta,Germany
+"Porto-Vecchio, Frankreich",France
+Temeschburg,Romania
+Dülmen,Germany
+Heidenheim an der Brenz,Germany
+Bettmar,Germany
+Mannheim-Neckarau,Germany
+"Ulubey, Türkei",Turkey
+Neustadt (Titisee-Neustadt),Germany
+Plauen,Germany
+Wuppertal,Germany
+"Avanos, Türkei",Turkey
+Kaufbeuren,Germany
+Gehrden,Germany
+"Athen, Griechenland",Greece
+Altdöbern,Germany
+Eisenach,Germany
+"Rom, Italien",Italy
+Viersen,Germany
+Eutin,Germany
+Schopfheim,Germany
+Eckernförde,Germany
+Karlstadt a.Main,Germany
+Tiflis,Georgia
+"Huntsville, USA",United States
+Brünn,Czechia
+Cottbus,Germany
+Westerstede,Germany
+Düren,Germany
+Illertissen,Germany
+Bad Aibling,Germany
+Niederhatzkofen,Germany
+Saran,India
+Doberlug-Kirchhain,Germany
+Stettin,Poland
+"Winterswijk, Niederlande",Netherlands
+Arnsberg,Germany
+Markneukirchen,Germany
+Mutlangen,Germany
+Konstanz,Germany
+Furth im Wald,Germany
+Ostercappeln,Germany
+Bad Wurzach,Germany
+Ulm an der Donau,Germany
+Brilon,Germany
+Wien,Austria
+Ellwangen,Germany
+Grimma,Germany
+Emden,Germany
+Amorbach,Germany
+Mailand,Italy
+Kist,Germany
+Limburg,Germany
+"Nowy Sącz, Polen",Poland
+"Fort Erie, Kanada",Canada
+"Guangdong, China",China
+"Mus, Türkei",Turkey
+"Yozgat, Türkei",Turkey
+"Turgutlu, Türkei",Turkey
+Rüthen,Germany
+Thessaloniki,Greece
+Ansbach,Germany
+Lindenberg,Germany
+Siegburg,Germany
+Pähl,Germany
+Eichendorf,Germany
+"Salzburg, Österreich",Austria
+Schnaittenbach,Germany
+Stendal,Germany
+Ubbedissen,Germany
+Bad Oldesloe,Germany
+Schweinfurt,Germany
+"Yenimahalle, Türkei",Turkey
