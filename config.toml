@@ -23,3 +23,14 @@ comments = true
   RSSlinks = true
   readingTime = true
   readingTimeText = "Estimated reading time:"
+   # Privacy pack
+  #   Show a cookie consent message to visitors
+  #   Anonymize IP in Google Analytics (if enabled)
+  privacy_pack = true
+  
+[privacy]
+  [privacy.googleAnalytics]
+    anonymizeIP = true
+    disable = false
+    respectDoNotTrack = true
+    useSessionStorage = false
