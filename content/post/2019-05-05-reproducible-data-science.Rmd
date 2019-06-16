@@ -1,13 +1,14 @@
 ---
 title: Reproducible (Data) Science with Docker and R
 author: Corrie
-date: '2019-05-05'
+date: '2019-06-16'
 slug: reproducible-data-science
 categories:
   - R
 tags:
   - docker
   - R
+  - reproducibility
 comments: yes
 image: images/tea_with_books.jpg
 menu: ''
@@ -17,7 +18,7 @@ share: yes
 
 In my data team at work, we've been using Docker for a while now. At least, the engineers in our team have been using it, we data scientists have been very reluctant to pick it up so far. Why bother with a new tool (that seems complicated) when you don't see the reason, right? 
 
-Until I wanted to redo this analysis I had done four months ago and it wasn't working. I had updated my R version in between, now a bunch of packages were missing and even after installing the missing packages, there were still error messages. That was the moment, I wished I had dockerized this analysis. 
+Until I was about to hold my [Houseprice Talk](https://github.com/corriebar/Estimating-Houseprices) again and wanted to make some small changes to my `xaringan` slides and nothing worked. I had updated my R version in between, now a bunch of packages were missing and even after installing the missing packages, there were still error messages. That was the moment, I wished I had dockerized this analysis. 
 
 ## What actually is Docker? 
 For the uninitiated, let me try to give a short summary of what Docker is. With Docker, you can wrap everything that's needed for your analysis (or your web app, or your service, or anything basically) in a nice self-contained package. A description of such a package is called image and an instance of such an image is called container. That sounds rather abstract, so let me give an example. In my analysis, I use `RStan` which can be a bit more complicated to install compared to a normal R package. Depending on your operating system, you might have to install a C++ compiler before, check that some configuration are properly set up and then compile everything from source. At least I already messed it up a few times. So instead of just sharing my R script and have people go through the whole installation process when they want to check my analysis, I can set up a Docker image that contains a fixed operating system environment (usually a light-weight Linux version) with the RStan installation already set up. This image can then be shared and it will work everywhere the same. No more situations where your colleague gets an error on her machine but on yours, everything works just fine.

@@ -30,12 +30,14 @@
     
     <meta property="og:description" content="" />
   	<meta property="og:type" content="article" />
-    <meta property="article:published_time" content="2019-05-05T00:00:00Z" />
+    <meta property="article:published_time" content="2019-06-16T00:00:00Z" />
 
     
     <meta property="article:tag" content="docker" />
     
     <meta property="article:tag" content="R" />
+    
+    <meta property="article:tag" content="reproducibility" />
     
     
 
@@ -97,15 +99,15 @@
     },
     "headline": "Reproducible (Data) Science with Docker and R",
     "name": "Reproducible (Data) Science with Docker and R",
-    "wordCount":  1692 ,
+    "wordCount":  1699 ,
     "timeRequired": "PT8M",
     "inLanguage": {
       "@type": "Language",
       "alternateName": "en"
     },
     "url": "/post/reproducible-data-science/",
-    "datePublished": "2019-05-05T00:00Z",
-    "dateModified": "2019-05-05T00:00Z",
+    "datePublished": "2019-06-16T00:00Z",
+    "dateModified": "2019-06-16T00:00Z",
     
     "image": {
         "@type": "ImageObject",
@@ -114,7 +116,7 @@
         "height": 1445
     },
     
-    "keywords": "docker, R",
+    "keywords": "docker, R, reproducibility",
     "description": "",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -242,8 +244,8 @@
             </p>
         
         
-          <time class="post-date" datetime="2019-05-05T00:00:00Z">
-            May 5, 2019
+          <time class="post-date" datetime="2019-06-16T00:00:00Z">
+            Jun 16, 2019
           </time>
         
         
@@ -251,6 +253,8 @@
           <span class="post-tag small"><a href="/tags/docker/">#docker</a></span>
          
           <span class="post-tag small"><a href="/tags/r/">#R</a></span>
+         
+          <span class="post-tag small"><a href="/tags/reproducibility/">#reproducibility</a></span>
          
         </section>
     </header>
@@ -260,7 +264,7 @@
 
 
 <p>In my data team at work, we’ve been using Docker for a while now. At least, the engineers in our team have been using it, we data scientists have been very reluctant to pick it up so far. Why bother with a new tool (that seems complicated) when you don’t see the reason, right?</p>
-<p>Until I wanted to redo this analysis I had done four months ago and it wasn’t working. I had updated my R version in between, now a bunch of packages were missing and even after installing the missing packages, there were still error messages. That was the moment, I wished I had dockerized this analysis.</p>
+<p>Until I was about to hold my <a href="https://github.com/corriebar/Estimating-Houseprices">Houseprice Talk</a> again and wanted to make some small changes to my <code>xaringan</code> slides and nothing worked. I had updated my R version in between, now a bunch of packages were missing and even after installing the missing packages, there were still error messages. That was the moment, I wished I had dockerized this analysis.</p>
 <div id="what-actually-is-docker" class="section level2">
 <h2>What actually is Docker?</h2>
 <p>For the uninitiated, let me try to give a short summary of what Docker is. With Docker, you can wrap everything that’s needed for your analysis (or your web app, or your service, or anything basically) in a nice self-contained package. A description of such a package is called image and an instance of such an image is called container. That sounds rather abstract, so let me give an example. In my analysis, I use <code>RStan</code> which can be a bit more complicated to install compared to a normal R package. Depending on your operating system, you might have to install a C++ compiler before, check that some configuration are properly set up and then compile everything from source. At least I already messed it up a few times. So instead of just sharing my R script and have people go through the whole installation process when they want to check my analysis, I can set up a Docker image that contains a fixed operating system environment (usually a light-weight Linux version) with the RStan installation already set up. This image can then be shared and it will work everywhere the same. No more situations where your colleague gets an error on her machine but on yours, everything works just fine.</p>
