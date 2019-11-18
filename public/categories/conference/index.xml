@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>conference on Samples of Thoughts</title>
+    <link>/categories/conference/</link>
+    <description>Recent content in conference on Samples of Thoughts</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 18 Nov 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/conference/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Conference Time: Predictive Analytics World 2019</title>
+      <link>/post/conference-time-predictive-analytics-world-2019/</link>
+      <pubDate>Mon, 18 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/conference-time-predictive-analytics-world-2019/</guid>
+      <description>In the last two years, I pretty much only went to very techie conferences, such as the PyData Berlin, the PyCon or the SatRday (this year I was even a speaker). They&amp;rsquo;re all great conferences, organized by awesome people and I will definitely go again but this fall I decided to try out some new conference and check out the Predictive Analytics World in Berlin. First, because it&amp;rsquo;s alsways good to try out new things and also because in the last months I became more aware how important a business focus is, which frankly isn&amp;rsquo;t a focus in Python talks about how to deploy machine learning models.</description>
+    </item>
+    
+  </channel>
+</rss>
