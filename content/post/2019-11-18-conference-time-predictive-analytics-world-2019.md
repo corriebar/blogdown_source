@@ -37,4 +37,4 @@ A more direct way to get uncertainty estimates is by using a Bayesian network an
 
 ## Summary
 Quite many talks were either directly about how to embed a data team in a company and how to actually get value out of data science or they mentioned it somehow. I think it's a big problem that many companies face: how do you actually get some value out of your data and your data scientists. Just hiring some data scientists (whatever that means) and throwing data at them is clearly not enough. No one seemed to have a definite solution for these kind of problems, most were still in a phase of trying out various things, sharing tips on what worked well so far and what less so. For these talks, it was worth to go for me but I didn't here too many things I didn't already know. In the end, my favorite talks were pretty technical and would've fit just fine in e.g. a PyData conference. Many talks had lots of AI power point slides, that is, a bit buzzwordy and hype, with not too many new ideas or concepts.
-So all in all, it was nice but I don't think I'd go again.
+So all in all, it was nice but not sure I'd go again.
