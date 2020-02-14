@@ -1,0 +1,25 @@
+---
+title: "How Data Science differs from what I imagined it to be"
+author: "Corrie"
+date: "September 22, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## The magic method and the problem of the question
+When I started out learning Data Science, I remember how in the beginning I had this naive idea that these fancy methods I was studying would _magically_ extract insight from any data I would lay hand on. Now, the first methods I learned where in Topological Data Analysis, so those are indeed quite fancy methods with beautiful theory behind them and as a bonus point even came with nice visualizations.
+
+I soon discovered that even fancy methods can't do magic.
+To begin with, I could not just plug any data in my algorithm since they weren't even in the right format. For the topological methods I was studying, one needs a distance measure between data points which usually isn't readily available. What distance should for example be used for categorical data?
+
+The underlying problem was, that I often didn't even know what question I wanted to answer. How could I say if it made more sense to use Euclidean distance or some other distance on the variables? Or which variables were at all reasonable to input to the algorithm?
+These questions can only be answered when having a clear question.
+
+I still face this problem everytime when wanting to practise a new method. Learning the theory behind a method is easy but to really understand and be able to use a method it is absolutely necessary to practise it. One way to do this, is to look for an interesting data set and then try to apply the method you're learning to it. While I now know how important it is to have a question or problem in mind you want to address this is still far from simple.
+
+Let's say for example, I want to practise using convolutional networks for classifying images. It is easy to find a labeled image data set and just as easy to state the problem: classify iris flowers. You set up you're notebook, check some tutorials and shortly after, you have a small neural network running and the answer is: 89% accuracy.
+So what now? Is this good? Is this enough? Have you learned the method?
+Or what if for example you want to learn how to detect and quantify causal relationships and associations in your data
