@@ -1,11 +1,35 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/post/outlier-handling/</loc>
+    <lastmod>2019-11-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2019-11-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2019-11-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/categories/</loc>
     <lastmod>2019-11-18T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/conference/</loc>
+    <lastmod>2019-11-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/conference/</loc>
+    <lastmod>2019-11-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -14,68 +38,38 @@
   </url>
   
   <url>
-    <loc>/post/</loc>
+    <loc>/tags/predictive-analytics/</loc>
     <lastmod>2019-11-18T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/</loc>
-    <lastmod>2019-11-18T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>/tags/</loc>
     <lastmod>2019-11-18T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/categories/conference/</loc>
-    <lastmod>2019-11-18T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/conference/</loc>
-    <lastmod>2019-11-18T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/predictive-analytics/</loc>
-    <lastmod>2019-11-18T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/categories/r/</loc>
-    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/r/</loc>
-    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/post/reproducible-data-science/</loc>
-    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/docker/</loc>
     <lastmod>2019-06-17T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/r/</loc>
+    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/r/</loc>
+    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/reproducibility/</loc>
     <lastmod>2019-06-17T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/post/reproducible-data-science/</loc>
+    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -86,19 +80,26 @@
   <url>
     <loc>/tags/election/</loc>
     <lastmod>2019-05-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>/tags/european-election-2019/</loc>
     <lastmod>2019-05-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>/tags/berlin/</loc>
     <lastmod>2018-10-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/flats/</loc>
+    <lastmod>2018-10-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/scraping/</loc>
+    <lastmod>2018-10-03T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -107,15 +108,13 @@
   </url>
   
   <url>
-    <loc>/tags/flats/</loc>
-    <lastmod>2018-10-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+    <loc>/tags/blogdown/</loc>
+    <lastmod>2018-05-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/scraping/</loc>
-    <lastmod>2018-10-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+    <loc>/tags/github/</loc>
+    <lastmod>2018-05-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -124,26 +123,13 @@
   </url>
   
   <url>
-    <loc>/tags/blogdown/</loc>
-    <lastmod>2018-05-13T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/github/</loc>
-    <lastmod>2018-05-13T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+    <loc>/tags/hello-world/</loc>
+    <lastmod>2018-05-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/post/my-first-post/</loc>
     <lastmod>2018-05-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/hello-world/</loc>
-    <lastmod>2018-05-11T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
