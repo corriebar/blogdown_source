@@ -253,14 +253,18 @@ if (!doNotTrack) {
 	
 	   <article class="post post">
     <header class="post-header">
-        <h2 class="post-title"><a href="/post/outlier-handling/">House-Cleaning: Getting rid of outliers</a></h2>
+        <h2 class="post-title"><a href="/2020/outlier-handling-two/">House-Cleaning: Getting rid of outliers (Part 2)</a></h2>
     </header>
     <section class="post-excerpt">
         
-            <p>Working with real-world data presents many challenges that sanitized text book data doesn’t have. One of them is how to handle outlier. Outliers are defined as points that differ significantly from other data points and they are especially common in data obtained through manual input processes. For example, on an online listing site, someone might accidently pressed the zero-key a bit too often and suddenly the small rental flat is as expensive as a palace. <a class="read-more" href="/post/outlier-handling/">&raquo;</a></p>
+            <p>In the previous post, we tried to clean rental offerings from some outliers. We first just had a look at our data and tried to clean by simply using threshold derived from our own knowledge about flats with minor success. We got slightly better results by using the IQR rule and learned two things: First, the IQR rule works better if our data is normally distributed and, if it’s not, transforming it works wonders. <a class="read-more" href="/2020/outlier-handling-two/">&raquo;</a></p>
         
     </section>
     <footer class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 13 min</span>
+            </p>
         
         
             
@@ -277,9 +281,51 @@ if (!doNotTrack) {
             
                 <a href="/tags/outlier-detection/">#Outlier Detection</a>,
             
+                <a href="/tags/flats/">#flats</a>,
+            
         
-        <time class="post-date" datetime="2020-02-15T00:00:00Z">
-            15 Feb 2020
+        <time class="post-date" datetime="2020-02-24T00:00:00Z">
+            24 Feb 2020
+        </time>
+    </footer>
+</article>
+
+	
+	   <article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/2020/outlier-handling-one/">House-Cleaning: Getting rid of outliers (Part 1)</a></h2>
+    </header>
+    <section class="post-excerpt">
+        
+            <p>Working with real-world data presents many challenges that sanitized text book data doesn’t have. One of them is how to handle outlier. Outliers are defined as points that differ significantly from other data points and they are especially common in data obtained through manual input processes. For example, on an online listing site, someone might accidently pressed the zero-key a bit too often and suddenly the small rental flat is as expensive as a palace. <a class="read-more" href="/2020/outlier-handling-one/">&raquo;</a></p>
+        
+    </section>
+    <footer class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 8 min</span>
+            </p>
+        
+        
+            
+            
+
+            
+            
+            
+            Corrie
+                 
+        
+
+        on
+            
+                <a href="/tags/outlier-detection/">#Outlier Detection</a>,
+            
+                <a href="/tags/flats/">#flats</a>,
+            
+        
+        <time class="post-date" datetime="2020-02-17T00:00:00Z">
+            17 Feb 2020
         </time>
     </footer>
 </article>
@@ -297,7 +343,8 @@ if (!doNotTrack) {
 
 
     <footer class="site-footer clearfix">
-        <section class="copyright"><a href="">Samples of Thoughts</a> </section>
+        <section class="copyright"><a href="">Samples of Thoughts</a> 
+        © Corrie Bartelheimer 2020 &middot; </section>
         
     </footer>
     </div>

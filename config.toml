@@ -2,11 +2,12 @@ theme = "hugo-theme-casper"
 baseURL = "https://samples-of-thoughts.com/"
 languageCode = "en-us"
 title = "Samples of Thoughts"
+copyright = "&copy; Corrie Bartelheimer {year}"
 publishDir = "public"
 paginate = 5
 disqusshortname = "corriebar-github-io"
 googleAnalytics = "UA-140745376-1"
-ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown", "_files$", "_cache$", "\\.csv$"]
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown", "_files$", "_cache$", "\\.csv$", "\\.ipynb$"]
 disable_mathjax = false
 comments = true
 
@@ -21,7 +22,7 @@ comments = true
   twitterName = "corrieaar"
   hideSuggestions = true
   RSSlinks = true
-  readingTime = false
+  readingTime = true
   readingTimeText = "Estimated reading time:"
    # Privacy pack
   #   Show a cookie consent message to visitors
@@ -34,3 +35,6 @@ comments = true
     disable = false
     respectDoNotTrack = true
     useSessionStorage = false
+    
+[permalinks]
+    post = "/:year/:slug/"
