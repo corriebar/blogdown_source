@@ -6,18 +6,18 @@
     <description>Recent content on Samples of Thoughts</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 24 Nov 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 15 Feb 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>House-Cleaning: Getting rid of outlier with Gauss</title>
+      <title>House-Cleaning: Getting rid of outliers</title>
       <link>/post/outlier-handling/</link>
-      <pubDate>Sun, 24 Nov 2019 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 15 Feb 2020 00:00:00 +0000</pubDate>
       
       <guid>/post/outlier-handling/</guid>
-      <description>Working with real-world data presents many challenges that sanitized data from text book simply don’t have. One of the biggest is how to handle outlier. Now outlier can mean different things. Some outliers are very obvious: someone accidently pressed the zero-key a bit too long and now the standard two-room appartment in an average location has an offering price of three billion euro instead of the more reasonable 300,000€. If you know that the most expensive home in the world (the Buckingham Palace) is valued at around 1.</description>
+      <description>Working with real-world data presents many challenges that sanitized text book data doesn’t have. One of them is how to handle outlier. Outliers are defined as points that differ significantly from other data points and they are especially common in data obtained through manual input processes. For example, on an online listing site, someone might accidently pressed the zero-key a bit too often and suddenly the small rental flat is as expensive as a palace.</description>
     </item>
     
     <item>

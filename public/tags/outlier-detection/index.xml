@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Outlier Detection on Samples of Thoughts</title>
+    <link>/tags/outlier-detection/</link>
+    <description>Recent content in Outlier Detection on Samples of Thoughts</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 15 Feb 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/outlier-detection/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>House-Cleaning: Getting rid of outliers</title>
+      <link>/post/outlier-handling/</link>
+      <pubDate>Sat, 15 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/outlier-handling/</guid>
+      <description>Working with real-world data presents many challenges that sanitized text book data doesn’t have. One of them is how to handle outlier. Outliers are defined as points that differ significantly from other data points and they are especially common in data obtained through manual input processes. For example, on an online listing site, someone might accidently pressed the zero-key a bit too often and suddenly the small rental flat is as expensive as a palace.</description>
+    </item>
+    
+  </channel>
+</rss>
