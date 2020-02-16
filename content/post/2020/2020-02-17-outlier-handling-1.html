@@ -1,5 +1,5 @@
 ---
-title: 'House-Cleaning: Getting rid of outliers (Part 1)'
+title: 'House-Cleaning: Getting rid of outliers I'
 author: 'Corrie'
 date: '2020-02-17'
 slug: outlier-handling-one
@@ -17,7 +17,7 @@ share: yes
 
 
 <p>Working with real-world data presents many challenges that sanitized text book data doesn’t have. One of them is how to handle outlier. Outliers are defined as points that differ significantly from other data points and they are especially common in data obtained through manual input processes. <br>
-For example, on an online listing site, someone might accidently pressed the zero-key a bit too often and suddenly the small rental flat is as expensive as a palace. While it is obvious in this example that the recorded data does not represent the real world, other outliers can be more tricky. What is for example with the old villa in a small town offered for 1€? It might be one of these run-down houses in a dying town and thus could be the actual offering price.</p>
+For example, on an online listing site, someone might accidentally pressed the zero-key a bit too often and suddenly the small rental flat is as expensive as a palace. While it is obvious in this example that the recorded data does not represent the real world, other outliers can be more tricky. What is for example with the old villa in a small town offered for 1€? It might be one of these run-down houses in a dying town and thus could be the actual offering price.</p>
 <p>Very roughly we can say that there are two categories of outliers:</p>
 <ul>
 <li>Outliers that don’t represent a real observation, but instead result from an error or mistake. I’ll call them “proper outlier”.</li>
@@ -48,7 +48,7 @@ In this post, I will describe a simple methods to identify outliers:</p>
 <h2>Interquartile Range Rule</h2>
 <p><a href="https://en.wikipedia.org/wiki/Quartile">Quartiles</a> are important summary statistics of any continuous data. There are three quartiles, <span class="math inline">\(Q_1\)</span>, <span class="math inline">\(Q_2\)</span> and <span class="math inline">\(Q_3\)</span>, which are the 25th, 50th (the median) and 75th percentiles. The interquartile range <span class="math inline">\(IQR\)</span> is the difference between the first and third quartile:
 <span class="math display">\[IQR = Q_3 - Q_1\]</span>
-The interquartile range thus covers half of the data which is also why they’re used for boxplots: the boxy part is exactly the interquartile range.</p>
+The interquartile range thus covers half of the data which is also why they’re used for box plots: the boxy part is exactly the interquartile range.</p>
 <p>A good rule of thumb is to say that every point above <span class="math inline">\(Q_3 +1.5 IQR\)</span> or below <span class="math inline">\(Q_1 - 1.5 IQR\)</span> is an outlier.
 In python, we can compute this as follows:</p>
 <pre class="python"><code>def iqr(data):
@@ -69,7 +69,7 @@ sc = ax.scatter(d[&quot;livingSpace&quot;][alrightish],
                     s=6, alpha=0.6)</code></pre>
 <p><img src="/post/2020/2020-02-17-outlier-handling-1_files/figure-html/unnamed-chunk-11-1.png" /><!-- --></p>
 <p>Nice! The blob now covers the whole plot area and we get a much better view of the largest chunk of the data. <br>
-However, there is a hard, rectangular edge. It looks like we cut off the data too generously and a considereable part of the data has been discarded because they’re either larger than 140sqm or more expensive than 1750€ per month. And while I personally don’t see myself renting a flat this expensive in Berlin, it still sounds like very realistic rents and sizes. For a flat share of three or four people, 2000€ would be a reasonable rent in Berlin.</p>
+However, there is a hard, rectangular edge. It looks like we cut off the data too generously and a considerable part of the data has been discarded because they’re either larger than 140sqm or more expensive than 1750€ per month. And while I personally don’t see myself renting a flat this expensive in Berlin, it still sounds like very realistic rents and sizes. For a flat share of three or four people, 2000€ would be a reasonable rent in Berlin.</p>
 <p>To adjust this rule of thumb, we can increase the factor to multiply the IQR. Instead of 1.5, we can use e.g. 2.5:</p>
 <p><img src="/post/2020/2020-02-17-outlier-handling-1_files/figure-html/unnamed-chunk-12-1.png" /><!-- --></p>
 <p>The plot has less data cut-off than before but there’s still a rectangular border. Again, we could just keep on trying higher thresholds until we don’t see the rectangular border anymore but there is problems with this approach. <br>

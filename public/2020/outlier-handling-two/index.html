@@ -14,13 +14,13 @@
 
 
 
-<meta name="twitter:title" content="House-Cleaning: Getting rid of outliers (Part 2)"/>
+<meta name="twitter:title" content="House-Cleaning: Getting rid of outliers II"/>
 <meta name="twitter:description" content=""/>
 <meta name="twitter:site" content="@corrieaar"/>
 
 
 
-  	<meta property="og:title" content="House-Cleaning: Getting rid of outliers (Part 2) &middot; Samples of Thoughts" />
+  	<meta property="og:title" content="House-Cleaning: Getting rid of outliers II &middot; Samples of Thoughts" />
   	<meta property="og:site_name" content="Samples of Thoughts" />
   	<meta property="og:url" content="/2020/outlier-handling-two/" />
 
@@ -39,10 +39,10 @@
     
     
 
-    <title>House-Cleaning: Getting rid of outliers (Part 2) &middot; Samples of Thoughts</title>
+    <title>House-Cleaning: Getting rid of outliers II &middot; Samples of Thoughts</title>
 
     
-    <meta name="description" content="In the previous post, we tried to clean rental offerings from some outliers. We first just had a look at our data and tried to clean by simply using threshold d" />
+    <meta name="description" content="In the previous post, we tried to clean rental offerings of outliers. We first just had a look at our data and tried to clean by simply using threshold derived " />
     
 
     <meta name="HandheldFriendly" content="True" />
@@ -95,9 +95,9 @@
             
         ]
     },
-    "headline": "House-Cleaning: Getting rid of outliers (Part 2)",
-    "name": "House-Cleaning: Getting rid of outliers (Part 2)",
-    "wordCount":  2684 ,
+    "headline": "House-Cleaning: Getting rid of outliers II",
+    "name": "House-Cleaning: Getting rid of outliers II",
+    "wordCount":  2683 ,
     "timeRequired": "PT13M",
     "inLanguage": {
       "@type": "Language",
@@ -276,7 +276,7 @@ if (!doNotTrack) {
   <article class="post post">
 
     <header class="post-header">
-        <h1 class="post-title">House-Cleaning: Getting rid of outliers (Part 2)</h1>
+        <h1 class="post-title">House-Cleaning: Getting rid of outliers II</h1>
         <small></small>
 
         <section class="post-meta">
@@ -304,7 +304,7 @@ if (!doNotTrack) {
 <script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
 
 
-<p>In the <a href="/2020/outlier-handling-one">previous post</a>, we tried to clean rental offerings from some outliers. We first just had a look at our data and tried to clean by simply using threshold derived from our own knowledge about flats with minor success. We got slightly better results by using the IQR rule and learned two things: First, the IQR rule works better if our data is normally distributed and, if it’s not, transforming it works wonders. The second learning was that picking a threshold for each variable (either by hand or through the IQR rule) doesn’t work well if our variables are strongly correlated. The IQR rule always forms a rectangular threshold-window over our data where we would be better served with an elliptical window for correlated data. And what math object has an elliptical shape? Right, a multivariate Gaussian.</p>
+<p>In the <a href="/2020/outlier-handling-one">previous post</a>, we tried to clean rental offerings of outliers. We first just had a look at our data and tried to clean by simply using threshold derived from our own knowledge about flats with minor success. We got slightly better results by using the IQR rule and learned two things: First, the IQR rule works better if our data is normally distributed and, if it’s not, transforming it works wonders. The second learning was that picking a threshold for each variable (either by hand or through the IQR rule) doesn’t work well if our variables are strongly correlated. The IQR rule always forms a rectangular threshold-window over our data where we would be better served with an elliptical window for correlated data. And what math object has an elliptical shape? Right, a multivariate Gaussian.</p>
 <div id="gaussian-mixtures-for-outlier-detection" class="section level2">
 <h2>Gaussian Mixtures for Outlier Detection</h2>
 <p>So how can we use <a href="https://en.wikipedia.org/wiki/Multivariate_normal_distribution">multivariate normal distributions</a> to detect outliers in our data? The idea goes as follows:
@@ -803,7 +803,7 @@ Doppelhaushälfte 60er Jahre mit nicht einsehbarer großer Terrasse und Garte
 <p>Results improve significantly if variables are transformed appropriately. Both the Gaussian mixture method and the IQR rule assume that the data follow a normal distribution and results are suboptimal if our data does not. <br>
 Of course, other outlier detection methods don’t assume normality but they always assume something and it is important to be aware which assumptions are being made and to make sure they are met.</p>
 <p>The assumptions also determine what kind of outliers can be detected. The methods used in this analysis assume normality and then define outliers as points that don’t follow normality, i.e. that are far from the center. Thus, they can’t detect outliers such as flats built in 1111. There definitely are quite a few real offers in this data built aroud the 10th century but most flats built in 1111 were probably just people being lazy when inputting the construction year.</p>
-<p><a href="https://github.com/corriebar/blogdown_source/draft/2020-02-15-outlier-handling.ipynb">Link</a> to the jupyter notebook used to make this blogpost.</p>
+<p><a href="https://github.com/corriebar/blogdown_source/content/post/2020/2020-02-24-outlier-handling-2.ipynb">Link</a> to the jupyter notebook used to make this blogpost.</p>
 </div>
 
     
@@ -815,7 +815,7 @@ Of course, other outlier detection methods don’t assume normality but they alw
   
       <a class="read-next-story prev" style="no-cover" href="/2020/outlier-handling-one/">
           <section class="post">
-              <h5>House-Cleaning: Getting rid of outliers (Part 1)</h5>
+              <h5>House-Cleaning: Getting rid of outliers I</h5>
           </section>
       </a>
       
@@ -854,7 +854,7 @@ Of course, other outlier detection methods don’t assume normality but they alw
     
 <section class="share">
   <h4>Share this post</h4>
-  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=House-Cleaning%3a%20Getting%20rid%20of%20outliers%20%28Part%202%29&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2f2020%2foutlier-handling-two%2f"
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=House-Cleaning%3a%20Getting%20rid%20of%20outliers%20II&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2f2020%2foutlier-handling-two%2f"
       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
       <span class="hidden">Twitter</span>
   </a>

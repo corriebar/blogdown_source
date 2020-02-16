@@ -1,5 +1,5 @@
 ---
-title: 'House-Cleaning: Getting rid of outliers (Part 1)'
+title: 'House-Cleaning: Getting rid of outliers I'
 author: 'Corrie'
 date: '2020-02-17'
 slug: outlier-handling-one

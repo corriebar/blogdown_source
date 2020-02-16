@@ -1,5 +1,5 @@
 ---
-title: 'House-Cleaning: Getting rid of outliers (Part 2)'
+title: 'House-Cleaning: Getting rid of outliers II'
 author: 'Corrie'
 date: '2020-02-24'
 slug: outlier-handling-two
@@ -20,7 +20,7 @@ library(tidyverse)
 use_condaenv("blog")
 ```
 
-In the [previous post](/2020/outlier-handling-one), we tried to clean rental offerings from some outliers. We first just had a look at our data and tried to clean by simply using threshold derived from our own knowledge about flats with minor success. We got slightly better results by using the IQR rule and learned two things: First, the IQR rule works better if our data is normally distributed and, if it's not, transforming it works wonders. The second learning was that picking a threshold for each variable (either by hand or through the IQR rule) doesn't work well if our variables are strongly correlated. The IQR rule always forms a rectangular threshold-window over our data where we would be better served with an elliptical window for correlated data. And what math object has an elliptical shape? Right, a multivariate Gaussian.
+In the [previous post](/2020/outlier-handling-one), we tried to clean rental offerings of outliers. We first just had a look at our data and tried to clean by simply using threshold derived from our own knowledge about flats with minor success. We got slightly better results by using the IQR rule and learned two things: First, the IQR rule works better if our data is normally distributed and, if it's not, transforming it works wonders. The second learning was that picking a threshold for each variable (either by hand or through the IQR rule) doesn't work well if our variables are strongly correlated. The IQR rule always forms a rectangular threshold-window over our data where we would be better served with an elliptical window for correlated data. And what math object has an elliptical shape? Right, a multivariate Gaussian.
 
 ```{python}
 import pandas as pd
