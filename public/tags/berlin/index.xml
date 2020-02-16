@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Berlin on Samples of Thoughts</title>
@@ -6,6 +6,7 @@
     <description>Recent content in Berlin on Samples of Thoughts</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <copyright>&amp;copy; Corrie Bartelheimer {year}</copyright>
     <lastBuildDate>Wed, 03 Oct 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/berlin/index.xml" rel="self" type="application/rss+xml" />
@@ -13,10 +14,10 @@
     
     <item>
       <title>Scraping the web or how to find a flat</title>
-      <link>/post/scraping-the-web-or-how-to-find-a-flat/</link>
+      <link>/2018/scraping-the-web-or-how-to-find-a-flat/</link>
       <pubDate>Wed, 03 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/scraping-the-web-or-how-to-find-a-flat/</guid>
+      <guid>/2018/scraping-the-web-or-how-to-find-a-flat/</guid>
       <description>Berlin is a great city that used to have the reputation of affordable rents. While for sure other cities are still much more expensive, the rents in Berlin have risen considerably. Or so says everyone of my friends and my colleagues and so does it feel looking at renting listings. I decided to have a look myself at the data to find out if there’s still a secret neighborhood in Berlin resisting the raising prices and who knows, maybe the data can even tell us if the neighborhood Wedding is indeed “coming”.</description>
     </item>
     

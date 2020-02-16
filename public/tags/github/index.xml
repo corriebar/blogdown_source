@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>github on Samples of Thoughts</title>
@@ -6,6 +6,7 @@
     <description>Recent content in github on Samples of Thoughts</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <copyright>&amp;copy; Corrie Bartelheimer {year}</copyright>
     <lastBuildDate>Sun, 13 May 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/github/index.xml" rel="self" type="application/rss+xml" />
@@ -13,10 +14,10 @@
     
     <item>
       <title>How to make a website using blogdown and github</title>
-      <link>/post/how-to-make-a-website-using-blogdown-and-github/</link>
+      <link>/2018/how-to-make-a-website-using-blogdown-and-github/</link>
       <pubDate>Sun, 13 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/how-to-make-a-website-using-blogdown-and-github/</guid>
+      <guid>/2018/how-to-make-a-website-using-blogdown-and-github/</guid>
       <description>In this post, I will describe how to build your own webpage (more specific, a blog) using blogdown and have it hosted on your github.
  Set up your github repo so it can serve as a web page Build your website using blogdown  Set up Github Let’s start with setting up your github. This is actually super simple, you only need to create a new repository with the name &amp;lt;yourusername&amp;gt;.</description>
     </item>

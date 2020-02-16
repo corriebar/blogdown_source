@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>R on Samples of Thoughts</title>
@@ -6,6 +6,7 @@
     <description>Recent content in R on Samples of Thoughts</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <copyright>&amp;copy; Corrie Bartelheimer {year}</copyright>
     <lastBuildDate>Mon, 17 Jun 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
@@ -13,48 +14,48 @@
     
     <item>
       <title>Reproducible (Data) Science with Docker and R</title>
-      <link>/post/reproducible-data-science/</link>
+      <link>/2019/reproducible-data-science/</link>
       <pubDate>Mon, 17 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>/post/reproducible-data-science/</guid>
+      <guid>/2019/reproducible-data-science/</guid>
       <description>In my data team at work, we’ve been using Docker for a while now. At least, the engineers in our team have been using it, we data scientists have been very reluctant to pick it up so far. Why bother with a new tool (that seems complicated) when you don’t see the reason, right?
 Until I was about to hold my Houseprice Talk again and wanted to make some small changes to my xaringan slides and nothing worked.</description>
     </item>
     
     <item>
       <title>Analyzing the European Election: The Candidates</title>
-      <link>/post/european-election-data-analysis/</link>
+      <link>/2019/european-election-data-analysis/</link>
       <pubDate>Tue, 21 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>/post/european-election-data-analysis/</guid>
+      <guid>/2019/european-election-data-analysis/</guid>
       <description>The European Election is coming up and for the first time, I have the impression this election is actually talked about and might have an impact. I don’t remember people caring that much about European Elections in the years before, but this, of course, could also just be because I got more interested in European politics. Unfortunately, European politics are complex and this is also mirrored in the quantity of parties that are up for vote in Germany.</description>
     </item>
     
     <item>
       <title>Scraping the web or how to find a flat</title>
-      <link>/post/scraping-the-web-or-how-to-find-a-flat/</link>
+      <link>/2018/scraping-the-web-or-how-to-find-a-flat/</link>
       <pubDate>Wed, 03 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/scraping-the-web-or-how-to-find-a-flat/</guid>
+      <guid>/2018/scraping-the-web-or-how-to-find-a-flat/</guid>
       <description>Berlin is a great city that used to have the reputation of affordable rents. While for sure other cities are still much more expensive, the rents in Berlin have risen considerably. Or so says everyone of my friends and my colleagues and so does it feel looking at renting listings. I decided to have a look myself at the data to find out if there’s still a secret neighborhood in Berlin resisting the raising prices and who knows, maybe the data can even tell us if the neighborhood Wedding is indeed “coming”.</description>
     </item>
     
     <item>
       <title>How to make a website using blogdown and github</title>
-      <link>/post/how-to-make-a-website-using-blogdown-and-github/</link>
+      <link>/2018/how-to-make-a-website-using-blogdown-and-github/</link>
       <pubDate>Sun, 13 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/how-to-make-a-website-using-blogdown-and-github/</guid>
+      <guid>/2018/how-to-make-a-website-using-blogdown-and-github/</guid>
       <description>In this post, I will describe how to build your own webpage (more specific, a blog) using blogdown and have it hosted on your github.
  Set up your github repo so it can serve as a web page Build your website using blogdown  Set up Github Let’s start with setting up your github. This is actually super simple, you only need to create a new repository with the name &amp;lt;yourusername&amp;gt;.</description>
     </item>
     
     <item>
       <title>Welcome to my blog!</title>
-      <link>/post/my-first-post/</link>
+      <link>/2018/my-first-post/</link>
       <pubDate>Fri, 11 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/my-first-post/</guid>
+      <guid>/2018/my-first-post/</guid>
       <description>Hello World! I’m Corrie and this is my blog where I plan to occasionally write about interesting topics. Interesting topics is of course entirely subjective and for me, machine learning, statistics (in particular the Bayesian flavor), and data science sound very exciting, so most of my posts will touch any of these topics. As a Mathematician by training, I spent quite some time during my studies with differential geometry, topology, and number theory (knots and prime numbers are cool!</description>
     </item>
     

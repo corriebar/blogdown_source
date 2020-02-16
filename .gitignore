@@ -2,4 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
-drafts/
+.ipynb_checkpoints
+*.csv
+.idea

@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    
+        
+        <meta name="twitter:card" content="summary_large_image"/>
+        <meta name="twitter:image" content="/images/tea_with_books.jpg"/>
+    
+
+
+
+<meta name="twitter:title" content="Analyzing the European Election: The Candidates"/>
+<meta name="twitter:description" content=""/>
+<meta name="twitter:site" content="@corrieaar"/>
+
+
+
+  	<meta property="og:title" content="Analyzing the European Election: The Candidates &middot; Samples of Thoughts" />
+  	<meta property="og:site_name" content="Samples of Thoughts" />
+  	<meta property="og:url" content="/2019/european-election-data-analysis/" />
+
+    
+       <meta property="og:image" content="/images/tea_with_books.jpg"/>
+    
+    
+    <meta property="og:description" content="" />
+  	<meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2019-05-21T00:00:00Z" />
+
+    
+    <meta property="article:tag" content="R" />
+    
+    <meta property="article:tag" content="European Election 2019" />
+    
+    <meta property="article:tag" content="Election" />
+    
+    
+
+    <title>Analyzing the European Election: The Candidates &middot; Samples of Thoughts</title>
+
+    
+    <meta name="description" content="The European Election is coming up and for the first time, I have the impression this election is actually talked about and might have an impact. I don’t rememb" />
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/css/nav.css" />
+
+    
+
+    
+
+    
+      
+          <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Samples of Thoughts" />
+      
+      
+    
+    <meta name="generator" content="Hugo 0.63.1" />
+
+    <link rel="canonical" href="/2019/european-election-data-analysis/" />
+
+    
+      
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name":  null 
+    },
+    "author": {
+        "@type": "Person",
+        "name":  null ,
+        
+        "url":  null ,
+        "sameAs": [
+            
+            
+             
+             
+             
+             
+             
+            
+        ]
+    },
+    "headline": "Analyzing the European Election: The Candidates",
+    "name": "Analyzing the European Election: The Candidates",
+    "wordCount":  1854 ,
+    "timeRequired": "PT9M",
+    "inLanguage": {
+      "@type": "Language",
+      "alternateName": "en"
+    },
+    "url": "/2019/european-election-data-analysis/",
+    "datePublished": "2019-05-21T00:00Z",
+    "dateModified": "2019-05-21T00:00Z",
+    
+    "image": {
+        "@type": "ImageObject",
+        "url": "/images/tea_with_books.jpg",
+        "width": 3000,
+        "height": 1445
+    },
+    
+    "keywords": "R, European Election 2019, Election",
+    "description": "",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/2019/european-election-data-analysis/"
+    }
+}
+    </script>
+    
+
+
+    
+
+    
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140745376-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+
+    
+    
+    
+
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+<script>
+  window.addEventListener("load", function(){
+    window.cookieconsent.initialise({
+      "palette": {
+        "popup": {
+          "background": "#40485A",
+          "text": "#ffffff"
+        },
+        "button": {
+          "background": "#5B5A68",
+          "text": "#ffffff"
+        }
+      },
+      "content": {
+        "message": "This website uses cookies to ensure you get the best experience on my website.",
+        "dismiss": "Got it!",
+        "link": "Learn more",
+        "href": "https://cookies.insites.com"
+      }
+    })});
+</script>
+
+
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+    </ul>
+
+    
+    <a class="subscribe-button icon-feed" href="/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+<link rel="stylesheet" href="/css/googlecode.css" rel="stylesheet" id="theme-stylesheet">
+<script src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+ <header class="main-header post-head" style="background-image: url(/images/tea_with_books.jpg)"> 
+  
+  <nav class="main-nav overlay clearfix">
+
+
+
+      <ul>
+       <li> <a class="blog-logo" href="/">Home</a> </li>
+        <li> <a class="blog-logo" href="/about">About</a> </li>
+
+            
+              <a class="menu-button icon-feed" href="">&nbsp;&nbsp;Subscribe</a>
+            
+            
+      
+       </ul>
+    </nav>
+    
+     <div class="vertical">
+        <div class="main-header-content inner">
+            
+
+
+    <a class="bloglogo" href="https://github.com/corriebar" target="_blank">
+    <span class="icon-github" style="color:white;font-size:2em"></span>
+    </a>
+&nbsp;
+
+
+
+
+
+
+
+
+
+    <a class="bloglogo" href="https://twitter.com/corrieaar" target="_blank">
+        <span class="icon-twitter" style="color:white;font-size:2em"></span>
+    </a>
+&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <h1 class="page-title">Samples of Thoughts</h1>
+            <h2 class="page-description">about data, statistics  and everything in between</h2>
+        </div>
+    </div>  
+    
+
+
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post post">
+
+    <header class="post-header">
+        <h1 class="post-title">Analyzing the European Election: The Candidates</h1>
+        <small></small>
+
+        <section class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 9 min</span>
+            </p>
+        
+        
+          <time class="post-date" datetime="2019-05-21T00:00:00Z">
+            May 21, 2019
+          </time>
+        
+        
+         
+          <span class="post-tag small"><a href="/tags/r/">#R</a></span>
+         
+          <span class="post-tag small"><a href="/tags/european-election-2019/">#European Election 2019</a></span>
+         
+          <span class="post-tag small"><a href="/tags/election/">#Election</a></span>
+         
+        </section>
+    </header>
+
+    <section class="post-content">
+      
+
+
+<p>The European Election is coming up and for the first time, I have the impression this election is actually talked about and might have an impact. I don’t remember people caring that much about European Elections in the years before, but this, of course, could also just be because I got more interested in European politics.
+Unfortunately, European politics are complex and this is also mirrored in the quantity of parties that are up for vote in Germany. In Germany alone, there are 40 parties on the ballot paper and in total 1.380 candidates are trying to get one of the 96 seats allocated for Germany. No joke, my ballot paper is almost as long as I’m tall!
+Reading through some of the names on the ballot paper, I thought it might be interesting to do a small exploratory data analysis and to compare some of the parties regarding their candidate composition.</p>
+<p>Conveniently, the data is provided by the government in a <a href="https://www.bundeswahlleiter.de/dam/jcr/0f8779e8-c05b-4247-be85-6317fbb5ae4d/ew19_kandidaten.zip">CSV-file</a>.
+Almost all parties have the same candidate list for all of Germany, the only party that has differing lists for each state is <em>CDU/CSU</em>. Depending on the analysis, I sometimes collapse <em>CDU</em> and <em>CSU</em> to a single party or only consider their list for Berlin.</p>
+<div id="how-many-candidates-are-in-a-party" class="section level2">
+<h2>How many candidates are in a party?</h2>
+<p>While the ballot paper only shows the top ten candidates for each party (or less if the party has less), many of them have more candidates. Interestingly, some parties have surprisingly many:</p>
+<pre class="r"><code>df %&gt;%
+  group_by(party) %&gt;%
+  summarise(n=n(), 
+            isReplacement = sum(Kennzeichen == &quot;Ersatzbewerber&quot;)) %&gt;%
+  filter(n &gt;= 96) %&gt;% arrange(-n) %&gt;% kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">party</th>
+<th align="right">n</th>
+<th align="right">isReplacement</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">CDU</td>
+<td align="right">200</td>
+<td align="right">20</td>
+</tr>
+<tr class="even">
+<td align="left">FDP</td>
+<td align="right">168</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">SPD</td>
+<td align="right">152</td>
+<td align="right">56</td>
+</tr>
+<tr class="even">
+<td align="left">Die PARTEI</td>
+<td align="right">143</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">ÖDP</td>
+<td align="right">96</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p>The <em>FDP</em> (democratic liberal party) and the <em>CDU</em> (Christian democratic union) nominate both almost twice as many candidates as there are seats available! The SPD (social democratic party) only has more candidates than seats since it has many replacement candidates. Die PARTEI is a satire party, so I’m not really surprised they show up with too many candidates. <em>ÖDP</em> (ecological democratic party), a small party that isn’t in the Bundestag, also places quite many candidates in the election. Looking them up, I found out the <em>ÖDP</em> does has one seat in the current parliament. I don’t know if there are any other benefits on being on the list if they can’t be elected. Maybe for taxing or employment reason? Or there is some event in which even the list places above 96 could still become elected?</p>
+</div>
+<div id="a-gender-balanced-parliament" class="section level2">
+<h2>A gender-balanced parliament?</h2>
+<p>Right now, about a third of the members of the European Parliament (MEPs) are women. We can check the data on how good the chances are that the new parliament might sport more women (at least on the German seats). Since we’ve seen before that some parties have many more candidates than seats available, it might be misleading to look at all candidates. Instead, it gives a better picture to also look at only the “Spitzenkandidaten”, that is the top candidates:</p>
+<p><img src="/post/2019-05-21-european-election_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>The top candidates have a slightly more equal gender-ratio but nevertheless, the gender ratio in the candidates seems the same as the ratio in the old parliament. However, there are 40 parties and all of them have 5 to 10 top candidates but the top candidates of the big party surely have better chances of entering the parliament. It is thus reasonable to look at the gender ratio for the bigger parties in particular. Since the bigger parties have good chances to get more than the top ten candidates in the parliament, we will look at the whole candidate pool for these parties. Also, I’ve pooled the parties <em>CDU</em> and <em>CSU</em> together for this plot:
+<img src="/post/2019-05-21-european-election_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><em>Die Linke</em>, the left party, has exactly 50% female and male candidates, whereas the Green (<em>GRÜNE</em>) party and the <em>SPD</em> have a very slight female bias. All three parties are classified by Wikipedia as centre-left to left. The other three bigger parties, all classified as conservative by Wikipedia, have a male bias that is especially strong for the <em>FDP</em> and <em>AfD</em>. The <em>AfD</em>, by many considered as far-right, has been described as advocating “old gender roles”, which might contribute to their poor gender ratio. Personally, I didn’t expect <em>FDP</em> to do so poorly as well. I expected them to be more on the same line as <em>CDU/CSU</em>, around 40% of females.</p>
+<p>Having seen the gender ratio of the six main parties, it would be interesting to check which parties show the most extreme gender ratio. I classified gender ratios as extreme if they were above 75% or below 25%.</p>
+<p><img src="/post/2019-05-21-european-election_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>The feminist party <em>DIE FRAUEN</em> has only female candidates but this isn’t really surprising given their name. The only other party with a rather extreme female bias is the animal protection party <em>TIERSCHUTZ hier!</em>. The list of parties with an extreme male bias is comparable long: 15 parties, so more than a third of all parties on the ballot, have less than 25% female candidates. There are the parties <em>III. Weg</em>, <em>AfD</em> and <em>DIE RECHTE</em> (all described as right-leaning or even far-right by Wikipedia). Interestingly, the party <em>NPD</em>, by Wikipedia considered to be far-right and ultranationalist, is not listed here and thus has a better gender ratio than for example the <em>FDP</em>. The list further includes some other small conservative parties such as <em>ÖDP</em>, <em>BP</em> (Bavaria party) and <em>Bündnis C</em> (Christian party). I found especially curious the family party <em>FAMILIE</em>: no female candidates, draw your own conclusion what image they have of a family. The parties <em>SGP</em> (socialist equality party) and <em>BIG</em> (party for innovation and equity/fairness) have equality or equity in their name but it doesn’t seem to apply to gender equality.
+The internet party <em>PIRATEN</em> and <em>DIE HUMANISTEN</em> (the humanist party) are both described by Wikipedia as progressive but still seem to be rather male based so this is not just an issue of conservative or right parties.</p>
+</div>
+<div id="what-professional-background-do-the-candidates-have" class="section level2">
+<h2>What professional background do the candidates have?</h2>
+<p>The data provides the title (doctor or professor title) of each candidate so we can easily check which party has the highest percentage of candidates with a doctorate:
+<img src="/post/2019-05-21-european-election_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>The <em>AfD</em> has with 50% the highest percentage of doctorates among the candidates, followed by the party <em>LKR</em> (liberal conservative reformers), which is actually a split from the <em>AfD</em>. Overall, 8.5% of all candidates have a doctoral degree, while in the general population only about 8% have even any university degree and only 1% have a doctoral degree.</p>
+<p>While the data also provides the job title for each candidate, they’re not standardized so it would be more difficult to analyze. Luckily, on top of the job title, the data also provides us with a job key which indicates the professional area in which the candidate is working. It took me a while to find a mapping from the job index number to a description but eventually found one provided by the stats department of the <a href="https://statistik.arbeitsagentur.de/Statischer-Content/Grundlagen/Klassifikation-der-Berufe/KldB2010/Systematik-Verzeichnisse/Generische-Publikationen/Systematisches-Verzeichnis-Berufsbenennung.xls">Arbeitsamt</a>.</p>
+<p><img src="/post/2019-05-21-european-election_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>About one-third of candidates work in Business Management and Administration which makes the single largest area of employment. One thing to note here is that the job key doesn’t provide information if someone works as a CEO or low-level employee, it really only gives the area. An interesting fact: Students is the sixth largest group, closely followed by pensioners, both of which are groups I personally didn’t expect to be that well represented in the candidate pool.</p>
+</div>
+<div id="generation-change" class="section level2">
+<h2>Generation change</h2>
+<p>There are a few cliches out there regarding politics and age: Young people don’t care about politics or that politicians are always old people. While this data set is not the right one to answer how much truth there is to these stereotypes, we can check how the age distribution is for the candidates:
+<img src="/post/2019-05-21-european-election_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>Interestingly, the age distribution is bi-modal, that is, we have a peak at 30 years old and one at 55 years old. Of course, not all candidates are elected into the parliament and most likely rookie candidates are more often delegated to later places in the list. So we shouldn’t expect the elected parliament to have a similar age distribution. But this figure is at least an indicator that young people (if you consider people around 25 still young) are interested and especially also active in politics.</p>
+<p><img src="/post/2019-05-21-european-election_files/figure-html/unnamed-chunk-12-1.png" width="1750" height="7cm" /></p>
+<p>The party <em>Volksabstimmung</em> (Democracy by referendum, Wikipedia says they used to be far-right) has a median age of 65 years, meaning most of its candidates are older than this. It is even older than the party <em>Graue Panther</em>, a party for pensioners. On the other side is the party <em>DIE DIREKTE</em> that similarly to the party <em>Volksabstimmung</em> supports direct democracy (Wikipedia knows of no far-right history though) with a median age of 25. The latter party originated from a student initiative and almost all its candidates are students. Surprisingly, the conservative <em>CSU</em> party has a median age that places it in the younger parties, only a bit older than the new pan-European party <em>Volt</em>.</p>
+</div>
+<div id="where-do-they-come-from" class="section level2">
+<h2>Where do they come from?</h2>
+<p>The data also provides us with the birthplace for each candidate which gives us the opportunity to check how many candidates were born in a country other than Germany. Unfortunately, the birthplace column only names the city but not the country. To obtain the country, I used the Google Geocoding API. Only three cities could not be identified by Google’s API which was easy to code by hand.</p>
+<p>Not very surprisingly, most candidates were born in Germany:</p>
+<pre class="r"><code>df &lt;- df %&gt;%
+  left_join(country_mapping, by=c(&quot;Geburtsort&quot;=&quot;city&quot;)) 
+
+df%&gt;%
+  mutate(country=fct_infreq(country) %&gt;% 
+           fct_lump(n=5)) %&gt;%
+  count(country) %&gt;%
+  kable</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">country</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Germany</td>
+<td align="right">1255</td>
+</tr>
+<tr class="even">
+<td align="left">Turkey</td>
+<td align="right">27</td>
+</tr>
+<tr class="odd">
+<td align="left">Poland</td>
+<td align="right">12</td>
+</tr>
+<tr class="even">
+<td align="left">Russia</td>
+<td align="right">11</td>
+</tr>
+<tr class="odd">
+<td align="left">France</td>
+<td align="right">7</td>
+</tr>
+<tr class="even">
+<td align="left">Other</td>
+<td align="right">68</td>
+</tr>
+</tbody>
+</table>
+<p>Next in line are the countries with the biggest immigrant population in Germany: Turkey, Poland and Russia. For a better comparison, I excluded Germany as country of origin from the following plot:
+<img src="/post/2019-05-21-european-election_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p>Now, are some parties more diverse (in terms of birthplaces of their candidates) than others or are they relatively equally distributed over the parties?
+Let’s compare the parties by the number of distinct birth countries. To make the comparison equal, I restrict to only the top candidates and also restrict the <em>CDU</em> to their top candidates in Berlin. This ensures that each party is represented by at most 10 candidates in this comparison:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">party</th>
+<th align="left">percentage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">BIG</td>
+<td align="left">60.0%</td>
+</tr>
+<tr class="even">
+<td align="left">DiEM25</td>
+<td align="left">60.0%</td>
+</tr>
+<tr class="odd">
+<td align="left">DIE FRAUEN</td>
+<td align="left">40.0%</td>
+</tr>
+<tr class="even">
+<td align="left">SGP</td>
+<td align="left">40.0%</td>
+</tr>
+<tr class="odd">
+<td align="left">DIE LINKE</td>
+<td align="left">30.0%</td>
+</tr>
+<tr class="even">
+<td align="left">MENSCHLICHE WELT</td>
+<td align="left">37.5%</td>
+</tr>
+</tbody>
+</table>
+<p><em>BIG</em> is one of the first parties in Germany founded by Muslims and has a particular focus on migrant politics. It thus comes as no surprise that they have such a high percentage of candidates born outside Germany.</p>
+</div>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
+<p>While this data does not allow to directly analyse political ideology and party positions, some positions shine through in the data about the candidates. Especially for some of the smaller parties whose name I didn’t know before, I now have a better idea of what kind of positions or ideology they might represent. If you’re eligible for voting, I recommend you to check the positions for the parties in more detail. And of course, don’t forget to vote.
+The full code for this analysis (plus data) can be found <a href="https://github.com/corriebar/blogdown_source/blob/master/content/post/2019/2019-05-21-european-election.Rmd">here</a>.</p>
+</div>
+
+    
+    </section>
+
+
+  <aside class="read-next">
+  
+      <a class="read-next-story" style="no-cover" href="/2019/reproducible-data-science/">
+          <section class="post">
+              <h5>Reproducible (Data) Science with Docker and R</h5>
+              
+          </section>
+      </a>
+  
+  
+      <a class="read-next-story prev" style="no-cover" href="/2018/scraping-the-web-or-how-to-find-a-flat/">
+          <section class="post">
+              <h5>Scraping the web or how to find a flat</h5>
+          </section>
+      </a>
+      
+
+</aside>
+
+
+
+  <footer class="post-footer">
+
+
+    
+
+
+
+
+
+
+
+
+
+<section class="author">
+  <h4><a href="/">Corrie</a></h4>
+  
+  <p>Read <a href="/">more posts</a> by this author.</p>
+  
+  <div class="author-meta">
+    
+    
+  </div>
+</section>
+
+
+
+
+    
+<section class="share">
+  <h4>Share this post</h4>
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Analyzing%20the%20European%20Election%3a%20The%20Candidates&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2f2019%2feuropean-election-data-analysis%2f"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+      <span class="hidden">Twitter</span>
+  </a>
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=%2f2019%2feuropean-election-data-analysis%2f"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+      <span class="hidden">Facebook</span>
+  </a>
+  
+  <a class="icon-google-plus" style="font-size: 1.4em" href="https://plus.google.com/share?url=%2f2019%2feuropean-election-data-analysis%2f"
+     onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+      <span class="hidden">Google+</span>
+  </a>
+</section>
+
+
+
+    
+
+<div id="disqus_thread"></div>
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "\/2019\/european-election-data-analysis\/";  
+this.page.identifier = "\/2019\/european-election-data-analysis\/"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://corriebar-github-io.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+
+
+
+  </footer>
+</article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Samples of Thoughts</a> 
+        © Corrie Bartelheimer 2020 &middot; </section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+    
+    
+
+    
+    
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140745376-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+</body>
+</html>
+

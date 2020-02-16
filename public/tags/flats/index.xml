@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>flats on Samples of Thoughts</title>
@@ -6,17 +6,36 @@
     <description>Recent content in flats on Samples of Thoughts</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 03 Oct 2018 00:00:00 +0000</lastBuildDate>
+    <copyright>&amp;copy; Corrie Bartelheimer {year}</copyright>
+    <lastBuildDate>Mon, 24 Feb 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/flats/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>House-Cleaning: Getting rid of outliers (Part 2)</title>
+      <link>/2020/outlier-handling-two/</link>
+      <pubDate>Mon, 24 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/outlier-handling-two/</guid>
+      <description>In the previous post, we tried to clean rental offerings from some outliers. We first just had a look at our data and tried to clean by simply using threshold derived from our own knowledge about flats with minor success. We got slightly better results by using the IQR rule and learned two things: First, the IQR rule works better if our data is normally distributed and, if it’s not, transforming it works wonders.</description>
+    </item>
+    
+    <item>
+      <title>House-Cleaning: Getting rid of outliers (Part 1)</title>
+      <link>/2020/outlier-handling-one/</link>
+      <pubDate>Mon, 17 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/outlier-handling-one/</guid>
+      <description>Working with real-world data presents many challenges that sanitized text book data doesn’t have. One of them is how to handle outlier. Outliers are defined as points that differ significantly from other data points and they are especially common in data obtained through manual input processes. For example, on an online listing site, someone might accidently pressed the zero-key a bit too often and suddenly the small rental flat is as expensive as a palace.</description>
+    </item>
+    
+    <item>
       <title>Scraping the web or how to find a flat</title>
-      <link>/post/scraping-the-web-or-how-to-find-a-flat/</link>
+      <link>/2018/scraping-the-web-or-how-to-find-a-flat/</link>
       <pubDate>Wed, 03 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/scraping-the-web-or-how-to-find-a-flat/</guid>
+      <guid>/2018/scraping-the-web-or-how-to-find-a-flat/</guid>
       <description>Berlin is a great city that used to have the reputation of affordable rents. While for sure other cities are still much more expensive, the rents in Berlin have risen considerably. Or so says everyone of my friends and my colleagues and so does it feel looking at renting listings. I decided to have a look myself at the data to find out if there’s still a secret neighborhood in Berlin resisting the raising prices and who knows, maybe the data can even tell us if the neighborhood Wedding is indeed “coming”.</description>
     </item>
     

@@ -1,153 +1,154 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
     <loc>/categories/</loc>
-    <lastmod>2019-11-18T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+    <lastmod>2020-02-24T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/conference-time-predictive-analytics-world-2019/</loc>
-    <lastmod>2019-11-18T00:00:00+00:00</lastmod>
+    <loc>/tags/flats/</loc>
+    <lastmod>2020-02-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2020/outlier-handling-two/</loc>
+    <lastmod>2020-02-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/outlier-detection/</loc>
+    <lastmod>2020-02-24T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2019-11-18T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+    <lastmod>2020-02-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/python/</loc>
+    <lastmod>2020-02-24T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/</loc>
-    <lastmod>2019-11-18T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+    <lastmod>2020-02-24T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/</loc>
-    <lastmod>2019-11-18T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+    <lastmod>2020-02-24T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/categories/conference/</loc>
-    <lastmod>2019-11-18T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+    <loc>/2020/outlier-handling-one/</loc>
+    <lastmod>2020-02-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/conference/</loc>
     <lastmod>2019-11-18T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/conference/</loc>
+    <lastmod>2019-11-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2019/conference-time-predictive-analytics-world-2019/</loc>
+    <lastmod>2019-11-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/predictive-analytics/</loc>
     <lastmod>2019-11-18T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/categories/r/</loc>
-    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/r/</loc>
-    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/post/reproducible-data-science/</loc>
-    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/docker/</loc>
     <lastmod>2019-06-17T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/r/</loc>
+    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/r/</loc>
+    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/reproducibility/</loc>
     <lastmod>2019-06-17T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
-    <loc>/post/european-election-data-analysis/</loc>
+    <loc>/2019/reproducible-data-science/</loc>
+    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2019/european-election-data-analysis/</loc>
     <lastmod>2019-05-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/election/</loc>
     <lastmod>2019-05-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>/tags/european-election-2019/</loc>
     <lastmod>2019-05-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>/tags/berlin/</loc>
     <lastmod>2018-10-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/post/scraping-the-web-or-how-to-find-a-flat/</loc>
-    <lastmod>2018-10-03T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/flats/</loc>
-    <lastmod>2018-10-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>/tags/scraping/</loc>
     <lastmod>2018-10-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
-    <loc>/post/how-to-make-a-website-using-blogdown-and-github/</loc>
-    <lastmod>2018-05-13T00:00:00+00:00</lastmod>
+    <loc>/2018/scraping-the-web-or-how-to-find-a-flat/</loc>
+    <lastmod>2018-10-03T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/blogdown/</loc>
     <lastmod>2018-05-13T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>/tags/github/</loc>
     <lastmod>2018-05-13T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
-    <loc>/post/my-first-post/</loc>
-    <lastmod>2018-05-11T00:00:00+00:00</lastmod>
+    <loc>/2018/how-to-make-a-website-using-blogdown-and-github/</loc>
+    <lastmod>2018-05-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/hello-world/</loc>
     <lastmod>2018-05-11T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
-    <loc>/post/2019-11-18-conference-time-predictive-analytics-world-2019/</loc>
+    <loc>/2018/my-first-post/</loc>
+    <lastmod>2018-05-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/1/</loc>
     <priority>0</priority>
   </url>
   

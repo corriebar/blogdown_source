@@ -1,0 +1,31 @@
+---
+title: "Altair"
+author: "Corrie"
+date: "October 5, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment=NA)
+library(reticulate)
+use_python("/home/corrie/anaconda3/bin/python")
+```
+
+```{python}
+import numpy as np
+import pandas as pd
+
+df = pd.read_csv("~/.kaggle/datasets/zynicide/wine-reviews/winemag-data_first150k.csv")
+df = df.drop('Unnamed: 0', axis=1)
+print(df.head())
+```
+
+```{python}
+import altair as alt
+alt.Chart(df).mark_bar().encode(
+  alt.X("price:Q", bin=True),
+  y="count()",
+  row="variety"
+)
+```
+

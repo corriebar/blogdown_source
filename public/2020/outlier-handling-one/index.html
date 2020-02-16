@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    
+        
+        <meta name="twitter:card" content="summary_large_image"/>
+        <meta name="twitter:image" content="/images/tea_with_books.jpg"/>
+    
+
+
+
+<meta name="twitter:title" content="House-Cleaning: Getting rid of outliers (Part 1)"/>
+<meta name="twitter:description" content=""/>
+<meta name="twitter:site" content="@corrieaar"/>
+
+
+
+  	<meta property="og:title" content="House-Cleaning: Getting rid of outliers (Part 1) &middot; Samples of Thoughts" />
+  	<meta property="og:site_name" content="Samples of Thoughts" />
+  	<meta property="og:url" content="/2020/outlier-handling-one/" />
+
+    
+       <meta property="og:image" content="/images/tea_with_books.jpg"/>
+    
+    
+    <meta property="og:description" content="" />
+  	<meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2020-02-17T00:00:00Z" />
+
+    
+    <meta property="article:tag" content="Outlier Detection" />
+    
+    <meta property="article:tag" content="flats" />
+    
+    
+
+    <title>House-Cleaning: Getting rid of outliers (Part 1) &middot; Samples of Thoughts</title>
+
+    
+    <meta name="description" content="Working with real-world data presents many challenges that sanitized text book data doesn’t have. One of them is how to handle outlier. Outliers are defined as " />
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/css/nav.css" />
+
+    
+
+    
+
+    
+      
+          <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Samples of Thoughts" />
+      
+      
+    
+    <meta name="generator" content="Hugo 0.63.1" />
+
+    <link rel="canonical" href="/2020/outlier-handling-one/" />
+
+    
+      
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name":  null 
+    },
+    "author": {
+        "@type": "Person",
+        "name":  null ,
+        
+        "url":  null ,
+        "sameAs": [
+            
+            
+             
+             
+             
+             
+             
+            
+        ]
+    },
+    "headline": "House-Cleaning: Getting rid of outliers (Part 1)",
+    "name": "House-Cleaning: Getting rid of outliers (Part 1)",
+    "wordCount":  1559 ,
+    "timeRequired": "PT8M",
+    "inLanguage": {
+      "@type": "Language",
+      "alternateName": "en"
+    },
+    "url": "/2020/outlier-handling-one/",
+    "datePublished": "2020-02-17T00:00Z",
+    "dateModified": "2020-02-17T00:00Z",
+    
+    "image": {
+        "@type": "ImageObject",
+        "url": "/images/tea_with_books.jpg",
+        "width": 3000,
+        "height": 1445
+    },
+    
+    "keywords": "Outlier Detection, flats",
+    "description": "",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/2020/outlier-handling-one/"
+    }
+}
+    </script>
+    
+
+
+    
+
+    
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140745376-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+
+    
+    
+    
+
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+<script>
+  window.addEventListener("load", function(){
+    window.cookieconsent.initialise({
+      "palette": {
+        "popup": {
+          "background": "#40485A",
+          "text": "#ffffff"
+        },
+        "button": {
+          "background": "#5B5A68",
+          "text": "#ffffff"
+        }
+      },
+      "content": {
+        "message": "This website uses cookies to ensure you get the best experience on my website.",
+        "dismiss": "Got it!",
+        "link": "Learn more",
+        "href": "https://cookies.insites.com"
+      }
+    })});
+</script>
+
+
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+    </ul>
+
+    
+    <a class="subscribe-button icon-feed" href="/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+<link rel="stylesheet" href="/css/googlecode.css" rel="stylesheet" id="theme-stylesheet">
+<script src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+ <header class="main-header post-head" style="background-image: url(/images/tea_with_books.jpg)"> 
+  
+  <nav class="main-nav overlay clearfix">
+
+
+
+      <ul>
+       <li> <a class="blog-logo" href="/">Home</a> </li>
+        <li> <a class="blog-logo" href="/about">About</a> </li>
+
+            
+              <a class="menu-button icon-feed" href="">&nbsp;&nbsp;Subscribe</a>
+            
+            
+      
+       </ul>
+    </nav>
+    
+     <div class="vertical">
+        <div class="main-header-content inner">
+            
+
+
+    <a class="bloglogo" href="https://github.com/corriebar" target="_blank">
+    <span class="icon-github" style="color:white;font-size:2em"></span>
+    </a>
+&nbsp;
+
+
+
+
+
+
+
+
+
+    <a class="bloglogo" href="https://twitter.com/corrieaar" target="_blank">
+        <span class="icon-twitter" style="color:white;font-size:2em"></span>
+    </a>
+&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <h1 class="page-title">Samples of Thoughts</h1>
+            <h2 class="page-description">about data, statistics  and everything in between</h2>
+        </div>
+    </div>  
+    
+
+
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post post">
+
+    <header class="post-header">
+        <h1 class="post-title">House-Cleaning: Getting rid of outliers (Part 1)</h1>
+        <small></small>
+
+        <section class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 8 min</span>
+            </p>
+        
+        
+          <time class="post-date" datetime="2020-02-17T00:00:00Z">
+            Feb 17, 2020
+          </time>
+        
+        
+         
+          <span class="post-tag small"><a href="/tags/outlier-detection/">#Outlier Detection</a></span>
+         
+          <span class="post-tag small"><a href="/tags/flats/">#flats</a></span>
+         
+        </section>
+    </header>
+
+    <section class="post-content">
+      
+
+
+<p>Working with real-world data presents many challenges that sanitized text book data doesn’t have. One of them is how to handle outlier. Outliers are defined as points that differ significantly from other data points and they are especially common in data obtained through manual input processes. <br>
+For example, on an online listing site, someone might accidently pressed the zero-key a bit too often and suddenly the small rental flat is as expensive as a palace. While it is obvious in this example that the recorded data does not represent the real world, other outliers can be more tricky. What is for example with the old villa in a small town offered for 1€? It might be one of these run-down houses in a dying town and thus could be the actual offering price.</p>
+<p>Very roughly we can say that there are two categories of outliers:</p>
+<ul>
+<li>Outliers that don’t represent a real observation, but instead result from an error or mistake. I’ll call them “proper outlier”.</li>
+<li>Outliers that do represent a real observation, but look extremely different compared to other data. I’ll call them “improper outlier”.</li>
+</ul>
+<p>Deciding which type of outlier one is dealing with can be difficult and one usually needs to check the context. Ideally, you’ll only want to discard “proper outliers” and keep the improper ones. However, both types of outlier can be problematic for any subsequent analysis or modelling. In this post, I will mostly focus on identifying outliers in general and won’t talk too much about distinguishing between the two. Nevertheless, I highly recommend you to always check what type of outlier you’re dealing with and to determine the cause of the outlier.
+But now let’s talk about how to identify outliers.</p>
+<p>A year ago, I <a href="/2018/scraping-the-web-or-how-to-find-a-flat">scraped</a> some <a href="https://www.kaggle.com/corrieaar/apartment-rental-offers-in-germany">rental offers</a> and except for throwing away some duplicates, this is still very much the raw data and thus still has a bunch of outliers.</p>
+<p>This can most easily be seen when we try to plot it. Let’s look at the total rent versus the living space:</p>
+<pre class="python"><code>fig, ax = plt.subplots(dpi=80)
+sc = ax.scatter(d[&quot;livingSpace&quot;],d[&quot;totalRent&quot;], s=6, alpha=0.6)</code></pre>
+<p><img src="/post/2020/2020-02-17-outlier-handling-1_files/figure-html/unnamed-chunk-6-1.png" /><!-- --></p>
+<p>Does this plot remind you of all the times you wanted to have a quick look at your data, see if there’s any interesting pattern or some insight to be gained just to then be reminded of the fact that your data is still dirty? It definitely does for me. <br>
+There are some flats that are larger than 10,000 sqm which, according to <a href="https://www.bluebulbprojects.com/MeasureOfThings/results.php?comp=area&amp;unit=m2&amp;amt=10000&amp;sort=pr&amp;p=1">the Measure of Things</a> is twice as big as Bill Gate’s home. And that place with a rent of 10 million? Doesn’t look right.</p>
+<p>One way to get a nicer plot (and discard some outliers), is to just eyeball the axes, use whatever knowledge you have about rents and flats and pick some threshold above or below you’ll discard the data:</p>
+<pre class="python"><code>too_large = d[&quot;livingSpace&quot;] &gt; 2000
+too_expensive = d[&quot;totalRent&quot;] &gt; 1e5
+alrightish = ~too_large &amp; ~too_expensive
+fig, ax = plt.subplots(dpi=120)
+sc = ax.scatter(d[&quot;livingSpace&quot;][alrightish],
+                d[&quot;totalRent&quot;][alrightish], 
+                    s=6, alpha=0.6)</code></pre>
+<p><img src="/post/2020/2020-02-17-outlier-handling-1_files/figure-html/unnamed-chunk-8-1.png" /><!-- --></p>
+<p>It looks better than before but still not great. One could iteratively try smaller thresholds until the blob in the bottom left covers most of the plot area. That’s a valid way to obtain reasonable thresholds but might not be very feasible if you have more than two variables and it’s also not quite satisfying if you like to automate stuff. <br>
+In this post, I will describe a simple methods to identify outliers:</p>
+<p>The interquartile range rule which you might remember from your statistics classes (that is, if you had some).</p>
+<div id="interquartile-range-rule" class="section level2">
+<h2>Interquartile Range Rule</h2>
+<p><a href="https://en.wikipedia.org/wiki/Quartile">Quartiles</a> are important summary statistics of any continuous data. There are three quartiles, <span class="math inline">\(Q_1\)</span>, <span class="math inline">\(Q_2\)</span> and <span class="math inline">\(Q_3\)</span>, which are the 25th, 50th (the median) and 75th percentiles. The interquartile range <span class="math inline">\(IQR\)</span> is the difference between the first and third quartile:
+<span class="math display">\[IQR = Q_3 - Q_1\]</span>
+The interquartile range thus covers half of the data which is also why they’re used for boxplots: the boxy part is exactly the interquartile range.</p>
+<p>A good rule of thumb is to say that every point above <span class="math inline">\(Q_3 +1.5 IQR\)</span> or below <span class="math inline">\(Q_1 - 1.5 IQR\)</span> is an outlier.
+In python, we can compute this as follows:</p>
+<pre class="python"><code>def iqr(data):
+    &quot;&quot;&quot;compute the interquartile range (excluding nan)&quot;&quot;&quot;
+    return np.nanquantile(data, 0.75) - np.nanquantile(data, 0.25)
+
+def iqr_rule(data, factor=1.5):
+    &quot;&quot;&quot;returns an outlier filter mask using the iqr rule&quot;&quot;&quot;
+    iqr_ = iqr(data)
+    upper_fence = np.nanquantile(data, 0.75) + factor*iqr_
+    lower_fence = np.nanquantile(data, 0.25) - factor*iqr_
+    return (data &lt;= upper_fence) &amp; (data &gt;= lower_fence)</code></pre>
+<p>After applying the IQR rule to both our variables, the plot from above looks like this:</p>
+<pre class="python"><code>alrightish = iqr_rule(d[&quot;livingSpace&quot;]) &amp; iqr_rule(d[&quot;totalRent&quot;])
+fig, ax = plt.subplots(dpi=120)
+sc = ax.scatter(d[&quot;livingSpace&quot;][alrightish],
+                d[&quot;totalRent&quot;][alrightish], 
+                    s=6, alpha=0.6)</code></pre>
+<p><img src="/post/2020/2020-02-17-outlier-handling-1_files/figure-html/unnamed-chunk-11-1.png" /><!-- --></p>
+<p>Nice! The blob now covers the whole plot area and we get a much better view of the largest chunk of the data. <br>
+However, there is a hard, rectangular edge. It looks like we cut off the data too generously and a considereable part of the data has been discarded because they’re either larger than 140sqm or more expensive than 1750€ per month. And while I personally don’t see myself renting a flat this expensive in Berlin, it still sounds like very realistic rents and sizes. For a flat share of three or four people, 2000€ would be a reasonable rent in Berlin.</p>
+<p>To adjust this rule of thumb, we can increase the factor to multiply the IQR. Instead of 1.5, we can use e.g. 2.5:</p>
+<p><img src="/post/2020/2020-02-17-outlier-handling-1_files/figure-html/unnamed-chunk-12-1.png" /><!-- --></p>
+<p>The plot has less data cut-off than before but there’s still a rectangular border. Again, we could just keep on trying higher thresholds until we don’t see the rectangular border anymore but there is problems with this approach. <br>
+First, the method already didn’t detect the flats of size 0 or of zero rent as outliers, increasing the threshold will certainly lead to more false negatives. <br>
+The reason for this lies in the distribution of our data.
+I added the histograms for each margin to get a look at the individual distributions and one can see that the distribution for the rent does not follow a normal distribution but is highly right-skewed. The living space distribution is also slightly right-skewed. <br>
+Furthermore, we know that both rents and living space should only have values strictly above zero so it is probably more reasonable to model both variables assuming a log-normal distribution.</p>
+<p>Let’s look at the whole data again but this time with log-transformed rent and living space:</p>
+<pre class="python"><code>d[&quot;livingSpace_m&quot;] =  np.where(d[&quot;livingSpace&quot;] &lt;= 0, 0.5, d[&quot;livingSpace&quot;])
+d[&quot;totalRent_m&quot;] = np.where(d[&quot;totalRent&quot;] &lt;= 0, 0.5, d[&quot;totalRent&quot;])
+logbins=np.logspace(0,np.log(10e3),500)
+g = sns.jointplot(x=d[&quot;livingSpace_m&quot;],
+                  y=d[&quot;totalRent_m&quot;], 
+                  s=6, alpha=0.6, height=7, 
+                  marginal_kws=dict(bins=logbins)  )</code></pre>
+<p><img src="/post/2020/2020-02-17-outlier-handling-1_files/figure-html/unnamed-chunk-14-1.png" /><!-- --></p>
+<p>Note that this is the same plot as our first one, just in log-scale. So only transforming the data already brought a big improvement.</p>
+<p>Now using the IQR rule on the transformed data, we get the following result:</p>
+<pre class="python"><code>d[&quot;logRent&quot;] = np.log(d[&quot;totalRent_m&quot;])
+d[&quot;logSpace&quot;] = np.log(d[&quot;livingSpace_m&quot;])
+
+fig, ax  = plt.subplots(dpi=120)
+alrightish = iqr_rule_25(d[&quot;logSpace&quot;]) &amp; iqr_rule_25(d[&quot;logRent&quot;])
+d[&quot;outlier&quot;] = np.where(alrightish, &quot;no_outlier&quot;, &quot;outlier&quot;)
+
+scatter = ax.scatter(d[&quot;livingSpace&quot;][alrightish],
+                    d[&quot;totalRent&quot;][alrightish], 
+                    s=6, alpha=0.6)</code></pre>
+<p><img src="/post/2020/2020-02-17-outlier-handling-1_files/figure-html/unnamed-chunk-16-1.png" /><!-- --></p>
+<p>Doesn’t this already look much better? All zero-size and free-rent flats have been correctly detected as outliers while at the same time keeping more of the larger and more expensive flats.
+While this plot is definitely an improvement to above, the rectangular borders are, unfortunately, still there. <br>
+Especially in the bottom left, there’s a hard cut throwing away flats that are too small. The smallest place that is not considered an outlier has a size of 16.97sqm. As often with thresholds, it begs the question why a flat of size 16.97sqm is okay but the flats of size 16.6sqm are not. <br>
+One problem is that the data also contains many shared flats. The size in the offer is then the size of the room but the rent is relatively high for such a small living area since one also pays for common areas in a shared flat.</p>
+<p>To better understand which points where flagged as outliers, let’s also plot all points again with outliers highlighted in red. To be able to see all points at once, I use log-scale again.</p>
+<pre class="python"><code>fig, ax  = plt.subplots(dpi=120)
+sc = ax.scatter(x=d[d.outlier == &quot;outlier&quot;].livingSpace_m, 
+              y=d[d.outlier == &quot;outlier&quot;].totalRent_m, 
+              label=&quot;Outlier&quot;, s=6, c=red, alpha=0.6,)
+
+sc = ax.scatter(x=d[d.outlier == &quot;no_outlier&quot;].livingSpace_m, 
+              y=d[d.outlier == &quot;no_outlier&quot;].totalRent_m,
+              label=&quot;Not Outlier&quot;, s=6, c=blue, alpha=0.6,)</code></pre>
+<p><img src="/post/2020/2020-02-17-outlier-handling-1_files/figure-html/unnamed-chunk-18-1.png" /><!-- --></p>
+<p>In total, around 1500 data points were classified as outliers. This sounds like a lot but is actually less than 1% of the total data.
+We can now see that we not only lose data in the lower left corner but there’s also a hard corner in the upper right. Again, one could increase the factor used in the IQR rule to get rid of the hard corners but this would eventually lead to the same problems as above. <br>
+The problem with the IQR rule is that we apply it separately on each variable. In stats-speak this means we assume that our variables are independent of each other. Visually this means that the cut-off window is always rectangular. <br>
+In this example though, the two variables are highly correlated and a rectangular window is thus not a good fit. Better would be to use an oval cut-off window.
+Such an oval window can for example be obtained by using a multivariate Gaussian distribution. I will describe how we can use multivariate Gaussians, more specifically, Gaussian mixture methods, to detect outliers in the second part of this post. Stay tuned!</p>
+<p><a href="https://github.com/corriebar/blogdown_source/content/post/2020-02-17-outlier-handling-1.ipynb">Link</a> to the jupyter notebook used to make this post.</p>
+</div>
+
+    
+    </section>
+
+
+  <aside class="read-next">
+  
+      <a class="read-next-story" style="no-cover" href="/2020/outlier-handling-two/">
+          <section class="post">
+              <h5>House-Cleaning: Getting rid of outliers (Part 2)</h5>
+              
+          </section>
+      </a>
+  
+  
+      <a class="read-next-story prev" style="no-cover" href="/2019/conference-time-predictive-analytics-world-2019/">
+          <section class="post">
+              <h5>Conference Time: Predictive Analytics World 2019</h5>
+          </section>
+      </a>
+      
+
+</aside>
+
+
+
+  <footer class="post-footer">
+
+
+    
+
+
+
+
+
+
+
+
+
+<section class="author">
+  <h4><a href="/">Corrie</a></h4>
+  
+  <p>Read <a href="/">more posts</a> by this author.</p>
+  
+  <div class="author-meta">
+    
+    
+  </div>
+</section>
+
+
+
+
+    
+<section class="share">
+  <h4>Share this post</h4>
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=House-Cleaning%3a%20Getting%20rid%20of%20outliers%20%28Part%201%29&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2f2020%2foutlier-handling-one%2f"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+      <span class="hidden">Twitter</span>
+  </a>
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=%2f2020%2foutlier-handling-one%2f"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+      <span class="hidden">Facebook</span>
+  </a>
+  
+  <a class="icon-google-plus" style="font-size: 1.4em" href="https://plus.google.com/share?url=%2f2020%2foutlier-handling-one%2f"
+     onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+      <span class="hidden">Google+</span>
+  </a>
+</section>
+
+
+
+    
+
+<div id="disqus_thread"></div>
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "\/2020\/outlier-handling-one\/";  
+this.page.identifier = "\/2020\/outlier-handling-one\/"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://corriebar-github-io.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+
+
+
+  </footer>
+</article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Samples of Thoughts</a> 
+        © Corrie Bartelheimer 2020 &middot; </section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+    
+    
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+    
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140745376-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+</body>
+</html>
+
