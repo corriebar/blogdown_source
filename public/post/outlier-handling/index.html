@@ -95,7 +95,7 @@
     },
     "headline": "House-Cleaning: Getting rid of outliers",
     "name": "House-Cleaning: Getting rid of outliers",
-    "wordCount":  3864 ,
+    "wordCount":  3862 ,
     "timeRequired": "PT19M",
     "inLanguage": {
       "@type": "Language",
@@ -279,10 +279,6 @@ if (!doNotTrack) {
 
         <section class="post-meta">
         
-            <p class="post-reading post-line">
-            <span>Estimated reading time: 19 min</span>
-            </p>
-        
         
           <time class="post-date" datetime="2020-02-15T00:00:00Z">
             Feb 15, 2020
@@ -351,7 +347,7 @@ sc = ax.scatter(d[&quot;livingSpace&quot;][alrightish],d[&quot;totalRent&quot;][
 <p><img src="/post/2020-02-15-outlier-handling_files/figure-html/unnamed-chunk-11-1.png" /><!-- --></p>
 <p>Nice! The blob now covers the whole plot area and we get a much better view of the largest chunk of the data. <br>
 However, there is a hard, rectangular edge. It looks like we cut off the data too generously and a considereable part of the data has been discarded because they’re either larger than 140sqm or more expensive than 1750€ per month. And while I personally wouldn’t rent a flat this expensive, it still sounds like very realistic rents and sizes. If I would have a flat share with three or four friends, 2000€ would be a reasonable rent in Berlin.</p>
-<p>To adjust this rule of thumb, we can increase the factor with which we multiply the IQR. Instead of 1.5, we can use e.g. 2.5:</p>
+<p>To adjust this rule of thumb, we can increase the factor to multiply the IQR. Instead of 1.5, we can use e.g. 2.5:</p>
 <p><img src="/post/2020-02-15-outlier-handling_files/figure-html/unnamed-chunk-12-1.png" /><!-- --></p>
 <p>The plot has less data cut-off than before but there’s still a rectangular border. <br>
 I added the histograms for each margin to get a look at the individual distributions and one can see that the distribution for the rent does not follow a normal distribution but is highly right-skewed. The living space distribution is also slightly right-skewed. <br>

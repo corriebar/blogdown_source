@@ -139,7 +139,7 @@ plt.show()
 Nice! The blob now covers the whole plot area and we get a much better view of the largest chunk of the data. <br>
 However, there is a hard, rectangular edge. It looks like we cut off the data too generously and a considereable part of the data has been discarded because they're either larger than 140sqm or more expensive than 1750€ per month. And while I personally wouldn't rent a flat this expensive, it still sounds like very realistic rents and sizes. If I would have a flat share with three or four friends, 2000€ would be a reasonable rent in Berlin.
 
-To adjust this rule of thumb, we can increase the factor with which we multiply the IQR. Instead of 1.5, we can use e.g. 2.5:
+To adjust this rule of thumb, we can increase the factor to multiply the IQR. Instead of 1.5, we can use e.g. 2.5:
 
 
 ```{python}
