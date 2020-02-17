@@ -28,6 +28,7 @@ comments = true
   #   Show a cookie consent message to visitors
   #   Anonymize IP in Google Analytics (if enabled)
   privacy_pack = true
+  hostName = "https://samples-of-thoughts.com"
   
 [privacy]
   [privacy.googleAnalytics]

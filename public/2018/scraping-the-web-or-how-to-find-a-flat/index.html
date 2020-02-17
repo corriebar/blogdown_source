@@ -101,7 +101,7 @@
     },
     "headline": "Scraping the web or how to find a flat",
     "name": "Scraping the web or how to find a flat",
-    "wordCount":  1730 ,
+    "wordCount":  1727 ,
     "timeRequired": "PT9M",
     "inLanguage": {
       "@type": "Language",
@@ -339,21 +339,19 @@ first_page %&gt;%
   html_nodes(&quot;div&quot;) %&gt;%
   head(2)</code></pre>
 <pre><code>{xml_nodeset (2)}
-[1] &lt;div class=&quot;viewport&quot;&gt;\n    \n\n\n\n\n\n\n\n\n\n&lt;div class=&quot;page-wra ...
-[2] &lt;div class=&quot;page-wrapper page-wrapper--with-ads page-wrapper--no-bor ...</code></pre>
+[1] &lt;div class=&quot;viewport&quot;&gt;\n    \n\n\n\n\n\n\n\n\n\n&lt;div class=&quot;page-wrapper  ...
+[2] &lt;div class=&quot;page-wrapper page-wrapper--with-ads page-wrapper--no-borders  ...</code></pre>
 <p>We’re not actually interested in all divisions but only the one with the ID <code>&quot;pageSelection&quot;</code>. To get this specific node, we use <code>#</code> to denote that it’s an ID. In this division, there is a select node which contains all options. We access the nested nodes as follows:</p>
 <pre class="r"><code>first_page %&gt;%
   html_nodes(&quot;#pageSelection  &gt; select &gt; option&quot;) %&gt;%
   head(2)</code></pre>
-<pre><code>{xml_nodeset (2)}
-[1] &lt;option selected value=&quot;1&quot;&gt;1&lt;/option&gt;\n
-[2] &lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;\n</code></pre>
+<pre><code>{xml_nodeset (0)}</code></pre>
 <p>From this, it is now easy to obtain the last page number. With <code>html_text()</code>, we extract the values for each node as text, which gives us a vector of page numbers. The length of this vector is the number of pages:</p>
 <pre class="r"><code>(last_page_number &lt;- first_page %&gt;%
   html_nodes(&quot;#pageSelection &gt; select &gt; option&quot;) %&gt;%
   html_text() %&gt;%
   length())</code></pre>
-<pre><code>[1] 4830</code></pre>
+<pre><code>[1] 0</code></pre>
 <p>As next step, we generate a list that contains the URLs of each page. At this website, the page number is inserted somewhere in the middle of the URL for which we use the package <code>glue</code>. Glue expressions in curly braces in strings, similar to Pythons f-strings:</p>
 <pre class="r"><code>page_url &lt;- &quot;https://www.immobilienscout24.de/Suche/S-2/P-{pages}/Wohnung-Miete&quot;
 pages &lt;- 1:last_page_number
@@ -363,25 +361,25 @@ page_list &lt;- glue(page_url)</code></pre>
   html_nodes(&quot;#resultListItems &gt; li&quot;) %&gt;%
   head(2)</code></pre>
 <pre><code>{xml_nodeset (2)}
-[1] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;111614736&quot;&gt;&lt;div&gt;&lt;article  ...
-[2] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;111614728&quot;&gt;&lt;div&gt;&lt;article  ...</code></pre>
+[1] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;115913296&quot;&gt;&lt;div&gt;&lt;article data- ...
+[2] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;115913421&quot;&gt;&lt;div&gt;&lt;article data- ...</code></pre>
 <p>We now see that the first item in the list is not actually a listing but a banner. The listings are of the class <code>result-list__listing</code>. To extract only the nodes of a certain class, we give the parameter <code>.class-name</code> to <code>html_nodes()</code>. So to get only the listings, we give the parameter <code>.result-list__listing</code>:</p>
 <pre class="r"><code>first_page %&gt;%
   html_nodes(&quot;.result-list__listing&quot;) %&gt;%
   head(2)</code></pre>
 <pre><code>{xml_nodeset (2)}
-[1] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;111614736&quot;&gt;&lt;div&gt;&lt;article  ...
-[2] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;111614728&quot;&gt;&lt;div&gt;&lt;article  ...</code></pre>
+[1] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;115913296&quot;&gt;&lt;div&gt;&lt;article data- ...
+[2] &lt;li class=&quot;result-list__listing &quot; data-id=&quot;115913421&quot;&gt;&lt;div&gt;&lt;article data- ...</code></pre>
 <p>Perfect, now we have a list of all listings.</p>
 <p>We could now either just scrape the information for each listing that is displayed on the front page (such as total rent, number of rooms etc) or get the link to the listing and scrape the information (with more details) from the full listing. We will do the second option here.</p>
 <p>Looking again at the source code, we find the following <code>&lt;a href=&quot;/expose/123456&quot;&gt;</code>. That means, the link is given as a relative path and has the same form for each listing. The number in the link is also given as <code>data-id</code> as attribute in the <code>&lt;li&gt;</code> node. The attributes of a node are not part of the node content (and hence are not output via <code>html_text()</code>). In <code>rvest</code>, we access attributes using the function <code>xml_attr()</code>.</p>
 <pre class="r"><code>(listing_ids &lt;- first_page %&gt;%
   html_nodes(&quot;.result-list__listing&quot;) %&gt;%
   xml_attr(&quot;data-id&quot;))</code></pre>
-<pre><code> [1] &quot;111614736&quot; &quot;111614728&quot; &quot;111614727&quot; &quot;111614724&quot; &quot;111614721&quot;
- [6] &quot;111614699&quot; &quot;111614332&quot; &quot;111614615&quot; &quot;111614592&quot; &quot;111614589&quot;
-[11] &quot;111614161&quot; &quot;111614526&quot; &quot;111614506&quot; &quot;111614501&quot; &quot;111614500&quot;
-[16] &quot;111614485&quot; &quot;111614195&quot; &quot;111614484&quot; &quot;111614483&quot; &quot;111614472&quot;</code></pre>
+<pre><code> [1] &quot;115913296&quot; &quot;115913421&quot; &quot;115822781&quot; &quot;115875230&quot; &quot;115913255&quot; &quot;115913254&quot;
+ [7] &quot;115913252&quot; &quot;115913251&quot; &quot;115913250&quot; &quot;115913238&quot; &quot;115913240&quot; &quot;115913235&quot;
+[13] &quot;115913228&quot; &quot;115913227&quot; &quot;115913166&quot; &quot;115913226&quot; &quot;115913224&quot; &quot;115913223&quot;
+[19] &quot;115913221&quot; &quot;115913214&quot;</code></pre>
 <p>This gives us all the information we need to create a list of all listing IDs:</p>
 <pre class="r"><code>listing_url &lt;- &quot;https://www.immobilienscout24.de/expose/&quot;
 listing_list &lt;- str_c(listing_url, listing_ids)</code></pre>
@@ -543,20 +541,21 @@ foreach(i = 1:last_page_number) %dopar% {
     
 <section class="share">
   <h4>Share this post</h4>
-  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Scraping%20the%20web%20or%20how%20to%20find%20a%20flat&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2f2018%2fscraping-the-web-or-how-to-find-a-flat%2f"
-      onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Scraping%20the%20web%20or%20how%20to%20find%20a%20flat&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=https%3a%2f%2fsamples-of-thoughts.com%2f2018%2fscraping-the-web-or-how-to-find-a-flat%2f"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=421');return false;">
       <span class="hidden">Twitter</span>
   </a>
-  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=%2f2018%2fscraping-the-web-or-how-to-find-a-flat%2f"
-      onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fsamples-of-thoughts.com%2f2018%2fscraping-the-web-or-how-to-find-a-flat%2f"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=551');return false;">
       <span class="hidden">Facebook</span>
   </a>
-  
-  <a class="icon-google-plus" style="font-size: 1.4em" href="https://plus.google.com/share?url=%2f2018%2fscraping-the-web-or-how-to-find-a-flat%2f"
-     onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
-      <span class="hidden">Google+</span>
-  </a>
+  <a class="icon-linkedin" style="font-size: 1.4em" href="https://www.linkedin.com/shareArticle?mini=true&title=Scraping%20the%20web%20or%20how%20to%20find%20a%20flat&url=https%3a%2f%2fsamples-of-thoughts.com%2f2018%2fscraping-the-web-or-how-to-find-a-flat%2f"
+               onclick="window.open(this.href, 'linkedin-share', 'width=554,height=571');return false;">
+    <span class="hidden">LinkedIn</span>
+    </a>
+
 </section>
+
 
 
 

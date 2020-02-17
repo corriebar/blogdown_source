@@ -13,6 +13,8 @@ comments: yes
 image: images/tea_with_books.jpg
 menu: ''
 share: yes
+aliases:
+  - /post/reproducible-data-science
 ---
 
 

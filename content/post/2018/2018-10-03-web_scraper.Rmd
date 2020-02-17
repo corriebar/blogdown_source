@@ -13,6 +13,8 @@ slug: scraping-the-web-or-how-to-find-a-flat
 comments: yes
 image: images/tea_with_books.jpg
 share: yes
+aliases:
+  - /post/scraping-the-web-or-how-to-find-a-flat
 ---
 
 ```{r setup, include=FALSE}

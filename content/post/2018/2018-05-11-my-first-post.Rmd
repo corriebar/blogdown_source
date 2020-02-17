@@ -9,6 +9,8 @@ tags: ["hello world"]
 comments: yes
 image: 'images/tea_with_books.jpg'
 share: yes
+aliases:
+  - /post/my-first-post
 ---
 Hello World! 
 I'm Corrie and this is my blog where I plan to occasionally write about interesting topics. Interesting topics is of course entirely subjective and for me, machine learning, statistics (in particular the Bayesian flavor), and data science sound very exciting, so most of my posts will touch any of these topics. As a Mathematician by training, I spent quite some time during my studies with differential geometry, topology, and number theory (knots and prime numbers are cool!), so there might be some pieces about these topics as well, maybe in combination with the former topics.

@@ -12,6 +12,8 @@ tags:
 comments: yes
 image: images/tea_with_books.jpg
 share: yes
+aliases:
+  - /post/how-to-make-a-website-using-blogdown-and-github
 ---
 
 ```{r setup, include=FALSE}
