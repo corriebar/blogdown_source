@@ -20,7 +20,7 @@ library(tidyverse)
 use_condaenv("blog")
 ```
 
-In the [previous post](/2020/outlier-handling-one), we tried to clean rental offerings of outliers. We first just had a look at our data and tried to clean by simply using threshold derived from our own knowledge about flats with minor success. We got slightly better results by using the IQR rule and learned two things: First, the IQR rule works better if our data is normally distributed and, if it's not, transforming it works wonders. The second learning was that picking a threshold for each variable (either by hand or through the IQR rule) doesn't work well if our variables are strongly correlated. The IQR rule always forms a rectangular threshold-window over our data where we would be better served with an elliptical window for correlated data. And what math object has an elliptical shape? Right, a multivariate Gaussian.
+In the [previous post](/2020/outlier-handling-one), we tried to clean rental offerings of outliers. We first just had a look at our data and tried to clean by simply using threshold derived from our own knowledge about flats with minor success. We got slightly better results by using the IQR rule and learned two things: First, the IQR rule works better if our data is normally distributed and, if it's not, transforming it can work wonders. The second learning was that picking a threshold for each variable separately (either by hand or through the IQR rule) doesn't work well if our variables are strongly correlated. The IQR rule always forms a rectangular threshold-window over our data where we would be better served with an elliptical window for correlated data. And what math object has an elliptical shape? Right, a multivariate Gaussian.
 
 ```{python}
 import pandas as pd
@@ -368,15 +368,15 @@ The method identifies everything with more than 15 rooms as outlier and cases wi
 
 ## Summary
 
-In general, outlier detection is a hard problem: what constitutes an outlier is often not obvious and can depend on the context. I found it useful to check a few cases by hand and see if I can identify an underlying cause.  
+In general, outlier detection is a hard problem: what constitutes an outlier is often not obvious and can depend on the context. I found it useful to check a few cases by hand and see if I can identify an underlying cause. For this it helps to have as few false positives as possible. 
 
-Sometimes, we can take advantage of domain knowledge and then identify these problematic cases in a more efficient way. For example, this data contained many shared flats with misleading values for the living space. A simple regex might be very efficient to identify these cases. 
+Sometimes, we can take advantage of domain knowledge and then identify problematic cases in a more efficient way. For example, this data contains many shared flats with misleading values for the living space. A simple regex might be very efficient in identifying these cases. 
 
 
 Results improve significantly if variables are transformed appropriately. Both the Gaussian mixture method and the IQR rule assume that the data follow a normal distribution and results are suboptimal if our data does not. <br>
 Of course, other outlier detection methods don't assume normality but they always assume something and it is important to be aware which assumptions are being made and to make sure they are met. 
 
-The assumptions also determine what kind of outliers can be detected. The methods used in this analysis assume normality and then define outliers as points that don't follow normality, i.e. that are far from the center. Thus, they can't detect outliers such as flats built in 1111. There definitely are quite a few real offers in this data built aroud the 10th century but most flats built in 1111 were probably just people being lazy when inputting the construction year.
+The assumptions also determine what kind of outliers can be detected. The methods used in this analysis assume normality and then define outliers as points that don't follow normality, i.e. that are far from the center. Thus, they can't detect outliers such as flats built in 1111 or flats with a living space of 111sqm. There definitely are quite a few real offers in this data built aroud the 10th century but most flats built in 1111 were probably just people being lazy when inputting the construction year.
 
 
 [Link](https://github.com/corriebar/blogdown_source/content/post/2020/2020-02-24-outlier-handling-2.ipynb) to the jupyter notebook used to make this blogpost.
