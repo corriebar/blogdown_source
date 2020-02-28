@@ -250,4 +250,4 @@ In this example though, the two variables are highly correlated and a rectangula
 Such an oval window can for example be obtained by using a multivariate Gaussian distribution. I will describe how we can use multivariate Gaussians, more specifically, Gaussian mixture methods, to detect outliers in the second part of this post. Stay tuned!
 
 
-[Link](https://github.com/corriebar/blogdown_source/content/post/2020-02-17-outlier-handling-1.ipynb) to the jupyter notebook used to make this post.
+[Link](https://github.com/corriebar/blogdown_source/blob/master/content/post/2020/2020-02-17-outlier-handling-1.ipynb) to the jupyter notebook used to make this post.
