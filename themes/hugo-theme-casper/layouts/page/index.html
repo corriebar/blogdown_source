@@ -12,11 +12,9 @@
 
     <nav class="main-nav overlay clearfix">
       <ul>
-            {{ if .Site.Params.RSSLink}}
-              <a class="menu-button icon-feed" href="{{.Site.Params.RSSLink }}">&nbsp;&nbsp;Subscribe</a>
-            {{else}}
-              <a class="menu-button icon-feed" href="{{ .RSSLink }}">&nbsp;&nbsp;Subscribe</a>
-            {{end}}
+        {{ range .Site.Menus.main }}
+			<li> <a class="blog-logo" href="{{ .URL }}">{{ .Name }}</a> </li>
+			  {{ end }}
 
             {{ if .Site.Params.RSSLink}}
               <a class="menu-button icon-feed" href="{{.Site.Params.RSSLink }}">&nbsp;&nbsp;Subscribe</a>
