@@ -39,3 +39,19 @@ comments = true
     
 [permalinks]
     post = "/:year/:slug/"
+    
+# Nav.
+[[menu.main]]
+name = "Home"
+url = "/"
+weight = 1
+
+[[menu.main]]
+name = "About"
+url = "/about"
+weight = 2
+
+[[menu.main]]
+name = "Talks"
+url = "/talks"
+weight = 3
