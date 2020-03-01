@@ -14,9 +14,9 @@
 
 
       <ul>
-       <li> <a class="blog-logo" href="{{.Site.BaseURL}}">Home</a> </li>
-        <li> <a class="blog-logo" href="{{ .Site.BaseURL }}about">About</a> </li>
-        <li> <a class="blog-logo" href="{{ .Site.BaseURL }}talks">Talks</a> </li>
+        {{ range .Site.Menus.main }}
+			<li> <a class="blog-logo" href="{{ .URL }}">{{ .Name }}</a> </li>
+			  {{ end }}
 
             {{ if .Site.Params.RSSLink}}
               <a class="menu-button icon-feed" href="{{.Site.Params.RSSLink }}">&nbsp;&nbsp;Subscribe</a>
