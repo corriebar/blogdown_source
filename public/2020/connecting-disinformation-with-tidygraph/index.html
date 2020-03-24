@@ -39,6 +39,10 @@
     
     <meta property="article:tag" content="disinfo" />
     
+    <meta property="article:tag" content="tidygraph" />
+    
+    <meta property="article:tag" content="ggraph" />
+    
     
 
     <title>Connecting Disinformation with tidygraph &middot; Samples of Thoughts</title>
@@ -105,8 +109,8 @@
     },
     "headline": "Connecting Disinformation with tidygraph",
     "name": "Connecting Disinformation with tidygraph",
-    "wordCount":  2362 ,
-    "timeRequired": "PT12M",
+    "wordCount":  2321 ,
+    "timeRequired": "PT11M",
     "inLanguage": {
       "@type": "Language",
       "alternateName": "en"
@@ -122,7 +126,7 @@
         "height": 1445
     },
     
-    "keywords": "R, networks, disinfo",
+    "keywords": "R, networks, disinfo, tidygraph, ggraph",
     "description": "",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -309,7 +313,7 @@ if (!doNotTrack) {
         <section class="post-meta">
         
             <p class="post-reading post-line">
-            <span>Estimated reading time: 12 min</span>
+            <span>Estimated reading time: 11 min</span>
             </p>
         
         
@@ -325,6 +329,10 @@ if (!doNotTrack) {
          
           <span class="post-tag small"><a href="/tags/disinfo/">#disinfo</a></span>
          
+          <span class="post-tag small"><a href="/tags/tidygraph/">#tidygraph</a></span>
+         
+          <span class="post-tag small"><a href="/tags/ggraph/">#ggraph</a></span>
+         
         </section>
     </header>
 
@@ -336,7 +344,7 @@ if (!doNotTrack) {
 <script src="/rmarkdown-libs/forceNetwork-binding/forceNetwork.js"></script>
 
 
-<p>I recently participated in a hackathon organised by EU’s anti-disinformation task force where they gave us access to their data base. The data base consists of all disinformation cases the group has collected since it started in 2015 and they can also be browsed online on their web page: <a href="https://euvsdisinfo.eu">www.euvsdisinfo.eu</a>. I built a small <a href="https://github.com/corriebar/euvsdisinfoR">R package</a> that makes it easier to download the data from their API (it seems though that the API is currently not updated as regularly as their web page). The data contains more than 7000 cases of disinformation, mostly news articles and videos, that were collected and debunked by the EUvsDisinfo project. Their API does not contain the articles or videos themselves but only an URL to where the piece originally appeared together with a short summary of the claim made, why it’s not true, and some other meta data, such as language and countries targeted. So I went ahead and scraped the original articles, both the raw html and just a text version, extracted from the html. For this, I used the Python package <a href="https://github.com/codelucas/newspaper/">newspaper</a> which allows to easily extract just the article text from an html. I checked a few samples by hand and it seems to do reasonably well even for non-English articles which is important since many of the articles are e.g. in Russian. If you want to play with the data yourself, it’s all uploaded on <a href="https://www.kaggle.com/corrieaar/disinformation-articles">kaggle</a>. For this post, I use both the html-files and the csv-file containing the meta data.</p>
+<p>I recently participated in a hackathon organised by EU’s anti-disinformation task force where they gave us access to their data base. The data base consists of all disinformation cases the group has collected since it started in 2015. Their data can also be browsed online on their web page <a href="https://euvsdisinfo.eu">www.euvsdisinfo.eu</a>. I built a small <a href="https://github.com/corriebar/euvsdisinfoR">R package</a> that makes it easier to download the data from their API (it seems though that the API is currently not updated as regularly as their web page) if you want to check out the data yourself. The data contains more than 7000 cases of disinformation, mostly news articles and videos, that were collected and debunked by the EUvsDisinfo project. Their data does not contain the articles or videos themselves but only an URL to where the piece originally appeared together with a short summary of the claim made, why it’s not true, and some other meta data, such as language and countries targeted. So I went ahead and scraped the original articles, both the raw html and just a text version, extracted from the html. If you want to play with the data yourself, it’s all uploaded on <a href="https://www.kaggle.com/corrieaar/disinformation-articles">kaggle</a>. For this post, I use both the html-files and the csv-file containing the meta data.</p>
 <p>When I was scraping and checking the data, I saw some Google Analytics IDs which made me wonder if it might be possible to use analytics IDs to identify connections between different disinformation outlets. Some Outlets, such as Sputnik, have multiple outlets for different countries (there are 30 different outlets in the data with “sputnik” in the name). Others might be run by the same organization without disclosing this. Now, I don’t expect to find many of these, after all, it seems like a rather lazy mistake that is easy to avoid but even finding only a handful connections could be useful. And it also sounds like a nice opportunity to try out some R network packages.</p>
 <div id="preparing-the-data" class="section level2">
 <h2>Preparing the data</h2>

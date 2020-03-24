@@ -22,6 +22,15 @@
     </item>
     
     <item>
+      <title>ggraph</title>
+      <link>/tags/ggraph/</link>
+      <pubDate>Wed, 25 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/ggraph/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>networks</title>
       <link>/tags/networks/</link>
       <pubDate>Wed, 25 Mar 2020 00:00:00 +0000</pubDate>
@@ -36,6 +45,15 @@
       <pubDate>Wed, 25 Mar 2020 00:00:00 +0000</pubDate>
       
       <guid>/tags/r/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tidygraph</title>
+      <link>/tags/tidygraph/</link>
+      <pubDate>Wed, 25 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/tidygraph/</guid>
       <description></description>
     </item>
     
