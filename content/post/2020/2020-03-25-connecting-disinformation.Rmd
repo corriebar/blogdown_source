@@ -1,7 +1,7 @@
 ---
 title: Connecting Disinformation with tidygraph
 author: Corrie
-date: '2020-03-20'
+date: '2020-03-25'
 slug: connecting-disinformation-with-tidygraph
 categories:
   - R
@@ -372,9 +372,7 @@ org_graph %>%
 For the degree computation I only counted one edge between two nodes, that is if two nodes are connected by different ID types, it still only counts as one edge. Normalizing the degree by component size still shows a much higer average degree for the Sputnik network.
 
 ## Interactive networks
-Ideally, to further analyze the network it would be great to have some kind of interactivity where we could at least hover over the nodes to get the organization names. The easiest solution to this would be using plotly on top of the ggplot I already made but unfortunately there is no support yet for the ggraph geoms in plotly. Instead, we can use the package `networkD3` which creates a D3 network graph. The resulting graphs look very pretty but unfortunately the package is a more restricted in its option than ggraph. For example, multi-edges are not possible and coloring edges can only be done manually and I haven't found a way to get a legend for the manually colored edges.
-
-
+Ideally, to further analyze the network it would be great to have some kind of interactivity where we could at least hover over the nodes to get the organization names. The easiest solution to this would be using plotly on top of the ggplot I already made but unfortunately there is no support yet for the ggraph geoms in plotly. Instead, we can use the package `networkD3` which creates a D3 network graph. The resulting graphs look very pretty but unfortunately the package is a more restricted in its option than ggraph. For example, multi-edges are not possible and coloring edges can only be done manually and I haven't found a way to get a legend for the manually colored edges. The color scheme is the same as above so except for the missing multi-edges it is the same plot as above.
 
 
 ```{r}
@@ -397,4 +395,4 @@ forceNetwork(Links = as.data.frame(edges_d3), Nodes = as.data.frame(nodes_d3),
              height=700, width = 900, opacityNoHover = 0)
 ```
 
-
+The full code for this post can be found [here](https://github.com/corriebar/blogdown_source/blob/master/content/post/2020/2020-03-25-connecting-disinformation.Rmd).
