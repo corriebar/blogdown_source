@@ -34,7 +34,7 @@ html_files <- html_files[str_ends(html_files, ".html")]
 
 ```
 
-I recently participated in a hackathon organised by EU's anti-disinformation task force where they gave us access to their data base. The data base consists of all disinformation cases the group has collected since it started in 2015 and they can also be browsed online on their web page: [www.euvsdisinfo.eu](https://euvsdisinfo.eu). I built a small [R package](https://github.com/corriebar/euvsdisinfoR) that makes it easier to download the data from their API (it seems though as if the API is currently not updated as regularly as their web page). The data contains more than 7000 cases of disinformation, mostly news articles and videos, that were collected and debunked by the EUvsDisinfo project. Their API does not contain the articles or videos themselves but only an URL to where the piece originally appeared together with a short summary of the claim made, why it's not true, and some other meta data, such as language and countries targeted. So I went ahead and scraped the original articles, both the raw html and just a text version, extracted from the html. For this, I used the Python package [newspaper](https://github.com/codelucas/newspaper/) which allows to easily extract just the article text from an html. I checked a few samples by hand and it seems to do reasonably well even for non-English articles which is important since many of the articles are e.g. in Russian. If you want to play with the data yourself, it's all uploaded on [kaggle](https://www.kaggle.com/corrieaar/disinformation-articles). For this post, I use both the html-files and the csv-file containing the meta data.
+I recently participated in a hackathon organised by EU's anti-disinformation task force where they gave us access to their data base. The data base consists of all disinformation cases the group has collected since it started in 2015 and they can also be browsed online on their web page: [www.euvsdisinfo.eu](https://euvsdisinfo.eu). I built a small [R package](https://github.com/corriebar/euvsdisinfoR) that makes it easier to download the data from their API (it seems though that the API is currently not updated as regularly as their web page). The data contains more than 7000 cases of disinformation, mostly news articles and videos, that were collected and debunked by the EUvsDisinfo project. Their API does not contain the articles or videos themselves but only an URL to where the piece originally appeared together with a short summary of the claim made, why it's not true, and some other meta data, such as language and countries targeted. So I went ahead and scraped the original articles, both the raw html and just a text version, extracted from the html. For this, I used the Python package [newspaper](https://github.com/codelucas/newspaper/) which allows to easily extract just the article text from an html. I checked a few samples by hand and it seems to do reasonably well even for non-English articles which is important since many of the articles are e.g. in Russian. If you want to play with the data yourself, it's all uploaded on [kaggle](https://www.kaggle.com/corrieaar/disinformation-articles). For this post, I use both the html-files and the csv-file containing the meta data.
 
 When I was scraping and checking the data, I saw some Google Analytics IDs which made me wonder if it might be possible to use analytics IDs to identify connections between different disinformation outlets. Some Outlets, such as Sputnik, have multiple outlets for different countries (there are 30 different outlets in the data with "sputnik" in the name). Others might be run by the same organization without disclosing this. Now, I don't expect to find many of these, after all, it seems like a rather lazy mistake that is easy to avoid but even finding only a handful connections could be useful. And it also sounds like a nice opportunity to try out some R network packages.
 
@@ -56,7 +56,7 @@ First, we'll need to get the analytic IDs from the html. Luckily, the analytics 
 ```
 ga('create', 'UA-XXXXX-Y', 'auto');
 ```
-where `UA-XXXXX-Y` is the ID we want. One account can have multiple IDs associated with it which then get counted up in the `Y` part, so we're really only interested in the `XXXXX` part. To extract this part, I'm using the function `str_extract_all` from the stringr package and some elaborate Regex. I won't go into the details of the Regex but my approach was to basicllay paste the html text to [regex101.com](https://regex101.com/) and used some trial-and-error until I got the results I wanted (btw `clipr::write_clip(htmltext)` is a handy function to copy-paste the html text to the clipboard). One thing to take into account when using regex101.com is that in R we need to escape any backslashs. That is, if on regex101.com we use `\(` to match `(`, we need to escape the slash in R and write `\\(`. To match `\` we would write `\\` in regex101.com and have to doubly escape the slashes in R: `\\\\` matches one `\` in R. The function to extract the Google Analytics ID then looks like this:
+where `UA-XXXXX-Y` is the ID we want. One account can have multiple IDs associated with it which then get counted up in the `Y` part, so we're really only interested in the `XXXXX` part. To extract this part, I'm using the function `str_extract_all` from the stringr package and some elaborate regex. I won't go into the details of the regex but my approach was to basically paste the html text to [regex101.com](https://regex101.com/) and used some trial-and-error until I got the results I wanted (btw `clipr::write_clip(htmltext)` is a handy function to copy-paste the html text to the clipboard). One thing to take into account when using regex101.com is that in R we need to escape any backslashes. That is, if on regex101.com we use `\(` to match `(`, we need to escape the slash in R and write `\\(`. To match `\` we would write `\\` in regex101.com and have to doubly escape the slashes in R: `\\\\` matches one `\` in R. The function to extract the Google Analytics ID then looks like this:
 
 ```{r}
 ga_id <- function(htmltext) {
@@ -139,8 +139,7 @@ compute_ids <- function(html_file) {
 }
 ```
 
-We then use `purrr` to compute the IDs for all html files. 
-```{r, eval=F}
+```{r, eval=F, echo=F}
 html_files <- list.files(here::here("data/disinfo_data/html"), full.names = TRUE) 
 html_files <- html_files[str_ends(html_files, ".html")]
 
@@ -155,8 +154,8 @@ saveRDS(d, here::here("data/disinfo_data/org_edges.rds"))
 d <- readRDS(here::here("data/disinfo_data/org_edges.rds"))
 ```
 
-The resulting data frame with the IDs is then combined with the data frame containing the meta data:
-```{r, eval=F}
+After computing this for every file and merging it the meta data we get a data frame where each row corresponds to one article for which we extracted tracking IDs. We will now use this to compute edges connecting the outlet organizations.
+```{r, eval=F, echo=F}
 df <- read_csv(here::here("data/disinfo_data/data.csv")) %>%
   mutate(creative_work_id = str_replace(creative_work_id, "/", "") %>%
            str_replace("/", "_")) 
@@ -166,6 +165,8 @@ data <- d %>%
                 select(creative_work_id, claims_id, 
                        organization_id, organization_name), 
               by="creative_work_id")
+
+head(data)
 ```
 
 
@@ -176,10 +177,16 @@ data <- d %>%
                 select(creative_work_id, claims_id, 
                        organization_id, organization_name), 
               by="creative_work_id")
+
+head(data, 3) %>% 
+  select(id=creative_work_id, ga:ya_ad, organization_id) %>%
+  knitr::kable("html") %>%
+    kableExtra::kable_styling(bootstrap_options = "striped", font_size=12) %>%
+  kableExtra::column_spec(c(1,7), width="15em") 
 ```
 
 ## Creating Edges
-To build the network, we need to create edges between organizations that use the same ID. The IDs are saved in columns of lists (there could be more than one ID per type per newsarticle) so we first unnest the lists, keep only distinct IDs per organization and then basically join the data frame with itself.
+To build the network, we need to create edges between organizations that use the same ID. The IDs are saved in columns of lists (there could be more than one ID per type per news article) so we first unnest the lists, keep only distinct IDs per organization and then basically join the data frame with itself.
 We do this per ID type. For the Google Analytics ID, this would look as follow:
 ```{r, eval=F}
 orgs <- data %>%
@@ -193,7 +200,7 @@ orgs <- orgs %>%
   mutate(label = "ga") %>%
   select(from = organization_id.x, to = organization_id.y)
 ```
-We only keep the rows with distinct organizations but we also need to check for duplicate pairs. That is, an edge from organization A to organization B is the same as an edge from organization B to organization A. This was a bit tricky to accomplish, I solved the problem by sorting the column content (so that organization A always appears before organization B in a row) and then removing duplicates. My solution isn't particularly tidy, I guess one could use pivotting for a tidy approach but this one felt more straight-forward to me.
+We only keep the rows with distinct organizations but we also need to check for duplicate pairs. That is, an edge from organization A to organization B is the same as an edge from organization B to organization A. This was a bit tricky to accomplish, I solved the problem by sorting the column content (so that organization A always appears before organization B in a row) and then removing duplicates. My solution isn't particularly tidy, I guess one could use pivoting for a tidy approach but this one felt more straight-forward to me.
 ```{r, eval=F}
 orgs[c("from", "to")] <- t(apply(orgs[c("from", "to")], 1, sort))
   dupls <- duplicated(orgs)
@@ -241,7 +248,8 @@ org_edges <- bind_rows( make_edge_list(ga),
 org_edges %>%
   head() %>%
   select(from, to, label, value) %>%
-  knitr::kable()
+  knitr::kable("html") %>%
+    kableExtra::kable_styling(bootstrap_options = "striped")
 ```
 
 Each row in this data frame now represents one edge between two organizations. Notice that we can have multiple edges between two organizations. This happens when they share IDs of different type, e.g. the same Google Analytics ID as well as the same Facebook Pixel ID.
@@ -298,7 +306,7 @@ edges <- org_graph %>%
 Let's get to the most fun part of this analysis: visualizing the network! In a way, a moment of suspense since it will show if there are actually some interesting network structures of organizations linked by IDs or not.
 
 The package `ggraph` is an extension of ggplot and thus has a very similar interface. However, since we're still dealing with two underlying data sets (the nodes and the edges), we also have to specify for the geoms if they should use the nodes or edges data.
-If we specify aestethics, such as color, for either nodes or edges, we then also need to specify this information when using a scale function. To e.g. color the edges we'd need to use `scale_edge_color_*()`  wheras `scale_color_*()` specifies by default the coloring scale for the nodes.
+If we specify aesthetics, such as color, for either nodes or edges, we then also need to specify this information when using a scale function. To e.g. color the edges we'd need to use `scale_edge_color_*()`  whereas `scale_color_*()` specifies by default the coloring scale for the nodes.
 ```{r, fig.height=7, fig.width=12}
 ggraph(org_graph, layout = "auto") +
   geom_edge_fan(aes(color=label)) +
@@ -312,7 +320,7 @@ While the familiar ggplot interface makes it easy to modify the aesthetics of th
 For the visualization, we can opt to only display components with more than two nodes but even then the remaining components look very compressed. I find this the most difficult part in getting a network look pretty: picking the right layout. There are dozens of different layouts, many with a range of parameters as well, each one trying to optimize slightly different aspects. igraph alone provides more than a dozen layouts which are listed at `?layout_tbl_graph_igraph`. My partner jokingly accused me of p-hacking my graph when I was trying out all the different layouts to decide which one fits best. For my graph, I found the Fruchterman-Reingold layout to work best which can be used by setting `ggraph(layout = "fr")`.
 
 ```{r, fig.height=8, fig.width=12, echo=F}
-set.seed(2020)
+set.seed(1)
 org_graph %>%
   activate(nodes) %>%
   filter(comp_size > 2) %>%
@@ -334,17 +342,18 @@ ggraph(layout = "fr") +
                  force=10,
                  family="Merriweather",
                  show.legend=FALSE) +
-  labs(edge_color="") +
+  labs(edge_color="", title="Connecting Disinformation Outlets") +
   scale_size(range = c(1.5, 8)) +
   guides(edge_color = guide_legend(override.aes = list(edge_width=1.5))) +
   theme_graph() +
-  theme(text=element_text(size=16, family="Merriweather", color="gray50")) 
+  theme(text = element_text(size=16, family="Merriweather", color="gray50"),
+        plot.title = element_text(family = "Merriweather", color="gray40", size=20) )
 ```
 
 I added some labels of nodes with a high betweenness (the betweenness of a node roughly measures how many nodes are connected through this node). The biggest component with 33 nodes is the Sputnik network. Almost all of them have Sputnik in their organization name and thus belong also officially together. I would have expected for them to form a fully connected network and found it interesting that they split neatly into two parts, one using Yandex Metrika and the other using Google Analytics and Facebook Pixel. One possible explanation could be that one half of the web page have an audience that is more prone to using Facebook. 
-Another almost fully connected network consists of organizations for an Arabic audience and are exclusively connected by Google Ads IDs. A smaller close to fully conntected network contains various News Front outlets.
+Another almost fully connected network consists of organizations for an Arabic audience and are exclusively connected by Google Ads IDs. A smaller close to fully connected network contains various News Front outlets.
 
-Now, I would expected that all components would be close to fully connected or at least similar to the Sputnik network but th second and third largest networks are only loosely connected: The network containing _russian.rt.com_ consists of 20 nodes and the one with _riafan.ru_ of 13 nodes but they both have much lower average degree of around 3 wheras the average degree for the Sputnik Arabic component has an average degree of 15.6
+Now, I would expected that all components would be close to fully connected or at least similar to the Sputnik network but the second and third largest networks are only loosely connected: The network containing _russian.rt.com_ consists of 20 nodes and the one with _riafan.ru_ of 13 nodes but they both have much lower average degree of around 3 whereas the average degree for the Sputnik Arabic component has an average degree of 15.6
 ```{r, eval=F}
 org_graph %>%
   activate(edges) %>%
@@ -370,10 +379,11 @@ org_graph %>%
   as_tibble() %>%
   group_by(component) %>%
   summarize(avg_degree = mean(degree), avg_degree_normalized = mean(degree_norm)) %>%
-  head(3) %>% knitr::kable()
+  head(3) %>% knitr::kable("html") %>%
+    kableExtra::kable_styling(bootstrap_options = "striped")
 ```
 
-For the degree computation I only counted one edge between two nodes, that is if two nodes are connected by different ID types, it still only counts as one edge. Normalizing the degree by component size still shows a much higer average degree for the Sputnik network.
+For the degree computation I only counted one edge between two nodes, that is if two nodes are connected by different ID types, it still only counts as one edge. Normalizing the degree by component size still shows a much higher average degree for the Sputnik network.
 
 ## Interactive networks
 Ideally, to further analyze the network it would be great to have some kind of interactivity where we could at least hover over the nodes to get the organization names. The easiest solution to this would be using plotly on top of the ggplot I already made but unfortunately there is no support yet for the ggraph geoms in plotly. Instead, we can use the package `networkD3` which creates a D3 network graph. The resulting graphs look very pretty but unfortunately the package is a more restricted in its option than ggraph. For example, multi-edges are not possible and coloring edges can only be done manually and I haven't found a way to get a legend for the manually colored edges. The color scheme is the same as above so except for the missing multi-edges it is the same plot as above.

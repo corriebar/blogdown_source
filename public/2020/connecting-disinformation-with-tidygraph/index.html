@@ -105,7 +105,7 @@
     },
     "headline": "Connecting Disinformation with tidygraph",
     "name": "Connecting Disinformation with tidygraph",
-    "wordCount":  2368 ,
+    "wordCount":  2362 ,
     "timeRequired": "PT12M",
     "inLanguage": {
       "@type": "Language",
@@ -330,18 +330,19 @@ if (!doNotTrack) {
 
     <section class="post-content">
       
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
 <script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
 <script src="/rmarkdown-libs/d3/d3.min.js"></script>
 <script src="/rmarkdown-libs/forceNetwork-binding/forceNetwork.js"></script>
 
 
-<p>I recently participated in a hackathon organised by EU’s anti-disinformation task force where they gave us access to their data base. The data base consists of all disinformation cases the group has collected since it started in 2015 and they can also be browsed online on their web page: <a href="https://euvsdisinfo.eu">www.euvsdisinfo.eu</a>. I built a small <a href="https://github.com/corriebar/euvsdisinfoR">R package</a> that makes it easier to download the data from their API (it seems though as if the API is currently not updated as regularly as their web page). The data contains more than 7000 cases of disinformation, mostly news articles and videos, that were collected and debunked by the EUvsDisinfo project. Their API does not contain the articles or videos themselves but only an URL to where the piece originally appeared together with a short summary of the claim made, why it’s not true, and some other meta data, such as language and countries targeted. So I went ahead and scraped the original articles, both the raw html and just a text version, extracted from the html. For this, I used the Python package <a href="https://github.com/codelucas/newspaper/">newspaper</a> which allows to easily extract just the article text from an html. I checked a few samples by hand and it seems to do reasonably well even for non-English articles which is important since many of the articles are e.g. in Russian. If you want to play with the data yourself, it’s all uploaded on <a href="https://www.kaggle.com/corrieaar/disinformation-articles">kaggle</a>. For this post, I use both the html-files and the csv-file containing the meta data.</p>
+<p>I recently participated in a hackathon organised by EU’s anti-disinformation task force where they gave us access to their data base. The data base consists of all disinformation cases the group has collected since it started in 2015 and they can also be browsed online on their web page: <a href="https://euvsdisinfo.eu">www.euvsdisinfo.eu</a>. I built a small <a href="https://github.com/corriebar/euvsdisinfoR">R package</a> that makes it easier to download the data from their API (it seems though that the API is currently not updated as regularly as their web page). The data contains more than 7000 cases of disinformation, mostly news articles and videos, that were collected and debunked by the EUvsDisinfo project. Their API does not contain the articles or videos themselves but only an URL to where the piece originally appeared together with a short summary of the claim made, why it’s not true, and some other meta data, such as language and countries targeted. So I went ahead and scraped the original articles, both the raw html and just a text version, extracted from the html. For this, I used the Python package <a href="https://github.com/codelucas/newspaper/">newspaper</a> which allows to easily extract just the article text from an html. I checked a few samples by hand and it seems to do reasonably well even for non-English articles which is important since many of the articles are e.g. in Russian. If you want to play with the data yourself, it’s all uploaded on <a href="https://www.kaggle.com/corrieaar/disinformation-articles">kaggle</a>. For this post, I use both the html-files and the csv-file containing the meta data.</p>
 <p>When I was scraping and checking the data, I saw some Google Analytics IDs which made me wonder if it might be possible to use analytics IDs to identify connections between different disinformation outlets. Some Outlets, such as Sputnik, have multiple outlets for different countries (there are 30 different outlets in the data with “sputnik” in the name). Others might be run by the same organization without disclosing this. Now, I don’t expect to find many of these, after all, it seems like a rather lazy mistake that is easy to avoid but even finding only a handful connections could be useful. And it also sounds like a nice opportunity to try out some R network packages.</p>
 <div id="preparing-the-data" class="section level2">
 <h2>Preparing the data</h2>
 <p>First, we’ll need to get the analytic IDs from the html. Luckily, the analytics apps usually provide code snippets for copy-pasting so we can expect to code to always follow the same pattern. For Google Analytics, the part of its <a href="https://developers.google.com/analytics/devguides/collection/analyticsjs">code snippet</a> we’re most interested in, is the following line:</p>
 <pre><code>ga(&#39;create&#39;, &#39;UA-XXXXX-Y&#39;, &#39;auto&#39;);</code></pre>
-<p>where <code>UA-XXXXX-Y</code> is the ID we want. One account can have multiple IDs associated with it which then get counted up in the <code>Y</code> part, so we’re really only interested in the <code>XXXXX</code> part. To extract this part, I’m using the function <code>str_extract_all</code> from the stringr package and some elaborate Regex. I won’t go into the details of the Regex but my approach was to basicllay paste the html text to <a href="https://regex101.com/">regex101.com</a> and used some trial-and-error until I got the results I wanted (btw <code>clipr::write_clip(htmltext)</code> is a handy function to copy-paste the html text to the clipboard). One thing to take into account when using regex101.com is that in R we need to escape any backslashs. That is, if on regex101.com we use <code>\(</code> to match <code>(</code>, we need to escape the slash in R and write <code>\\(</code>. To match <code>\</code> we would write <code>\\</code> in regex101.com and have to doubly escape the slashes in R: <code>\\\\</code> matches one <code>\</code> in R. The function to extract the Google Analytics ID then looks like this:</p>
+<p>where <code>UA-XXXXX-Y</code> is the ID we want. One account can have multiple IDs associated with it which then get counted up in the <code>Y</code> part, so we’re really only interested in the <code>XXXXX</code> part. To extract this part, I’m using the function <code>str_extract_all</code> from the stringr package and some elaborate regex. I won’t go into the details of the regex but my approach was to basically paste the html text to <a href="https://regex101.com/">regex101.com</a> and used some trial-and-error until I got the results I wanted (btw <code>clipr::write_clip(htmltext)</code> is a handy function to copy-paste the html text to the clipboard). One thing to take into account when using regex101.com is that in R we need to escape any backslashes. That is, if on regex101.com we use <code>\(</code> to match <code>(</code>, we need to escape the slash in R and write <code>\\(</code>. To match <code>\</code> we would write <code>\\</code> in regex101.com and have to doubly escape the slashes in R: <code>\\\\</code> matches one <code>\</code> in R. The function to extract the Google Analytics ID then looks like this:</p>
 <pre class="r"><code>ga_id &lt;- function(htmltext) {
   str_extract_all(htmltext,  &quot;(?&lt;=ga\\(&#39;create&#39;,\\s&#39;)(UA-\\d+)(?=-\\d+)&quot;) %&gt;%
     flatten_chr() %&gt;%
@@ -363,27 +364,109 @@ if (!doNotTrack) {
          fb_pixel = list(fb),
          ya_ad = list(ya_a))
 }</code></pre>
-<p>We then use <code>purrr</code> to compute the IDs for all html files.</p>
-<pre class="r"><code>html_files &lt;- list.files(here::here(&quot;data/disinfo_data/html&quot;), full.names = TRUE) 
-html_files &lt;- html_files[str_ends(html_files, &quot;.html&quot;)]
-
-d &lt;- purrr::map_dfr(html_files, .f=~compute_ids(.x))
-d &lt;- d %&gt;%
-  mutate(creative_work_id = str_replace(htmlfile, &quot;.html&quot;, &quot;&quot;))</code></pre>
-<p>The resulting data frame with the IDs is then combined with the data frame containing the meta data:</p>
-<pre class="r"><code>df &lt;- read_csv(here::here(&quot;data/disinfo_data/data.csv&quot;)) %&gt;%
-  mutate(creative_work_id = str_replace(creative_work_id, &quot;/&quot;, &quot;&quot;) %&gt;%
-           str_replace(&quot;/&quot;, &quot;_&quot;)) 
-
-data &lt;- d %&gt;%
-    left_join(df %&gt;%
-                select(creative_work_id, claims_id, 
-                       organization_id, organization_name), 
-              by=&quot;creative_work_id&quot;)</code></pre>
+<p>After computing this for every file and merging it the meta data we get a data frame where each row corresponds to one article for which we extracted tracking IDs. We will now use this to compute edges connecting the outlet organizations.</p>
+<table class="table table-striped" style="font-size: 12px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+id
+</th>
+<th style="text-align:left;">
+ga
+</th>
+<th style="text-align:left;">
+google_ad
+</th>
+<th style="text-align:left;">
+ya_metrika
+</th>
+<th style="text-align:left;">
+fb_pixel
+</th>
+<th style="text-align:left;">
+ya_ad
+</th>
+<th style="text-align:left;">
+organization_id
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 15em; ">
+news_articles_1000
+</td>
+<td style="text-align:left;">
+UA-63883919
+</td>
+<td style="text-align:left;">
+ca-pub-8386451025337892
+</td>
+<td style="text-align:left;">
+35327630
+</td>
+<td style="text-align:left;">
+character(0)
+</td>
+<td style="text-align:left;">
+character(0)
+</td>
+<td style="text-align:left;width: 15em; ">
+/organizations/205
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; ">
+news_articles_1001
+</td>
+<td style="text-align:left;">
+UA-63883919
+</td>
+<td style="text-align:left;">
+ca-pub-8386451025337892
+</td>
+<td style="text-align:left;">
+35327630
+</td>
+<td style="text-align:left;">
+character(0)
+</td>
+<td style="text-align:left;">
+character(0)
+</td>
+<td style="text-align:left;width: 15em; ">
+/organizations/205
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; ">
+news_articles_1002
+</td>
+<td style="text-align:left;">
+UA-91750496
+</td>
+<td style="text-align:left;">
+ca-pub-2594699865181708
+</td>
+<td style="text-align:left;">
+16666762
+</td>
+<td style="text-align:left;">
+character(0)
+</td>
+<td style="text-align:left;">
+character(0)
+</td>
+<td style="text-align:left;width: 15em; ">
+/organizations/355
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="creating-edges" class="section level2">
 <h2>Creating Edges</h2>
-<p>To build the network, we need to create edges between organizations that use the same ID. The IDs are saved in columns of lists (there could be more than one ID per type per newsarticle) so we first unnest the lists, keep only distinct IDs per organization and then basically join the data frame with itself.
+<p>To build the network, we need to create edges between organizations that use the same ID. The IDs are saved in columns of lists (there could be more than one ID per type per news article) so we first unnest the lists, keep only distinct IDs per organization and then basically join the data frame with itself.
 We do this per ID type. For the Google Analytics ID, this would look as follow:</p>
 <pre class="r"><code>orgs &lt;- data %&gt;%
   unnest(ga) %&gt;%
@@ -395,7 +478,7 @@ orgs &lt;- orgs %&gt;%
   filter(organization_id.x != organization_id.y) %&gt;%
   mutate(label = &quot;ga&quot;) %&gt;%
   select(from = organization_id.x, to = organization_id.y)</code></pre>
-<p>We only keep the rows with distinct organizations but we also need to check for duplicate pairs. That is, an edge from organization A to organization B is the same as an edge from organization B to organization A. This was a bit tricky to accomplish, I solved the problem by sorting the column content (so that organization A always appears before organization B in a row) and then removing duplicates. My solution isn’t particularly tidy, I guess one could use pivotting for a tidy approach but this one felt more straight-forward to me.</p>
+<p>We only keep the rows with distinct organizations but we also need to check for duplicate pairs. That is, an edge from organization A to organization B is the same as an edge from organization B to organization A. This was a bit tricky to accomplish, I solved the problem by sorting the column content (so that organization A always appears before organization B in a row) and then removing duplicates. My solution isn’t particularly tidy, I guess one could use pivoting for a tidy approach but this one felt more straight-forward to me.</p>
 <pre class="r"><code>orgs[c(&quot;from&quot;, &quot;to&quot;)] &lt;- t(apply(orgs[c(&quot;from&quot;, &quot;to&quot;)], 1, sort))
   dupls &lt;- duplicated(orgs)
   orgs &lt;- orgs[!dupls, ]</code></pre>
@@ -414,51 +497,107 @@ org_edges &lt;- bind_rows( make_edge_list(ga),
   left_join(orgs, by=c(&quot;to&quot;=&quot;organization_id&quot;)) %&gt;%
   rename(to_name = organization_name, to_n = n) %&gt;%
   distinct(from, to, label, .keep_all = TRUE)</code></pre>
-<table>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
 <thead>
-<tr class="header">
-<th align="left">from</th>
-<th align="left">to</th>
-<th align="left">label</th>
-<th align="left">value</th>
+<tr>
+<th style="text-align:left;">
+from
+</th>
+<th style="text-align:left;">
+to
+</th>
+<th style="text-align:left;">
+label
+</th>
+<th style="text-align:left;">
+value
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">/organizations/126</td>
-<td align="left">/organizations/219</td>
-<td align="left">ga</td>
-<td align="left">UA-5773642</td>
+<tr>
+<td style="text-align:left;">
+/organizations/126
+</td>
+<td style="text-align:left;">
+/organizations/219
+</td>
+<td style="text-align:left;">
+ga
+</td>
+<td style="text-align:left;">
+UA-5773642
+</td>
 </tr>
-<tr class="even">
-<td align="left">/organizations/219</td>
-<td align="left">/organizations/908</td>
-<td align="left">ga</td>
-<td align="left">UA-5773642</td>
+<tr>
+<td style="text-align:left;">
+/organizations/219
+</td>
+<td style="text-align:left;">
+/organizations/908
+</td>
+<td style="text-align:left;">
+ga
+</td>
+<td style="text-align:left;">
+UA-5773642
+</td>
 </tr>
-<tr class="odd">
-<td align="left">/organizations/219</td>
-<td align="left">/organizations/342</td>
-<td align="left">ga</td>
-<td align="left">UA-5773642</td>
+<tr>
+<td style="text-align:left;">
+/organizations/219
+</td>
+<td style="text-align:left;">
+/organizations/342
+</td>
+<td style="text-align:left;">
+ga
+</td>
+<td style="text-align:left;">
+UA-5773642
+</td>
 </tr>
-<tr class="even">
-<td align="left">/organizations/126</td>
-<td align="left">/organizations/908</td>
-<td align="left">ga</td>
-<td align="left">UA-5773642</td>
+<tr>
+<td style="text-align:left;">
+/organizations/126
+</td>
+<td style="text-align:left;">
+/organizations/908
+</td>
+<td style="text-align:left;">
+ga
+</td>
+<td style="text-align:left;">
+UA-5773642
+</td>
 </tr>
-<tr class="odd">
-<td align="left">/organizations/126</td>
-<td align="left">/organizations/342</td>
-<td align="left">ga</td>
-<td align="left">UA-5773642</td>
+<tr>
+<td style="text-align:left;">
+/organizations/126
+</td>
+<td style="text-align:left;">
+/organizations/342
+</td>
+<td style="text-align:left;">
+ga
+</td>
+<td style="text-align:left;">
+UA-5773642
+</td>
 </tr>
-<tr class="even">
-<td align="left">/organizations/270</td>
-<td align="left">/organizations/342</td>
-<td align="left">ga</td>
-<td align="left">UA-21015613</td>
+<tr>
+<td style="text-align:left;">
+/organizations/270
+</td>
+<td style="text-align:left;">
+/organizations/342
+</td>
+<td style="text-align:left;">
+ga
+</td>
+<td style="text-align:left;">
+UA-21015613
+</td>
 </tr>
 </tbody>
 </table>
@@ -493,7 +632,7 @@ In the following code, we compute a few centrality metrics (useful for plotting 
 <h2>Visualizing</h2>
 <p>Let’s get to the most fun part of this analysis: visualizing the network! In a way, a moment of suspense since it will show if there are actually some interesting network structures of organizations linked by IDs or not.</p>
 <p>The package <code>ggraph</code> is an extension of ggplot and thus has a very similar interface. However, since we’re still dealing with two underlying data sets (the nodes and the edges), we also have to specify for the geoms if they should use the nodes or edges data.
-If we specify aestethics, such as color, for either nodes or edges, we then also need to specify this information when using a scale function. To e.g. color the edges we’d need to use <code>scale_edge_color_*()</code> wheras <code>scale_color_*()</code> specifies by default the coloring scale for the nodes.</p>
+If we specify aesthetics, such as color, for either nodes or edges, we then also need to specify this information when using a scale function. To e.g. color the edges we’d need to use <code>scale_edge_color_*()</code> whereas <code>scale_color_*()</code> specifies by default the coloring scale for the nodes.</p>
 <pre class="r"><code>ggraph(org_graph, layout = &quot;auto&quot;) +
   geom_edge_fan(aes(color=label)) +
   geom_node_point(aes(size=sqrt(centrality)), show.legend = F) +
@@ -506,8 +645,8 @@ If we specify aestethics, such as color, for either nodes or edges, we then also
 For the visualization, we can opt to only display components with more than two nodes but even then the remaining components look very compressed. I find this the most difficult part in getting a network look pretty: picking the right layout. There are dozens of different layouts, many with a range of parameters as well, each one trying to optimize slightly different aspects. igraph alone provides more than a dozen layouts which are listed at <code>?layout_tbl_graph_igraph</code>. My partner jokingly accused me of p-hacking my graph when I was trying out all the different layouts to decide which one fits best. For my graph, I found the Fruchterman-Reingold layout to work best which can be used by setting <code>ggraph(layout = &quot;fr&quot;)</code>.</p>
 <p><img src="/post/2020/2020-03-25-connecting-disinformation_files/figure-html/unnamed-chunk-20-1.png" width="1152" /></p>
 <p>I added some labels of nodes with a high betweenness (the betweenness of a node roughly measures how many nodes are connected through this node). The biggest component with 33 nodes is the Sputnik network. Almost all of them have Sputnik in their organization name and thus belong also officially together. I would have expected for them to form a fully connected network and found it interesting that they split neatly into two parts, one using Yandex Metrika and the other using Google Analytics and Facebook Pixel. One possible explanation could be that one half of the web page have an audience that is more prone to using Facebook.
-Another almost fully connected network consists of organizations for an Arabic audience and are exclusively connected by Google Ads IDs. A smaller close to fully conntected network contains various News Front outlets.</p>
-<p>Now, I would expected that all components would be close to fully connected or at least similar to the Sputnik network but th second and third largest networks are only loosely connected: The network containing <em>russian.rt.com</em> consists of 20 nodes and the one with <em>riafan.ru</em> of 13 nodes but they both have much lower average degree of around 3 wheras the average degree for the Sputnik Arabic component has an average degree of 15.6</p>
+Another almost fully connected network consists of organizations for an Arabic audience and are exclusively connected by Google Ads IDs. A smaller close to fully connected network contains various News Front outlets.</p>
+<p>Now, I would expected that all components would be close to fully connected or at least similar to the Sputnik network but the second and third largest networks are only loosely connected: The network containing <em>russian.rt.com</em> consists of 20 nodes and the one with <em>riafan.ru</em> of 13 nodes but they both have much lower average degree of around 3 whereas the average degree for the Sputnik Arabic component has an average degree of 15.6</p>
 <pre class="r"><code>org_graph %&gt;%
   activate(edges) %&gt;%
   distinct(from, to, .keep_all = T) %&gt;%
@@ -519,33 +658,57 @@ Another almost fully connected network consists of organizations for an Arabic a
   group_by(component) %&gt;%
   summarize(avg_degree = mean(degree), avg_degree_normalized = mean(degree_norm)) %&gt;%
   head(3)</code></pre>
-<table>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
 <thead>
-<tr class="header">
-<th align="left">component</th>
-<th align="right">avg_degree</th>
-<th align="right">avg_degree_normalized</th>
+<tr>
+<th style="text-align:left;">
+component
+</th>
+<th style="text-align:right;">
+avg_degree
+</th>
+<th style="text-align:right;">
+avg_degree_normalized
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">1</td>
-<td align="right">15.575758</td>
-<td align="right">0.4719927</td>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+15.575758
+</td>
+<td style="text-align:right;">
+0.4719927
+</td>
 </tr>
-<tr class="even">
-<td align="left">2</td>
-<td align="right">3.300000</td>
-<td align="right">0.1650000</td>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:right;">
+3.300000
+</td>
+<td style="text-align:right;">
+0.1650000
+</td>
 </tr>
-<tr class="odd">
-<td align="left">3</td>
-<td align="right">2.923077</td>
-<td align="right">0.2248521</td>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:right;">
+2.923077
+</td>
+<td style="text-align:right;">
+0.2248521
+</td>
 </tr>
 </tbody>
 </table>
-<p>For the degree computation I only counted one edge between two nodes, that is if two nodes are connected by different ID types, it still only counts as one edge. Normalizing the degree by component size still shows a much higer average degree for the Sputnik network.</p>
+<p>For the degree computation I only counted one edge between two nodes, that is if two nodes are connected by different ID types, it still only counts as one edge. Normalizing the degree by component size still shows a much higher average degree for the Sputnik network.</p>
 </div>
 <div id="interactive-networks" class="section level2">
 <h2>Interactive networks</h2>
