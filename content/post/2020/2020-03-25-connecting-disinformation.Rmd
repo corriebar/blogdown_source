@@ -34,9 +34,9 @@ html_files <- html_files[str_ends(html_files, ".html")]
 
 ```
 
-I recently participated in a Hackathon organised by EU's anti-disinformation task force where they gave us access to their data base. The data base consists of all disinformation cases the group has collected since it started in 2015 and they can also be browsed online on their web page: [www.euvsdisinfo.eu](https://euvsdisinfo.eu). I built a small [R package](https://github.com/corriebar/euvsdisinfoR) that makes it easier to download the data from their API (it seems though as if the API is currently not updated as regularly as their web page). The data contains more than 7000 cases of disinformation, mostly news articles and videos, that were collected and debunked by the EUvsDisinfo project. Their API does not contain the articles or videos themselves but only an URL to where the piece originally appeared together with a short summary of the claim made, why it's not true, and some other meta data, such as language and countries targeted. So I went ahead and scraped the original articles, both the raw html and just a text version, extracted from the html. For this, I used the Python package [newspaper](https://github.com/codelucas/newspaper/) which allows to easily extract just the article text from an html. I checked a few samples by hand and it seems to do reasonably well even for non-English articles which is important since many of the articles are e.g. in Russian. If you want to play with the data yourself, it's all uploaded on [kaggle](https://www.kaggle.com/corrieaar/disinformation-articles). For this post, I use both the html-files and the csv-file containing the meta data.
+I recently participated in a hackathon organised by EU's anti-disinformation task force where they gave us access to their data base. The data base consists of all disinformation cases the group has collected since it started in 2015 and they can also be browsed online on their web page: [www.euvsdisinfo.eu](https://euvsdisinfo.eu). I built a small [R package](https://github.com/corriebar/euvsdisinfoR) that makes it easier to download the data from their API (it seems though as if the API is currently not updated as regularly as their web page). The data contains more than 7000 cases of disinformation, mostly news articles and videos, that were collected and debunked by the EUvsDisinfo project. Their API does not contain the articles or videos themselves but only an URL to where the piece originally appeared together with a short summary of the claim made, why it's not true, and some other meta data, such as language and countries targeted. So I went ahead and scraped the original articles, both the raw html and just a text version, extracted from the html. For this, I used the Python package [newspaper](https://github.com/codelucas/newspaper/) which allows to easily extract just the article text from an html. I checked a few samples by hand and it seems to do reasonably well even for non-English articles which is important since many of the articles are e.g. in Russian. If you want to play with the data yourself, it's all uploaded on [kaggle](https://www.kaggle.com/corrieaar/disinformation-articles). For this post, I use both the html-files and the csv-file containing the meta data.
 
-When I was scraping and checking the data, I saw some Google Analytics IDs which made me wonder if it might be possible to use Analytics IDs to identify connections between different disinformation outlets. Some Outlets, such as Sputnik, have multiple outlets for different countries (there are 30 different outlets in the data with "sputnik" in the name). Others might be run by the same organization without disclosing this. Now, I don't expect to find many of these, after all, it seems like a rather lazy mistake that is easy to avoid but even finding only a handful connections could be useful. And it also sounds like a nice opportuntiy to try out some R network packages.
+When I was scraping and checking the data, I saw some Google Analytics IDs which made me wonder if it might be possible to use analytics IDs to identify connections between different disinformation outlets. Some Outlets, such as Sputnik, have multiple outlets for different countries (there are 30 different outlets in the data with "sputnik" in the name). Others might be run by the same organization without disclosing this. Now, I don't expect to find many of these, after all, it seems like a rather lazy mistake that is easy to avoid but even finding only a handful connections could be useful. And it also sounds like a nice opportunity to try out some R network packages.
 
 ```{python, eval=F, echo=F}
 # python
@@ -51,17 +51,16 @@ print(art.meta_data)
 ```
 
 ## Preparing the data
-First, we'll need to get the analytic IDs from the html. Luckily, the analytics apps usually provide code snippets for copy-pasting so we can expect to code to always follow the same pattern. For Google Analytics, the part of its [code snippet](https://developers.google.com/analytics/devguides/collection/analyticsjs) we're most intested in, is the following line:
+First, we'll need to get the analytic IDs from the html. Luckily, the analytics apps usually provide code snippets for copy-pasting so we can expect to code to always follow the same pattern. For Google Analytics, the part of its [code snippet](https://developers.google.com/analytics/devguides/collection/analyticsjs) we're most interested in, is the following line:
 
 ```
 ga('create', 'UA-XXXXX-Y', 'auto');
 ```
-where `UA-XXXXX-Y` is the ID we're interested in. One account can have multiple IDs associated with it which then get counted up in the `Y` part, so we're really only interested in the `XXXXX` part. To extract this part, I'm using the function `str_extract_all` from the stringr package and some elaborate Regex. I won't go into the details of the Regex but my approach was to basicllay paste the html text to [regex101.com](https://regex101.com/) and used some trial-and-error until I got the results I wanted (btw `clipr::write_clip(htmltext)` is a handy function to copy-paste the html text to the clipboard). One thing to take into account when using regex101.com is that in R we need to escape any backslashs. That is, if on regex101.com we use `\(` to match `(`, we need to escape the slash in R and write `\\(`. To match `\` we would write `\\` in regex101.com and have to doubly escape the slashes in R: `\\\\` matches one `\` in R. The function to extract the Google Analytics ID then looks like this:
+where `UA-XXXXX-Y` is the ID we want. One account can have multiple IDs associated with it which then get counted up in the `Y` part, so we're really only interested in the `XXXXX` part. To extract this part, I'm using the function `str_extract_all` from the stringr package and some elaborate Regex. I won't go into the details of the Regex but my approach was to basicllay paste the html text to [regex101.com](https://regex101.com/) and used some trial-and-error until I got the results I wanted (btw `clipr::write_clip(htmltext)` is a handy function to copy-paste the html text to the clipboard). One thing to take into account when using regex101.com is that in R we need to escape any backslashs. That is, if on regex101.com we use `\(` to match `(`, we need to escape the slash in R and write `\\(`. To match `\` we would write `\\` in regex101.com and have to doubly escape the slashes in R: `\\\\` matches one `\` in R. The function to extract the Google Analytics ID then looks like this:
 
 ```{r}
 ga_id <- function(htmltext) {
-  str_extract_all(htmltext, 
-              "(?<=ga\\((?:'create'|\\\\'create\\\\'),\\s?\\\\?')(UA-\\d+)(?=-\\d+)") %>%
+  str_extract_all(htmltext,  "(?<=ga\\('create',\\s')(UA-\\d+)(?=-\\d+)") %>%
     flatten_chr() %>%
     unique
 }
@@ -89,7 +88,12 @@ all_linked_domains <- function(html) {
   doms <- doms[doms != ""]
   doms
 }
-
+ga_id <- function(htmltext) {
+  str_extract_all(htmltext, 
+    "(?<=ga\\((?:'create'|\\\\'create\\\\'),\\s?\\\\?')(UA-\\d+)(?=-\\d+)") %>%
+    flatten_chr() %>%
+    unique
+}
 
 google_ad_id <- function(htmltext) {
   str_extract_all(htmltext, "(?<=data-ad-client=(?:\\\"|\\'))(ca-pub-\\d+)") %>%
