@@ -239,6 +239,7 @@ org_edges %>%
   select(from, to, label, value) %>%
   knitr::kable()
 ```
+
 Each row in this data frame now represents one edge between two organizations. Notice that we can have multiple edges between two organizations. This happens when they share IDs of different type, e.g. the same Google Analytics ID as well as the same Facebook Pixel ID.
 
 ## Making the graph
@@ -271,7 +272,8 @@ org_graph <- org_graph %>%
 org_graph <- org_graph %>%
   mutate(label_cond = ifelse((centrality >= 10 & 
                                comp_size > 4) |
-                               organization_id == "/organizations/178", organization_name, "") %>%
+                               (organization_id %in% c("/organizations/178", "/organizations/38", "/organizations/688", "/organizations/126")),
+                             organization_name, "") %>%
            str_wrap(width = 10),
          label_length = str_count(label_cond, "\\n"),
          label = organization_name)
@@ -298,13 +300,14 @@ ggraph(org_graph, layout = "auto") +
   geom_edge_fan(aes(color=label)) +
   geom_node_point(aes(size=sqrt(centrality)), show.legend = F) +
   scale_edge_color_brewer(palette = "Set1") + labs(edge_color="") +
+  scale_size(range = c(1.5, 8)) +
   theme_graph()
 ```
 
 While the familiar ggplot interface makes it easy to modify the aesthetics of the graph, it doesn't look yet very pleasing. On one hand, there are many components with only two nodes and also, the arrangement of the network doesn't seem optimal.
 For the visualization, we can opt to only display components with more than two nodes but even then the remaining components look very compressed. I find this the most difficult part in getting a network look pretty: picking the right layout. There are dozens of different layouts, many with a range of parameters as well, each one trying to optimize slightly different aspects. igraph alone provides more than a dozen layouts which are listed at `?layout_tbl_graph_igraph`. My partner jokingly accused me of p-hacking my graph when I was trying out all the different layouts to decide which one fits best. For my graph, I found the Fruchterman-Reingold layout to work best which can be used by setting `ggraph(layout = "fr")`.
 
-```{r, fig.height=8, fig.width=12}
+```{r, fig.height=8, fig.width=12, echo=F}
 set.seed(2020)
 org_graph %>%
   activate(nodes) %>%
@@ -313,13 +316,12 @@ ggraph(layout = "fr") +
   geom_edge_fan(aes(color=label), alpha=0.8, strength = 4) +
   scale_edge_color_brewer(palette="Set1", labels = c("Facebook Pixel", "Google Analytics", 
                                                "Google Ads", "Yandex Ads", "Yandex Metrika")) +
-  geom_node_point(aes(size=sqrt(centrality)), color="white", show.legend=F) +
   geom_node_point(aes(size=sqrt(centrality)), fill="grey30", color="white", 
                   shape = 21,
                   show.legend=FALSE) +
   geom_node_text(aes(label = str_wrap(label_cond, width = 10,),
                      point.size=sqrt(centrality),
-                     size = 8/(1+label_length/2)), 
+                     size = 6/(1+label_length/2)), 
                  repel = TRUE, segment.curvature=0.2,
                  segment.alpha=0.3, #nudge_x = 0.8, nudge_y = -0.5,
                  max.overlaps = Inf,
@@ -329,19 +331,60 @@ ggraph(layout = "fr") +
                  family="Merriweather",
                  show.legend=FALSE) +
   labs(edge_color="") +
+  scale_size(range = c(1.5, 8)) +
   guides(edge_color = guide_legend(override.aes = list(edge_width=1.5))) +
   theme_graph() +
   theme(text=element_text(size=16, family="Merriweather", color="gray50")) 
 ```
+
+I added some labels of nodes with a high betweenness (the betweenness of a node roughly measures how many nodes are connected through this node). The biggest component with 33 nodes is the Sputnik network. Almost all of them have Sputnik in their organization name and thus belong also officially together. I would have expected for them to form a fully connected network and found it interesting that they split neatly into two parts, one using Yandex Metrika and the other using Google Analytics and Facebook Pixel. One possible explanation could be that one half of the web page have an audience that is more prone to using Facebook. 
+Another almost fully connected network consists of organizations for an Arabic audience and are exclusively connected by Google Ads IDs. A smaller close to fully conntected network contains various News Front outlets.
+
+Now, I would expected that all components would be close to fully connected or at least similar to the Sputnik network but th second and third largest networks are only loosely connected: The network containing _russian.rt.com_ consists of 20 nodes and the one with _riafan.ru_ of 13 nodes but they both have much lower average degree of around 3 wheras the average degree for the Sputnik Arabic component has an average degree of 15.6
+```{r, eval=F}
+org_graph %>%
+  activate(edges) %>%
+  distinct(from, to, .keep_all = T) %>%
+  activate(nodes) %>%
+  ungroup() %>%
+  mutate(degree = centrality_degree(),
+         degree_norm = degree / comp_size) %>%
+  as_tibble() %>%
+  group_by(component) %>%
+  summarize(avg_degree = mean(degree), avg_degree_normalized = mean(degree_norm)) %>%
+  head(3)
+```
+```{r, echo=F}
+org_graph %>%
+  activate(edges) %>%
+  distinct(from, to, .keep_all = T) %>%
+  activate(nodes) %>%
+  ungroup() %>%
+  #filter(component == 3) %>%
+  mutate(degree = centrality_degree(),
+         degree_norm = degree / comp_size) %>%
+  as_tibble() %>%
+  group_by(component) %>%
+  summarize(avg_degree = mean(degree), avg_degree_normalized = mean(degree_norm)) %>%
+  head(3) %>% knitr::kable()
+```
+
+For the degree computation I only counted one edge between two nodes, that is if two nodes are connected by different ID types, it still only counts as one edge. Normalizing the degree by component size still shows a much higer average degree for the Sputnik network.
+
+## Interactive networks
+Ideally, to further analyze the network it would be great to have some kind of interactivity where we could at least hover over the nodes to get the organization names. The easiest solution to this would be using plotly on top of the ggplot I already made but unfortunately there is no support yet for the ggraph geoms in plotly. Instead, we can use the package `networkD3` which creates a D3 network graph. The resulting graphs look very pretty but unfortunately the package is a more restricted in its option than ggraph. For example, multi-edges are not possible and coloring edges can only be done manually and I haven't found a way to get a legend for the manually colored edges.
+
 
 
 
 ```{r}
 library(networkD3)
 set1 <- brewer.pal(length(unique(edges$label)), "Set1")
+# d3 starts with 0 so need to move the index
 nodes_d3 <- mutate(nodes, id=id-1,
                    group = "1",
                    label = str_wrap(label, width=10))
+
 edges_d3 <- edges %>% 
   mutate(from=from-1, to=to-1) %>%
   mutate(col = set1[as.factor(label)])

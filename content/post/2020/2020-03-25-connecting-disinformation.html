@@ -146,14 +146,9 @@ org_edges &lt;- bind_rows( make_edge_list(ga),
 <td align="left">ga</td>
 <td align="left">UA-21015613</td>
 </tr>
-<tr class="odd">
-<td align="left">Each row in this data</td>
-<td align="left">frame now represents</td>
-<td align="left">one edg</td>
-<td align="left">e between two organizations. Notice that we can have multiple edges between two organizations. This happens when they share IDs of different type, e.g. the same Google Analytics ID as well as the same Facebook Pixel ID.</td>
-</tr>
 </tbody>
 </table>
+<p>Each row in this data frame now represents one edge between two organizations. Notice that we can have multiple edges between two organizations. This happens when they share IDs of different type, e.g. the same Google Analytics ID as well as the same Facebook Pixel ID.</p>
 </div>
 <div id="making-the-graph" class="section level2">
 <h2>Making the graph</h2>
@@ -189,44 +184,65 @@ If we specify aestethics, such as color, for either nodes or edges, we then also
   geom_edge_fan(aes(color=label)) +
   geom_node_point(aes(size=sqrt(centrality)), show.legend = F) +
   scale_edge_color_brewer(palette = &quot;Set1&quot;) + labs(edge_color=&quot;&quot;) +
+  scale_size(range = c(1.5, 8)) +
   theme_graph()</code></pre>
 <pre><code>## Using `stress` as default layout</code></pre>
-<p><img src="/post/2020/2020-03-20-connecting-disinformation_files/figure-html/unnamed-chunk-19-1.png" width="1152" /></p>
+<p><img src="/post/2020/2020-03-25-connecting-disinformation_files/figure-html/unnamed-chunk-19-1.png" width="1152" /></p>
 <p>While the familiar ggplot interface makes it easy to modify the aesthetics of the graph, it doesn’t look yet very pleasing. On one hand, there are many components with only two nodes and also, the arrangement of the network doesn’t seem optimal.
 For the visualization, we can opt to only display components with more than two nodes but even then the remaining components look very compressed. I find this the most difficult part in getting a network look pretty: picking the right layout. There are dozens of different layouts, many with a range of parameters as well, each one trying to optimize slightly different aspects. igraph alone provides more than a dozen layouts which are listed at <code>?layout_tbl_graph_igraph</code>. My partner jokingly accused me of p-hacking my graph when I was trying out all the different layouts to decide which one fits best. For my graph, I found the Fruchterman-Reingold layout to work best which can be used by setting <code>ggraph(layout = &quot;fr&quot;)</code>.</p>
-<pre class="r"><code>set.seed(2020)
-org_graph %&gt;%
+<p><img src="/post/2020/2020-03-25-connecting-disinformation_files/figure-html/unnamed-chunk-20-1.png" width="1152" /></p>
+<p>I added some labels of nodes with a high betweenness (the betweenness of a node roughly measures how many nodes are connected through this node). The biggest component with 33 nodes is the Sputnik network. Almost all of them have Sputnik in their organization name and thus belong also officially together. I would have expected for them to form a fully connected network and found it interesting that they split neatly into two parts, one using Yandex Metrika and the other using Google Analytics and Facebook Pixel. One possible explanation could be that one half of the web page have an audience that is more prone to using Facebook.
+Another almost fully connected network consists of organizations for an Arabic audience and are exclusively connected by Google Ads IDs. A smaller close to fully conntected network contains various News Front outlets.</p>
+<p>Now, I would expected that all components would be close to fully connected or at least similar to the Sputnik network but th second and third largest networks are only loosely connected: The network containing <em>russian.rt.com</em> consists of 20 nodes and the one with <em>riafan.ru</em> of 13 nodes but they both have much lower average degree of around 3 wheras the average degree for the Sputnik Arabic component has an average degree of 15.6</p>
+<pre class="r"><code>org_graph %&gt;%
+  activate(edges) %&gt;%
+  distinct(from, to, .keep_all = T) %&gt;%
   activate(nodes) %&gt;%
-  filter(comp_size &gt; 2) %&gt;%
-ggraph(layout = &quot;fr&quot;) +
-  geom_edge_fan(aes(color=label), alpha=0.8, strength = 4) +
-  scale_edge_color_brewer(palette=&quot;Set1&quot;, labels = c(&quot;Facebook Pixel&quot;, &quot;Google Analytics&quot;, 
-                                               &quot;Google Ads&quot;, &quot;Yandex Ads&quot;, &quot;Yandex Metrika&quot;)) +
-  geom_node_point(aes(size=sqrt(centrality)), color=&quot;white&quot;, show.legend=F) +
-  geom_node_point(aes(size=sqrt(centrality)), fill=&quot;grey30&quot;, color=&quot;white&quot;, 
-                  shape = 21,
-                  show.legend=FALSE) +
-  geom_node_text(aes(label = str_wrap(label_cond, width = 10,),
-                     point.size=sqrt(centrality),
-                     size = 8/(1+label_length/2)), 
-                 repel = TRUE, segment.curvature=0.2,
-                 segment.alpha=0.3, #nudge_x = 0.8, nudge_y = -0.5,
-                 max.overlaps = Inf,
-                 color=&quot;grey30&quot;, alpha=0.8, min.segment.length=0,
-                 bg.color=&quot;white&quot;, point.padding = 0.1,
-                 force=10,
-                 family=&quot;Merriweather&quot;,
-                 show.legend=FALSE) +
-  labs(edge_color=&quot;&quot;) +
-  guides(edge_color = guide_legend(override.aes = list(edge_width=1.5))) +
-  theme_graph() +
-  theme(text=element_text(size=16, family=&quot;Merriweather&quot;, color=&quot;gray50&quot;)) </code></pre>
-<p><img src="/post/2020/2020-03-20-connecting-disinformation_files/figure-html/unnamed-chunk-20-1.png" width="1152" /></p>
+  ungroup() %&gt;%
+  mutate(degree = centrality_degree(),
+         degree_norm = degree / comp_size) %&gt;%
+  as_tibble() %&gt;%
+  group_by(component) %&gt;%
+  summarize(avg_degree = mean(degree), avg_degree_normalized = mean(degree_norm)) %&gt;%
+  head(3)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">component</th>
+<th align="right">avg_degree</th>
+<th align="right">avg_degree_normalized</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="right">15.575758</td>
+<td align="right">0.4719927</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="right">3.300000</td>
+<td align="right">0.1650000</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="right">2.923077</td>
+<td align="right">0.2248521</td>
+</tr>
+</tbody>
+</table>
+<p>For the degree computation I only counted one edge between two nodes, that is if two nodes are connected by different ID types, it still only counts as one edge. Normalizing the degree by component size still shows a much higer average degree for the Sputnik network.</p>
+</div>
+<div id="interactive-networks" class="section level2">
+<h2>Interactive networks</h2>
+<p>Ideally, to further analyze the network it would be great to have some kind of interactivity where we could at least hover over the nodes to get the organization names. The easiest solution to this would be using plotly on top of the ggplot I already made but unfortunately there is no support yet for the ggraph geoms in plotly. Instead, we can use the package <code>networkD3</code> which creates a D3 network graph. The resulting graphs look very pretty but unfortunately the package is a more restricted in its option than ggraph. For example, multi-edges are not possible and coloring edges can only be done manually and I haven’t found a way to get a legend for the manually colored edges.</p>
 <pre class="r"><code>library(networkD3)
 set1 &lt;- brewer.pal(length(unique(edges$label)), &quot;Set1&quot;)
+# d3 starts with 0 so need to move the index
 nodes_d3 &lt;- mutate(nodes, id=id-1,
                    group = &quot;1&quot;,
                    label = str_wrap(label, width=10))
+
 edges_d3 &lt;- edges %&gt;% 
   mutate(from=from-1, to=to-1) %&gt;%
   mutate(col = set1[as.factor(label)])
