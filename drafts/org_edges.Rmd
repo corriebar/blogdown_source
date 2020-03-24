@@ -1,19 +1,8 @@
 ---
-title: Connecting Disinformation
-author: Corrie
-date: '2020-03-20'
-slug: connecting-disinformation
-categories:
-  - R
-tags:
-  - R
-  - networks
-  - disinfo
-comments: yes
-image: images/tea_with_books.jpg
-menu: ''
-share: yes
+title: "Org Edges"
+output: html_document
 ---
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -26,7 +15,7 @@ library(graphlayouts)
 library(extrafont)
 
 
-df <- read_csv("../euvsdisinfoPydata/data.csv") %>%
+df <- read_csv("data/data.csv") %>%
   mutate(creative_work_id = str_replace(creative_work_id, "/", "") %>%
            str_replace("/", "_")) 
 html_files <- list.files("data/html", full.names = TRUE) 

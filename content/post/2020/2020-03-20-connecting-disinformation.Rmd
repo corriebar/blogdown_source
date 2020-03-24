@@ -1,0 +1,357 @@
+---
+title: Connecting Disinformation with tidygraph
+author: Corrie
+date: '2020-03-20'
+slug: connecting-disinformation-with-tidygraph
+categories:
+  - R
+tags:
+  - R
+  - networks
+  - disinfo
+comments: yes
+image: images/tea_with_books.jpg
+menu: ''
+share: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(tidygraph)
+library(ggraph)
+library(rvest)
+library(RColorBrewer)
+library(graphlayouts)
+library(extrafont)
+
+
+df <- read_csv(here::here("data/disinfo_data/data.csv")) %>%
+  mutate(creative_work_id = str_replace(creative_work_id, "/", "") %>%
+           str_replace("/", "_")) 
+html_files <- list.files(here::here("data/disinfo_data/html"), full.names = TRUE) 
+html_files <- html_files[str_ends(html_files, ".html")]
+
+```
+
+I recently participated in a Hackathon organised by EU's anti-disinformation task force where they gave us access to their data base. The data base consists of all disinformation cases the group has collected since it started in 2015 and they can also be browsed online on their web page: [www.euvsdisinfo.eu](https://euvsdisinfo.eu). I built a small [R package](https://github.com/corriebar/euvsdisinfoR) that makes it easier to download the data from their API (it seems though as if the API is currently not updated as regularly as their web page). The data contains more than 7000 cases of disinformation, mostly news articles and videos, that were collected and debunked by the EUvsDisinfo project. Their API does not contain the articles or videos themselves but only an URL to where the piece originally appeared together with a short summary of the claim made, why it's not true, and some other meta data, such as language and countries targeted. So I went ahead and scraped the original articles, both the raw html and just a text version, extracted from the html. For this, I used the Python package [newspaper](https://github.com/codelucas/newspaper/) which allows to easily extract just the article text from an html. I checked a few samples by hand and it seems to do reasonably well even for non-English articles which is important since many of the articles are e.g. in Russian. If you want to play with the data yourself, it's all uploaded on [kaggle](https://www.kaggle.com/corrieaar/disinformation-articles). For this post, I use both the html-files and the csv-file containing the meta data.
+
+When I was scraping and checking the data, I saw some Google Analytics IDs which made me wonder if it might be possible to use Analytics IDs to identify connections between different disinformation outlets. Some Outlets, such as Sputnik, have multiple outlets for different countries (there are 30 different outlets in the data with "sputnik" in the name). Others might be run by the same organization without disclosing this. Now, I don't expect to find many of these, after all, it seems like a rather lazy mistake that is easy to avoid but even finding only a handful connections could be useful. And it also sounds like a nice opportuntiy to try out some R network packages.
+
+```{python, eval=F, echo=F}
+# python
+from newspaper import Article
+with open("../../../data/disinfo_data/html/news_articles_2241.html", "r") as file:
+    html_string = file.read()
+    
+art = Article("", keep_article_html=True)
+art.set_html(html_string)
+art.parse()
+print(art.meta_data)
+```
+
+## Preparing the data
+First, we'll need to get the analytic IDs from the html. Luckily, the analytics apps usually provide code snippets for copy-pasting so we can expect to code to always follow the same pattern. For Google Analytics, the part of its [code snippet](https://developers.google.com/analytics/devguides/collection/analyticsjs) we're most intested in, is the following line:
+
+```
+ga('create', 'UA-XXXXX-Y', 'auto');
+```
+where `UA-XXXXX-Y` is the ID we're interested in. One account can have multiple IDs associated with it which then get counted up in the `Y` part, so we're really only interested in the `XXXXX` part. To extract this part, I'm using the function `str_extract_all` from the stringr package and some elaborate Regex. I won't go into the details of the Regex but my approach was to basicllay paste the html text to [regex101.com](https://regex101.com/) and used some trial-and-error until I got the results I wanted (btw `clipr::write_clip(htmltext)` is a handy function to copy-paste the html text to the clipboard). One thing to take into account when using regex101.com is that in R we need to escape any backslashs. That is, if on regex101.com we use `\(` to match `(`, we need to escape the slash in R and write `\\(`. To match `\` we would write `\\` in regex101.com and have to doubly escape the slashes in R: `\\\\` matches one `\` in R. The function to extract the Google Analytics ID then looks like this:
+
+```{r}
+ga_id <- function(htmltext) {
+  str_extract_all(htmltext, 
+              "(?<=ga\\((?:'create'|\\\\'create\\\\'),\\s?\\\\?')(UA-\\d+)(?=-\\d+)") %>%
+    flatten_chr() %>%
+    unique
+}
+```
+
+```{r, echo=F}
+all_links <- function(html) {
+  links <- html %>% html_nodes("a") %>% html_attr("href")
+  links[str_starts(links, "http")]
+}
+
+remove_lang_code <- function(url) {
+  str_replace(url, "^[a-z]{2}\\.(?=\\w+\\.)", "")
+}
+remove_www <- function(url) {
+  str_replace(url,  "^www\\.", "")
+}
+
+all_linked_domains <- function(html) {
+  links <- all_links(html)
+  doms <- xml2::url_parse(links)$server %>%
+    remove_www() %>%
+    remove_lang_code() %>%
+    unique()
+  doms <- doms[doms != ""]
+  doms
+}
+
+
+google_ad_id <- function(htmltext) {
+  str_extract_all(htmltext, "(?<=data-ad-client=(?:\\\"|\\'))(ca-pub-\\d+)") %>%
+    flatten_chr() %>%
+    unique
+}
+ya_metrika <- function(htmltext) {
+  str_extract_all(htmltext, "(?<=yandex\\.ru\\/watch\\/|yandex\\.ru\\/informer\\/|yandex\\.ru\\/stat\\/\\?id=)(\\d+)") %>%
+    flatten_chr() %>%
+    unique
+}
+
+fb_pixel <- function(htmltext) {
+  str_extract_all(htmltext, "(?<=fbq\\(\\\\'init\\\\',\\s\\\\'|fbq\\('init',\\s')(\\d+)(?=\\\\'|')") %>%
+    flatten_chr() %>%
+    unique
+}
+
+ya_ads <- function(htmltext) {
+  str_extract_all(htmltext, "(?<=blockId:\\s(?:\\\"|\\'))(.*?)(?=\\\"|\\')") %>%
+    flatten_chr() %>%
+    unique()
+}
+```
+
+We can do the same for a bunch of other common IDs and combine them in one function:
+
+```{r}
+compute_ids <- function(html_file) {
+  html <- read_html(html_file, encoding="UTF-8")
+  htmltext <- as.character(html)
+  ga <- ga_id(htmltext)
+  gad <- google_ad_id(htmltext)
+  ya_m <- ya_metrika(htmltext)
+  fb <- fb_pixel(htmltext)
+  ya_a <- ya_ads(htmltext)
+  tibble(htmlfile = basename(html_file),
+         ga = list(ga),
+         google_ad = list(gad),
+         ya_metrika = list(ya_m),
+         fb_pixel = list(fb),
+         ya_ad = list(ya_a))
+}
+```
+
+We then use `purrr` to compute the IDs for all html files. 
+```{r, eval=F}
+html_files <- list.files(here::here("data/disinfo_data/html"), full.names = TRUE) 
+html_files <- html_files[str_ends(html_files, ".html")]
+
+d <- purrr::map_dfr(html_files, .f=~compute_ids(.x))
+d <- d %>%
+  mutate(creative_work_id = str_replace(htmlfile, ".html", ""))
+```
+```{r, echo=F, eval=F}
+saveRDS(d, here::here("data/disinfo_data/org_edges.rds"))
+```
+```{r, echo=F}
+d <- readRDS(here::here("data/disinfo_data/org_edges.rds"))
+```
+
+The resulting data frame with the IDs is then combined with the data frame containing the meta data:
+```{r, eval=F}
+df <- read_csv(here::here("data/disinfo_data/data.csv")) %>%
+  mutate(creative_work_id = str_replace(creative_work_id, "/", "") %>%
+           str_replace("/", "_")) 
+
+data <- d %>%
+    left_join(df %>%
+                select(creative_work_id, claims_id, 
+                       organization_id, organization_name), 
+              by="creative_work_id")
+```
+
+
+
+```{r, echo=F}
+data <- d %>%
+    left_join(df %>%
+                select(creative_work_id, claims_id, 
+                       organization_id, organization_name), 
+              by="creative_work_id")
+```
+
+## Creating Edges
+To build the network, we need to create edges between organizations that use the same ID. The IDs are saved in columns of lists (there could be more than one ID per type per newsarticle) so we first unnest the lists, keep only distinct IDs per organization and then basically join the data frame with itself.
+We do this per ID type. For the Google Analytics ID, this would look as follow:
+```{r, eval=F}
+orgs <- data %>%
+  unnest(ga) %>%
+  group_by(organization_id) %>%
+  distinct(ga)
+
+orgs <- orgs %>%
+  inner_join(orgs, by="ga") %>%
+  filter(organization_id.x != organization_id.y) %>%
+  mutate(label = "ga") %>%
+  select(from = organization_id.x, to = organization_id.y)
+```
+We only keep the rows with distinct organizations but we also need to check for duplicate pairs. That is, an edge from organization A to organization B is the same as an edge from organization B to organization A. This was a bit tricky to accomplish, I solved the problem by sorting the column content (so that organization A always appears before organization B in a row) and then removing duplicates. My solution isn't particularly tidy, I guess one could use pivotting for a tidy approach but this one felt more straight-forward to me.
+```{r, eval=F}
+orgs[c("from", "to")] <- t(apply(orgs[c("from", "to")], 1, sort))
+  dupls <- duplicated(orgs)
+  orgs <- orgs[!dupls, ]
+```
+We put this all in a function `make_edge_list()` and apply it for each of the ID types.
+```{r, echo=F}
+make_edge_list <- function(attribute) {
+  attribute <- enquo(attribute)
+  orgs <- data %>%
+    unnest(!!attribute) %>%
+    group_by(organization_id) %>%
+    distinct(!!attribute)
+
+  orgs <- orgs %>%
+    inner_join(orgs, by=quo_name(attribute)) %>%
+    filter(organization_id.x != organization_id.y) %>%
+    mutate(label = quo_name(attribute)) %>%
+    select(from = organization_id.x, to = organization_id.y,
+           label, value = {{attribute}})
+  orgs[c("from", "to")] <- t(apply(orgs[c("from", "to")], 1, sort))
+  dupls <- duplicated(orgs)
+  orgs <- orgs[!dupls, ]
+  orgs
+}
+```
+```{r, results='hide'}
+orgs <- df %>%
+  group_by(organization_id, organization_name) %>%
+  count()
+
+org_edges <- bind_rows( make_edge_list(ga),
+           make_edge_list(google_ad),
+           make_edge_list(ya_metrika),
+           make_edge_list(fb_pixel),
+           make_edge_list(ya_ad) ) %>%
+  left_join(orgs, by=c("from"="organization_id")) %>%
+  rename(from_name = organization_name, from_n = n) %>%
+  left_join(orgs, by=c("to"="organization_id")) %>%
+  rename(to_name = organization_name, to_n = n) %>%
+  distinct(from, to, label, .keep_all = TRUE)
+
+```
+```{r, echo=F}
+org_edges %>%
+  head() %>%
+  select(from, to, label, value) %>%
+  knitr::kable()
+```
+Each row in this data frame now represents one edge between two organizations. Notice that we can have multiple edges between two organizations. This happens when they share IDs of different type, e.g. the same Google Analytics ID as well as the same Facebook Pixel ID.
+
+## Making the graph
+Last time I was working with graphs in R was for my master thesis and back then I was extensively using the package [`igrah`](https://igraph.org/r/). It is very extensive but getting the knack of it takes some time. While plotting is straight-forward, it is not as easy to get nice looking plots and one needs to do quite a bit of manual tweaking for features such as coloring by a category (at least last time I checked).
+But now there is [tidygraph](https://www.data-imaginist.com/2017/introducing-tidygraph/) and [ggraph](https://github.com/thomasp85/ggraph) which provide a tidy interface for igraph and also a ggplot extension for graphs.
+
+First, we create the graph object from the edge data frame. It's actually not necessary to provide the nodes data frame as well since it can deduce nodes from the edges. This is however useful if you have additional data columns for your nodes or if you have some nodes that are not connected via edges.
+```{r}
+org_graph <- tbl_graph(edges = org_edges, directed = FALSE, nodes = orgs)
+```
+
+To work with this tidy graph, it is important to keep in mind that we basically have two data frames behind it. Depending on what we want to do, we have to work with either the nodes or the edges. To for example compute centrality measures such as the degree or betweenness of a node, we want to work with the nodes data frame. To query information about edges such as weather an edge is multiple (here, these are organizations that share the same ID for more than one ID type), we want to work with the edge data frame. To switch between the two contexts, tidygraph provides the function `activate()`.
+In the following code, we compute a few centrality metrics (useful for plotting later), compute the component sizes by grouping by components first and then filter out any single nodes.
+```{r}
+org_graph <- org_graph %>%
+  activate(nodes) %>%
+  mutate(degree = centrality_degree(),
+         centrality = centrality_betweenness() + 1,
+         component = group_components() %>%
+           factor()) %>%
+  group_by(component) %>%
+  # filter out single nodes
+  mutate(comp_size = n(),
+         larg_com = comp_size > 2) %>%
+  filter(comp_size > 1) %>%
+  ungroup() 
+```
+
+```{r, echo=F}
+org_graph <- org_graph %>%
+  mutate(label_cond = ifelse((centrality >= 10 & 
+                               comp_size > 4) |
+                               organization_id == "/organizations/178", organization_name, "") %>%
+           str_wrap(width = 10),
+         label_length = str_count(label_cond, "\\n"),
+         label = organization_name)
+
+nodes <- org_graph %>%
+  activate(nodes) %>%
+  as_tibble() %>%
+  rowid_to_column(var="id")
+```
+If we want to extract the data frames back from the graph object, we can do as follows:
+```{r}
+edges <- org_graph %>%
+  activate(edges) %>%
+  as_tibble
+```
+
+## Visualizing
+Let's get to the most fun part of this analysis: visualizing the network! In a way, a moment of suspense since it will show if there are actually some interesting network structures of organizations linked by IDs or not.
+
+The package `ggraph` is an extension of ggplot and thus has a very similar interface. However, since we're still dealing with two underlying data sets (the nodes and the edges), we also have to specify for the geoms if they should use the nodes or edges data.
+If we specify aestethics, such as color, for either nodes or edges, we then also need to specify this information when using a scale function. To e.g. color the edges we'd need to use `scale_edge_color_*()`  wheras `scale_color_*()` specifies by default the coloring scale for the nodes.
+```{r, fig.height=7, fig.width=12}
+ggraph(org_graph, layout = "auto") +
+  geom_edge_fan(aes(color=label)) +
+  geom_node_point(aes(size=sqrt(centrality)), show.legend = F) +
+  scale_edge_color_brewer(palette = "Set1") + labs(edge_color="") +
+  theme_graph()
+```
+
+While the familiar ggplot interface makes it easy to modify the aesthetics of the graph, it doesn't look yet very pleasing. On one hand, there are many components with only two nodes and also, the arrangement of the network doesn't seem optimal.
+For the visualization, we can opt to only display components with more than two nodes but even then the remaining components look very compressed. I find this the most difficult part in getting a network look pretty: picking the right layout. There are dozens of different layouts, many with a range of parameters as well, each one trying to optimize slightly different aspects. igraph alone provides more than a dozen layouts which are listed at `?layout_tbl_graph_igraph`. My partner jokingly accused me of p-hacking my graph when I was trying out all the different layouts to decide which one fits best. For my graph, I found the Fruchterman-Reingold layout to work best which can be used by setting `ggraph(layout = "fr")`.
+
+```{r, fig.height=8, fig.width=12}
+set.seed(2020)
+org_graph %>%
+  activate(nodes) %>%
+  filter(comp_size > 2) %>%
+ggraph(layout = "fr") +
+  geom_edge_fan(aes(color=label), alpha=0.8, strength = 4) +
+  scale_edge_color_brewer(palette="Set1", labels = c("Facebook Pixel", "Google Analytics", 
+                                               "Google Ads", "Yandex Ads", "Yandex Metrika")) +
+  geom_node_point(aes(size=sqrt(centrality)), color="white", show.legend=F) +
+  geom_node_point(aes(size=sqrt(centrality)), fill="grey30", color="white", 
+                  shape = 21,
+                  show.legend=FALSE) +
+  geom_node_text(aes(label = str_wrap(label_cond, width = 10,),
+                     point.size=sqrt(centrality),
+                     size = 8/(1+label_length/2)), 
+                 repel = TRUE, segment.curvature=0.2,
+                 segment.alpha=0.3, #nudge_x = 0.8, nudge_y = -0.5,
+                 max.overlaps = Inf,
+                 color="grey30", alpha=0.8, min.segment.length=0,
+                 bg.color="white", point.padding = 0.1,
+                 force=10,
+                 family="Merriweather",
+                 show.legend=FALSE) +
+  labs(edge_color="") +
+  guides(edge_color = guide_legend(override.aes = list(edge_width=1.5))) +
+  theme_graph() +
+  theme(text=element_text(size=16, family="Merriweather", color="gray50")) 
+```
+
+
+
+```{r}
+library(networkD3)
+set1 <- brewer.pal(length(unique(edges$label)), "Set1")
+nodes_d3 <- mutate(nodes, id=id-1,
+                   group = "1",
+                   label = str_wrap(label, width=10))
+edges_d3 <- edges %>% 
+  mutate(from=from-1, to=to-1) %>%
+  mutate(col = set1[as.factor(label)])
+
+forceNetwork(Links = as.data.frame(edges_d3), Nodes = as.data.frame(nodes_d3), 
+             Source="from", Target="to",
+             NodeID = "label", Group = "group", Nodesize="centrality",
+             opacity = 0.9, fontSize=16, zoom = TRUE, charge=-10, 
+             linkColour = edges_d3$col, bounded = T, 
+             height=700, width = 900, opacityNoHover = 0)
+```
+
+

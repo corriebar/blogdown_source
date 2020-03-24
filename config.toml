@@ -30,6 +30,12 @@ comments = true
   privacy_pack = true
   hostName = "https://samples-of-thoughts.com"
   
+    # options for highlight.js (version, additional languages, and theme)
+    highlightjsVersion = "9.12.0"
+    highlightjsCDN = "//cdnjs.cloudflare.com/ajax/libs"
+    highlightjsLang = ["r", "python", "yaml"]
+    highlightjsTheme = "googlecode"
+  
 [privacy]
   [privacy.googleAnalytics]
     anonymizeIP = true
