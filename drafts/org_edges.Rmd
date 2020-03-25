@@ -1,0 +1,240 @@
+---
+title: "Org Edges"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(tidygraph)
+library(ggraph)
+library(rvest)
+library(RColorBrewer)
+library(graphlayouts)
+library(extrafont)
+
+
+df <- read_csv("data/data.csv") %>%
+  mutate(creative_work_id = str_replace(creative_work_id, "/", "") %>%
+           str_replace("/", "_")) 
+html_files <- list.files("data/html", full.names = TRUE) 
+html_files <- html_files[str_ends(html_files, ".html")]
+```
+
+
+
+```{r}
+all_links <- function(html) {
+  links <- html %>% html_nodes("a") %>% html_attr("href")
+  links[str_starts(links, "http")]
+}
+
+remove_lang_code <- function(url) {
+  str_replace(url, "^[a-z]{2}\\.(?=\\w+\\.)", "")
+}
+remove_www <- function(url) {
+  str_replace(url,  "^www\\.", "")
+}
+
+all_linked_domains <- function(html) {
+  links <- all_links(html)
+  doms <- xml2::url_parse(links)$server %>%
+    remove_www() %>%
+    remove_lang_code() %>%
+    unique()
+  doms <- doms[doms != ""]
+  doms
+}
+
+ga_id <- function(htmltext) {
+  str_extract_all(htmltext, "(?<=ga\\((?:'create'|\\\\'create\\\\'),\\s\\\\?')(UA-\\d+-\\d+)") %>%
+    flatten_chr() %>%
+    unique
+}
+
+google_ad_id <- function(htmltext) {
+  str_extract_all(htmltext, "(?<=data-ad-client=(?:\\\"|\\'))(ca-pub-\\d+)") %>%
+    flatten_chr() %>%
+    unique
+}
+ya_metrika <- function(htmltext) {
+  str_extract_all(htmltext, "(?<=yandex\\.ru\\/watch\\/|yandex\\.ru\\/informer\\/|yandex\\.ru\\/stat\\/\\?id=)(\\d+)") %>%
+    flatten_chr() %>%
+    unique
+}
+
+fb_pixel <- function(htmltext) {
+  str_extract_all(htmltext, "(?<=fbq\\(\\\\'init\\\\',\\s\\\\'|fbq\\('init',\\s')(\\d+)(?=\\\\'|')") %>%
+    flatten_chr() %>%
+    unique
+}
+
+ya_ads <- function(htmltext) {
+  str_extract_all(htmltext, "(?<=blockId:\\s(?:\\\"|\\'))(.*?)(?=\\\"|\\')") %>%
+    flatten_chr() %>%
+    unique()
+}
+```
+
+
+```{r}
+compute_ids <- function(html_file) {
+  html <- read_html(html_file, encoding="UTF-8")
+  htmltext <- as.character(html)
+  ga <- ga_id(htmltext)
+  gad <- google_ad_id(htmltext)
+  ya_m <- ya_metrika(htmltext)
+  fb <- fb_pixel(htmltext)
+  ya_a <- ya_ads(htmltext)
+  links <- all_linked_domains(html)
+  tibble(htmlfile = html_file,
+         ga = list(ga),
+         google_ad = list(gad),
+         ya_metrika = list(ya_m),
+         fb_pixel = list(fb),
+         ya_ad = list(ya_a),
+         links = list(links))
+}
+```
+
+```{r, eval=F}
+d <- purrr::map_dfr(html_files, .f=~compute_ids(.x))
+d <- d %>%
+  mutate(creative_work_id = str_replace(htmlfile, "data/html/", "") %>%
+           str_replace(".html", ""))
+saveRDS(d, "data/org_edges.rds")
+```
+
+```{r}
+d <- readRDS("data/org_edges.rds")
+data <- d %>%
+    left_join(df %>%
+                select(creative_work_id, claims_id, 
+                       organization_id, organization_name), by="creative_work_id")
+```
+
+```{r}
+make_edge_list <- function(attribute) {
+  attribute <- enquo(attribute)
+  orgs <- data %>%
+    unnest(!!attribute) %>%
+    group_by(organization_id) %>%
+    distinct(!!attribute)
+  
+  orgs <- orgs %>%
+    inner_join(orgs, by=quo_name(attribute)) %>%
+    filter(organization_id.x != organization_id.y) %>%
+    mutate(label = quo_name(attribute)) %>%
+    select(from = organization_id.x, to = organization_id.y,
+           label, value = {{attribute}})
+  orgs[c("from", "to")] <- t(apply(orgs[c("from", "to")], 1, sort))
+  dupls <- duplicated(orgs)
+  orgs <- orgs[!dupls, ]
+  orgs
+}
+orgs <- df %>%
+  group_by(organization_id, organization_name) %>%
+  count()
+
+org_edges <- bind_rows( make_edge_list(ga),
+           make_edge_list(google_ad),
+           make_edge_list(ya_metrika),
+           make_edge_list(fb_pixel),
+           make_edge_list(ya_ad) ) %>%
+  left_join(orgs, by=c("from"="organization_id")) %>%
+  rename(from_name = organization_name, from_n = n) %>%
+  left_join(orgs, by=c("to"="organization_id")) %>%
+  rename(to_name = organization_name, to_n = n) %>%
+  distinct(from, to, label, .keep_all = TRUE)
+```
+
+```{r}
+org_edges 
+```
+
+```{r}
+org_graph <- tbl_graph(edges=org_edges, directed = F, nodes=orgs)
+org_graph <- org_graph %>%
+  activate(nodes) %>%
+  mutate(degree = centrality_degree(),
+         centrality = centrality_betweenness() + 1,
+         component = group_components() %>%
+           factor()) %>%
+  group_by(component) %>%
+  # filter out single nodes
+  mutate(comp_size = n(),
+         larg_com = comp_size > 2) %>%
+  filter(comp_size > 2) %>%
+  ungroup() %>%
+  mutate(label_cond = ifelse((centrality >= 10 & 
+                               comp_size > 4) |
+                               organization_id == "/organizations/178", organization_name, "") %>%
+           str_wrap(width = 10),
+         label_length = str_count(label_cond, "\\n"),
+         label = organization_name)
+
+nodes <- org_graph %>%
+  activate(nodes) %>%
+  as_tibble() %>%
+  rowid_to_column(var="id")
+  
+edges <- org_graph %>%
+  activate(edges) %>%
+  as_tibble
+```
+
+
+
+```{r, fig.height=8, fig.width=10}
+set.seed(2020)
+
+layout <- create_layout(org_graph,layout="igraph", algorithm="fr")
+ggraph(layout) +
+  geom_edge_fan(aes(color=label), alpha=0.8, strength = 4) +
+  scale_edge_color_brewer(palette="Set1", labels = c("Facebook Pixel", "Google Analytics", 
+                                               "Google Ads", "Yandex Ads", "Yandex Metrika")) +
+  geom_node_point(aes(size=sqrt(centrality)), color="white", show.legend=F) +
+  geom_node_point(aes(size=sqrt(centrality)), fill="grey30", color="white", 
+                  shape = 21,
+                  show.legend=FALSE) +
+  geom_node_text(aes(label = str_wrap(label_cond, width = 10,),
+                     point.size=sqrt(centrality),
+                     size = 8/(1+label_length/2)), 
+                 repel = TRUE, segment.curvature=0.2,
+                 segment.alpha=0.3, #nudge_x = 0.8, nudge_y = -0.5,
+                 max.overlaps = Inf,
+                 color="grey30", alpha=0.8, min.segment.length=0,
+                 bg.color="white", point.padding = 0.1,
+                 force=10,
+                 family="Merriweather",
+                 show.legend=FALSE) +
+  labs(edge_color="") +
+  #facet_nodes(~larg_com, nrow=2) +
+  scale_size() +
+  guides(edge_color = guide_legend(override.aes = list(edge_width=1.5))) +
+  theme_graph() +
+  theme(text=element_text(size=16, family="Merriweather", color="gray50")) 
+```
+
+
+
+```{r}
+library(networkD3)
+set1 <- brewer.pal(length(unique(edges$label)), "Set1")
+nodes_d3 <- mutate(nodes, id=id-1,
+                   group = "1",
+                   label = str_wrap(label, width=10))
+edges_d3 <- edges %>% 
+  mutate(from=from-1, to=to-1) %>%
+  mutate(col = set1[as.factor(label)])
+
+forceNetwork(Links = as.data.frame(edges_d3), Nodes = as.data.frame(nodes_d3), 
+             Source="from", Target="to",
+             NodeID = "label", Group = "group", Nodesize="centrality",
+             opacity = 0.9, fontSize=16, zoom = TRUE, charge=-10, 
+             linkColour = edges_d3$col, bounded = T, 
+             height=700, width = 900, opacityNoHover = 0)
+```
+
+
