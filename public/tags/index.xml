@@ -7,10 +7,55 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Corrie Bartelheimer {year}</copyright>
-    <lastBuildDate>Mon, 24 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 25 Mar 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>disinfo</title>
+      <link>/tags/disinfo/</link>
+      <pubDate>Wed, 25 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/disinfo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ggraph</title>
+      <link>/tags/ggraph/</link>
+      <pubDate>Wed, 25 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/ggraph/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>networks</title>
+      <link>/tags/networks/</link>
+      <pubDate>Wed, 25 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/networks/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R</title>
+      <link>/tags/r/</link>
+      <pubDate>Wed, 25 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/r/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tidygraph</title>
+      <link>/tags/tidygraph/</link>
+      <pubDate>Wed, 25 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/tidygraph/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>flats</title>
@@ -54,15 +99,6 @@
       <pubDate>Mon, 17 Jun 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/docker/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>R</title>
-      <link>/tags/r/</link>
-      <pubDate>Mon, 17 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/r/</guid>
       <description></description>
     </item>
     

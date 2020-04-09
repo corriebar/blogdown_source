@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Corrie Bartelheimer {year}</copyright>
-    <lastBuildDate>Mon, 17 Jun 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 25 Mar 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Connecting Disinformation with tidygraph</title>
+      <link>/2020/connecting-disinformation-with-tidygraph/</link>
+      <pubDate>Wed, 25 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/connecting-disinformation-with-tidygraph/</guid>
+      <description>I recently participated in a hackathon organised by EU’s anti-disinformation task force where they gave us access to their data base. The data base consists of all disinformation cases the group has collected since it started in 2015. Their data can also be browsed online on their web page www.euvsdisinfo.eu. The data contains more than 7000 cases of disinformation, mostly news articles and videos, that were collected and debunked by the EUvsDisinfo project.</description>
+    </item>
     
     <item>
       <title>Reproducible (Data) Science with Docker and R</title>
