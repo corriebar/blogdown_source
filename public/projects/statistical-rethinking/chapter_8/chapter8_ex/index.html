@@ -12,13 +12,13 @@
 
 
 
-<meta name="twitter:title" content="Chapter 8 - Exercises"/>
+<meta name="twitter:title" content=""/>
 <meta name="twitter:description" content=""/>
 <meta name="twitter:site" content="@corrieaar"/>
 
 
 
-  	<meta property="og:title" content="Chapter 8 - Exercises &middot; Samples of Thoughts" />
+  	<meta property="og:title" content=" &middot; Samples of Thoughts" />
   	<meta property="og:site_name" content="Samples of Thoughts" />
   	<meta property="og:url" content="/projects/statistical-rethinking/chapter_8/chapter8_ex/" />
 
@@ -35,11 +35,12 @@
     
     
 
-    <title>Chapter 8 - Exercises &middot; Samples of Thoughts</title>
+    <title> &middot; Samples of Thoughts</title>
 
     
-    <meta name="description" content="Chapter 8 - Exercises Easy. 8E1. Which of the following is a requirement of the simple Metropolis algorithm?
- The proposal distribution must be symmetric  8E2. " />
+    <meta name="description" content="Chapter 8 - Exercises Corrie September 11, 2018
+Chapter 8 - Exercises Easy. 8E1. Which of the following is a requirement of the simple Metropolis algorithm?
+ Th" />
     
 
     <meta name="HandheldFriendly" content="True" />
@@ -98,10 +99,10 @@
             
         ]
     },
-    "headline": "Chapter 8 - Exercises",
-    "name": "Chapter 8 - Exercises",
-    "wordCount":  3247 ,
-    "timeRequired": "PT16M",
+    "headline": "",
+    "name": "",
+    "wordCount":  3790 ,
+    "timeRequired": "PT18M",
     "inLanguage": {
       "@type": "Language",
       "alternateName": "en"
@@ -296,13 +297,13 @@ if (!doNotTrack) {
   <article class="post projects">
 
     <header class="post-header">
-        <h1 class="post-title">Chapter 8 - Exercises</h1>
+        <h1 class="post-title"></h1>
         <small></small>
 
         <section class="post-meta">
         
             <p class="post-reading post-line">
-            <span>Estimated reading time: 16 min</span>
+            <span>Estimated reading time: 18 min</span>
             </p>
         
         
@@ -312,20 +313,17 @@ if (!doNotTrack) {
     </header>
 
     <section class="post-content">
-      
-
-
-<div id="chapter-8---exercises" class="section level1">
-<h1>Chapter 8 - Exercises</h1>
-<div id="easy." class="section level2">
-<h2>Easy.</h2>
+      <h1 id="chapter-8---exercises">Chapter 8 - Exercises</h1>
+<p>Corrie
+September 11, 2018</p>
+<h1 id="chapter-8---exercises-1">Chapter 8 - Exercises</h1>
+<h2 id="easy">Easy.</h2>
 <p><strong>8E1.</strong> Which of the following is a requirement of the simple Metropolis algorithm?</p>
 <ul>
 <li>The proposal distribution must be symmetric</li>
 </ul>
 <p><strong>8E2.</strong> Gibbs sampling is more efficient than the Metropolis algorithm. How does it achieve this extra efficiency? Are there any limitations?</p>
-<p>Gibbs sampling uses conjugate priors which allows it to make smarter proposals and is thus more efficient. The downside to this, is that it uses conjugate priors which might not be a good or valid prior from a scientific perspective.
-Also, it becomes quite inefficient with complex models of hundreds or more parameter.</p>
+<p>Gibbs sampling uses conjugate priors which allows it to make smarter proposals and is thus more efficient. The downside to this, is that it uses conjugate priors which might not be a good or valid prior from a scientific perspective. Also, it becomes quite inefficient with complex models of hundreds or more parameter.</p>
 <p><strong>8E3.</strong> Which sort of parameters can Hamiltonian Monte Carlo not handle? Can you explain why?</p>
 <p>HMC cannot deal with discrete parameters. The HMC kind of glides through the parameter space, where the speed depends on how quickly the density is changing. This means, it computes gradients in the parameter space. This is not possible with discrete parameters.</p>
 <p><strong>8E4.</strong> Explain the difference between the effective number of samples, <code>n_eff</code> as calculated by Stan, and the actual number of samples.</p>
@@ -334,494 +332,623 @@ Also, it becomes quite inefficient with complex models of hundreds or more param
 <p>If a chain is sampling correctly, the <code>Rhat</code> value should approach 1. Already values slightly above 1.00, such as 1.01 can be indicative of a problem. Values of <code>Rhat</code> much higher than 1 signal a big problem. Note that even invalid chains can reach 1.00.</p>
 <p><strong>8E6.</strong> Show examples of a Markov Chain that is effectively sampling from the posterior and one that is not. What about their shape indicates good or bad sampling?</p>
 <p><em>Good example:</em></p>
-<pre class="r"><code>library(rethinking)
-y &lt;- rnorm(100, mean=1, sd=2)
-m8.1 &lt;- map2stan(
-  alist(
-    y ~ dnorm(mu, sigma),
-    mu &lt;- alpha,
-    alpha ~ dnorm(0, 10),
-    sigma ~ dcauchy(0,1)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">library</span>(rethinking)
+y <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rnorm</span>(<span style="color:#ae81ff">100</span>, mean<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, sd<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+m8.1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map2stan</span>(
+  <span style="color:#a6e22e">alist</span>(
+    y <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(mu, sigma),
+    mu <span style="color:#f92672">&lt;-</span> alpha,
+    alpha <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>),
+    sigma <span style="color:#f92672">~</span> <span style="color:#a6e22e">dcauchy</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>)
   ), 
-  data=list(y=y), start=list(alpha=0, sigma=1),
-  chains=2
+  data<span style="color:#f92672">=</span><span style="color:#a6e22e">list</span>(y<span style="color:#f92672">=</span>y), start<span style="color:#f92672">=</span><span style="color:#a6e22e">list</span>(alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>),
+  chains<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
 )
+</code></pre></div><pre><code>Warning: There were 1 divergent transitions after warmup. Increasing adapt_delta above 0.8 may help. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
 
-plot(m8.1, col=c(&quot;black&quot;, &quot;royalblue4&quot;), n_cols=1)</code></pre>
+Warning: Examine the pairs() plot to diagnose sampling problems
+</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot</span>(m8.1, col<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">black&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">royalblue4&#34;</span>), n_cols<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</code></pre></div><p><img src="chapter8_Ex_files/figure-markdown_github/unnamed-chunk-1-1.png" alt=""></p>
 <p>These chains are doing good: they are stationary, that is, the mean of the chain does not go up or down but the chain stays the whole time between the values 0.5 and 1.5 for <code>alpha</code> and between 1.8 and 2.6 for <code>sigma</code>.</p>
 <p><em>Bad example:</em></p>
-<pre class="r"><code>y &lt;- rnorm(100, mean=1, sd=2)
-m8.2 &lt;- map2stan(
-  alist(
-    y ~ dnorm(mu, sigma),
-    mu &lt;- a1 + a2,
-    sigma ~ dcauchy(0,1)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">y <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rnorm</span>(<span style="color:#ae81ff">100</span>, mean<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, sd<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+m8.2 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map2stan</span>(
+  <span style="color:#a6e22e">alist</span>(
+    y <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(mu, sigma),
+    mu <span style="color:#f92672">&lt;-</span> a1 <span style="color:#f92672">+</span> a2,
+    sigma <span style="color:#f92672">~</span> <span style="color:#a6e22e">dcauchy</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>)
   ), 
-  data=list(y=y), start=list(a1=0, a2=0, sigma=1),
-  chains=2
+  data<span style="color:#f92672">=</span><span style="color:#a6e22e">list</span>(y<span style="color:#f92672">=</span>y), start<span style="color:#f92672">=</span><span style="color:#a6e22e">list</span>(a1<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, a2<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>),
+  chains<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
 )
+</code></pre></div><pre><code>Computing WAIC
 
-plot(m8.2, col=c(&quot;black&quot;, &quot;royalblue4&quot;), n_cols=1)</code></pre>
-<p>These chains are not doing well: The chains for <code>a1</code> and <code>a2</code> go up and down and don’t settle on a mean. While the chains for sigma are somehow closer to each other, they still didn’t settle on a mean.</p>
-</div>
-<div id="medium." class="section level2">
-<h2>Medium.</h2>
-<p><strong>8M1.</strong> Re-estimate the terrain ruggedness model from the chapter, but now using a uniform prior and an exponential prior for the standard deviation, <code>sigma</code>.
-The uniform prior should be <code>dunif(0, 10)</code> and the exponential should be <code>dexpo(1)</code>. Do the different priors have any detectable influence on the posterior distribution?</p>
+Constructing posterior predictions
+</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot</span>(m8.2, col<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">black&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">royalblue4&#34;</span>), n_cols<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</code></pre></div><p><img src="chapter8_Ex_files/figure-markdown_github/unnamed-chunk-2-1.png" alt=""></p>
+<p>These chains are not doing well: The chains for <code>a1</code> and <code>a2</code> go up and down and don&rsquo;t settle on a mean. While the chains for sigma are somehow closer to each other, they still didn&rsquo;t settle on a mean.</p>
+<h2 id="medium">Medium.</h2>
+<p><strong>8M1.</strong> Re-estimate the terrain ruggedness model from the chapter, but now using a uniform prior and an exponential prior for the standard deviation, <code>sigma</code>. The uniform prior should be <code>dunif(0, 10)</code> and the exponential should be <code>dexpo(1)</code>. Do the different priors have any detectable influence on the posterior distribution?</p>
 <p>I also add the Half-Cauchy prior we used before for comparison.</p>
-<pre class="r"><code>data(rugged)
-d &lt;- rugged
-d$log_gdp &lt;- log(d$rgdppc_2000)
-dd &lt;- d[ complete.cases(d$rgdppc_2000), ]
-dd.trim &lt;- dd[ , c(&quot;log_gdp&quot;, &quot;rugged&quot;, &quot;cont_africa&quot;)]
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">data</span>(rugged)
+d <span style="color:#f92672">&lt;-</span> rugged
+d<span style="color:#f92672">$</span>log_gdp <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">log</span>(d<span style="color:#f92672">$</span>rgdppc_2000)
+dd <span style="color:#f92672">&lt;-</span> d[ <span style="color:#a6e22e">complete.cases</span>(d<span style="color:#f92672">$</span>rgdppc_2000), ]
+dd.trim <span style="color:#f92672">&lt;-</span> dd[ , <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">log_gdp&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">rugged&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">cont_africa&#34;</span>)]
 
-ptm3 &lt;- proc.time()
-m8.unif &lt;- map2stan(
-  alist(
-    log_gdp ~ dnorm( mu, sigma ),
-    mu &lt;- a + bR*rugged + bA*cont_africa + bAR*rugged*cont_africa ,
-    a ~ dnorm( 0, 100),
-    bR ~ dnorm(0, 10),
-    bA ~ dnorm(0 , 10),
-    bAR ~ dnorm(0, 10),
-    sigma ~ dunif(0, 10)
+ptm3 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">proc.time</span>()
+m8.unif <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map2stan</span>(
+  <span style="color:#a6e22e">alist</span>(
+    log_gdp <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>( mu, sigma ),
+    mu <span style="color:#f92672">&lt;-</span> a <span style="color:#f92672">+</span> bR<span style="color:#f92672">*</span>rugged <span style="color:#f92672">+</span> bA<span style="color:#f92672">*</span>cont_africa <span style="color:#f92672">+</span> bAR<span style="color:#f92672">*</span>rugged<span style="color:#f92672">*</span>cont_africa ,
+    a <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>( <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">100</span>),
+    bR <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>),
+    bA <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span> , <span style="color:#ae81ff">10</span>),
+    bAR <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>),
+    sigma <span style="color:#f92672">~</span> <span style="color:#a6e22e">dunif</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>)
   ),
-  data = dd.trim, chains=2,
-  start=list(a=5, bR=0, bA=0, bAR=0, sigma=1)
+  data <span style="color:#f92672">=</span> dd.trim, chains<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>,
+  start<span style="color:#f92672">=</span><span style="color:#a6e22e">list</span>(a<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, bR<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, bA<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, bAR<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
 )
-proc.time() - ptm3
+<span style="color:#a6e22e">proc.time</span>() <span style="color:#f92672">-</span> ptm3
 
-ptm4 &lt;- proc.time()
-m8.exp &lt;- map2stan(
-  alist(
-    log_gdp ~ dnorm( mu, sigma ),
-    mu &lt;- a + bR*rugged + bA*cont_africa + bAR*rugged*cont_africa ,
-    a ~ dnorm( 0, 100),
-    bR ~ dnorm(0, 10),
-    bA ~ dnorm(0 , 10),
-    bAR ~ dnorm(0, 10),
-    sigma ~ dexp(1)
+ptm4 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">proc.time</span>()
+m8.exp <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map2stan</span>(
+  <span style="color:#a6e22e">alist</span>(
+    log_gdp <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>( mu, sigma ),
+    mu <span style="color:#f92672">&lt;-</span> a <span style="color:#f92672">+</span> bR<span style="color:#f92672">*</span>rugged <span style="color:#f92672">+</span> bA<span style="color:#f92672">*</span>cont_africa <span style="color:#f92672">+</span> bAR<span style="color:#f92672">*</span>rugged<span style="color:#f92672">*</span>cont_africa ,
+    a <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>( <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">100</span>),
+    bR <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>),
+    bA <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span> , <span style="color:#ae81ff">10</span>),
+    bAR <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>),
+    sigma <span style="color:#f92672">~</span> <span style="color:#a6e22e">dexp</span>(<span style="color:#ae81ff">1</span>)
   ),
-  data = dd.trim, chains=2,
-  start=list(a=5, bR=0, bA=0, bAR=0, sigma=1)
+  data <span style="color:#f92672">=</span> dd.trim, chains<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>,
+  start<span style="color:#f92672">=</span><span style="color:#a6e22e">list</span>(a<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, bR<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, bA<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, bAR<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
 )
-proc.time() - ptm4
+<span style="color:#a6e22e">proc.time</span>() <span style="color:#f92672">-</span> ptm4
 
-ptm5 &lt;- proc.time()
-m8.cauchy &lt;- map2stan(
-  alist(
-    log_gdp ~ dnorm( mu, sigma ),
-    mu &lt;- a + bR*rugged + bA*cont_africa + bAR*rugged*cont_africa ,
-    a ~ dnorm( 0, 100),
-    bR ~ dnorm(0, 10),
-    bA ~ dnorm(0 , 10),
-    bAR ~ dnorm(0, 10),
-    sigma ~ dcauchy(0, 2)
+ptm5 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">proc.time</span>()
+m8.cauchy <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map2stan</span>(
+  <span style="color:#a6e22e">alist</span>(
+    log_gdp <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>( mu, sigma ),
+    mu <span style="color:#f92672">&lt;-</span> a <span style="color:#f92672">+</span> bR<span style="color:#f92672">*</span>rugged <span style="color:#f92672">+</span> bA<span style="color:#f92672">*</span>cont_africa <span style="color:#f92672">+</span> bAR<span style="color:#f92672">*</span>rugged<span style="color:#f92672">*</span>cont_africa ,
+    a <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>( <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">100</span>),
+    bR <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>),
+    bA <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span> , <span style="color:#ae81ff">10</span>),
+    bAR <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>),
+    sigma <span style="color:#f92672">~</span> <span style="color:#a6e22e">dcauchy</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>)
   ),
-  data = dd.trim, chains=2,
-  start=list(a=5, bR=0, bA=0, bAR=0, sigma=1)
+  data <span style="color:#f92672">=</span> dd.trim, chains<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>,
+  start<span style="color:#f92672">=</span><span style="color:#a6e22e">list</span>(a<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, bR<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, bA<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, bAR<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
 )
-proc.time() - ptm5</code></pre>
-<p>Comparing the outputs of the three models, the estimates of all three models are the same.</p>
-<pre class="r"><code>precis(m8.unif)</code></pre>
-<pre class="r"><code>precis(m8.exp)</code></pre>
-<pre class="r"><code>precis(m8.cauchy)</code></pre>
-<p>Also comparing the trace plots doesn’t show any discernible difference, nor do the <code>Rhat</code> values or number of effective samples differ.
-Comparing the <code>pairs</code> plots for each model also doesn’t show any differences. The time needed to sample from each model is also very similar.</p>
-<pre class="r"><code>sigma.exp &lt;- extract.samples(m8.exp)$sigma
-sigma.unif &lt;- extract.samples(m8.unif)$sigma
-sigma.cauchy &lt;- extract.samples(m8.cauchy)$sigma
+<span style="color:#a6e22e">proc.time</span>() <span style="color:#f92672">-</span> ptm5
+</code></pre></div><p>Comparing the outputs of the three models, the estimates of all three models are the same.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">precis</span>(m8.unif)
+</code></pre></div><pre><code>       Mean StdDev lower 0.89 upper 0.89 n_eff Rhat
+a      9.23   0.14       9.03       9.46  1101    1
+bR    -0.21   0.08      -0.32      -0.08   990    1
+bA    -1.96   0.22      -2.29      -1.57   986    1
+bAR    0.40   0.13       0.20       0.60   914    1
+sigma  0.95   0.05       0.87       1.04  1366    1
+</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">precis</span>(m8.exp)
+</code></pre></div><pre><code>       Mean StdDev lower 0.89 upper 0.89 n_eff Rhat
+a      9.22   0.14       9.00       9.46  1087    1
+bR    -0.20   0.08      -0.33      -0.08  1123    1
+bA    -1.94   0.23      -2.28      -1.57  1031    1
+bAR    0.39   0.13       0.19       0.61  1116    1
+sigma  0.95   0.05       0.86       1.03  1173    1
+</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">precis</span>(m8.cauchy)
+</code></pre></div><pre><code>       Mean StdDev lower 0.89 upper 0.89 n_eff Rhat
+a      9.22   0.14       9.00       9.45   893 1.01
+bR    -0.20   0.08      -0.33      -0.08   869 1.01
+bA    -1.94   0.23      -2.31      -1.60   939 1.01
+bAR    0.39   0.13       0.18       0.60   971 1.00
+sigma  0.95   0.05       0.87       1.04  1282 1.00
+</code></pre>
+<p>Also comparing the trace plots doesn&rsquo;t show any discernible difference, nor do the <code>Rhat</code> values or number of effective samples differ. Comparing the <code>pairs</code> plots for each model also doesn&rsquo;t show any differences. The time needed to sample from each model is also very similar.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sigma.exp <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">extract.samples</span>(m8.exp)<span style="color:#f92672">$</span>sigma
+sigma.unif <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">extract.samples</span>(m8.unif)<span style="color:#f92672">$</span>sigma
+sigma.cauchy <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">extract.samples</span>(m8.cauchy)<span style="color:#f92672">$</span>sigma
 
-plot( density( sigma.exp, from=0.8, to=1.1, adj=1),
-      lwd=1, col=&quot;royalblue4&quot;, xlab=&quot;sigma&quot;, 
-      main=&quot;&quot;, ylim=c(0, 8.2))
-points(density( sigma.cauchy, from=0, to=10, adj=1),
-       lty=1, type=&quot;l&quot;)
-points(density( sigma.unif, from=0, to=10, adj=1),
-       lty=1, col=col.desat(&quot;red&quot;), type=&quot;l&quot;)
-legend(&quot;topright&quot;, col=c(&quot;royalblue4&quot;, &quot;black&quot;, col.desat(&quot;red&quot;)), 
-       lty=c(1,1,1),legend=c(&quot;Exp&quot;, &quot;Cauchy&quot;, &quot;Unif&quot;), bty=&quot;n&quot;)</code></pre>
-<p>Comparing the three posterior distributions for <code>sigma</code> at close scale, we can see some slight differences: the exponential prior and the Cauchy prior leads to a posterior distribution that seem to be very slightly right skewed compared to posterior by the uniform prior. However, the differences are rather small, so it is hard to say if they’re not just by chance.</p>
+<span style="color:#a6e22e">plot</span>( <span style="color:#a6e22e">density</span>( sigma.exp, from<span style="color:#f92672">=</span><span style="color:#ae81ff">0.8</span>, to<span style="color:#f92672">=</span><span style="color:#ae81ff">1.1</span>, adj<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>),
+      lwd<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, col<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">royalblue4&#34;</span>, xlab<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">sigma&#34;</span>, 
+      main<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span>, ylim<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">8.2</span>))
+<span style="color:#a6e22e">points</span>(<span style="color:#a6e22e">density</span>( sigma.cauchy, from<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, to<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>, adj<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>),
+       lty<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">l&#34;</span>)
+<span style="color:#a6e22e">points</span>(<span style="color:#a6e22e">density</span>( sigma.unif, from<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, to<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>, adj<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>),
+       lty<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, col<span style="color:#f92672">=</span><span style="color:#a6e22e">col.desat</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">red&#34;</span>), type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">l&#34;</span>)
+<span style="color:#a6e22e">legend</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">topright&#34;</span>, col<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">royalblue4&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">black&#34;</span>, <span style="color:#a6e22e">col.desat</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">red&#34;</span>)), 
+       lty<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>),legend<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Exp&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Cauchy&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Unif&#34;</span>), bty<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">n&#34;</span>)
+</code></pre></div><p><img src="chapter8_Ex_files/figure-markdown_github/unnamed-chunk-7-1.png" alt=""></p>
+<p>Comparing the three posterior distributions for <code>sigma</code> at close scale, we can see some slight differences: the exponential prior and the Cauchy prior leads to a posterior distribution that seem to be very slightly right skewed compared to posterior by the uniform prior. However, the differences are rather small, so it is hard to say if they&rsquo;re not just by chance.</p>
 <p><strong>8M2.</strong> The Cauchy and exponential prior from the model above are very weak. They can be made more informative by reducing their scale. Compare the two priors for progressively smaller values of the scaling parameter.</p>
-<pre class="r"><code>m8.exp1 &lt;- map2stan(
-  alist(
-    log_gdp ~ dnorm( mu, sigma ),
-    mu &lt;- a + bR*rugged + bA*cont_africa + bAR*rugged*cont_africa ,
-    a ~ dnorm( 0, 100),
-    bR ~ dnorm(0, 10),
-    bA ~ dnorm(0 , 10),
-    bAR ~ dnorm(0, 10),
-    sigma ~ dexp(1)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">m8.exp1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map2stan</span>(
+  <span style="color:#a6e22e">alist</span>(
+    log_gdp <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>( mu, sigma ),
+    mu <span style="color:#f92672">&lt;-</span> a <span style="color:#f92672">+</span> bR<span style="color:#f92672">*</span>rugged <span style="color:#f92672">+</span> bA<span style="color:#f92672">*</span>cont_africa <span style="color:#f92672">+</span> bAR<span style="color:#f92672">*</span>rugged<span style="color:#f92672">*</span>cont_africa ,
+    a <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>( <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">100</span>),
+    bR <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>),
+    bA <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span> , <span style="color:#ae81ff">10</span>),
+    bAR <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>),
+    sigma <span style="color:#f92672">~</span> <span style="color:#a6e22e">dexp</span>(<span style="color:#ae81ff">1</span>)
   ),
-  data = dd.trim, chains=2,
-  start=list(a=5, bR=0, bA=0, bAR=0, sigma=1)
+  data <span style="color:#f92672">=</span> dd.trim, chains<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>,
+  start<span style="color:#f92672">=</span><span style="color:#a6e22e">list</span>(a<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, bR<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, bA<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, bAR<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
 )
-m8.exp2 &lt;- map2stan(
-  alist(
-    log_gdp ~ dnorm( mu, sigma ),
-    mu &lt;- a + bR*rugged + bA*cont_africa + bAR*rugged*cont_africa ,
-    a ~ dnorm( 0, 100),
-    bR ~ dnorm(0, 10),
-    bA ~ dnorm(0 , 10),
-    bAR ~ dnorm(0, 10),
-    sigma ~ dexp(10)
+m8.exp2 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map2stan</span>(
+  <span style="color:#a6e22e">alist</span>(
+    log_gdp <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>( mu, sigma ),
+    mu <span style="color:#f92672">&lt;-</span> a <span style="color:#f92672">+</span> bR<span style="color:#f92672">*</span>rugged <span style="color:#f92672">+</span> bA<span style="color:#f92672">*</span>cont_africa <span style="color:#f92672">+</span> bAR<span style="color:#f92672">*</span>rugged<span style="color:#f92672">*</span>cont_africa ,
+    a <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>( <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">100</span>),
+    bR <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>),
+    bA <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span> , <span style="color:#ae81ff">10</span>),
+    bAR <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>),
+    sigma <span style="color:#f92672">~</span> <span style="color:#a6e22e">dexp</span>(<span style="color:#ae81ff">10</span>)
   ),
-  data = dd.trim, chains=2,
-  start=list(a=5, bR=0, bA=0, bAR=0, sigma=1)
+  data <span style="color:#f92672">=</span> dd.trim, chains<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>,
+  start<span style="color:#f92672">=</span><span style="color:#a6e22e">list</span>(a<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, bR<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, bA<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, bAR<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
 )
-m8.exp3 &lt;- map2stan(
-  alist(
-    log_gdp ~ dnorm( mu, sigma ),
-    mu &lt;- a + bR*rugged + bA*cont_africa + bAR*rugged*cont_africa ,
-    a ~ dnorm( 0, 100),
-    bR ~ dnorm(0, 10),
-    bA ~ dnorm(0 , 10),
-    bAR ~ dnorm(0, 10),
-    sigma ~ dexp(100)
+m8.exp3 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map2stan</span>(
+  <span style="color:#a6e22e">alist</span>(
+    log_gdp <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>( mu, sigma ),
+    mu <span style="color:#f92672">&lt;-</span> a <span style="color:#f92672">+</span> bR<span style="color:#f92672">*</span>rugged <span style="color:#f92672">+</span> bA<span style="color:#f92672">*</span>cont_africa <span style="color:#f92672">+</span> bAR<span style="color:#f92672">*</span>rugged<span style="color:#f92672">*</span>cont_africa ,
+    a <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>( <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">100</span>),
+    bR <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>),
+    bA <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span> , <span style="color:#ae81ff">10</span>),
+    bAR <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>),
+    sigma <span style="color:#f92672">~</span> <span style="color:#a6e22e">dexp</span>(<span style="color:#ae81ff">100</span>)
   ),
-  data = dd.trim, chains=2,
-  start=list(a=5, bR=0, bA=0, bAR=0, sigma=1)
-)</code></pre>
-<pre class="r"><code>m8.cauchy1 &lt;- map2stan(
-  alist(
-    log_gdp ~ dnorm( mu, sigma ),
-    mu &lt;- a + bR*rugged + bA*cont_africa + bAR*rugged*cont_africa ,
-    a ~ dnorm( 0, 100),
-    bR ~ dnorm(0, 10),
-    bA ~ dnorm(0 , 10),
-    bAR ~ dnorm(0, 10),
-    sigma ~ dcauchy(0, 1)
-  ),
-  data = dd.trim, chains=2,
-  start=list(a=5, bR=0, bA=0, bAR=0, sigma=1)  
+  data <span style="color:#f92672">=</span> dd.trim, chains<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>,
+  start<span style="color:#f92672">=</span><span style="color:#a6e22e">list</span>(a<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, bR<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, bA<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, bAR<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
 )
-m8.cauchy2 &lt;- map2stan(
-  alist(
-    log_gdp ~ dnorm( mu, sigma ),
-    mu &lt;- a + bR*rugged + bA*cont_africa + bAR*rugged*cont_africa ,
-    a ~ dnorm( 0, 100),
-    bR ~ dnorm(0, 10),
-    bA ~ dnorm(0 , 10),
-    bAR ~ dnorm(0, 10),
-    sigma ~ dcauchy(0, 0.1)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">m8.cauchy1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map2stan</span>(
+  <span style="color:#a6e22e">alist</span>(
+    log_gdp <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>( mu, sigma ),
+    mu <span style="color:#f92672">&lt;-</span> a <span style="color:#f92672">+</span> bR<span style="color:#f92672">*</span>rugged <span style="color:#f92672">+</span> bA<span style="color:#f92672">*</span>cont_africa <span style="color:#f92672">+</span> bAR<span style="color:#f92672">*</span>rugged<span style="color:#f92672">*</span>cont_africa ,
+    a <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>( <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">100</span>),
+    bR <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>),
+    bA <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span> , <span style="color:#ae81ff">10</span>),
+    bAR <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>),
+    sigma <span style="color:#f92672">~</span> <span style="color:#a6e22e">dcauchy</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>)
   ),
-  data = dd.trim, chains=2,
-  start=list(a=5, bR=0, bA=0, bAR=0, sigma=1)  
+  data <span style="color:#f92672">=</span> dd.trim, chains<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>,
+  start<span style="color:#f92672">=</span><span style="color:#a6e22e">list</span>(a<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, bR<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, bA<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, bAR<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)  
 )
+</code></pre></div><pre><code>Warning: There were 1 divergent transitions after warmup. Increasing adapt_delta above 0.8 may help. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
 
-m8.cauchy3 &lt;- map2stan(
-  alist(
-    log_gdp ~ dnorm( mu, sigma ),
-    mu &lt;- a + bR*rugged + bA*cont_africa + bAR*rugged*cont_africa ,
-    a ~ dnorm( 0, 100),
-    bR ~ dnorm(0, 10),
-    bA ~ dnorm(0 , 10),
-    bAR ~ dnorm(0, 10),
-    sigma ~ dcauchy(0, 0.01)
+Warning: Examine the pairs() plot to diagnose sampling problems
+
+Computing WAIC
+
+Constructing posterior predictions
+</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">m8.cauchy2 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map2stan</span>(
+  <span style="color:#a6e22e">alist</span>(
+    log_gdp <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>( mu, sigma ),
+    mu <span style="color:#f92672">&lt;-</span> a <span style="color:#f92672">+</span> bR<span style="color:#f92672">*</span>rugged <span style="color:#f92672">+</span> bA<span style="color:#f92672">*</span>cont_africa <span style="color:#f92672">+</span> bAR<span style="color:#f92672">*</span>rugged<span style="color:#f92672">*</span>cont_africa ,
+    a <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>( <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">100</span>),
+    bR <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>),
+    bA <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span> , <span style="color:#ae81ff">10</span>),
+    bAR <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>),
+    sigma <span style="color:#f92672">~</span> <span style="color:#a6e22e">dcauchy</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0.1</span>)
   ),
-  data = dd.trim, chains=2,
-  start=list(a=5, bR=0, bA=0, bAR=0, sigma=1)  
-)</code></pre>
+  data <span style="color:#f92672">=</span> dd.trim, chains<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>,
+  start<span style="color:#f92672">=</span><span style="color:#a6e22e">list</span>(a<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, bR<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, bA<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, bAR<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)  
+)
+</code></pre></div><pre><code>Warning: There were 1 divergent transitions after warmup. Increasing adapt_delta above 0.8 may help. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+
+Warning: Examine the pairs() plot to diagnose sampling problems
+
+Computing WAIC
+Constructing posterior predictions
+</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">m8.cauchy3 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map2stan</span>(
+  <span style="color:#a6e22e">alist</span>(
+    log_gdp <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>( mu, sigma ),
+    mu <span style="color:#f92672">&lt;-</span> a <span style="color:#f92672">+</span> bR<span style="color:#f92672">*</span>rugged <span style="color:#f92672">+</span> bA<span style="color:#f92672">*</span>cont_africa <span style="color:#f92672">+</span> bAR<span style="color:#f92672">*</span>rugged<span style="color:#f92672">*</span>cont_africa ,
+    a <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>( <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">100</span>),
+    bR <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>),
+    bA <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span> , <span style="color:#ae81ff">10</span>),
+    bAR <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>),
+    sigma <span style="color:#f92672">~</span> <span style="color:#a6e22e">dcauchy</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0.01</span>)
+  ),
+  data <span style="color:#f92672">=</span> dd.trim, chains<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>,
+  start<span style="color:#f92672">=</span><span style="color:#a6e22e">list</span>(a<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, bR<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, bA<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, bAR<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)  
+)
+</code></pre></div><pre><code>Warning: There were 1 divergent transitions after warmup. Increasing adapt_delta above 0.8 may help. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+
+Warning: Examine the pairs() plot to diagnose sampling problems
+
+Computing WAIC
+Constructing posterior predictions
+</code></pre>
 <p>For both the exponential and the Cauchy prior, the models are sorted from least restrictive to most restrictive. That is, <code>m8.exp3</code> and <code>m8.cauchy3</code> are the models with the most restrictive <code>sigma</code> prior.</p>
-<pre class="r"><code>coeftab(m8.exp1, m8.exp2, m8.exp3)</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">coeftab</span>(m8.exp1, m8.exp2, m8.exp3)
+</code></pre></div><pre><code>      m8.exp1 m8.exp2 m8.exp3
+a        9.22    9.22    9.23
+bR       -0.2    -0.2    -0.2
+bA      -1.94   -1.95   -1.95
+bAR      0.39    0.39    0.40
+sigma    0.95    0.93    0.78
+nobs      170     170     170
+</code></pre>
 <p>The more restrictive exponential prior have a visible effect on the posterior: The estimate for sigma decreased by quite a bit and even the other parameter estimates decreased by a small amount.</p>
-<pre class="r"><code>coeftab(m8.cauchy1, m8.cauchy2, m8.cauchy3)</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">coeftab</span>(m8.cauchy1, m8.cauchy2, m8.cauchy3)
+</code></pre></div><pre><code>      m8.cauchy1 m8.cauchy2 m8.cauchy3
+a        9.22       9.22       9.22   
+bR       -0.2       -0.2       -0.2   
+bA      -1.95      -1.95      -1.94   
+bAR      0.39       0.40       0.39   
+sigma    0.95       0.94       0.95   
+nobs      170        170        170   
+</code></pre>
 <p>Even the most restrictive Cauchy prior has not much effect on the parameter estimates. It decreases only by 0.01 which could easily also be due to chance in the sampling.</p>
 <p>We can see why this is, if we compare the prior distributions:</p>
-<pre class="r"><code>par(mfrow=c(1,2))
-curve(dexp(x,1), from=0, to=5, ylab=&quot;Density&quot;, xlab=&quot;sigma&quot;,
-      col=&quot;royalblue4&quot;)
-curve(dexp(x,10), from=0, to=5, add=T)
-curve(dexp(x,100), from=0, to=5,add=T, col=col.desat(&quot;red&quot;))
-mtext(&quot;Exponential Prior&quot;)
-legend(&quot;topright&quot;, col=c(&quot;royalblue4&quot;, &quot;black&quot;, col.desat(&quot;red&quot;)), 
-       lty=c(1,1,1),legend=c(&quot;Exp(1)&quot;, &quot;Exp(10)&quot;, &quot;Exp(100)&quot;), bty=&quot;n&quot;)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">par</span>(mfrow<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>))
+<span style="color:#a6e22e">curve</span>(<span style="color:#a6e22e">dexp</span>(x,<span style="color:#ae81ff">1</span>), from<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, to<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, ylab<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Density&#34;</span>, xlab<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">sigma&#34;</span>,
+      col<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">royalblue4&#34;</span>)
+<span style="color:#a6e22e">curve</span>(<span style="color:#a6e22e">dexp</span>(x,<span style="color:#ae81ff">10</span>), from<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, to<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, add<span style="color:#f92672">=</span>T)
+<span style="color:#a6e22e">curve</span>(<span style="color:#a6e22e">dexp</span>(x,<span style="color:#ae81ff">100</span>), from<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, to<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>,add<span style="color:#f92672">=</span>T, col<span style="color:#f92672">=</span><span style="color:#a6e22e">col.desat</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">red&#34;</span>))
+<span style="color:#a6e22e">mtext</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Exponential Prior&#34;</span>)
+<span style="color:#a6e22e">legend</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">topright&#34;</span>, col<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">royalblue4&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">black&#34;</span>, <span style="color:#a6e22e">col.desat</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">red&#34;</span>)), 
+       lty<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>),legend<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Exp(1)&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Exp(10)&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Exp(100)&#34;</span>), bty<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">n&#34;</span>)
 
-curve(2*dcauchy(x, 0, 1), from=0, to=5, ylab=&quot;Density&quot;, xlab=&quot;sigma&quot;,
-      col=&quot;royalblue4&quot;)
-curve(2*dcauchy(x, 0, 0.1), from=0, to=5, add=T, col=&quot;black&quot;)
-curve(2*dcauchy(x, 0, 0.01), from=0, to=5, add=T, col=col.desat(&quot;red&quot;))
-mtext(&quot;Cauchy Prior&quot;)
-legend(&quot;topright&quot;, col=c(&quot;royalblue4&quot;, &quot;black&quot;, col.desat(&quot;red&quot;)), 
-       lty=c(1,1,1),legend=c(&quot;Cauchy(0, 1)&quot;, &quot;Cauchy(0, 0.1)&quot;, &quot;Cauchy(0, 0.01)&quot;), bty=&quot;n&quot;)</code></pre>
+<span style="color:#a6e22e">curve</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">dcauchy</span>(x, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>), from<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, to<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, ylab<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Density&#34;</span>, xlab<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">sigma&#34;</span>,
+      col<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">royalblue4&#34;</span>)
+<span style="color:#a6e22e">curve</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">dcauchy</span>(x, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0.1</span>), from<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, to<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, add<span style="color:#f92672">=</span>T, col<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">black&#34;</span>)
+<span style="color:#a6e22e">curve</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">dcauchy</span>(x, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0.01</span>), from<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, to<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, add<span style="color:#f92672">=</span>T, col<span style="color:#f92672">=</span><span style="color:#a6e22e">col.desat</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">red&#34;</span>))
+<span style="color:#a6e22e">mtext</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Cauchy Prior&#34;</span>)
+<span style="color:#a6e22e">legend</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">topright&#34;</span>, col<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">royalblue4&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">black&#34;</span>, <span style="color:#a6e22e">col.desat</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">red&#34;</span>)), 
+       lty<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>),legend<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Cauchy(0, 1)&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Cauchy(0, 0.1)&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Cauchy(0, 0.01)&#34;</span>), bty<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">n&#34;</span>)
+</code></pre></div><p><img src="chapter8_Ex_files/figure-markdown_github/unnamed-chunk-12-1.png" alt=""></p>
 <p>The Cauchy prior distributions have much thicker tails. While the exponential distribution very quickly concentrates and becomes very flat every else, the Cauchy distribution still places quite a bit of weight on the tails. This explains why even a rather concentrated Cauchy prior still allows for sufficient flexibility for the posterior distribution.</p>
 <p>Plotting the posterior distribution for sigma supports this further:</p>
-<pre class="r"><code>sigma.exp1 &lt;- extract.samples(m8.exp1)$sigma
-sigma.exp2 &lt;- extract.samples(m8.exp2)$sigma
-sigma.exp3 &lt;- extract.samples(m8.exp3)$sigma
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sigma.exp1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">extract.samples</span>(m8.exp1)<span style="color:#f92672">$</span>sigma
+sigma.exp2 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">extract.samples</span>(m8.exp2)<span style="color:#f92672">$</span>sigma
+sigma.exp3 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">extract.samples</span>(m8.exp3)<span style="color:#f92672">$</span>sigma
 
-sigma.cauchy1 &lt;- extract.samples(m8.cauchy1)$sigma
-sigma.cauchy2 &lt;- extract.samples(m8.cauchy2)$sigma
-sigma.cauchy3 &lt;- extract.samples(m8.cauchy3)$sigma
+sigma.cauchy1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">extract.samples</span>(m8.cauchy1)<span style="color:#f92672">$</span>sigma
+sigma.cauchy2 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">extract.samples</span>(m8.cauchy2)<span style="color:#f92672">$</span>sigma
+sigma.cauchy3 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">extract.samples</span>(m8.cauchy3)<span style="color:#f92672">$</span>sigma
 
-par(mfrow=c(1,2))
-plot( density( sigma.exp1, from=0.8, to=1.1, adj=1),
-      lwd=1, col=&quot;royalblue4&quot;, xlab=&quot;sigma&quot;, 
-      main=&quot;&quot;, ylim=c(0,8.5))
-points(density( sigma.exp2, from=0, to=10, adj=1),
-       lty=1, type=&quot;l&quot;)
-points(density( sigma.exp3, from=0, to=10, adj=1),
-       lty=1, col=col.desat(&quot;red&quot;), type=&quot;l&quot;)
-legend(&quot;topright&quot;, col=c(&quot;royalblue4&quot;, &quot;black&quot;, col.desat(&quot;red&quot;)), 
-       lty=c(1,1,1),legend=c(&quot;Exp(1)&quot;, &quot;Exp(10)&quot;, &quot;Exp(100)&quot;), bty=&quot;n&quot;)
-mtext(&quot;Exponential Prior (Posterior)&quot;)
+<span style="color:#a6e22e">par</span>(mfrow<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>))
+<span style="color:#a6e22e">plot</span>( <span style="color:#a6e22e">density</span>( sigma.exp1, from<span style="color:#f92672">=</span><span style="color:#ae81ff">0.8</span>, to<span style="color:#f92672">=</span><span style="color:#ae81ff">1.1</span>, adj<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>),
+      lwd<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, col<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">royalblue4&#34;</span>, xlab<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">sigma&#34;</span>, 
+      main<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span>, ylim<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">8.5</span>))
+<span style="color:#a6e22e">points</span>(<span style="color:#a6e22e">density</span>( sigma.exp2, from<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, to<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>, adj<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>),
+       lty<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">l&#34;</span>)
+<span style="color:#a6e22e">points</span>(<span style="color:#a6e22e">density</span>( sigma.exp3, from<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, to<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>, adj<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>),
+       lty<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, col<span style="color:#f92672">=</span><span style="color:#a6e22e">col.desat</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">red&#34;</span>), type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">l&#34;</span>)
+<span style="color:#a6e22e">legend</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">topright&#34;</span>, col<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">royalblue4&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">black&#34;</span>, <span style="color:#a6e22e">col.desat</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">red&#34;</span>)), 
+       lty<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>),legend<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Exp(1)&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Exp(10)&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Exp(100)&#34;</span>), bty<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">n&#34;</span>)
+<span style="color:#a6e22e">mtext</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Exponential Prior (Posterior)&#34;</span>)
 
-plot( density( sigma.cauchy1, from=0.8, to=1.1, adj=1),
-      lwd=1, col=&quot;royalblue4&quot;, xlab=&quot;sigma&quot;, 
-      main=&quot;&quot;, ylim=c(0, 8.5))
-points(density( sigma.cauchy2, from=0, to=10, adj=1),
-       lty=1, type=&quot;l&quot;)
-points(density( sigma.cauchy3, from=0, to=10, adj=1),
-       lty=1, col=col.desat(&quot;red&quot;), type=&quot;l&quot;)
-legend(&quot;topright&quot;, col=c(&quot;royalblue4&quot;, &quot;black&quot;, col.desat(&quot;red&quot;)), 
-       lty=c(1,1,1),legend=c(&quot;Cauchy(0, 1)&quot;, &quot;Cauchy(0, 0.1)&quot;, &quot;Cauchy(0, 0.01)&quot;), bty=&quot;n&quot;)
-mtext(&quot;Cauchy Prior (Posterior)&quot;)</code></pre>
-<p>While the posterior of the Cauchy prior remains very robust, the exponential prior quickly lead to posterior distributions that derail towards zero. In the worst case of the prior <code>dexp(100)</code>, the posterior even goes completely off.
-In contrast, even further reducing the scale of the Cauchy prior to e.g. <code>dcauchy(0, 0.001)</code> does not lead to a different posterior distribution.</p>
+<span style="color:#a6e22e">plot</span>( <span style="color:#a6e22e">density</span>( sigma.cauchy1, from<span style="color:#f92672">=</span><span style="color:#ae81ff">0.8</span>, to<span style="color:#f92672">=</span><span style="color:#ae81ff">1.1</span>, adj<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>),
+      lwd<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, col<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">royalblue4&#34;</span>, xlab<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">sigma&#34;</span>, 
+      main<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span>, ylim<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">8.5</span>))
+<span style="color:#a6e22e">points</span>(<span style="color:#a6e22e">density</span>( sigma.cauchy2, from<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, to<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>, adj<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>),
+       lty<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">l&#34;</span>)
+<span style="color:#a6e22e">points</span>(<span style="color:#a6e22e">density</span>( sigma.cauchy3, from<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, to<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>, adj<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>),
+       lty<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, col<span style="color:#f92672">=</span><span style="color:#a6e22e">col.desat</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">red&#34;</span>), type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">l&#34;</span>)
+<span style="color:#a6e22e">legend</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">topright&#34;</span>, col<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">royalblue4&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">black&#34;</span>, <span style="color:#a6e22e">col.desat</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">red&#34;</span>)), 
+       lty<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>),legend<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Cauchy(0, 1)&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Cauchy(0, 0.1)&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Cauchy(0, 0.01)&#34;</span>), bty<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">n&#34;</span>)
+<span style="color:#a6e22e">mtext</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Cauchy Prior (Posterior)&#34;</span>)
+</code></pre></div><p><img src="chapter8_Ex_files/figure-markdown_github/unnamed-chunk-13-1.png" alt=""></p>
+<p>While the posterior of the Cauchy prior remains very robust, the exponential prior quickly lead to posterior distributions that derail towards zero. In the worst case of the prior <code>dexp(100)</code>, the posterior even goes completely off. In contrast, even further reducing the scale of the Cauchy prior to e.g. <code>dcauchy(0, 0.001)</code> does not lead to a different posterior distribution.</p>
 <p><strong>8M3.</strong> Re-estimate one of the Stan models from the chapter, but at different numbers of warmup iterations. Be sure to use the same number of sampling iterations in each case. Compare the <code>n_eff</code> values. How much warmup is enough?</p>
 <p>We use again the terrain ruggedness model.</p>
-<pre class="r"><code>m8.5 &lt;- map2stan(
-  alist(
-    log_gdp ~ dnorm( mu, sigma) ,
-    mu &lt;- a + bR*rugged + bA*cont_africa + bAR*rugged*cont_africa,
-    a ~ dnorm(0, 100),
-    bR ~ dnorm(0, 10),
-    bA ~ dnorm(0, 10),
-    bAR ~ dnorm(0, 10),
-    sigma ~ dcauchy(0, 2)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">m8.5 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map2stan</span>(
+  <span style="color:#a6e22e">alist</span>(
+    log_gdp <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>( mu, sigma) ,
+    mu <span style="color:#f92672">&lt;-</span> a <span style="color:#f92672">+</span> bR<span style="color:#f92672">*</span>rugged <span style="color:#f92672">+</span> bA<span style="color:#f92672">*</span>cont_africa <span style="color:#f92672">+</span> bAR<span style="color:#f92672">*</span>rugged<span style="color:#f92672">*</span>cont_africa,
+    a <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">100</span>),
+    bR <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>),
+    bA <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>),
+    bAR <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>),
+    sigma <span style="color:#f92672">~</span> <span style="color:#a6e22e">dcauchy</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>)
   ), 
-  data=dd.trim,
-  start=list(a=5, bR=0, bA=0, bAR=0, sigma=1)
+  data<span style="color:#f92672">=</span>dd.trim,
+  start<span style="color:#f92672">=</span><span style="color:#a6e22e">list</span>(a<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, bR<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, bA<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, bAR<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
 )
 
-m8.5_1 &lt;- map2stan(m8.5, chains = 2, warmup=1, iter = 2000+1)
-m8.5_5 &lt;- map2stan(m8.5, chains = 2, warmup=5, iter = 2000+5)
-m8.5_10 &lt;- map2stan(m8.5, chains = 2, warmup=10, iter = 2000+10)
-m8.5_20 &lt;- map2stan(m8.5, chains = 2, warmup=20, iter = 2000+20)
-m8.5_30 &lt;- map2stan(m8.5, chains = 2, warmup=30, iter = 2000+30)
-m8.5_40 &lt;- map2stan(m8.5, chains = 2, warmup=40, iter = 2000+40)
-m8.5_50 &lt;- map2stan(m8.5, chains = 2, warmup=50, iter = 2000+50)
-m8.5_100 &lt;- map2stan(m8.5, chains = 2, warmup=100, iter = 2000+100)
-m8.5_500 &lt;- map2stan(m8.5, chains = 2, warmup=500, iter = 2000+500)
-m8.5_1000 &lt;- map2stan(m8.5, chains = 2, warmup=1000, iter = 2000+1000)</code></pre>
-<pre class="r"><code>l &lt;- list(m8.5_1, m8.5_5, m8.5_10,m8.5_20, m8.5_30, m8.5_40,
+m8.5_1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map2stan</span>(m8.5, chains <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, warmup<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, iter <span style="color:#f92672">=</span> <span style="color:#ae81ff">2000</span><span style="color:#ae81ff">+1</span>)
+m8.5_5 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map2stan</span>(m8.5, chains <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, warmup<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, iter <span style="color:#f92672">=</span> <span style="color:#ae81ff">2000</span><span style="color:#ae81ff">+5</span>)
+m8.5_10 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map2stan</span>(m8.5, chains <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, warmup<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>, iter <span style="color:#f92672">=</span> <span style="color:#ae81ff">2000</span><span style="color:#ae81ff">+10</span>)
+m8.5_20 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map2stan</span>(m8.5, chains <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, warmup<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>, iter <span style="color:#f92672">=</span> <span style="color:#ae81ff">2000</span><span style="color:#ae81ff">+20</span>)
+m8.5_30 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map2stan</span>(m8.5, chains <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, warmup<span style="color:#f92672">=</span><span style="color:#ae81ff">30</span>, iter <span style="color:#f92672">=</span> <span style="color:#ae81ff">2000</span><span style="color:#ae81ff">+30</span>)
+m8.5_40 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map2stan</span>(m8.5, chains <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, warmup<span style="color:#f92672">=</span><span style="color:#ae81ff">40</span>, iter <span style="color:#f92672">=</span> <span style="color:#ae81ff">2000</span><span style="color:#ae81ff">+40</span>)
+m8.5_50 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map2stan</span>(m8.5, chains <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, warmup<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, iter <span style="color:#f92672">=</span> <span style="color:#ae81ff">2000</span><span style="color:#ae81ff">+50</span>)
+m8.5_100 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map2stan</span>(m8.5, chains <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, warmup<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>, iter <span style="color:#f92672">=</span> <span style="color:#ae81ff">2000</span><span style="color:#ae81ff">+100</span>)
+m8.5_500 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map2stan</span>(m8.5, chains <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, warmup<span style="color:#f92672">=</span><span style="color:#ae81ff">500</span>, iter <span style="color:#f92672">=</span> <span style="color:#ae81ff">2000</span><span style="color:#ae81ff">+500</span>)
+m8.5_1000 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map2stan</span>(m8.5, chains <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, warmup<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span>, iter <span style="color:#f92672">=</span> <span style="color:#ae81ff">2000</span><span style="color:#ae81ff">+1000</span>)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">l <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(m8.5_1, m8.5_5, m8.5_10,m8.5_20, m8.5_30, m8.5_40,
           m8.5_50, m8.5_100, m8.5_500, m8.5_1000)
-par(mfrow=c(1,2))
-v.mean &lt;- sapply(l, function(x) mean( attr(precis(x), &quot;output&quot;)$n_eff ) )
-plot(c(1, 5, 10, 20, 30, 40, 50, 100, 500, 1000), 
-     v.mean, type=&quot;l&quot;, log=&quot;x&quot;, 
-     xlab=&quot;warmup&quot;, ylab=&quot;n_eff&quot;, col=&quot;royalblue4&quot;)
-mtext(&quot;Average efficient number of samples&quot;)
+<span style="color:#a6e22e">par</span>(mfrow<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>))
+v.mean <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sapply</span>(l, <span style="color:#a6e22e">function</span>(x) <span style="color:#a6e22e">mean</span>( <span style="color:#a6e22e">attr</span>(<span style="color:#a6e22e">precis</span>(x), <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">output&#34;</span>)<span style="color:#f92672">$</span>n_eff ) )
+<span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">30</span>, <span style="color:#ae81ff">40</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">500</span>, <span style="color:#ae81ff">1000</span>), 
+     v.mean, type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">l&#34;</span>, log<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">x&#34;</span>, 
+     xlab<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">warmup&#34;</span>, ylab<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">n_eff&#34;</span>, col<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">royalblue4&#34;</span>)
+<span style="color:#a6e22e">mtext</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Average efficient number of samples&#34;</span>)
 
-r.mean &lt;- sapply(l, function(x) mean( attr(precis(x), &quot;output&quot;)$Rhat ) )
-plot(c(1, 5, 10, 20, 30, 40, 50, 100, 500, 1000), 
-     r.mean, type=&quot;l&quot;, log=&quot;xy&quot;, 
-     xlab=&quot;warmup&quot;, ylab=&quot;Rhat&quot;, col=&quot;royalblue4&quot;)
-mtext(&quot;Average Rhat&quot;)</code></pre>
+r.mean <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sapply</span>(l, <span style="color:#a6e22e">function</span>(x) <span style="color:#a6e22e">mean</span>( <span style="color:#a6e22e">attr</span>(<span style="color:#a6e22e">precis</span>(x), <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">output&#34;</span>)<span style="color:#f92672">$</span>Rhat ) )
+<span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">30</span>, <span style="color:#ae81ff">40</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">500</span>, <span style="color:#ae81ff">1000</span>), 
+     r.mean, type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">l&#34;</span>, log<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">xy&#34;</span>, 
+     xlab<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">warmup&#34;</span>, ylab<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Rhat&#34;</span>, col<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">royalblue4&#34;</span>)
+<span style="color:#a6e22e">mtext</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Average Rhat&#34;</span>)
+</code></pre></div><p><img src="chapter8_Ex_files/figure-markdown_github/unnamed-chunk-15-1.png" alt=""></p>
 <p>After around only 50 warmup iterations, the efficient number of samples is already close to the maximal possible. Checking the Rhat value, this one is already at 1.01 for only 10 warmup iterations.</p>
-</div>
-<div id="hard." class="section level2">
-<h2>Hard.</h2>
+<h2 id="hard">Hard.</h2>
 <p><strong>8H1.</strong> Run the model below and then inspect the posterior distribution and explain what it is accomplishing.</p>
-<pre class="r"><code>mp &lt;- map2stan(
-  alist(
-    a ~ dnorm(0, 1),
-    b ~ dcauchy(0, 1)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">mp <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map2stan</span>(
+  <span style="color:#a6e22e">alist</span>(
+    a <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>),
+    b <span style="color:#f92672">~</span> <span style="color:#a6e22e">dcauchy</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>)
   ),
-  data=list(y=1),
-  start=list(a=0, b=0),
-  iter=1e4, warmup=100, WAIC=FALSE
-)</code></pre>
-<p>The model simply samples from the two distributions: the normal and the Cauchy distribution.</p>
-<pre class="r"><code>stancode(mp)</code></pre>
+  data<span style="color:#f92672">=</span><span style="color:#a6e22e">list</span>(y<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>),
+  start<span style="color:#f92672">=</span><span style="color:#a6e22e">list</span>(a<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, b<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>),
+  iter<span style="color:#f92672">=</span><span style="color:#ae81ff">1e4</span>, warmup<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>, WAIC<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>
+)
+</code></pre></div><p>The model simply samples from the two distributions: the normal and the Cauchy distribution.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">stancode</span>(mp)
+</code></pre></div><pre><code>data{
+    int&lt;lower=1&gt; N;
+}
+parameters{
+    real a;
+    real b;
+}
+model{
+    b ~ cauchy( 0 , 1 );
+    a ~ normal( 0 , 1 );
+}
+generated quantities{
+    real dev;
+    dev = 0;
+}
+</code></pre>
 <p>The trace plots thus show samples from the two distributions:</p>
-<pre class="r"><code>plot(mp, n_cols=1, col=&quot;royalblue4&quot;)</code></pre>
-<p>Since the Cauchy distribution has very heavy tails, every once in a while, it samples a large value which gives it this trace plot with a few spikes.
-Note also that the Cauchy distribution has a much smaller number of effective samples.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot</span>(mp, n_cols<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, col<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">royalblue4&#34;</span>)
+</code></pre></div><p><img src="chapter8_Ex_files/figure-markdown_github/unnamed-chunk-18-1.png" alt=""></p>
+<p>Since the Cauchy distribution has very heavy tails, every once in a while, it samples a large value which gives it this trace plot with a few spikes. Note also that the Cauchy distribution has a much smaller number of effective samples.</p>
 <p>We can compare the two samples with their exact density function:</p>
-<pre class="r"><code>post &lt;- extract.samples(mp)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">post <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">extract.samples</span>(mp)
 
-par(mfrow=c(1,2))
-dens(post$a)
-curve(dnorm(x,0,1), from=-4, to=4, add=T, lty=2)
-legend(&quot;topright&quot;, lty=c(1,2), legend=c(&quot;Sample&quot;, &quot;Exact density&quot;), bty=&quot;n&quot;)
-mtext(&quot;Normal&quot;)
-dens(post$b,  col=&quot;royalblue4&quot;, xlim=c(-10, 10))
-curve(dcauchy(x, 0, 1), from = -10, to=10, add=T, lty=2,
-      col=&quot;royalblue4&quot;)
-mtext(&quot;Cauchy&quot;)</code></pre>
+<span style="color:#a6e22e">par</span>(mfrow<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>))
+<span style="color:#a6e22e">dens</span>(post<span style="color:#f92672">$</span>a)
+<span style="color:#a6e22e">curve</span>(<span style="color:#a6e22e">dnorm</span>(x,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>), from<span style="color:#f92672">=</span><span style="color:#ae81ff">-4</span>, to<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>, add<span style="color:#f92672">=</span>T, lty<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+<span style="color:#a6e22e">legend</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">topright&#34;</span>, lty<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>), legend<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Sample&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Exact density&#34;</span>), bty<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">n&#34;</span>)
+<span style="color:#a6e22e">mtext</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Normal&#34;</span>)
+<span style="color:#a6e22e">dens</span>(post<span style="color:#f92672">$</span>b,  col<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">royalblue4&#34;</span>, xlim<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-10</span>, <span style="color:#ae81ff">10</span>))
+<span style="color:#a6e22e">curve</span>(<span style="color:#a6e22e">dcauchy</span>(x, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>), from <span style="color:#f92672">=</span> <span style="color:#ae81ff">-10</span>, to<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>, add<span style="color:#f92672">=</span>T, lty<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>,
+      col<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">royalblue4&#34;</span>)
+<span style="color:#a6e22e">mtext</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Cauchy&#34;</span>)
+</code></pre></div><p><img src="chapter8_Ex_files/figure-markdown_github/unnamed-chunk-19-1.png" alt=""></p>
 <p>While the normal distribution has been approximated very well, the Cauchy distribution has been approximated less well. After all, the number of effective samples for the Cauchy distribution has been relatively small.</p>
-<p><strong>8H2.</strong> Recall the divorce rate example from Chapter 5. Repeat the analysis, using map2stan this time, fitting models <code>m5.1</code>, <code>m5.2</code> and <code>m5.3</code>.
-Compare the models on the basis of WAIC.</p>
-<pre class="r"><code>data(&quot;WaffleDivorce&quot;)
-d &lt;- WaffleDivorce
-d$MedianAgeMarriage_s &lt;- (d$MedianAgeMarriage - mean(d$MedianAgeMarriage)) /
-  sd(d$MedianAgeMarriage)
+<p><strong>8H2.</strong> Recall the divorce rate example from Chapter 5. Repeat the analysis, using map2stan this time, fitting models <code>m5.1</code>, <code>m5.2</code> and <code>m5.3</code>. Compare the models on the basis of WAIC.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">data</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">WaffleDivorce&#34;</span>)
+d <span style="color:#f92672">&lt;-</span> WaffleDivorce
+d<span style="color:#f92672">$</span>MedianAgeMarriage_s <span style="color:#f92672">&lt;-</span> (d<span style="color:#f92672">$</span>MedianAgeMarriage <span style="color:#f92672">-</span> <span style="color:#a6e22e">mean</span>(d<span style="color:#f92672">$</span>MedianAgeMarriage)) <span style="color:#f92672">/</span>
+  <span style="color:#a6e22e">sd</span>(d<span style="color:#f92672">$</span>MedianAgeMarriage)
 
-d$Marriage_s &lt;- (d$Marriage - mean(d$Marriage))
-d.trim &lt;- d[, c(&quot;Divorce&quot;, &quot;MedianAgeMarriage_s&quot;, &quot;Marriage_s&quot;)]
+d<span style="color:#f92672">$</span>Marriage_s <span style="color:#f92672">&lt;-</span> (d<span style="color:#f92672">$</span>Marriage <span style="color:#f92672">-</span> <span style="color:#a6e22e">mean</span>(d<span style="color:#f92672">$</span>Marriage))
+d.trim <span style="color:#f92672">&lt;-</span> d[, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Divorce&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">MedianAgeMarriage_s&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Marriage_s&#34;</span>)]
 
-m5.1s &lt;- map2stan(
-  alist(
-    Divorce ~ dnorm( mu, sigma),
-    mu &lt;- a + bA*MedianAgeMarriage_s,
-    a ~ dnorm(10, 10),
-    bA ~ dnorm(0, 1),
-    sigma ~ dunif( 0, 10)
+m5.1s <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map2stan</span>(
+  <span style="color:#a6e22e">alist</span>(
+    Divorce <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>( mu, sigma),
+    mu <span style="color:#f92672">&lt;-</span> a <span style="color:#f92672">+</span> bA<span style="color:#f92672">*</span>MedianAgeMarriage_s,
+    a <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">10</span>),
+    bA <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>),
+    sigma <span style="color:#f92672">~</span> <span style="color:#a6e22e">dunif</span>( <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>)
   ),
-  data=d.trim
+  data<span style="color:#f92672">=</span>d.trim
 )
+</code></pre></div><pre><code>Computing WAIC
 
-m5.2s &lt;- map2stan(
-  alist(
-    Divorce ~ dnorm(mu, sigma),
-    mu &lt;- a + bR*Marriage_s,
-    a ~ dnorm(10, 10),
-    bR ~ dnorm(0, 1),
-    sigma ~ dunif(0, 10)
+Constructing posterior predictions
+</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">m5.2s <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map2stan</span>(
+  <span style="color:#a6e22e">alist</span>(
+    Divorce <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(mu, sigma),
+    mu <span style="color:#f92672">&lt;-</span> a <span style="color:#f92672">+</span> bR<span style="color:#f92672">*</span>Marriage_s,
+    a <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">10</span>),
+    bR <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>),
+    sigma <span style="color:#f92672">~</span> <span style="color:#a6e22e">dunif</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>)
   ),
-  data=d.trim
+  data<span style="color:#f92672">=</span>d.trim
 )
-
-m5.3s &lt;- map2stan(
-  alist(
-    Divorce ~ dnorm(mu, sigma),
-    mu &lt;- a + bR*Marriage_s + bA*MedianAgeMarriage_s,
-    a &lt;- dnorm( 10, 10),
-    bR ~ dnorm(0, 1),
-    bA ~ dnorm(0, 1),
-    sigma ~ dunif(0, 10)
+</code></pre></div><pre><code>Computing WAIC
+Constructing posterior predictions
+</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">m5.3s <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map2stan</span>(
+  <span style="color:#a6e22e">alist</span>(
+    Divorce <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(mu, sigma),
+    mu <span style="color:#f92672">&lt;-</span> a <span style="color:#f92672">+</span> bR<span style="color:#f92672">*</span>Marriage_s <span style="color:#f92672">+</span> bA<span style="color:#f92672">*</span>MedianAgeMarriage_s,
+    a <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">dnorm</span>( <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">10</span>),
+    bR <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>),
+    bA <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>),
+    sigma <span style="color:#f92672">~</span> <span style="color:#a6e22e">dunif</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>)
   ),
-  data=d.trim
-)</code></pre>
-<pre class="r"><code>compare(m5.1s, m5.2s, m5.3s)</code></pre>
-<p>The first model, only using the predictor <code>MedianAgeMarriage_s</code>, has the lowest WAIC and most of the weight. It is closely followed by the last model, which includes both <code>MedianAgeMarriage_s</code> and <code>Marriage_s</code>, and also has about a third of the weight. The second model that only uses the predictor <code>Marriae_s</code> has a rather high WAIC and no weight, indicating that it is not a good model compared to the other two.
-Since the third model includes one more predictor variable, as also indicated by <code>pWAIC</code>, it performs slightly worse than the first model. After all, it adds a predictor variable that is then set to almost 0 by the model:</p>
-<pre class="r"><code>plot(coeftab(m5.1s, m5.2s, m5.3s))</code></pre>
-<p><strong>8H3.</strong> Sometimes changing a prior for one parameter has unanticipated effects on other parameters. This is because when a parameter is highly correlated with another parameter in the posterior, the prior influences both parameters.
-Take for example the leg length example from Chapter 5.</p>
-<pre class="r"><code>N &lt;- 100
-height &lt;- rnorm(N, 10, 2)
-leg_prop &lt;- runif(N, 0.4, 0.5)
-leg_left &lt;- leg_prop*height + rnorm(N, 0, 0.02)
-leg_right &lt;- leg_prop*height + rnorm(N, 0, 0.02)
+  data<span style="color:#f92672">=</span>d.trim
+)
+</code></pre></div><pre><code>Computing WAIC
+Constructing posterior predictions
+</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">compare</span>(m5.1s, m5.2s, m5.3s)
+</code></pre></div><pre><code>       WAIC pWAIC dWAIC weight    SE  dSE
+m5.1s 186.7   4.1   0.0   0.62 12.66   NA
+m5.3s 187.6   4.7   1.0   0.38 12.31 1.00
+m5.2s 199.7   3.1  13.1   0.00  9.76 9.24
+</code></pre>
+<p>The first model, only using the predictor <code>MedianAgeMarriage_s</code>, has the lowest WAIC and most of the weight. It is closely followed by the last model, which includes both <code>MedianAgeMarriage_s</code> and <code>Marriage_s</code>, and also has about a third of the weight. The second model that only uses the predictor <code>Marriae_s</code> has a rather high WAIC and no weight, indicating that it is not a good model compared to the other two. Since the third model includes one more predictor variable, as also indicated by <code>pWAIC</code>, it performs slightly worse than the first model. After all, it adds a predictor variable that is then set to almost 0 by the model:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">coeftab</span>(m5.1s, m5.2s, m5.3s))
+</code></pre></div><p><img src="chapter8_Ex_files/figure-markdown_github/unnamed-chunk-22-1.png" alt=""></p>
+<p><strong>8H3.</strong> Sometimes changing a prior for one parameter has unanticipated effects on other parameters. This is because when a parameter is highly correlated with another parameter in the posterior, the prior influences both parameters. Take for example the leg length example from Chapter 5.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">N <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">100</span>
+height <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rnorm</span>(N, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">2</span>)
+leg_prop <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">runif</span>(N, <span style="color:#ae81ff">0.4</span>, <span style="color:#ae81ff">0.5</span>)
+leg_left <span style="color:#f92672">&lt;-</span> leg_prop<span style="color:#f92672">*</span>height <span style="color:#f92672">+</span> <span style="color:#a6e22e">rnorm</span>(N, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0.02</span>)
+leg_right <span style="color:#f92672">&lt;-</span> leg_prop<span style="color:#f92672">*</span>height <span style="color:#f92672">+</span> <span style="color:#a6e22e">rnorm</span>(N, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0.02</span>)
 
-d &lt;- data.frame(height, leg_left, leg_right)</code></pre>
-<p>This time, we fit the model using Stan:</p>
-<pre class="r"><code>m5.8s &lt;- map2stan(
-  alist(
-    height ~ dnorm( mu, sigma),
-    mu &lt;- a + bl*leg_left + br*leg_right,
-    a ~ dnorm(10, 100),
-    bl ~ dnorm(2, 10),
-    br ~ dnorm(2, 10),
-    sigma ~ dcauchy(0, 1)
+d <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>(height, leg_left, leg_right)
+</code></pre></div><p>This time, we fit the model using Stan:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">m5.8s <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map2stan</span>(
+  <span style="color:#a6e22e">alist</span>(
+    height <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>( mu, sigma),
+    mu <span style="color:#f92672">&lt;-</span> a <span style="color:#f92672">+</span> bl<span style="color:#f92672">*</span>leg_left <span style="color:#f92672">+</span> br<span style="color:#f92672">*</span>leg_right,
+    a <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">100</span>),
+    bl <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">10</span>),
+    br <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">10</span>),
+    sigma <span style="color:#f92672">~</span> <span style="color:#a6e22e">dcauchy</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>)
   ),
-  data=d, chains=4,
-  start=list(a=10, bl=0, br=0, sigma=1)
-)</code></pre>
-<p>Compare the posterior distribution of the model above to the posterior distribution produced when changing the prior for <code>br</code> so that it is strictly positive.
-The <code>T[0,]</code> truncates the normal distribution so that it has positive probability only above zero.</p>
-<pre class="r"><code>m5.8s2 &lt;- map2stan(
-  alist(
-    height ~ dnorm( mu, sigma),
-    mu &lt;- a + bl*leg_left + br*leg_right,
-    a ~ dnorm(10, 100),
-    bl ~ dnorm(2, 10),
-    br ~ dnorm(2, 10) &amp; T[0,],
-    sigma ~ dcauchy(0, 1)
+  data<span style="color:#f92672">=</span>d, chains<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>,
+  start<span style="color:#f92672">=</span><span style="color:#a6e22e">list</span>(a<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>, bl<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, br<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+)
+</code></pre></div><p>Compare the posterior distribution of the model above to the posterior distribution produced when changing the prior for <code>br</code> so that it is strictly positive. The <code>T[0,]</code> truncates the normal distribution so that it has positive probability only above zero.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">m5.8s2 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">map2stan</span>(
+  <span style="color:#a6e22e">alist</span>(
+    height <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>( mu, sigma),
+    mu <span style="color:#f92672">&lt;-</span> a <span style="color:#f92672">+</span> bl<span style="color:#f92672">*</span>leg_left <span style="color:#f92672">+</span> br<span style="color:#f92672">*</span>leg_right,
+    a <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">100</span>),
+    bl <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">10</span>),
+    br <span style="color:#f92672">~</span> <span style="color:#a6e22e">dnorm</span>(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">10</span>) <span style="color:#f92672">&amp;</span> T[0,],
+    sigma <span style="color:#f92672">~</span> <span style="color:#a6e22e">dcauchy</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>)
   ), 
-  data=d, chains=4,
-  start=list(a=10, bl=0, br=0, sigma=1)
-)</code></pre>
-<p>Let’s first have a look at the trace plots:</p>
-<pre class="r"><code>plot(m5.8s, n_cols=1, window=c(50, 2000))</code></pre>
-<p>The trace plot for the first model looks all good. The estimates and both <code>Rhat</code> and <code>n_eff</code> don’t look too bad. The only thing suspicious here, is that both <code>bl</code> and <code>br</code> have the same standard deviation.</p>
-<pre class="r"><code>precis(m5.8s)</code></pre>
+  data<span style="color:#f92672">=</span>d, chains<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>,
+  start<span style="color:#f92672">=</span><span style="color:#a6e22e">list</span>(a<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>, bl<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, br<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+)
+</code></pre></div><p>Let&rsquo;s first have a look at the trace plots:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot</span>(m5.8s, n_cols<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, window<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">2000</span>))
+</code></pre></div><p><img src="chapter8_Ex_files/figure-markdown_github/unnamed-chunk-26-1.png" alt=""></p>
+<p>The trace plot for the first model looks all good. The estimates and both <code>Rhat</code> and <code>n_eff</code> don&rsquo;t look too bad. The only thing suspicious here, is that both <code>bl</code> and <code>br</code> have the same standard deviation.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">precis</span>(m5.8s)
+</code></pre></div><pre><code>       Mean StdDev lower 0.89 upper 0.89 n_eff Rhat
+a      0.35   0.37      -0.24       0.94  2321    1
+bl    -1.56   2.26      -4.93       2.29  1703    1
+br     3.70   2.26      -0.10       7.11  1708    1
+sigma  0.64   0.05       0.57       0.71  2161    1
+</code></pre>
 <p>The pairs plot reveals the problematic correlation between the two parameter:</p>
-<pre class="r"><code>pairs(m5.8s)</code></pre>
-<p>Now to the second model where the parameter <code>br</code> has a truncated prior. It had more than 1000 divergent warnings by Stan, which already does not sound good. Let’s have a look at the trace plots:</p>
-<pre class="r"><code>plot(m5.8s2, n_col=1, window=c(50,2000))</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">pairs</span>(m5.8s)
+</code></pre></div><p><img src="chapter8_Ex_files/figure-markdown_github/unnamed-chunk-28-1.png" alt=""></p>
+<p>Now to the second model where the parameter <code>br</code> has a truncated prior. It had more than 1000 divergent warnings by Stan, which already does not sound good. Let&rsquo;s have a look at the trace plots:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot</span>(m5.8s2, n_col<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, window<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">50</span>,<span style="color:#ae81ff">2000</span>))
+</code></pre></div><p><img src="chapter8_Ex_files/figure-markdown_github/unnamed-chunk-29-1.png" alt=""></p>
 <p>The parameter <code>br</code> has been truncated, so it only has positive values. Now this did not only change <code>br</code> but also <code>bl</code> which now only has values below 2. While the chains otherwise still look well mixed, the number of efficient samples went down by quite a bit for the two slope parameter.</p>
-<pre class="r"><code>precis(m5.8s2)</code></pre>
-<pre class="r"><code>pairs(m5.8s2)</code></pre>
-<p>Whereas before, the two parameter had both a posterior distribution close to normal, now one of them is left-skewed and the other one right-skewed.
-What happens is that, since both parameter correlate so strongly, we can only reliably estimate their sum. Since we force <code>br</code> to be positive, the other part of the sum, <code>bl</code>, now more often has to be negative.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">precis</span>(m5.8s2)
+</code></pre></div><pre><code>Warning in precis(m5.8s2): There were 456 divergent iterations during sampling.
+Check the chains (trace plots, n_eff, Rhat) carefully to ensure they are valid.
+
+       Mean StdDev lower 0.89 upper 0.89 n_eff Rhat
+a      0.35   0.36      -0.26       0.89  2016    1
+bl    -1.86   2.03      -4.89       1.55  1001    1
+br     4.00   2.03       0.67       7.12   784    1
+sigma  0.64   0.05       0.57       0.72  1880    1
+</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">pairs</span>(m5.8s2)
+</code></pre></div><p><img src="chapter8_Ex_files/figure-markdown_github/unnamed-chunk-31-1.png" alt=""></p>
+<p>Whereas before, the two parameter had both a posterior distribution close to normal, now one of them is left-skewed and the other one right-skewed. What happens is that, since both parameter correlate so strongly, we can only reliably estimate their sum. Since we force <code>br</code> to be positive, the other part of the sum, <code>bl</code>, now more often has to be negative.</p>
 <p><strong>8H4.</strong> For the two models fit above, use DIC or WAIC to compare the effective number of parameters for each model. Which model has more effective parameters and why?</p>
-<pre class="r"><code>compare(m5.8s, m5.8s2)</code></pre>
-<pre class="r"><code>DIC(m5.8s)</code></pre>
-<pre class="r"><code>DIC(m5.8s2)</code></pre>
-<p>DIC and WAIC estimate around 3 parameters for the truncated model and around 4 for the non-truncated model.
-Since the truncated model restricts the two parameters to either be positive or the remaining summand, it has less free parameter.</p>
-<p><strong>8H5.</strong> Modify the Metropolis algorithm code from the chapter to handle the case that the island populations have a different distribution than the island labels. That is, the island’s number will not be the same as the population.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">compare</span>(m5.8s, m5.8s2)
+</code></pre></div><pre><code>        WAIC pWAIC dWAIC weight    SE dSE
+m5.8s2 196.2   3.2   0.0   0.55 11.53  NA
+m5.8s  196.6   3.3   0.4   0.45 11.45 0.3
+</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">DIC</span>(m5.8s)
+</code></pre></div><pre><code>[1] 196.9839
+attr(,&quot;pD&quot;)
+[1] 3.795018
+</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">DIC</span>(m5.8s2)
+</code></pre></div><pre><code>[1] 196.5512
+attr(,&quot;pD&quot;)
+[1] 3.595826
+</code></pre>
+<p>DIC and WAIC estimate around 3 parameters for the truncated model and around 4 for the non-truncated model. Since the truncated model restricts the two parameters to either be positive or the remaining summand, it has less free parameter.</p>
+<p><strong>8H5.</strong> Modify the Metropolis algorithm code from the chapter to handle the case that the island populations have a different distribution than the island labels. That is, the island&rsquo;s number will not be the same as the population.</p>
 <p>We first generate random populations. I just used the same populations as before, only randomly permutated.</p>
-<pre class="r"><code>island.pop &lt;- sample(1:10, size=10, replace=FALSE)   # island population
-names(island.pop) &lt;- 1:10                            # number of the island
-island.pop</code></pre>
-<pre class="r"><code>num_weeks &lt;- 1e5
-positions &lt;- rep(0, num_weeks)
-current &lt;- 10              # current is still the number of the island
-for (i in 1:num_weeks) {
-  # record current position
-  positions[i] &lt;- current
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">island.pop <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sample</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>, size<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>, replace<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>)   <span style="color:#75715e"># island population</span>
+<span style="color:#a6e22e">names</span>(island.pop) <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>                            <span style="color:#75715e"># number of the island</span>
+island.pop
+</code></pre></div><pre><code> 1  2  3  4  5  6  7  8  9 10 
+ 4  1  8  9  3  6 10  7  5  2 
+</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">num_weeks <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">1e5</span>
+positions <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">0</span>, num_weeks)
+current <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">10</span>              <span style="color:#75715e"># current is still the number of the island</span>
+<span style="color:#a6e22e">for </span>(i in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>num_weeks) {
+  <span style="color:#75715e"># record current position</span>
+  positions[i] <span style="color:#f92672">&lt;-</span> current
   
-  # flip coin to generate proposal
-  proposal &lt;- current + sample( c(-1, 1), size=1)       # proposal is now the number 
-  if ( proposal &lt; 1 ) proposal &lt;- 10                    # of the proposal island
-  if ( proposal &gt; 10 ) proposal &lt;- 1
+  <span style="color:#75715e"># flip coin to generate proposal</span>
+  proposal <span style="color:#f92672">&lt;-</span> current <span style="color:#f92672">+</span> <span style="color:#a6e22e">sample</span>( <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-1</span>, <span style="color:#ae81ff">1</span>), size<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)       <span style="color:#75715e"># proposal is now the number </span>
+  <span style="color:#a6e22e">if </span>( proposal <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1</span> ) proposal <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">10</span>                    <span style="color:#75715e"># of the proposal island</span>
+  <span style="color:#a6e22e">if </span>( proposal <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">10</span> ) proposal <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">1</span>
   
-  # move?
-  # instead of taking the ratio between the island numbers
-  # we now take the ratio of the island populations
-  prob_move &lt;- island.pop[proposal] / island.pop[current]
-  current &lt;- ifelse( runif(1) &lt; prob_move , proposal, current)
-}</code></pre>
-<pre class="r"><code>par(mfrow=c(1,2))
-plot( (1:100), positions[1:100], xlab=&quot;week&quot;, ylab=&quot;island&quot;, col=&quot;royalblue4&quot;)
-plot(table(positions), col=&quot;royalblue4&quot;, xlab=&quot;island&quot;, ylab=&quot;number of weeks&quot;)</code></pre>
-<p><strong>8H6.</strong> Modify the Metropolis algorithm code from the chapter to write your own simple MCMC estimator for globe tossing data and model from Chapter 2.
-The model we want to fit can be specified as follow:
-<span class="math display">\[\begin{align*}
-w &amp;\sim \text{Binom}( \theta, n )\\
+  <span style="color:#75715e"># move?</span>
+  <span style="color:#75715e"># instead of taking the ratio between the island numbers</span>
+  <span style="color:#75715e"># we now take the ratio of the island populations</span>
+  prob_move <span style="color:#f92672">&lt;-</span> island.pop[proposal] <span style="color:#f92672">/</span> island.pop[current]
+  current <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ifelse</span>( <span style="color:#a6e22e">runif</span>(<span style="color:#ae81ff">1</span>) <span style="color:#f92672">&lt;</span> prob_move , proposal, current)
+}
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">par</span>(mfrow<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>))
+<span style="color:#a6e22e">plot</span>( (<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">100</span>), positions[1<span style="color:#f92672">:</span><span style="color:#ae81ff">100</span>], xlab<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">week&#34;</span>, ylab<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">island&#34;</span>, col<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">royalblue4&#34;</span>)
+<span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">table</span>(positions), col<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">royalblue4&#34;</span>, xlab<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">island&#34;</span>, ylab<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">number of weeks&#34;</span>)
+</code></pre></div><p><img src="chapter8_Ex_files/figure-markdown_github/unnamed-chunk-37-1.png" alt=""></p>
+<p><strong>8H6.</strong> Modify the Metropolis algorithm code from the chapter to write your own simple MCMC estimator for globe tossing data and model from Chapter 2. The model we want to fit can be specified as follow:</p>
+<p>![\begin{align*}
+w &amp;\sim \text{Binom}( \theta, n )\\<br>
 \theta &amp;\sim \text{Unif}(0,1)
-\end{align*}\]</span></p>
-<pre class="r"><code># the globe tossing data
-w &lt;- 6
-n &lt;- 9
-# prior on p
-p_prior &lt;- function(p) dunif(p, min=0, max=1)
-# initializing MCMC
-iter &lt;- 1e4
-p_sample &lt;- rep(0, iter)
-p_current &lt;- 0.5       # start value
-for (i in 1:iter) {
-  # record current p
-  p_sample[i] &lt;- p_current
+\end{align*}](<a href="https://latex.codecogs.com/png.latex?%5Cbegin%7Balign%2A%7D%0Aw%20%26%5Csim%20%5Ctext%7BBinom%7D%28%20%5Ctheta%2C%20n%20%29%5C%5C%0A%5Ctheta%20%26%5Csim%20%5Ctext%7BUnif%7D%280%2C1%29%0A%5Cend%7Balign%2A%7D">https://latex.codecogs.com/png.latex?%5Cbegin%7Balign%2A%7D%0Aw%20%26%5Csim%20%5Ctext%7BBinom%7D%28%20%5Ctheta%2C%20n%20%29%5C%5C%0A%5Ctheta%20%26%5Csim%20%5Ctext%7BUnif%7D%280%2C1%29%0A%5Cend%7Balign%2A%7D</a> &ldquo;\begin{align*}
+w &amp;\sim \text{Binom}( \theta, n )\<br>
+\theta &amp;\sim \text{Unif}(0,1)
+\end{align*}&quot;)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># the globe tossing data</span>
+w <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">6</span>
+n <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">9</span>
+<span style="color:#75715e"># prior on p</span>
+p_prior <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(p) <span style="color:#a6e22e">dunif</span>(p, min<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, max<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+<span style="color:#75715e"># initializing MCMC</span>
+iter <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">1e4</span>
+p_sample <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">0</span>, iter)
+p_current <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">0.5</span>       <span style="color:#75715e"># start value</span>
+<span style="color:#a6e22e">for </span>(i in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>iter) {
+  <span style="color:#75715e"># record current p</span>
+  p_sample[i] <span style="color:#f92672">&lt;-</span> p_current
   
-  # generate proposal
-  p_proposal &lt;- runif(1, min=0, max=1)
+  <span style="color:#75715e"># generate proposal</span>
+  p_proposal <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">runif</span>(<span style="color:#ae81ff">1</span>, min<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, max<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
   
-  # compute likelihood for current and proposal
-  lkhd_current &lt;- dbinom(w, n, p_current)
-  lkhd_proposal &lt;- dbinom(w, n, p_proposal)
+  <span style="color:#75715e"># compute likelihood for current and proposal</span>
+  lkhd_current <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">dbinom</span>(w, n, p_current)
+  lkhd_proposal <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">dbinom</span>(w, n, p_proposal)
   
-  # assuming a uniform prior of 1 over [0,1]
-  # otherwise, multiply times prior at p
+  <span style="color:#75715e"># assuming a uniform prior of 1 over [0,1]</span>
+  <span style="color:#75715e"># otherwise, multiply times prior at p</span>
   
   
-  # accept proposal?
-  prob_accept &lt;- (lkhd_proposal *p_prior(p_proposal) ) / ( lkhd_current * p_prior(p_current) )
-  p_current &lt;- ifelse( runif(1) &lt; prob_accept, p_proposal, p_current)
-}</code></pre>
-<p>We can visualize the trace plot:</p>
-<pre class="r"><code>plot(p_sample, type=&quot;l&quot;, col=&quot;royalblue4&quot;)</code></pre>
+  <span style="color:#75715e"># accept proposal?</span>
+  prob_accept <span style="color:#f92672">&lt;-</span> (lkhd_proposal <span style="color:#f92672">*</span><span style="color:#a6e22e">p_prior</span>(p_proposal) ) <span style="color:#f92672">/</span> ( lkhd_current <span style="color:#f92672">*</span> <span style="color:#a6e22e">p_prior</span>(p_current) )
+  p_current <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ifelse</span>( <span style="color:#a6e22e">runif</span>(<span style="color:#ae81ff">1</span>) <span style="color:#f92672">&lt;</span> prob_accept, p_proposal, p_current)
+}
+</code></pre></div><p>We can visualize the trace plot:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot</span>(p_sample, type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">l&#34;</span>, col<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">royalblue4&#34;</span>)
+</code></pre></div><p><img src="chapter8_Ex_files/figure-markdown_github/unnamed-chunk-39-1.png" alt=""></p>
 <p>A well mixed chain.</p>
 <p>We can also plot the posterior distribution:</p>
-<pre class="r"><code>dens(p_sample, col=&quot;royalblue4&quot;, adj=1)
-curve(dbeta(x, w+1, n-w+1 ), from=0, to=1, add=T, lty=2)</code></pre>
-<p>The dashed line is the exact analytic solution. Our simple MCMC estimator doesn’t perform too bad.</p>
-</div>
-</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">dens</span>(p_sample, col<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">royalblue4&#34;</span>, adj<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+<span style="color:#a6e22e">curve</span>(<span style="color:#a6e22e">dbeta</span>(x, w<span style="color:#ae81ff">+1</span>, n<span style="color:#f92672">-</span>w<span style="color:#ae81ff">+1</span> ), from<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, to<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, add<span style="color:#f92672">=</span>T, lty<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</code></pre></div><p><img src="chapter8_Ex_files/figure-markdown_github/unnamed-chunk-40-1.png" alt=""></p>
+<p>The dashed line is the exact analytic solution. Our simple MCMC estimator doesn&rsquo;t perform too bad.</p>
 
     
     </section>
@@ -829,17 +956,17 @@ curve(dbeta(x, w+1, n-w+1 ), from=0, to=1, add=T, lty=2)</code></pre>
 
   <aside class="read-next">
   
-      <a class="read-next-story" style="no-cover" href="/projects/statistical-rethinking/chapter_7/chapter7_ex/">
+      <a class="read-next-story" style="no-cover" href="/projects/statistical-rethinking/chapter_8/chapter8/">
           <section class="post">
-              <h5>Chapter 7 - Exercises</h5>
+              <h5></h5>
               
           </section>
       </a>
   
   
-      <a class="read-next-story prev" style="no-cover" href="/projects/statistical-rethinking/chapter_6/chapter6_ex/">
+      <a class="read-next-story prev" style="no-cover" href="/projects/statistical-rethinking/readme/">
           <section class="post">
-              <h5>Chpter 6 - Exercies</h5>
+              <h5></h5>
           </section>
       </a>
       
@@ -878,7 +1005,7 @@ curve(dbeta(x, w+1, n-w+1 ), from=0, to=1, add=T, lty=2)</code></pre>
     
 <section class="share">
   <h4>Share this projects</h4>
-  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Chapter%208%20-%20Exercises&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2fprojects%2fstatistical-rethinking%2fchapter_8%2fchapter8_ex%2f"
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2fprojects%2fstatistical-rethinking%2fchapter_8%2fchapter8_ex%2f"
       onclick="window.open(this.href, 'twitter-share', 'width=550,height=421');return false;">
       <span class="hidden">Twitter</span>
   </a>
@@ -886,7 +1013,7 @@ curve(dbeta(x, w+1, n-w+1 ), from=0, to=1, add=T, lty=2)</code></pre>
       onclick="window.open(this.href, 'facebook-share','width=580,height=551');return false;">
       <span class="hidden">Facebook</span>
   </a>
-  <a class="icon-linkedin" style="font-size: 1.4em" href="https://www.linkedin.com/shareArticle?mini=true&title=Chapter%208%20-%20Exercises&url=%2fprojects%2fstatistical-rethinking%2fchapter_8%2fchapter8_ex%2f"
+  <a class="icon-linkedin" style="font-size: 1.4em" href="https://www.linkedin.com/shareArticle?mini=true&title=&url=%2fprojects%2fstatistical-rethinking%2fchapter_8%2fchapter8_ex%2f"
                onclick="window.open(this.href, 'linkedin-share', 'width=554,height=571');return false;">
     <span class="hidden">LinkedIn</span>
     </a>
