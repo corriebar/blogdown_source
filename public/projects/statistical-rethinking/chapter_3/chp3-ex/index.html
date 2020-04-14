@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    
+        
+        <meta name="twitter:card" content="summary_large_image"/>
+        <meta name="twitter:image" content="/images/tea_with_books.jpg"/>
+    
+
+
+
+<meta name="twitter:title" content="Chapter 3 - Exercises"/>
+<meta name="twitter:description" content=""/>
+<meta name="twitter:site" content="@corrieaar"/>
+
+
+
+  	<meta property="og:title" content="Chapter 3 - Exercises &middot; Samples of Thoughts" />
+  	<meta property="og:site_name" content="Samples of Thoughts" />
+  	<meta property="og:url" content="/projects/statistical-rethinking/chapter_3/chp3-ex/" />
+
+    
+       <meta property="og:image" content="/images/tea_with_books.jpg"/>
+    
+    
+    <meta property="og:description" content="" />
+  	<meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2020-04-09T00:00:00Z" />
+
+    
+    <meta property="article:tag" content="Statistical Rethinking" />
+    
+    <meta property="article:tag" content="Bayesian" />
+    
+    
+
+    <title>Chapter 3 - Exercises &middot; Samples of Thoughts</title>
+
+    
+    <meta name="description" content="These are my solutions to the practice questions of chapter 3, Sampling the Imaginary, of the book “Statistical Rethinking” (version 2) by Richard McElreath.
+Ea" />
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/css/nav.css" />
+
+    
+    
+    
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/googlecode.min.css' rel='stylesheet' type='text/css' />
+
+
+
+  
+     
+      
+          <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Samples of Thoughts" />
+      
+      
+    
+    <meta name="generator" content="Hugo 0.63.1" />
+
+    <link rel="canonical" href="/projects/statistical-rethinking/chapter_3/chp3-ex/" />
+
+    
+      
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name":  null 
+    },
+    "author": {
+        "@type": "Person",
+        "name":  null ,
+        
+        "url":  null ,
+        "sameAs": [
+            
+            
+             
+             
+             
+             
+             
+            
+        ]
+    },
+    "headline": "Chapter 3 - Exercises",
+    "name": "Chapter 3 - Exercises",
+    "wordCount":  1588 ,
+    "timeRequired": "PT8M",
+    "inLanguage": {
+      "@type": "Language",
+      "alternateName": "en"
+    },
+    "url": "/projects/statistical-rethinking/chapter_3/chp3-ex/",
+    "datePublished": "2020-04-09T00:00Z",
+    "dateModified": "2020-04-09T00:00Z",
+    
+    "image": {
+        "@type": "ImageObject",
+        "url": "/images/tea_with_books.jpg",
+        "width": 3000,
+        "height": 1445
+    },
+    
+    "keywords": "Statistical Rethinking, Bayesian",
+    "description": "",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/projects/statistical-rethinking/chapter_3/chp3-ex/"
+    }
+}
+    </script>
+    
+
+
+    
+
+    
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140745376-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+
+    
+    
+    
+
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+<script>
+  window.addEventListener("load", function(){
+    window.cookieconsent.initialise({
+      "palette": {
+        "popup": {
+          "background": "#40485A",
+          "text": "#ffffff"
+        },
+        "button": {
+          "background": "#5B5A68",
+          "text": "#ffffff"
+        }
+      },
+      "content": {
+        "message": "This website uses cookies to ensure you get the best experience on my website.",
+        "dismiss": "Got it!",
+        "link": "Learn more",
+        "href": "https://cookies.insites.com"
+      }
+    })});
+</script>
+
+
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/projects">Projects</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/talks">Talks</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/about">About</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/">Home</a>
+            </li>
+        
+        
+    </ul>
+
+    
+    <a class="subscribe-button icon-feed" href="/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+  
+ <header class="main-header post-head" style="background-image: url(/images/tea_with_books.jpg)"> 
+  
+  <nav class="main-nav overlay clearfix">
+
+
+
+      <ul>
+        
+			<li> <a class="blog-logo" href="/">Home</a> </li>
+			  
+			<li> <a class="blog-logo" href="/about">About</a> </li>
+			  
+			<li> <a class="blog-logo" href="/talks">Talks</a> </li>
+			  
+			<li> <a class="blog-logo" href="/projects">Projects</a> </li>
+			  
+
+            
+              <a class="menu-button icon-feed" href="">&nbsp;&nbsp;Subscribe</a>
+            
+            
+      
+       </ul>
+    </nav>
+    
+     <div class="vertical">
+        <div class="main-header-content inner">
+            
+
+
+    <a class="bloglogo" href="https://github.com/corriebar" target="_blank">
+    <span class="icon-github" style="color:white;font-size:2em"></span>
+    </a>
+&nbsp;
+
+
+
+
+
+
+
+
+
+    <a class="bloglogo" href="https://twitter.com/corrieaar" target="_blank">
+        <span class="icon-twitter" style="color:white;font-size:2em"></span>
+    </a>
+&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <h1 class="page-title">Samples of Thoughts</h1>
+            <h2 class="page-description">about data, statistics  and everything in between</h2>
+        </div>
+    </div>  
+    
+
+
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post projects">
+
+    <header class="post-header">
+        <h1 class="post-title">Chapter 3 - Exercises</h1>
+        <small></small>
+
+        <section class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 8 min</span>
+            </p>
+        
+        
+        
+         
+          <span class="post-tag small"><a href="/tags/statistical-rethinking/">#Statistical Rethinking</a></span>
+         
+          <span class="post-tag small"><a href="/tags/bayesian/">#Bayesian</a></span>
+         
+        </section>
+    </header>
+
+    <section class="post-content">
+      
+
+
+<p>These are my solutions to the practice questions of chapter 3, <em>Sampling the Imaginary</em>, of the book “Statistical Rethinking” (version 2) by Richard McElreath.</p>
+<div id="easy." class="section level2">
+<h2>Easy.</h2>
+<p>The Easy problems use the samples from the globe tossing example:</p>
+<pre class="r"><code>p_grid &lt;- seq( from=0, to=1, length.out=1000 )
+prior &lt;- rep( 1, 1000 )
+likelihood &lt;- dbinom( 6, size=9, prob=p_grid)
+
+posterior &lt;- likelihood * prior
+posterior &lt;- posterior / sum(posterior)
+
+set.seed(100)
+samples &lt;- sample( p_grid, prob=posterior, size=1e4, replace=TRUE )</code></pre>
+<p><strong>3E1.</strong> How much posterior probability lies below <span class="math inline">\(p=0.2\)</span>?</p>
+<pre class="r"><code>mean( samples &lt; 0.2 )</code></pre>
+<pre><code>## [1] 4e-04</code></pre>
+<p><strong>3E2.</strong> How much posterior probability lies above <span class="math inline">\(p=0.8\)</span>?</p>
+<pre class="r"><code>mean( samples &gt; 0.8 )</code></pre>
+<pre><code>## [1] 0.1116</code></pre>
+<p><strong>3E3.</strong> How much posterior probability lies between <span class="math inline">\(p=0.2\)</span> and <span class="math inline">\(p=0.8\)</span>?</p>
+<pre class="r"><code>mean( samples &gt; 0.2 &amp; samples &lt; 0.8 )</code></pre>
+<pre><code>## [1] 0.888</code></pre>
+<p><strong>3E4.</strong> 20% of the posterior probability lies below which value of <span class="math inline">\(p\)</span>?</p>
+<pre class="r"><code>quantile( samples, probs = 0.2 )</code></pre>
+<pre><code>##       20% 
+## 0.5185185</code></pre>
+<p>20% of the posterior probability is below 0.52.</p>
+<p><strong>3E5.</strong> 20% of the posterior probability lies above which value of <span class="math inline">\(p\)</span>?</p>
+<pre class="r"><code>quantile( samples, probs = 0.8 )</code></pre>
+<pre><code>##       80% 
+## 0.7557558</code></pre>
+<p>20% of the posterior probability is above 0.76.</p>
+<p><strong>3E6.</strong> Which values of <span class="math inline">\(p\)</span> contain the narrowest interval equal to 66% of the posterior probability?</p>
+<pre class="r"><code>library(rethinking)
+HPDI( samples, prob = 0.66 )</code></pre>
+<pre><code>##     |0.66     0.66| 
+## 0.5085085 0.7737738</code></pre>
+<p>66% of the posterior probability is between 0.51 and 0.77.</p>
+<p><strong>3E7.</strong> Which values of <span class="math inline">\(p\)</span> contain 66% of the posterior probability, assuming equal posterior probability both below and above the interval?</p>
+<pre class="r"><code>PI( samples, prob = 0.66 )</code></pre>
+<pre><code>##       17%       83% 
+## 0.5025025 0.7697698</code></pre>
+<p>66% of the posterior probability is between 0.50 and 0.77. The percentile interval is basically identical to the HPDI interval above, implying that the posterior is highly symmetric:
+<img src="/projects/Statistical-Rethinking/Chapter_3/chapter3_Ex_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
+<div id="medium." class="section level2">
+<h2>Medium.</h2>
+<p><strong>3M1.</strong> Suppose the glove tossing data had turned out to be 8 water in 15 tosses. Construct the posterior distribution, using grid approximation and the same flat prior as above.</p>
+<p>Since the prior and the grid stay the same, we only need to change the likelihood:</p>
+<pre class="r"><code>likelihood &lt;- dbinom( 8, size=15, prob=p_grid)
+posterior &lt;- likelihood * prior
+posterior &lt;- posterior / sum(posterior)</code></pre>
+<p><strong>3M2.</strong> Draw 10,000 sample from the grid approximation from above and use the samples to calculate the 90% HPDI for <span class="math inline">\(p\)</span>.</p>
+<p>We can use the same code from above:</p>
+<pre class="r"><code>samples &lt;- sample( p_grid, prob=posterior, size=1e4, replace=TRUE)
+HPDI(samples, prob = 0.9 )</code></pre>
+<pre><code>##      |0.9      0.9| 
+## 0.3293293 0.7167167</code></pre>
+<p><strong>3M3.</strong> Construct a posterior predictive check for this model and data.</p>
+<ul>
+<li>Simulate the distribution of samples, averaging over the posterior uncertatinty in <span class="math inline">\(p\)</span>.</li>
+</ul>
+<p>To compute the posterior predictive distribution, we generate samples using the <code>rbinom()</code> function and the posterior samples:</p>
+<pre class="r"><code>w &lt;- rbinom( 1e4, size = 15, prob=samples )
+head(w)</code></pre>
+<pre><code>## [1]  3 13  6  8  7 10</code></pre>
+<p><code>w</code> is then a vector containing simulated predictions of 15 globe tosses, averaged over the posterior probability
+<img src="/projects/Statistical-Rethinking/Chapter_3/chapter3_Ex_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<ul>
+<li>What is the probability of observing 8 water in 15 tosses?</li>
+</ul>
+<pre class="r"><code>mean( w == 8 )</code></pre>
+<pre><code>## [1] 0.1444</code></pre>
+<p>The probability of observing 8 water in 15 tosses is around 14.4%.</p>
+<p><strong>3M4.</strong> Using the posterior distribution constructed from the new (8/15) data, now calculate the probability of observing 6 water in 9 tosses.</p>
+<p>We compute a new posterior predictive distribution, where we use 9 instead of 15 for the <code>size</code>:</p>
+<pre class="r"><code>w &lt;- rbinom( 1e4, size = 9, prob=samples )
+mean( w == 6 )</code></pre>
+<pre><code>## [1] 0.1751</code></pre>
+<p>The probability to observe 6 water in 9 tosses (given the new data) is around 18%.</p>
+<p><strong>3M5.</strong>
+Start over at <strong>3M1</strong>, but now use a prior that is zero below <span class="math inline">\(p=0.5\)</span> and a constant above <span class="math inline">\(p=0.5\)</span>. This corresponds to prior information that a majority of the Earth’s surface is water. Repeat each problem above and compare the inferences. What difference does the prior make?
+If it helps, compare inferences (using both priors) to the true value <span class="math inline">\(p=0.7\)</span>.</p>
+<pre class="r"><code># I use 2, so the prior integrates to 1, 
+# doesn&#39;t make much of a difference since we standardize later anyway
+informed_prior &lt;- ifelse( p_grid &lt; 0.5, 0, 2 ) 
+likelihood &lt;- dbinom( 8, size = 15, prob=p_grid )
+new_posterior &lt;- likelihood * informed_prior
+new_posterior &lt;- new_posterior / sum(posterior )
+
+new_samples &lt;- sample( p_grid, prob=new_posterior, size=1e4, replace=TRUE)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_3/chapter3_Ex_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p>With the new, informed prior, the probability mass below 0.5 is zero. The posterior with the flat prior still puts quite a bit of probability mass below 0.5:</p>
+<pre class="r"><code>mean( samples &lt; 0.5 )</code></pre>
+<pre><code>## [1] 0.3957</code></pre>
+<p>We can compare how much probability mass the two different models put on the interval between 0.6 and 0.8 (this includes the true value 0.7):</p>
+<pre class="r"><code>mean( samples &gt; 0.6 &amp; samples &lt; 0.8 )</code></pre>
+<pre><code>## [1] 0.2787</code></pre>
+<pre class="r"><code>mean( new_samples &gt; 0.6 &amp; new_samples &lt; 0.8)</code></pre>
+<pre><code>## [1] 0.4586</code></pre>
+<p>The model with the informed prior puts much more probability mass on this interval containing the true value.</p>
+<p><strong>3M6.</strong> Suppose yu want to estimate the Earth’s proportion of water very precisely. Specifically, you want the 99% percentile interval of the posterior distribution of <span class="math inline">\(p\)</span> to be only 0.05 wide. This means, the distance between the upper and lower bound of the interval should be 0.05. How many times will you have to toss the globe to do this?</p>
+<p>We can just try some values. I am using here the true value of <span class="math inline">\(p\)</span> for the proportion of water to generate some “observed” data.</p>
+<pre class="r"><code>compute_pi_width &lt;- function(N, true_p) {
+  likelihood &lt;- dbinom( round(N*true_p), size=N, prob=p_grid )
+  posterior &lt;- likelihood * prior
+  posterior &lt;- posterior / sum(posterior)
+  samples &lt;- sample(p_grid, prob=posterior, size=1e4, replace=TRUE )
+  interval &lt;- PI(samples, prob=0.99)
+  names(interval) &lt;- NULL
+  diff( interval )
+}
+
+true_p &lt;- 0.7
+N &lt;- 10
+compute_pi_width(N, true_p)</code></pre>
+<pre><code>## [1] 0.6176226</code></pre>
+<p>With 10 observations, we’re not even close yet.</p>
+<pre class="r"><code>N &lt;- 100
+compute_pi_width(N, true_p)</code></pre>
+<pre><code>## [1] 0.2262262</code></pre>
+<p>Still some way to go.</p>
+<pre class="r"><code>N &lt;- 1000
+compute_pi_width(N, true_p)</code></pre>
+<pre><code>## [1] 0.07407908</code></pre>
+<p>With 1000 observations, we’re getting quite close to an PI of 0.05 width. With <span class="math inline">\(N = 2200\)</span> we then get a 95%-interval that is 0.05 wide.</p>
+<pre class="r"><code>N &lt;- 2200
+compute_pi_width(N, true_p)</code></pre>
+<pre><code>## [1] 0.05105105</code></pre>
+<p>Note however that is depends on the true value of <span class="math inline">\(p\)</span>. If for example the true value of <span class="math inline">\(p\)</span> would be heavily biased, such as 0.995 (almost all of Earth is water), then we’d only need 150 tosses to get such a small interval.</p>
+<pre class="r"><code>N &lt;- 150
+compute_pi_width(N, true_p = 0.995)</code></pre>
+<pre><code>## [1] 0.04704705</code></pre>
+<p>Similarly, using a more informed prior would also influence how many observations are needed.</p>
+</div>
+<div id="hard." class="section level2">
+<h2>Hard.</h2>
+<p>The Hard problems use the data below about the gender of the first and second born children in 100 two-child families.</p>
+<pre class="r"><code>data(homeworkch3)
+head(birth1)</code></pre>
+<pre><code>## [1] 1 0 0 0 1 1</code></pre>
+<pre class="r"><code>head(birth2)</code></pre>
+<pre><code>## [1] 0 1 0 1 0 1</code></pre>
+<p>The total number of boys born across all of these births is then:</p>
+<pre class="r"><code>sum(birth1) + sum(birth2)</code></pre>
+<pre><code>## [1] 111</code></pre>
+<p><strong>3H1.</strong> Using grid approximation, compute the posterior distribution for the probability of a birth being a boy. Assume a uniform prior probability.</p>
+<pre class="r"><code>boys &lt;- sum(birth1) + sum(birth2)
+N &lt;- length(birth1) + length(birth2)
+
+p_grid &lt;- seq( from=0, to=1, length.out = 10000 )
+prior &lt;- rep( 1, 10000 )
+likelihood &lt;- dbinom( boys, size=N, prob = p_grid)
+posterior &lt;- likelihood * prior
+posterior &lt;- posterior / sum(posterior )</code></pre>
+<p>Which parameter value maximizes the posterior probability?</p>
+<pre class="r"><code>p_grid[ which.max(posterior)]</code></pre>
+<pre><code>## [1] 0.5549555</code></pre>
+<p>MAP, the maximum a posterior, value is around 0.55.</p>
+<p><strong>3H2.</strong>
+Using the <code>sample()</code> function, draw 10,000 random parameter values from the posterior distribution and estimate the 50%, 89%, and 97% HPDIs.</p>
+<pre class="r"><code>samples &lt;- sample(p_grid, prob=posterior, size=1e5, replace = TRUE)
+HPDI(samples, c(0.5, 0.89, 0.97))</code></pre>
+<pre><code>##     |0.97     |0.89      |0.5      0.5|     0.89|     0.97| 
+## 0.4795480 0.4993499 0.5299530 0.5770577 0.6107611 0.6299630</code></pre>
+<p><strong>3H3.</strong>
+Use <code>rbinom()</code> to simulate 10,000 replicates of 200 births. Compare the distribution of predicted numbers of boys to the actual count in the data.</p>
+<pre class="r"><code>pred_births &lt;- rbinom(1e4, size=200, prob = samples)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_3/chapter3_Ex_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+<p>Our observed number of boys (in blue) is very much in the center of predicted numbers of boys. Based on this check, we would say that our model represents the observed data quite well.</p>
+<p><strong>3H4.</strong> Now compare 10,000 counts of boys from 100 simulated first borns only to the number of boys in the first births, <code>births1</code>. How does the model look in this light?</p>
+<pre class="r"><code>pred_births &lt;- rbinom(1e4, size=100, prob = samples)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_3/chapter3_Ex_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<p>Our observed number of boys in the first borns is slightly less central in the posterior predictive distribution. However, it still seems to be a fairly likely outcome.</p>
+<p><strong>3H5.</strong> The model assumes that sex of first and second births are independent. To check this assumption, focus now on second births that followed female first borns. Compare 10,000 simulated counts of boys to only those second births that followed girls. Compare the counts of boys in your simulations to the actual observed count of boys following girls. How does the model look in this light? Any guesses what is going on in these data?</p>
+<pre class="r"><code>followed_a_girl &lt;- birth2[birth1 == 0]
+pred_births &lt;- rbinom(1e4, size=length(followed_a_girl), prob = samples)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_3/chapter3_Ex_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p>Our observed number of boys that followed a first-born girl (here in blue) is with 39 out of 49 births much higher than what is predicted by our model. According to our model, only a bit more than half of these births would be a boy but the observed data suggests that if the first-born is a girl, the chance of the second child being a boy is much much higher. It seems there is some biological mechanism in which the sex of the first child influences the sex of the second child. Since our model assumes complete independece between all births, the model fails to capthure this.</p>
+<p><small><a href="https://github.com/corriebar/Statistical-Rethinking/blob/master/Chapter_3/chapter3_Ex.Rmd">Full code.</a><small></p>
+</div>
+
+    
+    </section>
+
+  <footer class="post-footer">
+
+
+    
+
+
+
+
+
+
+
+
+
+<section class="author">
+  <h4><a href="/">Corrie</a></h4>
+  
+  <p>Read <a href="/">more posts</a> by this author.</p>
+  
+  <div class="author-meta">
+    
+    
+  </div>
+</section>
+
+
+
+
+    
+<section class="share">
+  <h4>Share this projects</h4>
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Chapter%203%20-%20Exercises&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2fprojects%2fstatistical-rethinking%2fchapter_3%2fchp3-ex%2f"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=421');return false;">
+      <span class="hidden">Twitter</span>
+  </a>
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=%2fprojects%2fstatistical-rethinking%2fchapter_3%2fchp3-ex%2f"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=551');return false;">
+      <span class="hidden">Facebook</span>
+  </a>
+  <a class="icon-linkedin" style="font-size: 1.4em" href="https://www.linkedin.com/shareArticle?mini=true&title=Chapter%203%20-%20Exercises&url=%2fprojects%2fstatistical-rethinking%2fchapter_3%2fchp3-ex%2f"
+               onclick="window.open(this.href, 'linkedin-share', 'width=554,height=571');return false;">
+    <span class="hidden">LinkedIn</span>
+    </a>
+
+</section>
+
+
+
+
+    
+
+<div id="disqus_thread"></div>
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "\/projects\/statistical-rethinking\/chapter_3\/chp3-ex\/";  
+this.page.identifier = "\/projects\/statistical-rethinking\/chapter_3\/chp3-ex\/"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://corriebar-github-io.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+
+
+
+  </footer>
+</article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Samples of Thoughts</a> 
+        © Corrie Bartelheimer 2020 &middot; </section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+    
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+    
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+    
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140745376-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+
+    
+</body>
+</html>
+

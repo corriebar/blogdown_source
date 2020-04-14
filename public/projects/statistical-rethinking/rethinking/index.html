@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    
+        
+        <meta name="twitter:card" content="summary_large_image"/>
+        <meta name="twitter:image" content="/images/tea_with_books.jpg"/>
+    
+
+
+
+<meta name="twitter:title" content="Statistical Rethinking"/>
+<meta name="twitter:description" content=""/>
+<meta name="twitter:site" content="@corrieaar"/>
+
+
+
+  	<meta property="og:title" content="Statistical Rethinking &middot; Samples of Thoughts" />
+  	<meta property="og:site_name" content="Samples of Thoughts" />
+  	<meta property="og:url" content="/projects/statistical-rethinking/rethinking/" />
+
+    
+       <meta property="og:image" content="/images/tea_with_books.jpg"/>
+    
+    
+    <meta property="og:description" content="" />
+  	<meta property="og:type" content="article" />
+    <meta property="article:published_time" content="0001-01-01T00:00:00Z" />
+
+    
+    
+
+    <title>Statistical Rethinking &middot; Samples of Thoughts</title>
+
+    
+    <meta name="description" content="These are code snippets, plots and my solutions to some of the exercises of the book &amp;ldquo;Statistical Rethinking&amp;rdquo; by Richard McElreath.
+I started going " />
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/css/nav.css" />
+
+    
+    
+    
+
+  
+     
+      
+          <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Samples of Thoughts" />
+      
+      
+    
+    <meta name="generator" content="Hugo 0.63.1" />
+
+    <link rel="canonical" href="/projects/statistical-rethinking/rethinking/" />
+
+    
+      
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name":  null 
+    },
+    "author": {
+        "@type": "Person",
+        "name":  null ,
+        
+        "url":  null ,
+        "sameAs": [
+            
+            
+             
+             
+             
+             
+             
+            
+        ]
+    },
+    "headline": "Statistical Rethinking",
+    "name": "Statistical Rethinking",
+    "wordCount":  145 ,
+    "timeRequired": "PT1M",
+    "inLanguage": {
+      "@type": "Language",
+      "alternateName": "en"
+    },
+    "url": "/projects/statistical-rethinking/rethinking/",
+    "datePublished": "0001-01-01T00:00Z",
+    "dateModified": "0001-01-01T00:00Z",
+    
+    "image": {
+        "@type": "ImageObject",
+        "url": "/images/tea_with_books.jpg",
+        "width": 3000,
+        "height": 1445
+    },
+    
+    
+    "description": "",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/projects/statistical-rethinking/rethinking/"
+    }
+}
+    </script>
+    
+
+
+    
+
+    
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140745376-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+
+    
+    
+    
+
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+<script>
+  window.addEventListener("load", function(){
+    window.cookieconsent.initialise({
+      "palette": {
+        "popup": {
+          "background": "#40485A",
+          "text": "#ffffff"
+        },
+        "button": {
+          "background": "#5B5A68",
+          "text": "#ffffff"
+        }
+      },
+      "content": {
+        "message": "This website uses cookies to ensure you get the best experience on my website.",
+        "dismiss": "Got it!",
+        "link": "Learn more",
+        "href": "https://cookies.insites.com"
+      }
+    })});
+</script>
+
+
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/projects">Projects</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/talks">Talks</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/about">About</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/">Home</a>
+            </li>
+        
+        
+    </ul>
+
+    
+    <a class="subscribe-button icon-feed" href="/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+  
+  <header class="main-header post-head" style="background-image: url(/images/tea_with_books.jpg)">
+  
+  <nav class="main-nav overlay clearfix">
+
+
+
+    <nav class="main-nav overlay clearfix">
+      <ul>
+        
+			<li> <a class="blog-logo" href="/">Home</a> </li>
+			  
+			<li> <a class="blog-logo" href="/about">About</a> </li>
+			  
+			<li> <a class="blog-logo" href="/talks">Talks</a> </li>
+			  
+			<li> <a class="blog-logo" href="/projects">Projects</a> </li>
+			  
+       </ul>
+    </nav>
+
+    <a class="menu-button icon-feed" href="/index.xml" >&nbsp;&nbsp;Subscribe</a>
+
+  </nav>
+  <div class="vertical">
+        <div class="main-header-content inner">
+            
+
+
+    <a class="bloglogo" href="https://github.com/corriebar" target="_blank">
+    <span class="icon-github" style="color:white;font-size:2em"></span>
+    </a>
+&nbsp;
+
+
+
+
+
+
+
+
+
+    <a class="bloglogo" href="https://twitter.com/corrieaar" target="_blank">
+        <span class="icon-twitter" style="color:white;font-size:2em"></span>
+    </a>
+&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <h1 class="page-title">Samples of Thoughts</h1>
+            <h2 class="page-description">about data, statistics  and everything in between</h2>
+        </div>
+    </div>
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post projects">
+
+    <header class="post-header">
+        <h1 class="post-title">Statistical Rethinking</h1>
+        <small></small>
+
+        <section class="post-meta">
+        
+         
+        </section>
+    </header>
+
+    <section class="post-talks">
+      <p>These are code snippets, plots and my solutions to some of the exercises of the book &ldquo;Statistical Rethinking&rdquo; by Richard McElreath.</p>
+<p>I started going through the book in spring 2018. As part of the <a href="https://www.meetup.com/de-DE/BerlinBayesians/">Berlin Bayesian&rsquo;s reading group</a>, I am currently in the process of updating the code and exercise solutions to the newest, second edition.</p>
+<h4 id="chapter-3">Chapter 3</h4>
+<ul>
+<li><a href="/projects/statistical-rethinking/chapter_3/chp3-ex/">Exercises</a></li>
+</ul>
+<h4 id="chapter-4">Chapter 4</h4>
+<ul>
+<li><a href="https://github.com/corriebar/Statistical-Rethinking/blob/master/Chapter_4/chapter4.R">How Normality arises</a></li>
+<li><a href="https://github.com/corriebar/Statistical-Rethinking/blob/master/Chapter_4/chapter4b.R">Linear Models</a></li>
+<li><a href="https://github.com/corriebar/Statistical-Rethinking/blob/master/Chapter_4/chapter4c.R">Polynomial Regression</a></li>
+<li><a href="/projects/statistical-rethinking/chapter_4/chapter4_ex/">Exercises</a></li>
+</ul>
+<h4 id="chapter-5">Chapter 5</h4>
+<ul>
+<li><a href="https://github.com/corriebar/Statistical-Rethinking/blob/master/Chapter_5/chapter5a.R">Spurious Associations</a></li>
+<li><a href="https://github.com/corriebar/Statistical-Rethinking/blob/master/Chapter_5/chapter5b.R">Masked Relationships</a></li>
+<li><a href="https://github.com/corriebar/Statistical-Rethinking/blob/master/Chapter_5/chapter5c.R">When adding variables hurt</a></li>
+<li><a href="https://github.com/corriebar/Statistical-Rethinking/blob/master/Chapter_5/chapter5d.R">Categorical Variables</a></li>
+<li><a href="https://github.com/corriebar/Statistical-Rethinking/blob/master/Chapter_5/chapter5e.R">Ordinary Least Squares</a></li>
+<li><a href="/projects/statistical-rethinking/chapter_5/chapter5_ex/">Exercises</a></li>
+</ul>
+<h4 id="chapter-6">Chapter 6</h4>
+<ul>
+<li><a href="https://github.com/corriebar/Statistical-Rethinking/blob/master/Chapter_6/chapter6a.R">Overfitting</a></li>
+<li><a href="https://github.com/corriebar/Statistical-Rethinking/blob/master/Chapter_6/chapter6b.R">Information Theory and Model Performance</a></li>
+<li><a href="https://github.com/corriebar/Statistical-Rethinking/blob/master/Chapter_6/chapter6c.R">Using Information Criteria</a></li>
+<li><a href="/projects/statistical-rethinking/chapter_6/chapter6_ex/">Exercises</a></li>
+</ul>
+<h4 id="chapter-7">Chapter 7</h4>
+<ul>
+<li><a href="/projects/statistical-rethinking/chapter_7/chapter7/">Interactions</a></li>
+<li><a href="/projects/statistical-rethinking/chapter_7/chapter7_ex/">Exercises</a></li>
+</ul>
+<h4 id="chapter-8">Chapter 8</h4>
+<ul>
+<li>[MCMC]({{ &lt; relref &ldquo;Chapter_8/chapter8.html&rdquo; &gt;}} )</li>
+<li>[Exercises]({{ &lt; relref &ldquo;Chapter_8/chapter8_Ex.html&rdquo; &gt;}} )</li>
+</ul>
+<h4 id="chapter-10">Chapter 10</h4>
+<ul>
+<li>[Binomial Regression]({{ &lt; relref &ldquo;Chapter_10/chapter10a.html&rdquo; &gt;}} )</li>
+<li>[Poisson Regression]({{ &lt; relref &ldquo;Chapter_10/chapter10b.html&rdquo; &gt;}} )</li>
+<li>[Other Count Regressions]({{ &lt; relref &ldquo;Chapter_10/chapter10c.html&rdquo; &gt;}} )</li>
+<li>[Exercises]({{ &lt; relref &ldquo;Chapter_10/chapter10_Ex.html&rdquo; &gt;}} )</li>
+</ul>
+
+    </section>
+
+
+  <footer class="post-footer">
+
+
+   
+
+
+  </footer>
+</article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Samples of Thoughts</a> 
+        © Corrie Bartelheimer 2020 &middot; </section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+    
+    
+    
+
+    
+    
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140745376-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+
+    
+</body>
+</html>
+

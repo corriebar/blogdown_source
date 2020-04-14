@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    
+        <meta name="twitter:card" content="summary"/>
+    
+
+
+
+<meta name="twitter:title" content="Using Information Critera"/>
+<meta name="twitter:description" content=""/>
+<meta name="twitter:site" content="@corrieaar"/>
+
+
+
+  	<meta property="og:title" content="Using Information Critera &middot; Samples of Thoughts" />
+  	<meta property="og:site_name" content="Samples of Thoughts" />
+  	<meta property="og:url" content="/projects/statistical-rethinking/chapter_6/chapter6c/" />
+
+    
+        
+            <meta property="og:image" content="/images/tea_with_books.jpg"/>
+        
+    
+    
+    <meta property="og:description" content="" />
+  	<meta property="og:type" content="article" />
+    <meta property="article:published_time" content="0001-01-01T00:00:00Z" />
+
+    
+    
+
+    <title>Using Information Critera &middot; Samples of Thoughts</title>
+
+    
+    <meta name="description" content="Using information criteria Model comparison library(rethinking) data(milk) d &amp;lt;- milk[ complete.cases(milk), ] # remove NA values d$neocortex &amp;lt;- d$neocorte" />
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/css/nav.css" />
+
+    
+    
+    
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/googlecode.min.css' rel='stylesheet' type='text/css' />
+
+
+
+  
+     
+      
+          <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Samples of Thoughts" />
+      
+      
+    
+    <meta name="generator" content="Hugo 0.63.1" />
+
+    <link rel="canonical" href="/projects/statistical-rethinking/chapter_6/chapter6c/" />
+
+    
+      
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name":  null 
+    },
+    "author": {
+        "@type": "Person",
+        "name":  null ,
+        
+        "url":  null ,
+        "sameAs": [
+            
+            
+             
+             
+             
+             
+             
+            
+        ]
+    },
+    "headline": "Using Information Critera",
+    "name": "Using Information Critera",
+    "wordCount":  806 ,
+    "timeRequired": "PT4M",
+    "inLanguage": {
+      "@type": "Language",
+      "alternateName": "en"
+    },
+    "url": "/projects/statistical-rethinking/chapter_6/chapter6c/",
+    "datePublished": "0001-01-01T00:00Z",
+    "dateModified": "0001-01-01T00:00Z",
+    
+    
+    "description": "",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/projects/statistical-rethinking/chapter_6/chapter6c/"
+    }
+}
+    </script>
+    
+
+
+    
+
+    
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140745376-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+
+    
+    
+    
+
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+<script>
+  window.addEventListener("load", function(){
+    window.cookieconsent.initialise({
+      "palette": {
+        "popup": {
+          "background": "#40485A",
+          "text": "#ffffff"
+        },
+        "button": {
+          "background": "#5B5A68",
+          "text": "#ffffff"
+        }
+      },
+      "content": {
+        "message": "This website uses cookies to ensure you get the best experience on my website.",
+        "dismiss": "Got it!",
+        "link": "Learn more",
+        "href": "https://cookies.insites.com"
+      }
+    })});
+</script>
+
+
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/projects">Projects</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/talks">Talks</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/about">About</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/">Home</a>
+            </li>
+        
+        
+    </ul>
+
+    
+    <a class="subscribe-button icon-feed" href="/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+<header class="main-header post-head no-cover">
+  <nav class="main-nav clearfix">
+
+
+
+      <ul>
+        
+			<li> <a class="blog-logo" href="/">Home</a> </li>
+			  
+			<li> <a class="blog-logo" href="/about">About</a> </li>
+			  
+			<li> <a class="blog-logo" href="/talks">Talks</a> </li>
+			  
+			<li> <a class="blog-logo" href="/projects">Projects</a> </li>
+			  
+
+            
+              <a class="menu-button icon-feed" href="">&nbsp;&nbsp;Subscribe</a>
+            
+            
+      
+       </ul>
+    </nav>
+    
+     <div class="vertical">
+        <div class="main-header-content inner">
+            
+
+
+    <a class="bloglogo" href="https://github.com/corriebar" target="_blank">
+    <span class="icon-github" style="color:white;font-size:2em"></span>
+    </a>
+&nbsp;
+
+
+
+
+
+
+
+
+
+    <a class="bloglogo" href="https://twitter.com/corrieaar" target="_blank">
+        <span class="icon-twitter" style="color:white;font-size:2em"></span>
+    </a>
+&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <h1 class="page-title">Samples of Thoughts</h1>
+            <h2 class="page-description">about data, statistics  and everything in between</h2>
+        </div>
+    </div>  
+    
+
+
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post projects">
+
+    <header class="post-header">
+        <h1 class="post-title">Using Information Critera</h1>
+        <small></small>
+
+        <section class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 4 min</span>
+            </p>
+        
+        
+        
+         
+        </section>
+    </header>
+
+    <section class="post-content">
+      
+
+
+<div id="using-information-criteria" class="section level1">
+<h1>Using information criteria</h1>
+<div id="model-comparison" class="section level2">
+<h2>Model comparison</h2>
+<pre class="r"><code>library(rethinking)
+data(milk)
+d &lt;- milk[ complete.cases(milk), ]     # remove NA values
+d$neocortex &lt;- d$neocortex.perc / 100
+dim(d)
+
+head(d)</code></pre>
+<p>We will predict kcal.per.g using the predictors neocortex and the logarithm of mass. For this, we use four different models (all with flat priors):</p>
+<pre class="r"><code>a.start &lt;- mean(d$kcal.per.g)
+sigma.start &lt;- log( sd( d$kcal.per.g ))
+
+m6.11 &lt;- map( 
+  alist(
+    kcal.per.g ~ dnorm( a, exp(log.sigma) )
+  ), data=d, start=list(a=a.start, log.sigma=sigma.start) )
+
+m6.12 &lt;- map(
+  alist(
+    kcal.per.g ~ dnorm( mu, exp(log.sigma) ),
+    mu &lt;- a + bn*neocortex
+  ), data=d, start=list(a=a.start, bn=0, log.sigma=sigma.start)
+)
+
+m6.13 &lt;- map(
+  alist(
+    kcal.per.g ~ dnorm( mu, exp(log.sigma) ),
+    mu &lt;- a + bm*log(mass)
+  ), data=d, start=list(a=a.start, bm=0, log.sigma=sigma.start)
+)
+
+m6.14 &lt;- map(
+  alist(
+    kcal.per.g ~ dnorm( mu, exp(log.sigma) ),
+    mu &lt;- a + bn*neocortex + bm*log(mass)
+  ), data=d, start=list(a=a.start, bn=0, bm=0, log.sigma=sigma.start)
+)</code></pre>
+<p>To compute the WAIC value, we can use the function <code>WAIC()</code> from the <code>rethinking</code> package:</p>
+<pre class="r"><code>WAIC( m6.14 )</code></pre>
+<p>The package also provides a handy function that computes WAIC for all models and ranks from best to worst:</p>
+<pre class="r"><code>set.seed(2405)
+( milk.models &lt;- compare( m6.11, m6.12, m6.13, m6.14) )
+plot( milk.models, SE=TRUE, dSE=TRUE )</code></pre>
+<p>How can we interpret the weights (Akaike weights): here, the model m6.14 has probability of 94% to make the best predictions on new data (compared to the other three models). There’s a caveat: Uncertainty propagates to the weights as well (and there is a lot of uncertainty since we only have few observations).</p>
+<p>As an example, consider the difference between <code>m6.14</code> and <code>m6.11</code>, centered at 7.3 with a standard deviation of 7.29. We can compute the probability that this difference is negative, i.e. the two models are actually rank-reversed:</p>
+<pre class="r"><code>diff &lt;- rnorm(1e5, 7.3, 7.29)
+sum( diff &lt; 0 ) / 1e5</code></pre>
+</div>
+<div id="comparing-estimates" class="section level2">
+<h2>Comparing estimates</h2>
+<p>To compare parameter estimates across different models, we can use the handy function <code>coeftab</code> from McElreath’s package:</p>
+<pre class="r"><code>coeftab( m6.11, m6.12, m6.13, m6.14 )
+plot( coeftab( m6.11, m6.12, m6.13, m6.14 ) )</code></pre>
+<p>One can use different options for <code>coeftab_plot</code>:</p>
+<pre class="r"><code># sort by model 
+plot( coeftab( m6.11, m6.12, m6.13, m6.14), by.model=TRUE )    
+ # show only certain parameters
+plot( coeftab( m6.11, m6.12, m6.13, m6.14), by.model=FALSE, pars=c(&quot;bn&quot;, &quot;bm&quot;) )    </code></pre>
+</div>
+<div id="model-averaging" class="section level2">
+<h2>Model averaging</h2>
+<p>In model averaging, we use the predictions for each model and average according to their Akaike weights.
+Let’s compare first with the counterfactual predictions for the minimum-WAIC model <code>m6.14</code>, holding mass fixed.</p>
+<pre class="r"><code>nc.seq &lt;- seq(from=0.5, to =0.8, length.out = 30)
+d.predict &lt;- list(
+  kcal.per.g = rep(0, 30),            # empty outcome
+  neocortex = nc.seq,                 # sequence of neocortex
+  mass = rep(median(d$mass), 30)      # average mass   (no idea where the 4.5 came from)
+)
+pred.m6.14 &lt;- link( m6.14, data=d.predict)
+mu &lt;- apply( pred.m6.14, 2, mean )
+mu.PI &lt;- apply( pred.m6.14, 2, PI )
+
+
+# plot it all
+plot( kcal.per.g ~ neocortex, d, col=rangi2 )
+lines( nc.seq, mu, lty=2 )
+lines( nc.seq, mu.PI[1, ], lty=2)
+lines( nc.seq, mu.PI[2, ], lty=2)</code></pre>
+<p>Now comes the ensemble part: Average the posterior predictions, using <code>ensemble</code>, another handy function from <code>rethinking</code>:</p>
+<pre class="r"><code>milk.ensemble &lt;- ensemble( m6.11, m6.12, m6.13, m6.14, data=d.predict )
+mu &lt;- apply(milk.ensemble$link, 2, mean )
+mu.PI &lt;- apply( milk.ensemble$link, 2, PI )
+kcal.per.g.PI &lt;- apply(milk.ensemble$sim, 2, PI )
+
+# same plot as before
+plot( kcal.per.g ~ neocortex, d, col=rangi2 )
+lines( nc.seq, mu, lty=2 )
+lines( nc.seq, mu.PI[1, ], lty=2)
+lines( nc.seq, mu.PI[2, ], lty=2)
+
+# added ensemble predictions and their uncertainty
+lines( nc.seq, mu )
+shade( mu.PI, nc.seq )
+shade( kcal.per.g.PI, nc.seq )    # yay even more uncertainty!</code></pre>
+<p>If we want to compute the ensemble average ourselves, we can do as follow:</p>
+<pre class="r"><code># code mostly coppied from the ensemble function
+n &lt;- 1e3
+ctab &lt;- compare( m6.11, m6.12, m6.13, m6.14, sort = F)
+weights &lt;- ctab@output$weight
+
+L &lt;- list( m6.11, m6.12, m6.13, m6.14 )
+# for each &quot;observation&quot; in d.predict, link computes 1000 samples of the posterior mu 
+# (this for each model)
+link.list &lt;- lapply( L, function(m) link(m, data=d.predict, n=n))
+# simulate for each &quot;observation&quot; in d.predict an outcome using a sampled mu + sigma + dnorm
+sim.list &lt;- lapply( L, function(m) sim(m, data=d.predict, n=n))
+
+# combine values
+# for each model, we have a matrix of samples (both of mu and the outcome)
+# we combine this into one matrix with 1000 samples taking from each model matrix 
+# rows according to their weight
+idx &lt;- round( weights * n)
+
+idx_start &lt;- rep(1,length(idx))
+idx_end &lt;- idx
+if ( length(L)&gt;1 )
+  for ( i in 2:length(idx) ) {
+    idx_start[i] &lt;- min( idx_start[i-1] + idx[i-1] , n )
+    idx_end[i] &lt;- min( idx_start[i] + idx[i] - 1 , n )
+    if ( i==length(idx) ) idx_end[i] &lt;- n
+  }
+
+link_out &lt;- link.list[[1]]    # initiate with first model matrix
+sim_out &lt;- sim.list[[1]]
+for ( i in 1:length(idx) ) {
+  if ( idx[i]&gt;0 ) {
+    idxrange &lt;- idx_start[i]:idx_end[i]
+    link_out[idxrange,] &lt;- link.list[[i]][idxrange,]
+    sim_out[idxrange,] &lt;- sim.list[[i]][idxrange,]
+  }
+} # alternatively, we could also use sample with prob = weight</code></pre>
+</div>
+</div>
+
+    
+    </section>
+
+
+  <aside class="read-next">
+  
+      <a class="read-next-story" style="no-cover" href="/projects/statistical-rethinking/rethinking/">
+          <section class="post">
+              <h5>Statistical Rethinking</h5>
+              
+          </section>
+      </a>
+  
+  
+
+</aside>
+
+
+
+  <footer class="post-footer">
+
+
+    
+
+
+
+
+
+
+
+
+
+<section class="author">
+  <h4><a href="/">Corrie</a></h4>
+  
+  <p>Read <a href="/">more posts</a> by this author.</p>
+  
+  <div class="author-meta">
+    
+    
+  </div>
+</section>
+
+
+
+
+    
+<section class="share">
+  <h4>Share this projects</h4>
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Using%20Information%20Critera&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2fprojects%2fstatistical-rethinking%2fchapter_6%2fchapter6c%2f"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=421');return false;">
+      <span class="hidden">Twitter</span>
+  </a>
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=%2fprojects%2fstatistical-rethinking%2fchapter_6%2fchapter6c%2f"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=551');return false;">
+      <span class="hidden">Facebook</span>
+  </a>
+  <a class="icon-linkedin" style="font-size: 1.4em" href="https://www.linkedin.com/shareArticle?mini=true&title=Using%20Information%20Critera&url=%2fprojects%2fstatistical-rethinking%2fchapter_6%2fchapter6c%2f"
+               onclick="window.open(this.href, 'linkedin-share', 'width=554,height=571');return false;">
+    <span class="hidden">LinkedIn</span>
+    </a>
+
+</section>
+
+
+
+
+    
+
+<div id="disqus_thread"></div>
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "\/projects\/statistical-rethinking\/chapter_6\/chapter6c\/";  
+this.page.identifier = "\/projects\/statistical-rethinking\/chapter_6\/chapter6c\/"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://corriebar-github-io.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+
+
+
+  </footer>
+</article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Samples of Thoughts</a> 
+        © Corrie Bartelheimer 2020 &middot; </section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+    
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+    
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+    
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140745376-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+
+    
+</body>
+</html>
+
