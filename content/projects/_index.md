@@ -8,4 +8,6 @@ share: false
 author: ""
 ---
 
-- [Statistical Rethinking](rethinking-readme)
+
+This is a list of projects I've been working on that didn't quite fit in a blog post:
+- [Statistical Rethinking]( {{< ref "/projects/Statistical-Rethinking/README_html" >}})

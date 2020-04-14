@@ -3,8 +3,48 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/tags/bayesian/</loc>
+    <lastmod>2020-04-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/categories/</loc>
-    <lastmod>2020-03-25T00:00:00+00:00</lastmod>
+    <lastmod>2020-04-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/chapter_3/chp3-ex/</loc>
+    <lastmod>2020-04-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/projects/</loc>
+    <lastmod>2020-04-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/r/</loc>
+    <lastmod>2020-04-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2020-04-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/statistical-rethinking/</loc>
+    <lastmod>2020-04-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/statistical-rethinking/</loc>
+    <lastmod>2020-04-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-04-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -33,22 +73,7 @@
   </url>
   
   <url>
-    <loc>/categories/r/</loc>
-    <lastmod>2020-03-25T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/r/</loc>
-    <lastmod>2020-03-25T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/</loc>
-    <lastmod>2020-03-25T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
     <lastmod>2020-03-25T00:00:00+00:00</lastmod>
   </url>
   
@@ -178,15 +203,150 @@
   </url>
   
   <url>
+    <loc>/projects/statistical-rethinking/chapter_10/chapter10_ex/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/chapter_10/chapter10a/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/chapter_10/chapter10b/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/chapter_10/chapter10c/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/chapter_3/chapter3_ex/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/chapter_4/chapter4_ex/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/chapter_5/chapter5_ex/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/chapter_6/chapter6_ex/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/chapter_6/chapter6b/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/chapter_6/chapter6c/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/chapter_7/chapter7/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/chapter_7/chapter7_ex/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/chapter_8/chapter8/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/chapter_8/chapter8_ex/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/readme/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/about/</loc>
   </url>
   
   <url>
-    <loc>/projects/</loc>
+    <loc>/projects/statistical-rethinking/chapter_10/chapter10a/</loc>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/chapter_10/chapter10_ex/</loc>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/chapter_12/chapter12a/</loc>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/chapter_4/chapter4_ex/</loc>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/chapter_5/chapter5_ex/</loc>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/chapter_7/chapter7_ex/</loc>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/chapter_8/chapter8_ex/</loc>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/chapter_6/chapter6_ex/</loc>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/chapter_6/chapter6b/</loc>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/chapter_7/chapter7/</loc>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/chapter_8/chapter8/</loc>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/chapter_12/chapter12b/</loc>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/chapter_10/chapter10c/</loc>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/chapter_10/chapter10b/</loc>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/rethinking/</loc>
   </url>
   
   <url>
     <loc>/talks/</loc>
+  </url>
+  
+  <url>
+    <loc>/projects/statistical-rethinking/chapter_6/chapter6c/</loc>
   </url>
   
 </urlset>

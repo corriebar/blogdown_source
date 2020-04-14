@@ -7,9 +7,365 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Corrie Bartelheimer {year}</copyright>
+    <lastBuildDate>Thu, 09 Apr 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/projects/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Chapter 3 - Exercises</title>
+      <link>/projects/statistical-rethinking/chapter_3/chp3-ex/</link>
+      <pubDate>Thu, 09 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_3/chp3-ex/</guid>
+      <description>These are my solutions to the practice questions of chapter 3, Sampling the Imaginary, of the book “Statistical Rethinking” (version 2) by Richard McElreath.
+Easy. The Easy problems use the samples from the globe tossing example:
+p_grid &amp;lt;- seq( from=0, to=1, length.out=1000 ) prior &amp;lt;- rep( 1, 1000 ) likelihood &amp;lt;- dbinom( 6, size=9, prob=p_grid) posterior &amp;lt;- likelihood * prior posterior &amp;lt;- posterior / sum(posterior) set.seed(100) samples &amp;lt;- sample( p_grid, prob=posterior, size=1e4, replace=TRUE ) 3E1.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/projects/statistical-rethinking/chapter_10/chapter10_ex/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_10/chapter10_ex/</guid>
+      <description>Chapter 10 - Exercise Corrie November 17, 2018
+Easy. 10E1. If an event has probability 0.35, what are the log-odds of this event?
+log( 0.35 / (1 - 0.35)) [1] -0.6190392  10E2. If an event has log-odds 3.2, what is the probabiity of this event?
+1 / (1 + exp(-3.2)) [1] 0.9608343  10E3. A coefficient in a logistic regression has value 1.7. What does this imply about the proportional change in odds of the outcome?</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/projects/statistical-rethinking/chapter_10/chapter10a/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_10/chapter10a/</guid>
+      <description>Binomial Regression Corrie October 4, 2018
+Logistic Regression The chimpanzee data: Do chimpanzee pick the more social option?
+library(rethinking) data(chimpanzees) d &amp;lt;- chimpanzees The important variables are the variable condition, indicating if another chimpanzee sits opposite (1) the table or not (0) and the variable prosocial_left which indicates if the left lever is the more social option. These two variables will be used to predict if the chimpanzees pull the left lever or not (pulled_left).</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/projects/statistical-rethinking/chapter_10/chapter10b/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_10/chapter10b/</guid>
+      <description>Poisson Regression Corrie October 28, 2018
+Poisson Regression Oceanic Tools A binomial distriution with many trials (that is large) and a small probability of an event (small) approaches a Poisson distribution where both the mean and the variance are equal:
+y &amp;lt;- rbinom(1e5, 1000, 1/1000) c(mean(y), var(y)) [1] 0.996090 1.000805  A Poisson model allows us to model binomial events for which the number of trials is unknown.
+We work with the Kline data, a dataset about Oceanic societies and the number of found tools.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/projects/statistical-rethinking/chapter_10/chapter10c/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_10/chapter10c/</guid>
+      <description>Other count regressions Corrie November 11, 2018
+Multinomial Regression A multinomial regression is used when more than two things can happen. As an example, suppose we are modelling career choices for some young adults. Let’s assume there are three career choices one can take and expected income is one of the predictors. One option to model the career choices would be the explicit multinomial model which uses the multinomial logit. The multinomial logit uses the multinomial distribution which is an extension of the binomial distribution to the case with 2&#34;</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/projects/statistical-rethinking/chapter_3/chapter3_ex/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_3/chapter3_ex/</guid>
+      <description>Chapter 3 - Exercises Corrie 2020-04-09
+These are my solutions to the practice questions of chapter 3, Sampling the Imaginary, of the book “Statistical Rethinking” (version 2) by Richard McElreath.
+Easy. The Easy problems use the samples from the globe tossing example:
+p_grid &amp;lt;- seq( from=0, to=1, length.out=1000 ) prior &amp;lt;- rep( 1, 1000 ) likelihood &amp;lt;- dbinom( 6, size=9, prob=p_grid) posterior &amp;lt;- likelihood * prior posterior &amp;lt;- posterior / sum(posterior) set.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/projects/statistical-rethinking/chapter_4/chapter4_ex/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_4/chapter4_ex/</guid>
+      <description>Chapter 4 - Exercise Corrie May 21, 2018
+Chapter 4 - Exercises These are my solutions to the practice questions of chapter 4, Linear Models, of the book &amp;ldquo;Statistical Rethinking&amp;rdquo; by Richard McElreath.
+Easy Questions. 4E1. In the model definition below, which line is the likelihood:
+![ \begin{align*} y_i &amp;amp;\sim \text{Normal}(\mu, \sigma) &amp;amp; &amp;amp; \text{This is the likelihood}\\
+\mu &amp;amp;\sim \text{Normal}(0, 10) \\
+\sigma &amp;amp;\sim \text{Normal}(0,10) \end{align*} ](https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Balign%2A%7D%0Ay_i%20%26%5Csim%20%5Ctext%7BNormal%7D%28%5Cmu%2C%20%5Csigma%29%20%26%20%26%20%5Ctext%7BThis%20is%20the%20likelihood%7D%5C%5C%0A%5Cmu%20%26%5Csim%20%5Ctext%7BNormal%7D%280%2C%2010%29%20%5C%5C%0A%5Csigma%20%26%5Csim%20%5Ctext%7BNormal%7D%280%2C10%29%0A%5Cend%7Balign%2A%7D%20 &amp;quot; \begin{align*} y_i &amp;amp;\sim \text{Normal}(\mu, \sigma) &amp;amp; &amp;amp; \text{This is the likelihood}\</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/projects/statistical-rethinking/chapter_5/chapter5_ex/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_5/chapter5_ex/</guid>
+      <description>Chapter 5 - Exercises Corrie June 3, 2018
+Chapter 5 - Exercises These are my solutions to the exercises from chapter 5.
+Easy. 5E1. The following linear models are multiple linear regressions:
+    whereas the following are bivariate linear regressions:
+    5E2. Write down a multiple regression to evaluate the claim: Animal diversity is linearly related to latitude, but only after controlling for plant diversity.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/projects/statistical-rethinking/chapter_6/chapter6_ex/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_6/chapter6_ex/</guid>
+      <description>Chpter 6 - Exercies Corrie July 8, 2018
+Chapter 6 - Exercises These are my solutions to the exercises from chapter 6.
+Easy. 6E1. State the three motivating criteria that define information entropy.
+Information entropy (a measure of uncertainty) should be
+ continous. A small change in probability should also lead to only a small change in uncertainty. We don&amp;rsquo;t want to allow for sudden jumps. increasing as the number of possible events increases.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/projects/statistical-rethinking/chapter_6/chapter6b/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_6/chapter6b/</guid>
+      <description>Information Theory and Model Performance Corrie July 2, 2018
+Entropy p &amp;lt;- c( 0.3, 0.7) -sum( p*log(p) ) ## [1] 0.6108643  compare this with:
+p &amp;lt;- c(0.01, 0.99) -sum( p*log(p) ) # contains much less information ## [1] 0.05600153  Kullback-Leibler Divergence p &amp;lt;- c(0.3, 0.7) q1 &amp;lt;- seq(from=0.01, to=0.99, length.out = 100) q &amp;lt;- data.frame(q1 = q1, q2 = 1 - q1) kl_divergence &amp;lt;- function(p, q) { sum( p* log( p/ q) ) } kl &amp;lt;- apply(q, 1, function(x){kl_divergence(p=p, q=x)} ) plot( kl ~ q1, type=&amp;#34;l&amp;#34;, col=&amp;#34;steelblue&amp;#34;, lwd=2) abline(v = p[1], lty=2) text(0.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/projects/statistical-rethinking/chapter_6/chapter6c/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_6/chapter6c/</guid>
+      <description>Using Information Critera Corrie July 4, 2018
+Using information criteria Model comparison library(rethinking) data(milk) d &amp;lt;- milk[ complete.cases(milk), ] # remove NA values d$neocortex &amp;lt;- d$neocortex.perc / 100 dim(d) ## [1] 17 9  head(d) ## clade species kcal.per.g perc.fat perc.protein ## 1 Strepsirrhine Eulemur fulvus 0.49 16.60 15.42 ## 6 New World Monkey Alouatta seniculus 0.47 21.22 23.58 ## 7 New World Monkey A palliata 0.56 29.66 23.46 ## 8 New World Monkey Cebus apella 0.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/projects/statistical-rethinking/chapter_7/chapter7/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_7/chapter7/</guid>
+      <description>Interactions Corrie August 14, 2018
+7.1 Building an interaction library(rethinking) data(rugged) d &amp;lt;- rugged How does terrain ruggedness influence the GDP?
+# make log version of outcome d$log_gdp &amp;lt;- log(d$rgdppc_2000) dd &amp;lt;- d[ complete.cases(d$rgdppc_2000), ] # split into Africa andnot-Africa d.A1 &amp;lt;- dd[ dd$cont_africa == 1, ] d.A0 &amp;lt;- dd[ dd$cont_africa == 0, ] Make two model: one for Africa, one for non-Africa:
+# Africa m7.1 &amp;lt;- map( alist( log_gdp ~ dnorm( mu, sigma) , mu &amp;lt;- a + bR*rugged , a ~ dnorm(8, 100), bR ~ dnorm( 0, 1 ), sigma ~ dunif( 0, 10 ) ), data=d.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/projects/statistical-rethinking/chapter_7/chapter7_ex/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_7/chapter7_ex/</guid>
+      <description>Chapter 7 - Exercises Corrie August 17, 2018
+Chapter 7 - Exercises Easy. 7E1. For the causal relationships below, name a hypothetical third variable that would lead to an interaction effect.
+ Bread dough rises because of yeast.   sugar, since the yeast needs some food to grow temperature, if it&amp;rsquo;s too hot, the yeast dies, maybe a too cold temperature would slow down the dough rising salt inhibits yeast growth   Education leads to higher income.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/projects/statistical-rethinking/chapter_8/chapter8/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_8/chapter8/</guid>
+      <description>Markov Chain Monte Carlo Corrie September 4, 2018
+8.1 King Markov and His island kingdom A simple example of the Markov Chain Monte Carlo algorithm:
+num_weeks &amp;lt;- 1e5 positions &amp;lt;- rep(0, num_weeks) current &amp;lt;- 10 for (i in 1:num_weeks) { # record current position positions[i] &amp;lt;- current # flip coin to generate proposal proposal &amp;lt;- current + sample( c(-1, 1), size=1) if ( proposal &amp;lt; 1 ) proposal &amp;lt;- 10 if ( proposal &amp;gt; 10 ) proposal &amp;lt;- 1 # move?</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/projects/statistical-rethinking/chapter_8/chapter8_ex/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_8/chapter8_ex/</guid>
+      <description>Chapter 8 - Exercises Corrie September 11, 2018
+Chapter 8 - Exercises Easy. 8E1. Which of the following is a requirement of the simple Metropolis algorithm?
+ The proposal distribution must be symmetric  8E2. Gibbs sampling is more efficient than the Metropolis algorithm. How does it achieve this extra efficiency? Are there any limitations?
+Gibbs sampling uses conjugate priors which allows it to make smarter proposals and is thus more efficient.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/projects/statistical-rethinking/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/readme/</guid>
+      <description>Statistical Rethinking These are code snippets, plots and my solutions to some of the exercises of the book &amp;ldquo;Statistical Rethinking&amp;rdquo; by Richard McElreath.
+Chapter 3  Exercises  Chapter 4  How Normality arises Linear Models Polynomial Regression Exercises  Chapter 5  Spurious Associations Masked Relationships When adding variables hurt Categorical Variables Ordinary Least Squares Exercises  Chapter 6  Overfitting Information Theory and Model Performance Using Information Criteria Exercises  Chapter 7  Interactions Exercises  Chapter 8  MCMC Exercises  Chapter 10  Binomial Regression Poisson Regression Other Count Regressions Exercises  </description>
+    </item>
+    
+    <item>
+      <title>Binomial Regression</title>
+      <link>/projects/statistical-rethinking/chapter_10/chapter10a/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_10/chapter10a/</guid>
+      <description>Logistic Regression The chimpanzee data: Do chimpanzee pick the more social option?
+library(rethinking) data(chimpanzees) d &amp;lt;- chimpanzees The important variables are the variable condition, indicating if another chimpanzee sits opposite (1) the table or not (0) and the variable prosocial_left which indicates if the left lever is the more social option. These two variables will be used to predict if the chimpanzees pull the left lever or not (pulled_left).</description>
+    </item>
+    
+    <item>
+      <title>Chapter 10 - Exercise</title>
+      <link>/projects/statistical-rethinking/chapter_10/chapter10_ex/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_10/chapter10_ex/</guid>
+      <description>Easy. 10E1. If an event has probability 0.35, what are the log-odds of this event?
+log( 0.35 / (1 - 0.35)) [1] -0.6190392 10E2. If an event has log-odds 3.2, what is the probabiity of this event?
+1 / (1 + exp(-3.2)) [1] 0.9608343 10E3. A coefficient in a logistic regression has value 1.7. What does this imply about the proportional change in odds of the outcome?
+exp(1.7) [1] 5.</description>
+    </item>
+    
+    <item>
+      <title>Chapter 12 - Of Monsters and Mixtures</title>
+      <link>/projects/statistical-rethinking/chapter_12/chapter12a/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_12/chapter12a/</guid>
+      <description>Over-dispersed outcomes For the beta-binomial model, we’ll make use of the beta distribution. The beta distribution is a probability distribution over probabilities (over the interval \([0, 1]\)).
+library(rethinking) pbar &amp;lt;- 0.5 theta &amp;lt;- 5 curve( dbeta2( x, pbar, theta), from=0, to=1, xlab=&amp;quot;probability&amp;quot;, ylab=&amp;quot;Density&amp;quot;) There are different ways to parametrize the beta distribution:
+dbeta2 &amp;lt;- function( x , prob , theta , log=FALSE ) { a &amp;lt;- prob * theta b &amp;lt;- (1-prob) * theta dbeta( x , shape1=a , shape2=b , log=log ) } We use the beta-binomial for the UCBadmit data, which is over-dispersed if we ignore department (since the admission rate varied quite a lot for different departments).</description>
+    </item>
+    
+    <item>
+      <title>Chapter 4 - Exercise</title>
+      <link>/projects/statistical-rethinking/chapter_4/chapter4_ex/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_4/chapter4_ex/</guid>
+      <description>Chapter 4 - Exercises These are my solutions to the practice questions of chapter 4, Linear Models, of the book “Statistical Rethinking” by Richard McElreath.
+Easy Questions. 4E1. In the model definition below, which line is the likelihood: \[ \begin{align*} y_i &amp;amp;\sim \text{Normal}(\mu, \sigma) &amp;amp; &amp;amp; \text{This is the likelihood}\\ \mu &amp;amp;\sim \text{Normal}(0, 10) \\ \sigma &amp;amp;\sim \text{Normal}(0,10) \end{align*} \]
+4E2. In the model definition just above, how many parameters are in the posterior distribution?</description>
+    </item>
+    
+    <item>
+      <title>Chapter 5 - Exercises</title>
+      <link>/projects/statistical-rethinking/chapter_5/chapter5_ex/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_5/chapter5_ex/</guid>
+      <description>Chapter 5 - Exercises These are my solutions to the exercises from chapter 5.
+Easy. 5E1. The following linear models are multiple linear regressions:
+ \(\mu_i = \beta_x x_i + \beta_z z_i\) \(\mu_i = \alpha + \beta_x x_i + \beta_z z_i\)  whereas the following are bivariate linear regressions:
+ \(\mu_i = \alpha + \beta x_i\) \(\mu_i = \alpha + \beta(x_i - z_i)\)  5E2. Write down a multiple regression to evaluate the claim: Animal diversity is linearly related to latitude, but only after controlling for plant diversity.</description>
+    </item>
+    
+    <item>
+      <title>Chapter 7 - Exercises</title>
+      <link>/projects/statistical-rethinking/chapter_7/chapter7_ex/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_7/chapter7_ex/</guid>
+      <description>Chapter 7 - Exercises Easy. 7E1. For the causal relationships below, name a hypothetical third variable that would lead to an interaction effect.
+Bread dough rises because of yeast.   sugar, since the yeast needs some food to grow temperature, if it’s too hot, the yeast dies, maybe a too cold temperature would slow down the dough rising salt inhibits yeast growth  Education leads to higher income.   class and race could potentially strengthen or weaken the impact of education in income same for gender  Gasoline makes a car go.</description>
+    </item>
+    
+    <item>
+      <title>Chapter 8 - Exercises</title>
+      <link>/projects/statistical-rethinking/chapter_8/chapter8_ex/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_8/chapter8_ex/</guid>
+      <description>Chapter 8 - Exercises Easy. 8E1. Which of the following is a requirement of the simple Metropolis algorithm?
+ The proposal distribution must be symmetric  8E2. Gibbs sampling is more efficient than the Metropolis algorithm. How does it achieve this extra efficiency? Are there any limitations?
+Gibbs sampling uses conjugate priors which allows it to make smarter proposals and is thus more efficient. The downside to this, is that it uses conjugate priors which might not be a good or valid prior from a scientific perspective.</description>
+    </item>
+    
+    <item>
+      <title>Chpter 6 - Exercies</title>
+      <link>/projects/statistical-rethinking/chapter_6/chapter6_ex/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_6/chapter6_ex/</guid>
+      <description>Chapter 6 - Exercises These are my solutions to the exercises from chapter 6.
+Easy. 6E1. State the three motivating criteria that define information entropy.
+Information entropy (a measure of uncertainty) should be
+ continous. A small change in probability should also lead to only a small change in uncertainty. We don’t want to allow for sudden jumps. increasing as the number of possible events increases. That means, if only one event has a very high chance of happening and all other have only a very small chance, then there is little uncertainty in what comes next and thus more less information.</description>
+    </item>
+    
+    <item>
+      <title>Information Theory and Model Performance</title>
+      <link>/projects/statistical-rethinking/chapter_6/chapter6b/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_6/chapter6b/</guid>
+      <description>Entropy p &amp;lt;- c( 0.3, 0.7) -sum( p*log(p) ) compare this with:
+p &amp;lt;- c(0.01, 0.99) -sum( p*log(p) ) # contains much less information  Kullback-Leibler Divergence p &amp;lt;- c(0.3, 0.7) q1 &amp;lt;- seq(from=0.01, to=0.99, length.out = 100) q &amp;lt;- data.frame(q1 = q1, q2 = 1 - q1) kl_divergence &amp;lt;- function(p, q) { sum( p* log( p/ q) ) } kl &amp;lt;- apply(q, 1, function(x){kl_divergence(p=p, q=x)} ) plot( kl ~ q1, type=&amp;quot;l&amp;quot;, col=&amp;quot;steelblue&amp;quot;, lwd=2) abline(v = p[1], lty=2) text(0.</description>
+    </item>
+    
+    <item>
+      <title>Interactions</title>
+      <link>/projects/statistical-rethinking/chapter_7/chapter7/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_7/chapter7/</guid>
+      <description>7.1 Building an interaction library(rethinking) data(rugged) d &amp;lt;- rugged How does terrain ruggedness influence the GDP?
+# make log version of outcome d$log_gdp &amp;lt;- log(d$rgdppc_2000) dd &amp;lt;- d[ complete.cases(d$rgdppc_2000), ] # split into Africa andnot-Africa d.A1 &amp;lt;- dd[ dd$cont_africa == 1, ] d.A0 &amp;lt;- dd[ dd$cont_africa == 0, ] Make two model: one for Africa, one for non-Africa:
+# Africa m7.1 &amp;lt;- map( alist( log_gdp ~ dnorm( mu, sigma) , mu &amp;lt;- a + bR*rugged , a ~ dnorm(8, 100), bR ~ dnorm( 0, 1 ), sigma ~ dunif( 0, 10 ) ), data=d.</description>
+    </item>
+    
+    <item>
+      <title>Markov Chain Monte Carlo</title>
+      <link>/projects/statistical-rethinking/chapter_8/chapter8/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_8/chapter8/</guid>
+      <description>8.1 King Markov and His island kingdom A simple example of the Markov Chain Monte Carlo algorithm:
+num_weeks &amp;lt;- 1e5 positions &amp;lt;- rep(0, num_weeks) current &amp;lt;- 10 for (i in 1:num_weeks) { # record current position positions[i] &amp;lt;- current # flip coin to generate proposal proposal &amp;lt;- current + sample( c(-1, 1), size=1) if ( proposal &amp;lt; 1 ) proposal &amp;lt;- 10 if ( proposal &amp;gt; 10 ) proposal &amp;lt;- 1 # move?</description>
+    </item>
+    
+    <item>
+      <title>Ordered Categories</title>
+      <link>/projects/statistical-rethinking/chapter_12/chapter12b/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_12/chapter12b/</guid>
+      <description>Ordered Categorical Outcomes library(rethinking) data(Trolley) d &amp;lt;- Trolley The data contains answers of 331 individuals for different stories, about how morally permissible the action in the story is. The answer is an integer from 1 to 7. The outcome is thus categorical and ordered.
+simplehist( d$response, xlim=c(1,7), xlab=&amp;quot;response&amp;quot;) Describing an ordered distribution with intercepts We want to redescribe this histogram on the log-cumulative-odds scale. We first compute the cumulative probabilities:</description>
+    </item>
+    
+    <item>
+      <title>Other count regressions</title>
+      <link>/projects/statistical-rethinking/chapter_10/chapter10c/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_10/chapter10c/</guid>
+      <description>Multinomial Regression A multinomial regression is used when more than two things can happen. As an example, suppose we are modelling career choices for some young adults. Let’s assume there are three career choices one can take and expected income is one of the predictors. One option to model the career choices would be the explicit multinomial model which uses the multinomial logit. The multinomial logit uses the multinomial distribution which is an extension of the binomial distribution to the case with \(K&amp;gt;2\) events.</description>
+    </item>
+    
+    <item>
+      <title>Poisson Regression</title>
+      <link>/projects/statistical-rethinking/chapter_10/chapter10b/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_10/chapter10b/</guid>
+      <description>Poisson Regression Oceanic Tools A binomial distriution with many trials (that is \(n\) large) and a small probability of an event (\(p\) small) approaches a Poisson distribution where both the mean and the variance are equal:
+y &amp;lt;- rbinom(1e5, 1000, 1/1000) c(mean(y), var(y)) [1] 1.00005 1.00184 A Poisson model allows us to model binomial events for which the number of trials \(n\) is unknown.
+We work with the Kline data, a dataset about Oceanic societies and the number of found tools.</description>
+    </item>
+    
+    <item>
+      <title>Statistical Rethinking</title>
+      <link>/projects/statistical-rethinking/rethinking/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/rethinking/</guid>
+      <description>These are code snippets, plots and my solutions to some of the exercises of the book &amp;ldquo;Statistical Rethinking&amp;rdquo; by Richard McElreath.
+Chapter 3  Exercises  Chapter 4  [How Normality arises]( {{ &amp;lt; relref &amp;ldquo;Chapter_4/chapter4.R&amp;rdquo; &amp;gt;}} ) [Linear Models]( {{ &amp;lt; relref &amp;ldquo;Chapter_4/chapter4b.R&amp;rdquo; &amp;gt;}} ) [Polynomial Regression]( {{ &amp;lt; relref &amp;ldquo;Chapter_4/chapter4.c.R&amp;rdquo; &amp;gt;}} ) [Exercises]( {{ &amp;lt; relref &amp;ldquo;Chapter_4/chapter4_Ex.md&amp;rdquo; &amp;gt; }})  Chapter 5  [Spurious Associations]( {{ &amp;lt; relref &amp;ldquo;Chapter_5/chapter5a.</description>
+    </item>
+    
+    <item>
+      <title>Using Information Critera</title>
+      <link>/projects/statistical-rethinking/chapter_6/chapter6c/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_6/chapter6c/</guid>
+      <description>Using information criteria Model comparison library(rethinking) data(milk) d &amp;lt;- milk[ complete.cases(milk), ] # remove NA values d$neocortex &amp;lt;- d$neocortex.perc / 100 dim(d) head(d) We will predict kcal.per.g using the predictors neocortex and the logarithm of mass. For this, we use four different models (all with flat priors):
+a.start &amp;lt;- mean(d$kcal.per.g) sigma.start &amp;lt;- log( sd( d$kcal.per.g )) m6.11 &amp;lt;- map( alist( kcal.per.g ~ dnorm( a, exp(log.sigma) ) ), data=d, start=list(a=a.start, log.</description>
+    </item>
     
   </channel>
 </rss>

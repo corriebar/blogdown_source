@@ -280,6 +280,48 @@ if (!doNotTrack) {
 	</div>
 
 	
+	   <article class="post projects">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_3/chp3-ex/">Chapter 3 - Exercises</a></h2>
+    </header>
+    <section class="post-excerpt">
+        
+            <p>These are my solutions to the practice questions of chapter 3, Sampling the Imaginary, of the book “Statistical Rethinking” (version 2) by Richard McElreath.
+Easy. The Easy problems use the samples from the globe tossing example:
+p_grid &lt;- seq( from=0, to=1, length.out=1000 ) prior &lt;- rep( 1, 1000 ) likelihood &lt;- dbinom( 6, size=9, prob=p_grid) posterior &lt;- likelihood * prior posterior &lt;- posterior / sum(posterior) set.seed(100) samples &lt;- sample( p_grid, prob=posterior, size=1e4, replace=TRUE ) 3E1. <a class="read-more" href="/projects/statistical-rethinking/chapter_3/chp3-ex/">&raquo;</a></p>
+        
+    </section>
+    <footer class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 8 min</span>
+            </p>
+        
+        
+            
+            
+
+            
+            
+            
+            Corrie
+                 
+        
+
+        on
+            
+                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
+            
+                <a href="/tags/bayesian/">#Bayesian</a>,
+            
+        
+        <time class="post-date" datetime="2020-04-09T00:00:00Z">
+            9 Apr 2020
+        </time>
+    </footer>
+</article>
+
+	
 	   <article class="post post">
     <header class="post-header">
         <h2 class="post-title"><a href="/2020/connecting-disinformation-with-tidygraph/">Connecting Disinformation with tidygraph</a></h2>
@@ -450,49 +492,6 @@ Until I was about to hold my Houseprice Talk again and wanted to make some small
         
         <time class="post-date" datetime="2018-10-03T00:00:00Z">
             3 Oct 2018
-        </time>
-    </footer>
-</article>
-
-	
-	   <article class="post post">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/2018/how-to-make-a-website-using-blogdown-and-github/">How to make a website using blogdown and github</a></h2>
-    </header>
-    <section class="post-excerpt">
-        
-            <p>In this post, I will describe how to build your own webpage (more specific, a blog) using blogdown and have it hosted on your github.
- Set up your github repo so it can serve as a web page Build your website using blogdown  Set up Github Let’s start with setting up your github. This is actually super simple, you only need to create a new repository with the name &lt;yourusername&gt;. <a class="read-more" href="/2018/how-to-make-a-website-using-blogdown-and-github/">&raquo;</a></p>
-        
-    </section>
-    <footer class="post-meta">
-        
-            <p class="post-reading post-line">
-            <span>Estimated reading time: 10 min</span>
-            </p>
-        
-        
-            
-            
-
-            
-            
-            
-            Corrie
-                 
-        
-
-        on
-            
-                <a href="/tags/blogdown/">#blogdown</a>,
-            
-                <a href="/tags/github/">#github</a>,
-            
-                <a href="/tags/r/">#R</a>,
-            
-        
-        <time class="post-date" datetime="2018-05-13T00:00:00Z">
-            13 May 2018
         </time>
     </footer>
 </article>

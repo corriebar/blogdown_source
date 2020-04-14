@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Corrie Bartelheimer {year}</copyright>
-    <lastBuildDate>Wed, 25 Mar 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 09 Apr 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Chapter 3 - Exercises</title>
+      <link>/projects/statistical-rethinking/chapter_3/chp3-ex/</link>
+      <pubDate>Thu, 09 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_3/chp3-ex/</guid>
+      <description>These are my solutions to the practice questions of chapter 3, Sampling the Imaginary, of the book “Statistical Rethinking” (version 2) by Richard McElreath.
+Easy. The Easy problems use the samples from the globe tossing example:
+p_grid &amp;lt;- seq( from=0, to=1, length.out=1000 ) prior &amp;lt;- rep( 1, 1000 ) likelihood &amp;lt;- dbinom( 6, size=9, prob=p_grid) posterior &amp;lt;- likelihood * prior posterior &amp;lt;- posterior / sum(posterior) set.seed(100) samples &amp;lt;- sample( p_grid, prob=posterior, size=1e4, replace=TRUE ) 3E1.</description>
+    </item>
     
     <item>
       <title>Connecting Disinformation with tidygraph</title>
