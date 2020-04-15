@@ -12,13 +12,13 @@
 
 
 
-<meta name="twitter:title" content="Information Theory and Model Performance"/>
+<meta name="twitter:title" content=""/>
 <meta name="twitter:description" content=""/>
 <meta name="twitter:site" content="@corrieaar"/>
 
 
 
-  	<meta property="og:title" content="Information Theory and Model Performance &middot; Samples of Thoughts" />
+  	<meta property="og:title" content=" &middot; Samples of Thoughts" />
   	<meta property="og:site_name" content="Samples of Thoughts" />
   	<meta property="og:url" content="/projects/statistical-rethinking/chapter_6/chapter6b/" />
 
@@ -35,11 +35,12 @@
     
     
 
-    <title>Information Theory and Model Performance &middot; Samples of Thoughts</title>
+    <title> &middot; Samples of Thoughts</title>
 
     
-    <meta name="description" content="Entropy p &amp;lt;- c( 0.3, 0.7) -sum( p*log(p) ) compare this with:
-p &amp;lt;- c(0.01, 0.99) -sum( p*log(p) ) # contains much less information  Kullback-Leibler Diver" />
+    <meta name="description" content="Information Theory and Model Performance Corrie July 2, 2018
+Entropy p &amp;lt;- c( 0.3, 0.7) -sum( p*log(p) )  ## [1] 0.6108643  compare this with:
+p &amp;lt;- c(0.01," />
     
 
     <meta name="HandheldFriendly" content="True" />
@@ -67,7 +68,7 @@ p &amp;lt;- c(0.01, 0.99) -sum( p*log(p) ) # contains much less information  Kul
       
       
     
-    <meta name="generator" content="Hugo 0.63.1" />
+    <meta name="generator" content="Hugo 0.55.5" />
 
     <link rel="canonical" href="/projects/statistical-rethinking/chapter_6/chapter6b/" />
 
@@ -98,9 +99,9 @@ p &amp;lt;- c(0.01, 0.99) -sum( p*log(p) ) # contains much less information  Kul
             
         ]
     },
-    "headline": "Information Theory and Model Performance",
-    "name": "Information Theory and Model Performance",
-    "wordCount":  2171 ,
+    "headline": "",
+    "name": "",
+    "wordCount":  2260 ,
     "timeRequired": "PT11M",
     "inLanguage": {
       "@type": "Language",
@@ -296,7 +297,7 @@ if (!doNotTrack) {
   <article class="post projects">
 
     <header class="post-header">
-        <h1 class="post-title">Information Theory and Model Performance</h1>
+        <h1 class="post-title"></h1>
         <small></small>
 
         <section class="post-meta">
@@ -314,18 +315,32 @@ if (!doNotTrack) {
     <section class="post-content">
       
 
+<h1 id="information-theory-and-model-performance">Information Theory and Model Performance</h1>
 
-<div id="entropy" class="section level1">
-<h1>Entropy</h1>
-<pre class="r"><code>p &lt;- c( 0.3, 0.7)
--sum( p*log(p) )</code></pre>
+<p>Corrie
+July 2, 2018</p>
+
+<h1 id="entropy">Entropy</h1>
+
+<pre><code class="language-r">p &lt;- c( 0.3, 0.7)
+-sum( p*log(p) )
+</code></pre>
+
+<pre><code>## [1] 0.6108643
+</code></pre>
+
 <p>compare this with:</p>
-<pre class="r"><code>p &lt;- c(0.01, 0.99)
--sum( p*log(p) )    # contains much less information</code></pre>
-</div>
-<div id="kullback-leibler-divergence" class="section level1">
-<h1>Kullback-Leibler Divergence</h1>
-<pre class="r"><code>p &lt;- c(0.3, 0.7)
+
+<pre><code class="language-r">p &lt;- c(0.01, 0.99)
+-sum( p*log(p) )    # contains much less information
+</code></pre>
+
+<pre><code>## [1] 0.05600153
+</code></pre>
+
+<h1 id="kullback-leibler-divergence">Kullback-Leibler Divergence</h1>
+
+<pre><code class="language-r">p &lt;- c(0.3, 0.7)
 q1 &lt;- seq(from=0.01, to=0.99, length.out = 100)
 q &lt;- data.frame(q1 = q1, q2 = 1 - q1)
 
@@ -336,35 +351,67 @@ kl_divergence &lt;- function(p, q) {
 kl &lt;- apply(q, 1, function(x){kl_divergence(p=p, q=x)} )
 plot( kl ~ q1, type=&quot;l&quot;, col=&quot;steelblue&quot;, lwd=2)
 abline(v = p[1], lty=2)
-text(0.33 ,1, &quot;p=q&quot;)</code></pre>
+text(0.33 ,1, &quot;p=q&quot;)
+</code></pre>
+
+<p><img src="chapter6b_files/figure-markdown_github/unnamed-chunk-3-1.png" alt="" /></p>
+
 <p>Direction matters when computing divergence:</p>
-<pre class="r"><code>p &lt;- c(0.01, 0.99)
+
+<pre><code class="language-r">p &lt;- c(0.01, 0.99)
 q1 &lt;- seq(from=0.01, to=0.99, length.out = 100)
 q &lt;- data.frame(q1=q1, q2= 1 - q1 )
 kl &lt;- apply(q, 1, function(x) {kl_divergence(p=p, q=x)})
 plot(kl ~ q1, type=&quot;l&quot;, col=&quot;steelblue&quot;, lwd=2)
 abline(v=p[1], lty=2)
-text(0.05, 1, &quot;p=q&quot;)</code></pre>
-<p>Intuition: If you use a distribution with very low entropy (i.e. little information) to approximate a usual one (rather high information), you’d be more surprised than the other way round. For example, if you try to predict the amount of water on Mars (very dry, close to no water) using the Earth (two-thirds are water), you’d not be very surprised if you land on dry ground on Mars. The other way round, if you fly from Mars to Earth and predict amount of Water on Earth using the Mars, you’d be very surprised if you land on water.</p>
-<pre class="r"><code>mars &lt;- c(0.01, 0.99)
+text(0.05, 1, &quot;p=q&quot;)
+</code></pre>
+
+<p><img src="chapter6b_files/figure-markdown_github/unnamed-chunk-4-1.png" alt="" /></p>
+
+<p>Intuition: If you use a distribution with very low entropy (i.e. little information) to approximate a usual one (rather high information), you&rsquo;d be more surprised than the other way round. For example, if you try to predict the amount of water on Mars (very dry, close to no water) using the Earth (two-thirds are water), you&rsquo;d not be very surprised if you land on dry ground on Mars. The other way round, if you fly from Mars to Earth and predict amount of Water on Earth using the Mars, you&rsquo;d be very surprised if you land on water.</p>
+
+<pre><code class="language-r">mars &lt;- c(0.01, 0.99)
 earth &lt;- c(0.7, 0.3)
 kl_divergence(mars, earth)    # predicting water on Mars using Earth
-kl_divergence(earth, mars)    # predicting water on Earth using Mars</code></pre>
-</div>
-<div id="deviance" class="section level1">
-<h1>Deviance</h1>
+</code></pre>
+
+<pre><code>## [1] 1.139498
+</code></pre>
+
+<pre><code class="language-r">kl_divergence(earth, mars)    # predicting water on Earth using Mars
+</code></pre>
+
+<pre><code>## [1] 2.61577
+</code></pre>
+
+<h1 id="deviance">Deviance</h1>
+
 <p>Load data:</p>
-<pre class="r"><code>sppnames &lt;- c(&quot;afarensis&quot;, &quot;africanus&quot;, &quot;habilis&quot;, &quot;boisei&quot;, 
+
+<pre><code class="language-r">sppnames &lt;- c(&quot;afarensis&quot;, &quot;africanus&quot;, &quot;habilis&quot;, &quot;boisei&quot;, 
               &quot;rudolfensis&quot;, &quot;ergaster&quot;, &quot;sapiens&quot;)
 brainvolcc &lt;- c( 438, 452, 612, 521, 752, 871, 1350 )
 masskg &lt;- c( 37.0, 35.5, 34.5, 41.5, 55.5, 61.0, 53.5 )
-d &lt;- data.frame( species=sppnames, brain=brainvolcc, mass=masskg)</code></pre>
+d &lt;- data.frame( species=sppnames, brain=brainvolcc, mass=masskg)
+</code></pre>
+
 <p>Fit the model:</p>
-<pre class="r"><code>m6.1 &lt;- lm( brain ~ mass, d)</code></pre>
+
+<pre><code class="language-r">m6.1 &lt;- lm( brain ~ mass, d)
+</code></pre>
+
 <p>and compute deviance (by cheating):</p>
-<pre class="r"><code>(-2) * logLik(m6.1)</code></pre>
+
+<pre><code class="language-r">(-2) * logLik(m6.1)
+</code></pre>
+
+<pre><code>## 'log Lik.' 94.92499 (df=3)
+</code></pre>
+
 <p>To compute the deviance (yourself):</p>
-<pre class="r"><code>library(rethinking)
+
+<pre><code class="language-r">library(rethinking)
 # standardize the mass before fitting
 d$mass.s &lt;- (d$mass - mean(d$mass)) / sd(d$mass)
 m6.8 &lt;- map(
@@ -386,29 +433,64 @@ dev &lt;- (-2)*sum( dnorm(
   mean=theta[1] + theta[2]*d$mass.s,
   sd=theta[3],
   log=TRUE
-))</code></pre>
+))
+</code></pre>
+
 <p>compare results:</p>
-<pre class="r"><code>dev
--2* logLik(m6.8)</code></pre>
+
+<pre><code class="language-r">dev
+</code></pre>
+
+<pre><code>## [1] 94.92499
+</code></pre>
+
+<pre><code class="language-r">-2* logLik(m6.8)
+</code></pre>
+
+<pre><code>## 'log Lik.' 94.92499 (df=3)
+</code></pre>
+
 <p>Note:</p>
-<pre class="r"><code>library(assertthat)
+
+<pre><code class="language-r">library(assertthat)
 are_equal( dev, (-2*logLik(m6.8))[1] ) 
-are_equal( dev, (-2*logLik(m6.1))[1] , tol=0.0000001)</code></pre>
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<pre><code class="language-r">are_equal( dev, (-2*logLik(m6.1))[1] , tol=0.0000001)
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
 <p>The only difference between m6.8 and m6.1 is the use of scaling and centralizing of the predictor variable mass. Thus scaling and centralizing has no influence on the deviance (makes sense)</p>
-<pre class="r"><code>par(mfrow=c(1,2))
+
+<pre><code class="language-r">par(mfrow=c(1,2))
 plot( brain ~ mass, data=d)
-plot( brain ~ mass.s, data=d)</code></pre>
-</div>
-<div id="thought-experiment" class="section level1">
-<h1>Thought experiment</h1>
-<p>Let’s compute (simulate) the following data generating model:
-<span class="math display">\[
-\begin{align*}
-y &amp;\sim \text{Normal}(\mu, \sigma=1) \\
+plot( brain ~ mass.s, data=d)
+</code></pre>
+
+<p><img src="chapter6b_files/figure-markdown_github/unnamed-chunk-12-1.png" alt="" /></p>
+
+<h1 id="thought-experiment">Thought experiment</h1>
+
+<p>Let&rsquo;s compute (simulate) the following data generating model:</p>
+
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Balign%2A%7D%0Ay%20%26%5Csim%20%5Ctext%7BNormal%7D%28%5Cmu%2C%20%5Csigma%3D1%29%20%5C%5C%0A%5Cmu%20%26%3D%200.15x_1%20-%200.4x_2%0A%5Cend%7Balign%2A%7D &quot;
+begin{align*}
+y &amp;sim text{Normal}(mu, sigma=1" alt="
+\\begin{align\*}
+y &amp;\\sim \\text{Normal}(\\mu, \\sigma=1) \\\\
+\\mu &amp;= 0.15x\_1 - 0.4x\_2
+\\end{align\*}" /> <br />
 \mu &amp;= 0.15x_1 - 0.4x_2
-\end{align*}\]</span></p>
-<p>We try to fit the data using models with increasing number of parameters (up to 5), first with <span class="math inline">\(N=20\)</span> observations:</p>
-<pre class="r"><code>N &lt;- 20
+\end{align*}&ldquo;)</p>
+
+<p>We try to fit the data using models with increasing number of parameters (up to 5), first with <img src="https://latex.codecogs.com/png.latex?N%3D20" alt="N=20" title="N=20" /> observations:</p>
+
+<pre><code class="language-r">N &lt;- 20
 kseq &lt;- 1:5
 dev &lt;- sapply( kseq, function(k) {
   print(k);
@@ -418,9 +500,12 @@ dev &lt;- sapply( kseq, function(k) {
   r &lt;- mcreplicate( 1e4, sim.train.test( N=N, k=k, rho=c(0.15, -0.4)), mc.cores = 4 );
   c( mean(r[1, ]), mean(r[2,] ), sd(r[1,]), sd(r[2,]) )
   # mean deviance in sample, mean deviance out sample, sd in sample deviance, sd out sample deviance
-})</code></pre>
-<p>and then with <span class="math inline">\(N=100\)</span> observations:</p>
-<pre class="r"><code>N &lt;- 100
+})
+</code></pre>
+
+<p>and then with <img src="https://latex.codecogs.com/png.latex?N%3D100" alt="N=100" title="N=100" /> observations:</p>
+
+<pre><code class="language-r">N &lt;- 100
 kseq &lt;- 1:5
 dev100 &lt;- sapply( kseq, function(k) {
   print(k);
@@ -428,8 +513,10 @@ dev100 &lt;- sapply( kseq, function(k) {
   r &lt;- mcreplicate( 1e4, sim.train.test( N=N, k=k, rho=c(0.15, -0.4)), mc.cores=4 );
   c( mean(r[1, ]), mean(r[2,] ), sd(r[1,]), sd(r[2,]) )
   # mean deviance in sample, mean deviance out sample, sd in sample deviance, sd out sample deviance
-})</code></pre>
-<pre class="r"><code>par(mfrow=c(1,2))
+})
+</code></pre>
+
+<pre><code class="language-r">par(mfrow=c(1,2))
 plot( 1:5, dev[1,], ylim=c(min(dev[1:2,]) - 5, max(dev[1:2,]) + 10),
       xlim =c(1,5.1), xlab=&quot;number of parameters&quot;, ylab=&quot;deviance&quot;,
       pch=16, cex=1.3, col=&quot;steelblue&quot; )
@@ -464,12 +551,16 @@ for ( i in kseq) {
   if (i == 2) {
     text(c(i,i) +0.35, pts_out, labels=c(&quot;-1SD&quot;, &quot;+1SD&quot;))
   }
-} </code></pre>
-</div>
-<div id="thought-experiment---with-regularization" class="section level1">
-<h1>Thought experiment - with regularization</h1>
+} 
+</code></pre>
+
+<p><img src="chapter6b_files/figure-markdown_github/unnamed-chunk-15-1.png" alt="" /></p>
+
+<h1 id="thought-experiment-with-regularization">Thought experiment - with regularization</h1>
+
 <p>We do the same again, but this time not using flat priors for the Beta-coefficients but instead Gaussian priors with increasing narrowness:</p>
-<pre class="r"><code>sq &lt;- seq(from=-3.2, to=3.2, length.out = 200)
+
+<pre><code class="language-r">sq &lt;- seq(from=-3.2, to=3.2, length.out = 200)
 n02 &lt;- dnorm(sq, mean=0, sd=0.2)
 n05 &lt;- dnorm(sq, mean=0, sd=0.5)
 n1 &lt;- dnorm(sq, mean=0, sd=1)
@@ -477,9 +568,14 @@ n1 &lt;- dnorm(sq, mean=0, sd=1)
 plot(sq, n02, xlab=&quot;parameter value&quot;, ylab=&quot;Density&quot;, type=&quot;l&quot;, lwd=2)
 points(sq, n1, lty=5, type=&quot;l&quot;)
 points(sq, n05, type=&quot;l&quot;)
-legend(&quot;topright&quot;, c(&quot;N(0,1)&quot;, &quot;N(0,0.5)&quot;, &quot;N(0,0.2)&quot;), lty=c(5, 1, 1), lwd=c(1,1,2), bty=&quot;n&quot;)</code></pre>
+legend(&quot;topright&quot;, c(&quot;N(0,1)&quot;, &quot;N(0,0.5)&quot;, &quot;N(0,0.2)&quot;), lty=c(5, 1, 1), lwd=c(1,1,2), bty=&quot;n&quot;)
+</code></pre>
+
+<p><img src="chapter6b_files/figure-markdown_github/unnamed-chunk-16-1.png" alt="" /></p>
+
 <p>First with 20 observations:</p>
-<pre class="r"><code>N &lt;- 20
+
+<pre><code class="language-r">N &lt;- 20
 kseq &lt;- 1:5
 reg &lt;- c(1, 0.5, 0.2)
 dev_r &lt;- list()
@@ -492,9 +588,12 @@ for (i in 1:length(reg) ) {
     c( mean(r[1, ]), mean(r[2,] ), sd(r[1,]), sd(r[2,]) )
     # mean deviance in sample, mean deviance out sample, sd in sample deviance, sd out sample deviance
   })
-}</code></pre>
+}
+</code></pre>
+
 <p>and then with 100 observations:</p>
-<pre class="r"><code>N &lt;- 100
+
+<pre><code class="language-r">N &lt;- 100
 kseq &lt;- 1:5
 reg &lt;- c(1, 0.5, 0.2)
 dev_r100 &lt;- list()
@@ -508,9 +607,12 @@ for (i in 1:length(reg)) {
     c( mean(r[1, ]), mean(r[2,] ), sd(r[1,]), sd(r[2,]) )
     # mean deviance in sample, mean deviance out sample, sd in sample deviance, sd out sample deviance
   })
-}</code></pre>
+}
+</code></pre>
+
 <p>The plot:</p>
-<pre class="r"><code>par(mfrow=c(1,2))
+
+<pre><code class="language-r">par(mfrow=c(1,2))
 plot( 1:5, dev[1,], ylim=c(min(dev[1:2,]) - 5, max(dev[1:2,]) + 10),
       xlim =c(1,5.1), xlab=&quot;number of parameters&quot;, ylab=&quot;deviance&quot;,
       pch=16, cex=1.3, col=&quot;steelblue&quot; )
@@ -547,14 +649,22 @@ points(1:5, dev_r100[[2]][2,], lty=1, type=&quot;l&quot;)
 points(1:5, dev_r100[[3]][1,], col=&quot;steelblue&quot;, lty=1, type=&quot;l&quot;, lwd=2)
 points(1:5, dev_r100[[3]][2,], lty=1, type=&quot;l&quot;, lwd=2)
 
-mtext( concat( &quot;N=&quot;, 100))</code></pre>
-<p>The points are the deviance in (blue) and out of sample (black), using flat priors (i.e. <span class="math inline">\(N(0,100)\)</span>). The lines show training (blue) and testing (black) deviance for three regularizing priors.</p>
-</div>
-<div id="motivation-for-aic" class="section level1">
-<h1>Motivation for AIC</h1>
-<p>The AIC (Akaike Information Criteria) provides a simple estimate of the average out-of-sample deviance:
-<span class="math display">\[ \text{AIC} = D_{\text{train}} + 2p\]</span> where p is the number of free parameters to be estimated in the model. The motivation for this can be seen in the following plots:</p>
-<pre class="r"><code>aic &lt;- dev[1,] + 2*kseq
+mtext( concat( &quot;N=&quot;, 100))
+</code></pre>
+
+<p><img src="chapter6b_files/figure-markdown_github/unnamed-chunk-19-1.png" alt="" /></p>
+
+<p>The points are the deviance in (blue) and out of sample (black), using flat priors (i.e. <img src="https://latex.codecogs.com/png.latex?N%280%2C100%29 &quot;N(0,100" alt="N(0,100)" />&rdquo;)). The lines show training (blue) and testing (black) deviance for three regularizing priors.</p>
+
+<h1 id="motivation-for-aic">Motivation for AIC</h1>
+
+<p>The AIC (Akaike Information Criteria) provides a simple estimate of the average out-of-sample deviance:</p>
+
+<p><img src="https://latex.codecogs.com/png.latex?%20%5Ctext%7BAIC%7D%20%3D%20D_%7B%5Ctext%7Btrain%7D%7D%20%2B%202p" alt=" \\text{AIC} = D\_{\\text{train}} + 2p" title=" \text{AIC} = D_{\text{train}} + 2p" /></p>
+
+<p>where p is the number of free parameters to be estimated in the model. The motivation for this can be seen in the following plots:</p>
+
+<pre><code class="language-r">aic &lt;- dev[1,] + 2*kseq
 aic100 &lt;- dev100[1,] + 2*kseq
 
 par(mfrow=c(1,2))
@@ -584,18 +694,26 @@ for ( i in kseq) {
   dif &lt;- dev100[2,i] - dev100[1,i]
   arrows(i+0.07, dev100[1,i], i+0.07, dev100[2,i], length=0.05, angle=90, code=3)
   text(i+0.25, dev100[1,i]+0.5*dif, labels = round(dif, digits=1))
-}</code></pre>
-</div>
-<div id="dic" class="section level1">
-<h1>DIC</h1>
-<p><span class="math display">\[\begin{align*}
-\text{DIC} &amp;= \bar{D} + (\bar{D} - \hat{D}) \\
-&amp;= \hat{D} + 2(\bar{D} - \hat{D}) \\
+}
+</code></pre>
+
+<p><img src="chapter6b_files/figure-markdown_github/unnamed-chunk-20-1.png" alt="" /></p>
+
+<h1 id="dic">DIC</h1>
+
+<p><img src="https://latex.codecogs.com/png.latex?%5Cbegin%7Balign%2A%7D%0A%5Ctext%7BDIC%7D%20%26%3D%20%5Cbar%7BD%7D%20%2B%20%28%5Cbar%7BD%7D%20-%20%5Chat%7BD%7D%29%20%5C%5C%0A%26%3D%20%5Chat%7BD%7D%20%2B%202%28%5Cbar%7BD%7D%20-%20%5Chat%7BD%7D%29%20%5C%5C%0A%26%3D%20%5Chat%7BD%7D%20%2B%202p_D%0A%5Cend%7Balign%2A%7D &quot;begin{align*}
+text{DIC} &amp;= bar{D} + (bar{D} - hat{D}" alt="\\begin{align\*}
+\\text{DIC} &amp;= \\bar{D} + (\\bar{D} - \\hat{D}) \\\\
+&amp;= \\hat{D} + 2(\\bar{D} - \\hat{D}) \\\\
+&amp;= \\hat{D} + 2p\_D
+\\end{align\*}" /> <br />
+&amp;= \hat{D} + 2(\bar{D} - \hat{D}) <br />
 &amp;= \hat{D} + 2p_D
-\end{align*}\]</span>
-where <span class="math inline">\(\bar{D}\)</span> is the mean of the posterior deviance, that is, if we draw 10,000 samples from the posterior, we compute 10,000 deviances, one for each sample, and then take the average. <span class="math inline">\(\hat{D}\)</span> is the deviance computed using the mean of the posterior sample. <span class="math inline">\(p_D\)</span> is the effective number of parameters.
-For comparison, we first compute the deviance and AIC:</p>
-<pre class="r"><code>data(cars)
+\end{align*}&ldquo;)</p>
+
+<p>where <img src="https://latex.codecogs.com/png.latex?%5Cbar%7BD%7D" alt="\\bar{D}" title="\bar{D}" /> is the mean of the posterior deviance, that is, if we draw 10,000 samples from the posterior, we compute 10,000 deviances, one for each sample, and then take the average. <img src="https://latex.codecogs.com/png.latex?%5Chat%7BD%7D" alt="\\hat{D}" title="\hat{D}" /> is the deviance computed using the mean of the posterior sample. <img src="https://latex.codecogs.com/png.latex?p_D" alt="p\_D" title="p_D" /> is the effective number of parameters. For comparison, we first compute the deviance and AIC:</p>
+
+<pre><code class="language-r">data(cars)
 m &lt;- map(
   alist(
     dist ~ dnorm(mu, sigma) ,   # dist = distance
@@ -608,9 +726,15 @@ m &lt;- map(
 # deviance, AIC and DIC
 dev &lt;- (-2) * logLik(m)
 aic &lt;- dev + 2*length( coef(m) )
-assert_that(aic == AIC(m))   # can also use the function AIC() from R stats</code></pre>
+assert_that(aic == AIC(m))   # can also use the function AIC() from R stats
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
 <p>Now computing the DIC:</p>
-<pre class="r"><code>post &lt;- extract.samples(m,n=1000)
+
+<pre><code class="language-r">post &lt;- extract.samples(m,n=1000)
 
 # compute dev at each sample
 n_samples &lt;- 1000
@@ -629,45 +753,97 @@ dev.hat &lt;- (-2)*sum( dnorm(     # dev (mean( post) )
 ))
 p.D &lt;- dev.bar - dev.hat
 dic &lt;- dev.hat + 2*p.D    # = dev.bar + ( dev.bar - dev.hat )
-dic</code></pre>
-</div>
-<div id="waic---widely-applicable-information-critera" class="section level1">
-<h1>WAIC - Widely Applicable Information Critera</h1>
-<p>The WAIC does not require a multivariate Gaussian posterior and is thus even wider applicable, as the name says. It is computed pointwise, i.e. for each case in the data.
-It consists of the log-pointwise-predictive-density:
-<span class="math display">\[\text{lppd} = \sum_{i=1}^{N} \log \text{Pr}(y_i)\]</span>
-where <span class="math inline">\(\text{Pr}(y_i)\)</span> is the average likelihood of observation <span class="math inline">\(i\)</span> in the training sample. That is, we compute the likelihood of <span class="math inline">\(y_i\)</span> for parameter sample from the posterior and then average.
-The effective number of parameters for the WAIC is defined as follows:
-<span class="math display">\[p_{\text{WAIC}} = \sum_{i=1}^{N} V(y_i)\]</span>
-where <span class="math inline">\(V(y_i)\)</span> is the variance in log-likelihood for observation <span class="math inline">\(i\)</span> in the training sample.</p>
-<p>Easier to understand with code, so let’s compute WAIC using the same model as above:</p>
-<pre class="r"><code>ll &lt;- sapply( 1:n_samples,
+dic
+</code></pre>
+
+<pre><code>## [1] 419.2076
+</code></pre>
+
+<h1 id="waic-widely-applicable-information-critera">WAIC - Widely Applicable Information Critera</h1>
+
+<p>The WAIC does not require a multivariate Gaussian posterior and is thus even wider applicable, as the name says. It is computed pointwise, i.e. for each case in the data. It consists of the log-pointwise-predictive-density:</p>
+
+<p><img src="https://latex.codecogs.com/png.latex?%5Ctext%7Blppd%7D%20%3D%20%5Csum_%7Bi%3D1%7D%5E%7BN%7D%20%5Clog%20%5Ctext%7BPr%7D%28y_i%29 &quot;text{lppd} = sum_{i=1}^{N} log text{Pr}(y_i" alt="\\text{lppd} = \\sum\_{i=1}^{N} \\log \\text{Pr}(y\_i)" />&rdquo;)</p>
+
+<p>where <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPr%7D%28y_i%29 &quot;text{Pr}(y_i" alt="\\text{Pr}(y\_i)" />&rdquo;) is the average likelihood of observation <img src="https://latex.codecogs.com/png.latex?i" alt="i" title="i" /> in the training sample. That is, we compute the likelihood of <img src="https://latex.codecogs.com/png.latex?y_i" alt="y\_i" title="y_i" /> for parameter sample from the posterior and then average. The effective number of parameters for the WAIC is defined as follows:</p>
+
+<p><img src="https://latex.codecogs.com/png.latex?p_%7B%5Ctext%7BWAIC%7D%7D%20%3D%20%5Csum_%7Bi%3D1%7D%5E%7BN%7D%20V%28y_i%29 &quot;p_{text{WAIC}} = sum_{i=1}^{N} V(y_i" alt="p\_{\\text{WAIC}} = \\sum\_{i=1}^{N} V(y\_i)" />&rdquo;)</p>
+
+<p>where <img src="https://latex.codecogs.com/png.latex?V%28y_i%29 &quot;V(y_i" alt="V(y\_i)" />&rdquo;) is the variance in log-likelihood for observation <img src="https://latex.codecogs.com/png.latex?i" alt="i" title="i" /> in the training sample.</p>
+
+<p>Easier to understand with code, so let&rsquo;s compute WAIC using the same model as above:</p>
+
+<pre><code class="language-r">ll &lt;- sapply( 1:n_samples,
               function(s) {
                 mu &lt;- post$a[s] + post$b[s]*cars$speed
                 dnorm( cars$dist , mu, post$sigma[s], log=TRUE)
               })
 dim(ll)   # computed likelihood for each sample in post, for each observation in cars
-          # observations in rows, samples in columns
-lppd &lt;- sum( log( apply(ll, 1, mean ) ) )</code></pre>
+</code></pre>
+
+<pre><code>## [1]   50 1000
+</code></pre>
+
+<pre><code class="language-r">          # observations in rows, samples in columns
+lppd &lt;- sum( log( apply(ll, 1, mean ) ) )
+</code></pre>
+
+<pre><code>## Warning in log(apply(ll, 1, mean)): NaNs produced
+</code></pre>
+
 <p>Problem: this is not numerically stable, so we use the numercially stable function <code>log_sum_exp</code>.</p>
-<pre class="r"><code>n_cases &lt;- nrow(cars)
+
+<pre><code class="language-r">n_cases &lt;- nrow(cars)
 lppd &lt;-  sapply(1:n_cases, function(i) log_sum_exp(ll[i,]) - log(n_samples) ) 
 pWAIC &lt;- sapply( 1:n_cases, function(i) var(ll[i,]) ) 
 
-waic &lt;- -2*(sum( lppd ) - sum( pWAIC ) )</code></pre>
+waic &lt;- -2*(sum( lppd ) - sum( pWAIC ) )
+</code></pre>
+
 <p>There will be simulation variance but the variance remains much smaller than the standard error of WAIC itself, which can be computed as follows:</p>
-<pre class="r"><code>waic_vec &lt;- -2*( lppd - pWAIC )
+
+<pre><code class="language-r">waic_vec &lt;- -2*( lppd - pWAIC )
 se &lt;- sqrt( n_cases*var( waic_vec ) )
 se
+</code></pre>
 
-# almost the same, some difference remains because of simulation variance
-are_equal( waic, WAIC(m)[1] , tol=0.01)</code></pre>
+<pre><code>## [1] 14.36859
+</code></pre>
+
+<pre><code class="language-r"># almost the same, some difference remains because of simulation variance
+are_equal( waic, WAIC(m)[1] , tol=0.01)
+</code></pre>
+
+<pre><code>## Constructing posterior predictions
+
+## [ 100 / 1000 ]
+[ 200 / 1000 ]
+[ 300 / 1000 ]
+[ 400 / 1000 ]
+[ 500 / 1000 ]
+[ 600 / 1000 ]
+[ 700 / 1000 ]
+[ 800 / 1000 ]
+[ 900 / 1000 ]
+[ 1000 / 1000 ]
+
+## [1] TRUE
+</code></pre>
+
 <p>Compare the three Information Criteria and the deviance:</p>
-<pre class="r"><code>ic &lt;- c(dev, aic, dic, waic)
+
+<pre><code class="language-r">ic &lt;- c(dev, aic, dic, waic)
 names(ic) &lt;- c(&quot;Deviance&quot;, &quot;AIC&quot;, &quot;DIC&quot;, &quot;WAIC&quot;)
-print(ic)</code></pre>
+print(ic)
+</code></pre>
+
+<pre><code>## Deviance      AIC      DIC     WAIC 
+## 413.1576 419.1576 419.2076 420.6937
+</code></pre>
+
 <p>This is better seen in a plot, so as before, we compute a simulation and see how DIC and WAIC fare, in particular, how good do they estimate <strong>out-of-sample deviance</strong>?</p>
-<pre class="r"><code>N &lt;- 20
+
+<pre><code class="language-r">N &lt;- 20
 kseq &lt;- 1:5
 reg &lt;- c(100, 0.5)
 dev_DIC_WAIC &lt;- list()
@@ -681,9 +857,12 @@ for (i in 1:length(reg) ) {
     c( mean(r[1, ]), mean(r[2,] ), mean(r[3,]), mean(r[4,]) )
     # mean deviance in sample, mean deviance out sample, mean DIC, mean WAIC
   })
-}</code></pre>
+}
+</code></pre>
+
 <p>And the plot:</p>
-<pre class="r"><code>par(mfrow=c(2,1))
+
+<pre><code class="language-r">par(mfrow=c(2,1))
 par(mar = c(0.5, 2, 1, 1), oma=c(3,2,2,2))
 plot( 1:5, dev_DIC_WAIC[[1]][2,], 
       #ylim=c(min(dev_DIC_WAIC[[1]][1:2,]) - 5, max(dev_DIC_WAIC[[1]][1:2,]) + 10),
@@ -699,8 +878,7 @@ mtext(text=&quot;deviance&quot;, side=2, line=2.5, outer=FALSE)
 mtext(concat(&quot;N=&quot;,20))
 
 plot( 1:5, dev_DIC_WAIC[[1]][2,], 
-      ylim=c(min(dev_DIC_WAIC[[1]][c(2,4),], dev_DIC_WAIC[[2]][c(2,4),]) - 5, 
-             max(dev_DIC_WAIC[[1]][c(2,4),], dev_DIC_WAIC[[2]][c(2,4),]) + 10),
+      #ylim=c(min(dev_DIC_WAIC[[1]][1:2,]) - 5, max(dev_DIC_WAIC[[1]][1:2,]) + 10),
       xlim =c(1,5.1), xlab=NA, xaxt=&quot;n&quot;, cex=1.3 )
 axis(side = 1, at = 1:5, labels = FALSE, tck = -0.04)
 points( 1:5, dev_DIC_WAIC[[2]][2,], col=&quot;steelblue&quot;, cex=1.3)
@@ -708,9 +886,12 @@ lines( dev_DIC_WAIC[[1]][4,] )                         # WAIC for N(0,100)
 lines( dev_DIC_WAIC[[2]][4,], col=&quot;steelblue&quot;)         # WAIC for N(0,0.5)
 legend(&quot;topleft&quot;, &quot;WAIC&quot;, bty=&quot;n&quot;)
 mtext(text=&quot;deviance&quot;, side=2, line=2.5, outer=FALSE)
-mtext(text=&quot;number of parameter&quot;,side=1,line=1,outer=TRUE)</code></pre>
-<p>The points in the plot are the out of sample deviance, once for the flat prior <span class="math inline">\(N(0,100)\)</span> in black, and once for the regularizing prior <span class="math inline">\(N(0,0.5)\)</span> in blue. The lines are the DIC respective WAIC, also both with flat and regularizing prior. While the DIC and WAIC alone can already give a good estimate of the out-of-sampe deviance, using regularizing priors still helps.</p>
-</div>
+mtext(text=&quot;number of parameter&quot;,side=1,line=1,outer=TRUE)
+</code></pre>
+
+<p><img src="chapter6b_files/figure-markdown_github/unnamed-chunk-28-1.png" alt="" /></p>
+
+<p>The points in the plot are the out of sample deviance, once for the flat prior <img src="https://latex.codecogs.com/png.latex?N%280%2C100%29 &quot;N(0,100" alt="N(0,100)" />&rdquo;) in black, and once for the regularizing prior <img src="https://latex.codecogs.com/png.latex?N%280%2C0.5%29 &quot;N(0,0.5" alt="N(0,0.5)" />&rdquo;) in blue. The lines are the DIC respective WAIC, also both with flat and regularizing prior. While the DIC and WAIC alone can already give a good estimate of the out-of-sampe deviance, using regularizing priors still helps.</p>
 
     
     </section>
@@ -720,15 +901,15 @@ mtext(text=&quot;number of parameter&quot;,side=1,line=1,outer=TRUE)</code></pre
   
       <a class="read-next-story" style="no-cover" href="/projects/statistical-rethinking/chapter_6/chapter6_ex/">
           <section class="post">
-              <h5>Chpter 6 - Exercies</h5>
+              <h5></h5>
               
           </section>
       </a>
   
   
-      <a class="read-next-story prev" style="no-cover" href="/projects/statistical-rethinking/chapter_7/chapter7/">
+      <a class="read-next-story prev" style="no-cover" href="/projects/statistical-rethinking/chapter_6/chapter6c/">
           <section class="post">
-              <h5>Interactions</h5>
+              <h5></h5>
           </section>
       </a>
       
@@ -767,7 +948,7 @@ mtext(text=&quot;number of parameter&quot;,side=1,line=1,outer=TRUE)</code></pre
     
 <section class="share">
   <h4>Share this projects</h4>
-  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Information%20Theory%20and%20Model%20Performance&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2fprojects%2fstatistical-rethinking%2fchapter_6%2fchapter6b%2f"
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2fprojects%2fstatistical-rethinking%2fchapter_6%2fchapter6b%2f"
       onclick="window.open(this.href, 'twitter-share', 'width=550,height=421');return false;">
       <span class="hidden">Twitter</span>
   </a>
@@ -775,7 +956,7 @@ mtext(text=&quot;number of parameter&quot;,side=1,line=1,outer=TRUE)</code></pre
       onclick="window.open(this.href, 'facebook-share','width=580,height=551');return false;">
       <span class="hidden">Facebook</span>
   </a>
-  <a class="icon-linkedin" style="font-size: 1.4em" href="https://www.linkedin.com/shareArticle?mini=true&title=Information%20Theory%20and%20Model%20Performance&url=%2fprojects%2fstatistical-rethinking%2fchapter_6%2fchapter6b%2f"
+  <a class="icon-linkedin" style="font-size: 1.4em" href="https://www.linkedin.com/shareArticle?mini=true&title=&url=%2fprojects%2fstatistical-rethinking%2fchapter_6%2fchapter6b%2f"
                onclick="window.open(this.href, 'linkedin-share', 'width=554,height=571');return false;">
     <span class="hidden">LinkedIn</span>
     </a>
@@ -823,7 +1004,7 @@ s.setAttribute('data-timestamp', +new Date());
 
     <footer class="site-footer clearfix">
         <section class="copyright"><a href="">Samples of Thoughts</a> 
-        © Corrie Bartelheimer 2020 &middot; </section>
+        &copy; Corrie Bartelheimer 2020 &middot; </section>
         
     </footer>
     </div>

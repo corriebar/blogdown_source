@@ -67,7 +67,7 @@ These are my solutions to the practice questions of chapter 3, Sampling the Imag
       
       
     
-    <meta name="generator" content="Hugo 0.63.1" />
+    <meta name="generator" content="Hugo 0.55.5" />
 
     <link rel="canonical" href="/projects/statistical-rethinking/chapter_3/chapter3_ex/" />
 
@@ -312,251 +312,393 @@ if (!doNotTrack) {
     </header>
 
     <section class="post-content">
-      <h1 id="chapter-3---exercises">Chapter 3 - Exercises</h1>
+      
+
+<h1 id="chapter-3-exercises">Chapter 3 - Exercises</h1>
+
 <p>Corrie
 2020-04-09</p>
+
 <p>These are my solutions to the practice questions of chapter 3, <em>Sampling
 the Imaginary</em>, of the book “Statistical Rethinking” (version 2) by
 Richard McElreath.</p>
+
 <h2 id="easy">Easy.</h2>
+
 <p>The Easy problems use the samples from the globe tossing example:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">p_grid <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">seq</span>( from<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, to<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, length.out<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span> )
-prior <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rep</span>( <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1000</span> )
-likelihood <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">dbinom</span>( <span style="color:#ae81ff">6</span>, size<span style="color:#f92672">=</span><span style="color:#ae81ff">9</span>, prob<span style="color:#f92672">=</span>p_grid)
 
-posterior <span style="color:#f92672">&lt;-</span> likelihood <span style="color:#f92672">*</span> prior
-posterior <span style="color:#f92672">&lt;-</span> posterior <span style="color:#f92672">/</span> <span style="color:#a6e22e">sum</span>(posterior)
+<pre><code class="language-r">p_grid &lt;- seq( from=0, to=1, length.out=1000 )
+prior &lt;- rep( 1, 1000 )
+likelihood &lt;- dbinom( 6, size=9, prob=p_grid)
 
-<span style="color:#a6e22e">set.seed</span>(<span style="color:#ae81ff">100</span>)
-samples <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sample</span>( p_grid, prob<span style="color:#f92672">=</span>posterior, size<span style="color:#f92672">=</span><span style="color:#ae81ff">1e4</span>, replace<span style="color:#f92672">=</span><span style="color:#66d9ef">TRUE</span> )
-</code></pre></div><p><strong>3E1.</strong> How much posterior probability lies below (p=0.2)?</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">mean</span>( samples <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0.2</span> )
-</code></pre></div><pre><code>## [1] 4e-04
+posterior &lt;- likelihood * prior
+posterior &lt;- posterior / sum(posterior)
+
+set.seed(100)
+samples &lt;- sample( p_grid, prob=posterior, size=1e4, replace=TRUE )
 </code></pre>
+
+<p><strong>3E1.</strong> How much posterior probability lies below (p=0.2)?</p>
+
+<pre><code class="language-r">mean( samples &lt; 0.2 )
+</code></pre>
+
+<pre><code>## [1] 4e-04
+</code></pre>
+
 <p><strong>3E2.</strong> How much posterior probability lies above (p=0.8)?</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">mean</span>( samples <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0.8</span> )
-</code></pre></div><pre><code>## [1] 0.1116
+
+<pre><code class="language-r">mean( samples &gt; 0.8 )
 </code></pre>
+
+<pre><code>## [1] 0.1116
+</code></pre>
+
 <p><strong>3E3.</strong> How much posterior probability lies between (p=0.2) and
 (p=0.8)?</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">mean</span>( samples <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0.2</span> <span style="color:#f92672">&amp;</span> samples <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0.8</span> )
-</code></pre></div><pre><code>## [1] 0.888
+
+<pre><code class="language-r">mean( samples &gt; 0.2 &amp; samples &lt; 0.8 )
 </code></pre>
+
+<pre><code>## [1] 0.888
+</code></pre>
+
 <p><strong>3E4.</strong> 20% of the posterior probability lies below which value of
 (p)?</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">quantile</span>( samples, probs <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.2</span> )
-</code></pre></div><pre><code>##       20% 
+
+<pre><code class="language-r">quantile( samples, probs = 0.2 )
+</code></pre>
+
+<pre><code>##       20% 
 ## 0.5185185
 </code></pre>
+
 <p>20% of the posterior probability is below 0.52.</p>
+
 <p><strong>3E5.</strong> 20% of the posterior probability lies above which value of
 (p)?</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">quantile</span>( samples, probs <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.8</span> )
-</code></pre></div><pre><code>##       80% 
+
+<pre><code class="language-r">quantile( samples, probs = 0.8 )
+</code></pre>
+
+<pre><code>##       80% 
 ## 0.7557558
 </code></pre>
+
 <p>20% of the posterior probability is above 0.76.</p>
+
 <p><strong>3E6.</strong> Which values of (p) contain the narrowest interval equal to
 66% of the posterior probability?</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">library</span>(rethinking)
-<span style="color:#a6e22e">HPDI</span>( samples, prob <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.66</span> )
-</code></pre></div><pre><code>##     |0.66     0.66| 
+
+<pre><code class="language-r">library(rethinking)
+HPDI( samples, prob = 0.66 )
+</code></pre>
+
+<pre><code>##     |0.66     0.66| 
 ## 0.5085085 0.7737738
 </code></pre>
+
 <p>66% of the posterior probability is between 0.51 and 0.77.</p>
+
 <p><strong>3E7.</strong> Which values of (p) contain 66% of the posterior probability,
 assuming equal posterior probability both below and above the interval?</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">PI</span>( samples, prob <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.66</span> )
-</code></pre></div><pre><code>##       17%       83% 
+
+<pre><code class="language-r">PI( samples, prob = 0.66 )
+</code></pre>
+
+<pre><code>##       17%       83% 
 ## 0.5025025 0.7697698
 </code></pre>
+
 <p>66% of the posterior probability is between 0.50 and 0.77. The
 percentile interval is basically identical to the HPDI interval above,
 implying that the posterior is highly symmetric:
-<img src="chapter3_Ex_files/figure-gfm/unnamed-chunk-9-1.png" alt=""><!-- raw HTML omitted --></p>
+<img src="chapter3_Ex_files/figure-gfm/unnamed-chunk-9-1.png" alt="" /><!-- --></p>
+
 <h2 id="medium">Medium.</h2>
+
 <p><strong>3M1.</strong> Suppose the glove tossing data had turned out to be 8 water in
 15 tosses. Construct the posterior distribution, using grid
 approximation and the same flat prior as above.</p>
+
 <p>Since the prior and the grid stay the same, we only need to change the
 likelihood:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">likelihood <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">dbinom</span>( <span style="color:#ae81ff">8</span>, size<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span>, prob<span style="color:#f92672">=</span>p_grid)
-posterior <span style="color:#f92672">&lt;-</span> likelihood <span style="color:#f92672">*</span> prior
-posterior <span style="color:#f92672">&lt;-</span> posterior <span style="color:#f92672">/</span> <span style="color:#a6e22e">sum</span>(posterior)
-</code></pre></div><p><strong>3M2.</strong> Draw 10,000 sample from the grid approximation from above and
+
+<pre><code class="language-r">likelihood &lt;- dbinom( 8, size=15, prob=p_grid)
+posterior &lt;- likelihood * prior
+posterior &lt;- posterior / sum(posterior)
+</code></pre>
+
+<p><strong>3M2.</strong> Draw 10,000 sample from the grid approximation from above and
 use the samples to calculate the 90% HPDI for (p).</p>
+
 <p>We can use the same code from above:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">samples <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sample</span>( p_grid, prob<span style="color:#f92672">=</span>posterior, size<span style="color:#f92672">=</span><span style="color:#ae81ff">1e4</span>, replace<span style="color:#f92672">=</span><span style="color:#66d9ef">TRUE</span>)
-<span style="color:#a6e22e">HPDI</span>(samples, prob <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.9</span> )
-</code></pre></div><pre><code>##      |0.9      0.9| 
+
+<pre><code class="language-r">samples &lt;- sample( p_grid, prob=posterior, size=1e4, replace=TRUE)
+HPDI(samples, prob = 0.9 )
+</code></pre>
+
+<pre><code>##      |0.9      0.9| 
 ## 0.3293293 0.7167167
 </code></pre>
+
 <p><strong>3M3.</strong> Construct a posterior predictive check for this model and data.</p>
+
 <ul>
 <li>Simulate the distribution of samples, averaging over the posterior
 uncertatinty in (p).</li>
 </ul>
+
 <p>To compute the posterior predictive distribution, we generate samples
 using the <code>rbinom()</code> function and the posterior samples:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">w <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rbinom</span>( <span style="color:#ae81ff">1e4</span>, size <span style="color:#f92672">=</span> <span style="color:#ae81ff">15</span>, prob<span style="color:#f92672">=</span>samples )
-<span style="color:#a6e22e">head</span>(w)
-</code></pre></div><pre><code>## [1]  3 13  6  8  7 10
+
+<pre><code class="language-r">w &lt;- rbinom( 1e4, size = 15, prob=samples )
+head(w)
 </code></pre>
+
+<pre><code>## [1]  3 13  6  8  7 10
+</code></pre>
+
 <p><code>w</code> is then a vector containing simulated predictions of 15 globe
 tosses, averaged over the posterior probability
-<img src="chapter3_Ex_files/figure-gfm/unnamed-chunk-13-1.png" alt=""><!-- raw HTML omitted --></p>
+<img src="chapter3_Ex_files/figure-gfm/unnamed-chunk-13-1.png" alt="" /><!-- --></p>
+
 <ul>
 <li>What is the probability of observing 8 water in 15 tosses?</li>
 </ul>
-<!-- raw HTML omitted -->
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">mean</span>( w <span style="color:#f92672">==</span> <span style="color:#ae81ff">8</span> )
-</code></pre></div><pre><code>## [1] 0.1444
+
+<!-- end list -->
+
+<pre><code class="language-r">mean( w == 8 )
 </code></pre>
+
+<pre><code>## [1] 0.1444
+</code></pre>
+
 <p>The probability of observing 8 water in 15 tosses is around 14.4%.</p>
+
 <p><strong>3M4.</strong> Using the posterior distribution constructed from the new
-(8/15) data, now calculate the probability of observing 6 water in 9
+(<sup>8</sup>&frasl;<sub>15</sub>) data, now calculate the probability of observing 6 water in 9
 tosses.</p>
+
 <p>We compute a new posterior predictive distribution, where we use 9
 instead of 15 for the <code>size</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">w <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rbinom</span>( <span style="color:#ae81ff">1e4</span>, size <span style="color:#f92672">=</span> <span style="color:#ae81ff">9</span>, prob<span style="color:#f92672">=</span>samples )
-<span style="color:#a6e22e">mean</span>( w <span style="color:#f92672">==</span> <span style="color:#ae81ff">6</span> )
-</code></pre></div><pre><code>## [1] 0.1751
+
+<pre><code class="language-r">w &lt;- rbinom( 1e4, size = 9, prob=samples )
+mean( w == 6 )
 </code></pre>
+
+<pre><code>## [1] 0.1751
+</code></pre>
+
 <p>The probability to observe 6 water in 9 tosses (given the new data) is
 around 18%.</p>
+
 <p><strong>3M5.</strong> Start over at <strong>3M1</strong>, but now use a prior that is zero below
 (p=0.5) and a constant above (p=0.5). This corresponds to prior
 information that a majority of the Earth’s surface is water. Repeat each
 problem above and compare the inferences. What difference does the prior
 make? If it helps, compare inferences (using both priors) to the true
 value (p=0.7).</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># I use 2, so the prior integrates to 1, </span>
-<span style="color:#75715e"># doesn&#39;t make much of a difference since we standardize later anyway</span>
-informed_prior <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ifelse</span>( p_grid <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span> ) 
-likelihood <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">dbinom</span>( <span style="color:#ae81ff">8</span>, size <span style="color:#f92672">=</span> <span style="color:#ae81ff">15</span>, prob<span style="color:#f92672">=</span>p_grid )
-new_posterior <span style="color:#f92672">&lt;-</span> likelihood <span style="color:#f92672">*</span> informed_prior
-new_posterior <span style="color:#f92672">&lt;-</span> new_posterior <span style="color:#f92672">/</span> <span style="color:#a6e22e">sum</span>(posterior )
 
-new_samples <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sample</span>( p_grid, prob<span style="color:#f92672">=</span>new_posterior, size<span style="color:#f92672">=</span><span style="color:#ae81ff">1e4</span>, replace<span style="color:#f92672">=</span><span style="color:#66d9ef">TRUE</span>)
-</code></pre></div><p><img src="chapter3_Ex_files/figure-gfm/unnamed-chunk-17-1.png" alt=""><!-- raw HTML omitted --></p>
+<pre><code class="language-r"># I use 2, so the prior integrates to 1, 
+# doesn't make much of a difference since we standardize later anyway
+informed_prior &lt;- ifelse( p_grid &lt; 0.5, 0, 2 ) 
+likelihood &lt;- dbinom( 8, size = 15, prob=p_grid )
+new_posterior &lt;- likelihood * informed_prior
+new_posterior &lt;- new_posterior / sum(posterior )
+
+new_samples &lt;- sample( p_grid, prob=new_posterior, size=1e4, replace=TRUE)
+</code></pre>
+
+<p><img src="chapter3_Ex_files/figure-gfm/unnamed-chunk-17-1.png" alt="" /><!-- --></p>
+
 <p>With the new, informed prior, the probability mass below 0.5 is zero.
 The posterior with the flat prior still puts quite a bit of probability
 mass below 0.5:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">mean</span>( samples <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0.5</span> )
-</code></pre></div><pre><code>## [1] 0.3957
+
+<pre><code class="language-r">mean( samples &lt; 0.5 )
 </code></pre>
+
+<pre><code>## [1] 0.3957
+</code></pre>
+
 <p>We can compare how much probability mass the two different models put on
 the interval between 0.6 and 0.8 (this includes the true value 0.7):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">mean</span>( samples <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0.6</span> <span style="color:#f92672">&amp;</span> samples <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0.8</span> )
-</code></pre></div><pre><code>## [1] 0.2787
+
+<pre><code class="language-r">mean( samples &gt; 0.6 &amp; samples &lt; 0.8 )
 </code></pre>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">mean</span>( new_samples <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0.6</span> <span style="color:#f92672">&amp;</span> new_samples <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0.8</span>)
-</code></pre></div><pre><code>## [1] 0.4586
+
+<pre><code>## [1] 0.2787
 </code></pre>
+
+<pre><code class="language-r">mean( new_samples &gt; 0.6 &amp; new_samples &lt; 0.8)
+</code></pre>
+
+<pre><code>## [1] 0.4586
+</code></pre>
+
 <p>The model with the informed prior puts much more probability mass on
 this interval containing the true value.</p>
+
 <p><strong>3M6.</strong> Suppose yu want to estimate the Earth’s proportion of water
 very precisely. Specifically, you want the 99% percentile interval of
 the posterior distribution of (p) to be only 0.05 wide. This means,
 the distance between the upper and lower bound of the interval should be
 0.05. How many times will you have to toss the globe to do this?</p>
+
 <p>We can just try some values. I am using here the true value of (p) for
 the proportion of water to generate some “observed” data.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">compute_pi_width <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(N, true_p) {
-  likelihood <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">dbinom</span>( <span style="color:#a6e22e">round</span>(N<span style="color:#f92672">*</span>true_p), size<span style="color:#f92672">=</span>N, prob<span style="color:#f92672">=</span>p_grid )
-  posterior <span style="color:#f92672">&lt;-</span> likelihood <span style="color:#f92672">*</span> prior
-  posterior <span style="color:#f92672">&lt;-</span> posterior <span style="color:#f92672">/</span> <span style="color:#a6e22e">sum</span>(posterior)
-  samples <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sample</span>(p_grid, prob<span style="color:#f92672">=</span>posterior, size<span style="color:#f92672">=</span><span style="color:#ae81ff">1e4</span>, replace<span style="color:#f92672">=</span><span style="color:#66d9ef">TRUE</span> )
-  interval <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">PI</span>(samples, prob<span style="color:#f92672">=</span><span style="color:#ae81ff">0.99</span>)
-  <span style="color:#a6e22e">names</span>(interval) <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">NULL</span>
-  <span style="color:#a6e22e">diff</span>( interval )
+
+<pre><code class="language-r">compute_pi_width &lt;- function(N, true_p) {
+  likelihood &lt;- dbinom( round(N*true_p), size=N, prob=p_grid )
+  posterior &lt;- likelihood * prior
+  posterior &lt;- posterior / sum(posterior)
+  samples &lt;- sample(p_grid, prob=posterior, size=1e4, replace=TRUE )
+  interval &lt;- PI(samples, prob=0.99)
+  names(interval) &lt;- NULL
+  diff( interval )
 }
 
-true_p <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">0.7</span>
-N <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">10</span>
-<span style="color:#a6e22e">compute_pi_width</span>(N, true_p)
-</code></pre></div><pre><code>## [1] 0.6176226
+true_p &lt;- 0.7
+N &lt;- 10
+compute_pi_width(N, true_p)
 </code></pre>
+
+<pre><code>## [1] 0.6176226
+</code></pre>
+
 <p>With 10 observations, we’re not even close yet.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">N <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">100</span>
-<span style="color:#a6e22e">compute_pi_width</span>(N, true_p)
-</code></pre></div><pre><code>## [1] 0.2262262
+
+<pre><code class="language-r">N &lt;- 100
+compute_pi_width(N, true_p)
 </code></pre>
+
+<pre><code>## [1] 0.2262262
+</code></pre>
+
 <p>Still some way to go.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">N <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">1000</span>
-<span style="color:#a6e22e">compute_pi_width</span>(N, true_p)
-</code></pre></div><pre><code>## [1] 0.07407908
+
+<pre><code class="language-r">N &lt;- 1000
+compute_pi_width(N, true_p)
 </code></pre>
+
+<pre><code>## [1] 0.07407908
+</code></pre>
+
 <p>With 1000 observations, we’re getting quite close to an PI of 0.05
 width. With (N = 2200) we then get a 95%-interval that is 0.05 wide.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">N <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">2200</span>
-<span style="color:#a6e22e">compute_pi_width</span>(N, true_p)
-</code></pre></div><pre><code>## [1] 0.05105105
+
+<pre><code class="language-r">N &lt;- 2200
+compute_pi_width(N, true_p)
 </code></pre>
+
+<pre><code>## [1] 0.05105105
+</code></pre>
+
 <p>Note however that is depends on the true value of (p). If for example
 the true value of (p) would be heavily biased, such as 0.995 (almost
 all of Earth is water), then we’d only need 150 tosses to get such a
 small interval.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">N <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">150</span>
-<span style="color:#a6e22e">compute_pi_width</span>(N, true_p <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.995</span>)
-</code></pre></div><pre><code>## [1] 0.04704705
+
+<pre><code class="language-r">N &lt;- 150
+compute_pi_width(N, true_p = 0.995)
 </code></pre>
+
+<pre><code>## [1] 0.04704705
+</code></pre>
+
 <p>Similarly, using a more informed prior would also influence how many
 observations are needed.</p>
+
 <h2 id="hard">Hard.</h2>
+
 <p>The Hard problems use the data below about the gender of the first and
 second born children in 100 two-child families.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">data</span>(homeworkch3)
-<span style="color:#a6e22e">head</span>(birth1)
-</code></pre></div><pre><code>## [1] 1 0 0 0 1 1
+
+<pre><code class="language-r">data(homeworkch3)
+head(birth1)
 </code></pre>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">head</span>(birth2)
-</code></pre></div><pre><code>## [1] 0 1 0 1 0 1
+
+<pre><code>## [1] 1 0 0 0 1 1
 </code></pre>
+
+<pre><code class="language-r">head(birth2)
+</code></pre>
+
+<pre><code>## [1] 0 1 0 1 0 1
+</code></pre>
+
 <p>The total number of boys born across all of these births is then:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">sum</span>(birth1) <span style="color:#f92672">+</span> <span style="color:#a6e22e">sum</span>(birth2)
-</code></pre></div><pre><code>## [1] 111
+
+<pre><code class="language-r">sum(birth1) + sum(birth2)
 </code></pre>
+
+<pre><code>## [1] 111
+</code></pre>
+
 <p><strong>3H1.</strong> Using grid approximation, compute the posterior distribution
 for the probability of a birth being a boy. Assume a uniform prior
 probability.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">boys <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sum</span>(birth1) <span style="color:#f92672">+</span> <span style="color:#a6e22e">sum</span>(birth2)
-N <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">length</span>(birth1) <span style="color:#f92672">+</span> <span style="color:#a6e22e">length</span>(birth2)
 
-p_grid <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">seq</span>( from<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, to<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, length.out <span style="color:#f92672">=</span> <span style="color:#ae81ff">10000</span> )
-prior <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rep</span>( <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">10000</span> )
-likelihood <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">dbinom</span>( boys, size<span style="color:#f92672">=</span>N, prob <span style="color:#f92672">=</span> p_grid)
-posterior <span style="color:#f92672">&lt;-</span> likelihood <span style="color:#f92672">*</span> prior
-posterior <span style="color:#f92672">&lt;-</span> posterior <span style="color:#f92672">/</span> <span style="color:#a6e22e">sum</span>(posterior )
-</code></pre></div><p>Which parameter value maximizes the posterior probability?</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">p_grid[ <span style="color:#a6e22e">which.max</span>(posterior)]
-</code></pre></div><pre><code>## [1] 0.5549555
+<pre><code class="language-r">boys &lt;- sum(birth1) + sum(birth2)
+N &lt;- length(birth1) + length(birth2)
+
+p_grid &lt;- seq( from=0, to=1, length.out = 10000 )
+prior &lt;- rep( 1, 10000 )
+likelihood &lt;- dbinom( boys, size=N, prob = p_grid)
+posterior &lt;- likelihood * prior
+posterior &lt;- posterior / sum(posterior )
 </code></pre>
+
+<p>Which parameter value maximizes the posterior probability?</p>
+
+<pre><code class="language-r">p_grid[ which.max(posterior)]
+</code></pre>
+
+<pre><code>## [1] 0.5549555
+</code></pre>
+
 <p>MAP, the maximum a posterior, value is around 0.55.</p>
+
 <p><strong>3H2.</strong> Using the <code>sample()</code> function, draw 10,000 random parameter
 values from the posterior distribution and estimate the 50%, 89%, and
 97% HPDIs.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">samples <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sample</span>(p_grid, prob<span style="color:#f92672">=</span>posterior, size<span style="color:#f92672">=</span><span style="color:#ae81ff">1e5</span>, replace <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
-<span style="color:#a6e22e">HPDI</span>(samples, <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.89</span>, <span style="color:#ae81ff">0.97</span>))
-</code></pre></div><pre><code>##     |0.97     |0.89      |0.5      0.5|     0.89|     0.97| 
+
+<pre><code class="language-r">samples &lt;- sample(p_grid, prob=posterior, size=1e5, replace = TRUE)
+HPDI(samples, c(0.5, 0.89, 0.97))
+</code></pre>
+
+<pre><code>##     |0.97     |0.89      |0.5      0.5|     0.89|     0.97| 
 ## 0.4795480 0.4993499 0.5299530 0.5770577 0.6107611 0.6299630
 </code></pre>
+
 <p><strong>3H3.</strong> Use <code>rbinom()</code> to simulate 10,000 replicates of 200 births.
 Compare the distribution of predicted numbers of boys to the actual
 count in the data.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">pred_births <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rbinom</span>(<span style="color:#ae81ff">1e4</span>, size<span style="color:#f92672">=</span><span style="color:#ae81ff">200</span>, prob <span style="color:#f92672">=</span> samples)
-</code></pre></div><p><img src="chapter3_Ex_files/figure-gfm/unnamed-chunk-32-1.png" alt=""><!-- raw HTML omitted --></p>
+
+<pre><code class="language-r">pred_births &lt;- rbinom(1e4, size=200, prob = samples)
+</code></pre>
+
+<p><img src="chapter3_Ex_files/figure-gfm/unnamed-chunk-32-1.png" alt="" /><!-- --></p>
+
 <p>Our observed number of boys (in blue) is very much in the center of
 predicted numbers of boys. Based on this check, we would say that our
 model represents the observed data quite well.</p>
+
 <p><strong>3H4.</strong> Now compare 10,000 counts of boys from 100 simulated first
 borns only to the number of boys in the first births, <code>births1</code>. How
 does the model look in this light?</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">pred_births <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rbinom</span>(<span style="color:#ae81ff">1e4</span>, size<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>, prob <span style="color:#f92672">=</span> samples)
-</code></pre></div><p><img src="chapter3_Ex_files/figure-gfm/unnamed-chunk-34-1.png" alt=""><!-- raw HTML omitted --></p>
+
+<pre><code class="language-r">pred_births &lt;- rbinom(1e4, size=100, prob = samples)
+</code></pre>
+
+<p><img src="chapter3_Ex_files/figure-gfm/unnamed-chunk-34-1.png" alt="" /><!-- --></p>
+
 <p>Our observed number of boys in the first borns is slightly less central
 in the posterior predictive distribution. However, it still seems to be
 a fairly likely outcome.</p>
+
 <p><strong>3H5.</strong> The model assumes that sex of first and second births are
 independent. To check this assumption, focus now on second births that
 followed female first borns. Compare 10,000 simulated counts of boys to
@@ -564,9 +706,13 @@ only those second births that followed girls. Compare the counts of boys
 in your simulations to the actual observed count of boys following
 girls. How does the model look in this light? Any guesses what is going
 on in these data?</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">followed_a_girl <span style="color:#f92672">&lt;-</span> birth2[birth1 <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>]
-pred_births <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rbinom</span>(<span style="color:#ae81ff">1e4</span>, size<span style="color:#f92672">=</span><span style="color:#a6e22e">length</span>(followed_a_girl), prob <span style="color:#f92672">=</span> samples)
-</code></pre></div><p><img src="chapter3_Ex_files/figure-gfm/unnamed-chunk-36-1.png" alt=""><!-- raw HTML omitted --></p>
+
+<pre><code class="language-r">followed_a_girl &lt;- birth2[birth1 == 0]
+pred_births &lt;- rbinom(1e4, size=length(followed_a_girl), prob = samples)
+</code></pre>
+
+<p><img src="chapter3_Ex_files/figure-gfm/unnamed-chunk-36-1.png" alt="" /><!-- --></p>
+
 <p>Our observed number of boys that followed a first-born girl (here in
 blue) is with 39 out of 49 births much higher than what is predicted by
 our model. According to our model, only a bit more than half of these
@@ -576,8 +722,9 @@ much higher. It seems there is some biological mechanism in which the
 sex of the first child influences the sex of the second child. Since our
 model assumes complete independece between all births, the model fails
 to capthure this.</p>
-<p><!-- raw HTML omitted --><a href="https://github.com/corriebar/Statistical-Rethinking/blob/master/Chapter_3/chapter3_Ex.Rmd">Full
-code.</a><!-- raw HTML omitted --></p>
+
+<p><small><a href="https://github.com/corriebar/Statistical-Rethinking/blob/master/Chapter_3/chapter3_Ex.Rmd">Full
+code.</a><small></p>
 
     
     </section>
@@ -690,7 +837,7 @@ s.setAttribute('data-timestamp', +new Date());
 
     <footer class="site-footer clearfix">
         <section class="copyright"><a href="">Samples of Thoughts</a> 
-        © Corrie Bartelheimer 2020 &middot; </section>
+        &copy; Corrie Bartelheimer 2020 &middot; </section>
         
     </footer>
     </div>

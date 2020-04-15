@@ -12,13 +12,13 @@
 
 
 
-<meta name="twitter:title" content="Using Information Critera"/>
+<meta name="twitter:title" content=""/>
 <meta name="twitter:description" content=""/>
 <meta name="twitter:site" content="@corrieaar"/>
 
 
 
-  	<meta property="og:title" content="Using Information Critera &middot; Samples of Thoughts" />
+  	<meta property="og:title" content=" &middot; Samples of Thoughts" />
   	<meta property="og:site_name" content="Samples of Thoughts" />
   	<meta property="og:url" content="/projects/statistical-rethinking/chapter_6/chapter6c/" />
 
@@ -35,10 +35,11 @@
     
     
 
-    <title>Using Information Critera &middot; Samples of Thoughts</title>
+    <title> &middot; Samples of Thoughts</title>
 
     
-    <meta name="description" content="Using information criteria Model comparison library(rethinking) data(milk) d &amp;lt;- milk[ complete.cases(milk), ] # remove NA values d$neocortex &amp;lt;- d$neocorte" />
+    <meta name="description" content="Using Information Critera Corrie July 4, 2018
+Using information criteria Model comparison library(rethinking) data(milk) d &amp;lt;- milk[ complete.cases(milk), ] #" />
     
 
     <meta name="HandheldFriendly" content="True" />
@@ -66,7 +67,7 @@
       
       
     
-    <meta name="generator" content="Hugo 0.63.1" />
+    <meta name="generator" content="Hugo 0.55.5" />
 
     <link rel="canonical" href="/projects/statistical-rethinking/chapter_6/chapter6c/" />
 
@@ -97,10 +98,10 @@
             
         ]
     },
-    "headline": "Using Information Critera",
-    "name": "Using Information Critera",
-    "wordCount":  806 ,
-    "timeRequired": "PT4M",
+    "headline": "",
+    "name": "",
+    "wordCount":  1088 ,
+    "timeRequired": "PT6M",
     "inLanguage": {
       "@type": "Language",
       "alternateName": "en"
@@ -295,13 +296,13 @@ if (!doNotTrack) {
   <article class="post projects">
 
     <header class="post-header">
-        <h1 class="post-title">Using Information Critera</h1>
+        <h1 class="post-title"></h1>
         <small></small>
 
         <section class="post-meta">
         
             <p class="post-reading post-line">
-            <span>Estimated reading time: 4 min</span>
+            <span>Estimated reading time: 6 min</span>
             </p>
         
         
@@ -313,20 +314,47 @@ if (!doNotTrack) {
     <section class="post-content">
       
 
+<h1 id="using-information-critera">Using Information Critera</h1>
 
-<div id="using-information-criteria" class="section level1">
-<h1>Using information criteria</h1>
-<div id="model-comparison" class="section level2">
-<h2>Model comparison</h2>
-<pre class="r"><code>library(rethinking)
+<p>Corrie
+July 4, 2018</p>
+
+<h1 id="using-information-criteria">Using information criteria</h1>
+
+<h2 id="model-comparison">Model comparison</h2>
+
+<pre><code class="language-r">library(rethinking)
 data(milk)
 d &lt;- milk[ complete.cases(milk), ]     # remove NA values
 d$neocortex &lt;- d$neocortex.perc / 100
 dim(d)
+</code></pre>
 
-head(d)</code></pre>
+<pre><code>## [1] 17  9
+</code></pre>
+
+<pre><code class="language-r">head(d)
+</code></pre>
+
+<pre><code>##               clade            species kcal.per.g perc.fat perc.protein
+## 1     Strepsirrhine     Eulemur fulvus       0.49    16.60        15.42
+## 6  New World Monkey Alouatta seniculus       0.47    21.22        23.58
+## 7  New World Monkey         A palliata       0.56    29.66        23.46
+## 8  New World Monkey       Cebus apella       0.89    53.41        15.80
+## 10 New World Monkey         S sciureus       0.92    50.58        22.33
+## 11 New World Monkey   Cebuella pygmaea       0.80    41.35        20.85
+##    perc.lactose mass neocortex.perc neocortex
+## 1         67.98 1.95          55.16    0.5516
+## 6         55.20 5.25          64.54    0.6454
+## 7         46.88 5.37          64.54    0.6454
+## 8         30.79 2.51          67.64    0.6764
+## 10        27.09 0.68          68.85    0.6885
+## 11        37.80 0.12          58.85    0.5885
+</code></pre>
+
 <p>We will predict kcal.per.g using the predictors neocortex and the logarithm of mass. For this, we use four different models (all with flat priors):</p>
-<pre class="r"><code>a.start &lt;- mean(d$kcal.per.g)
+
+<pre><code class="language-r">a.start &lt;- mean(d$kcal.per.g)
 sigma.start &lt;- log( sd( d$kcal.per.g ))
 
 m6.11 &lt;- map( 
@@ -353,34 +381,104 @@ m6.14 &lt;- map(
     kcal.per.g ~ dnorm( mu, exp(log.sigma) ),
     mu &lt;- a + bn*neocortex + bm*log(mass)
   ), data=d, start=list(a=a.start, bn=0, bm=0, log.sigma=sigma.start)
-)</code></pre>
+)
+</code></pre>
+
 <p>To compute the WAIC value, we can use the function <code>WAIC()</code> from the <code>rethinking</code> package:</p>
-<pre class="r"><code>WAIC( m6.14 )</code></pre>
+
+<pre><code class="language-r">WAIC( m6.14 )
+</code></pre>
+
+<pre><code>## Constructing posterior predictions
+
+## [ 100 / 1000 ]
+[ 200 / 1000 ]
+[ 300 / 1000 ]
+[ 400 / 1000 ]
+[ 500 / 1000 ]
+[ 600 / 1000 ]
+[ 700 / 1000 ]
+[ 800 / 1000 ]
+[ 900 / 1000 ]
+[ 1000 / 1000 ]
+
+## [1] -14.59507
+## attr(,&quot;lppd&quot;)
+## [1] 12.33105
+## attr(,&quot;pWAIC&quot;)
+## [1] 5.033517
+## attr(,&quot;se&quot;)
+## [1] 7.774764
+</code></pre>
+
 <p>The package also provides a handy function that computes WAIC for all models and ranks from best to worst:</p>
-<pre class="r"><code>set.seed(2405)
+
+<pre><code class="language-r">set.seed(2405)
 ( milk.models &lt;- compare( m6.11, m6.12, m6.13, m6.14) )
-plot( milk.models, SE=TRUE, dSE=TRUE )</code></pre>
-<p>How can we interpret the weights (Akaike weights): here, the model m6.14 has probability of 94% to make the best predictions on new data (compared to the other three models). There’s a caveat: Uncertainty propagates to the weights as well (and there is a lot of uncertainty since we only have few observations).</p>
-<p>As an example, consider the difference between <code>m6.14</code> and <code>m6.11</code>, centered at 7.3 with a standard deviation of 7.29. We can compute the probability that this difference is negative, i.e. the two models are actually rank-reversed:</p>
-<pre class="r"><code>diff &lt;- rnorm(1e5, 7.3, 7.29)
-sum( diff &lt; 0 ) / 1e5</code></pre>
-</div>
-<div id="comparing-estimates" class="section level2">
-<h2>Comparing estimates</h2>
-<p>To compare parameter estimates across different models, we can use the handy function <code>coeftab</code> from McElreath’s package:</p>
-<pre class="r"><code>coeftab( m6.11, m6.12, m6.13, m6.14 )
-plot( coeftab( m6.11, m6.12, m6.13, m6.14 ) )</code></pre>
+</code></pre>
+
+<pre><code>##        WAIC pWAIC dWAIC weight   SE  dSE
+## m6.14 -15.3   4.7   0.0   0.94 7.47   NA
+## m6.11  -8.0   2.0   7.3   0.02 4.60 7.29
+## m6.13  -7.8   3.0   7.4   0.02 5.63 5.26
+## m6.12  -6.7   2.7   8.6   0.01 4.23 7.55
+</code></pre>
+
+<pre><code class="language-r">plot( milk.models, SE=TRUE, dSE=TRUE )
+</code></pre>
+
+<p><img src="chapter6c_files/figure-markdown_github/unnamed-chunk-4-1.png" alt="" /></p>
+
+<p>How can we interpret the weights (Akaike weights): here, the model m6.14 has probability of 94% to make the best predictions on new data (compared to the other three models). There&rsquo;s a caveat: Uncertainty propagates to the weights as well (and there is a lot of uncertainty since we only have few observations).</p>
+
+<p>As an example, consider the difference between <code>m6.14</code> and <code>m6.11</code>, centered at 7.3 with a standard deviation of 7.29. We can compute the probability that this difference is negative, i.e. the two models are actually rank-reversed:</p>
+
+<pre><code class="language-r">diff &lt;- rnorm(1e5, 7.3, 7.29)
+sum( diff &lt; 0 ) / 1e5
+</code></pre>
+
+<pre><code>## [1] 0.1572
+</code></pre>
+
+<h2 id="comparing-estimates">Comparing estimates</h2>
+
+<p>To compare parameter estimates across different models, we can use the handy function <code>coeftab</code> from McElreath&rsquo;s package:</p>
+
+<pre><code class="language-r">coeftab( m6.11, m6.12, m6.13, m6.14 )
+</code></pre>
+
+<pre><code>##           m6.11   m6.12   m6.13   m6.14  
+## a            0.66    0.35    0.71   -1.09
+## log.sigma   -1.79   -1.80   -1.85   -2.16
+## bn             NA    0.45      NA    2.79
+## bm             NA      NA   -0.03   -0.10
+## nobs           17      17      17      17
+</code></pre>
+
+<pre><code class="language-r">plot( coeftab( m6.11, m6.12, m6.13, m6.14 ) )
+</code></pre>
+
+<p><img src="chapter6c_files/figure-markdown_github/unnamed-chunk-6-1.png" alt="" /></p>
+
 <p>One can use different options for <code>coeftab_plot</code>:</p>
-<pre class="r"><code># sort by model 
+
+<pre><code class="language-r"># sort by model 
 plot( coeftab( m6.11, m6.12, m6.13, m6.14), by.model=TRUE )    
- # show only certain parameters
-plot( coeftab( m6.11, m6.12, m6.13, m6.14), by.model=FALSE, pars=c(&quot;bn&quot;, &quot;bm&quot;) )    </code></pre>
-</div>
-<div id="model-averaging" class="section level2">
-<h2>Model averaging</h2>
-<p>In model averaging, we use the predictions for each model and average according to their Akaike weights.
-Let’s compare first with the counterfactual predictions for the minimum-WAIC model <code>m6.14</code>, holding mass fixed.</p>
-<pre class="r"><code>nc.seq &lt;- seq(from=0.5, to =0.8, length.out = 30)
+</code></pre>
+
+<p><img src="chapter6c_files/figure-markdown_github/unnamed-chunk-7-1.png" alt="" /></p>
+
+<pre><code class="language-r"> # show only certain parameters
+plot( coeftab( m6.11, m6.12, m6.13, m6.14), by.model=FALSE, pars=c(&quot;bn&quot;, &quot;bm&quot;) )    
+</code></pre>
+
+<p><img src="chapter6c_files/figure-markdown_github/unnamed-chunk-7-2.png" alt="" /></p>
+
+<h2 id="model-averaging">Model averaging</h2>
+
+<p>In model averaging, we use the predictions for each model and average according to their Akaike weights. Let&rsquo;s compare first with the counterfactual predictions for the minimum-WAIC model <code>m6.14</code>, holding mass fixed.</p>
+
+<pre><code class="language-r">nc.seq &lt;- seq(from=0.5, to =0.8, length.out = 30)
 d.predict &lt;- list(
   kcal.per.g = rep(0, 30),            # empty outcome
   neocortex = nc.seq,                 # sequence of neocortex
@@ -395,10 +493,23 @@ mu.PI &lt;- apply( pred.m6.14, 2, PI )
 plot( kcal.per.g ~ neocortex, d, col=rangi2 )
 lines( nc.seq, mu, lty=2 )
 lines( nc.seq, mu.PI[1, ], lty=2)
-lines( nc.seq, mu.PI[2, ], lty=2)</code></pre>
+lines( nc.seq, mu.PI[2, ], lty=2)
+</code></pre>
+
+<p><img src="chapter6c_files/figure-markdown_github/unnamed-chunk-8-1.png" alt="" /></p>
+
 <p>Now comes the ensemble part: Average the posterior predictions, using <code>ensemble</code>, another handy function from <code>rethinking</code>:</p>
-<pre class="r"><code>milk.ensemble &lt;- ensemble( m6.11, m6.12, m6.13, m6.14, data=d.predict )
-mu &lt;- apply(milk.ensemble$link, 2, mean )
+
+<pre><code class="language-r">milk.ensemble &lt;- ensemble( m6.11, m6.12, m6.13, m6.14, data=d.predict )
+</code></pre>
+
+<pre><code>## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+</code></pre>
+
+<pre><code class="language-r">mu &lt;- apply(milk.ensemble$link, 2, mean )
 mu.PI &lt;- apply( milk.ensemble$link, 2, PI )
 kcal.per.g.PI &lt;- apply(milk.ensemble$sim, 2, PI )
 
@@ -411,9 +522,14 @@ lines( nc.seq, mu.PI[2, ], lty=2)
 # added ensemble predictions and their uncertainty
 lines( nc.seq, mu )
 shade( mu.PI, nc.seq )
-shade( kcal.per.g.PI, nc.seq )    # yay even more uncertainty!</code></pre>
+shade( kcal.per.g.PI, nc.seq )    # yay even more uncertainty!
+</code></pre>
+
+<p><img src="chapter6c_files/figure-markdown_github/unnamed-chunk-9-1.png" alt="" /></p>
+
 <p>If we want to compute the ensemble average ourselves, we can do as follow:</p>
-<pre class="r"><code># code mostly coppied from the ensemble function
+
+<pre><code class="language-r"># code mostly coppied from the ensemble function
 n &lt;- 1e3
 ctab &lt;- compare( m6.11, m6.12, m6.13, m6.14, sort = F)
 weights &lt;- ctab@output$weight
@@ -448,9 +564,8 @@ for ( i in 1:length(idx) ) {
     link_out[idxrange,] &lt;- link.list[[i]][idxrange,]
     sim_out[idxrange,] &lt;- sim.list[[i]][idxrange,]
   }
-} # alternatively, we could also use sample with prob = weight</code></pre>
-</div>
-</div>
+} # alternatively, we could also use sample with prob = weight
+</code></pre>
 
     
     </section>
@@ -458,14 +573,20 @@ for ( i in 1:length(idx) ) {
 
   <aside class="read-next">
   
-      <a class="read-next-story" style="no-cover" href="/projects/statistical-rethinking/rethinking/">
+      <a class="read-next-story" style="no-cover" href="/projects/statistical-rethinking/chapter_6/chapter6b/">
           <section class="post">
-              <h5>Statistical Rethinking</h5>
+              <h5></h5>
               
           </section>
       </a>
   
   
+      <a class="read-next-story prev" style="no-cover" href="/projects/statistical-rethinking/chapter_7/chapter7/">
+          <section class="post">
+              <h5></h5>
+          </section>
+      </a>
+      
 
 </aside>
 
@@ -501,7 +622,7 @@ for ( i in 1:length(idx) ) {
     
 <section class="share">
   <h4>Share this projects</h4>
-  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Using%20Information%20Critera&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2fprojects%2fstatistical-rethinking%2fchapter_6%2fchapter6c%2f"
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2fprojects%2fstatistical-rethinking%2fchapter_6%2fchapter6c%2f"
       onclick="window.open(this.href, 'twitter-share', 'width=550,height=421');return false;">
       <span class="hidden">Twitter</span>
   </a>
@@ -509,7 +630,7 @@ for ( i in 1:length(idx) ) {
       onclick="window.open(this.href, 'facebook-share','width=580,height=551');return false;">
       <span class="hidden">Facebook</span>
   </a>
-  <a class="icon-linkedin" style="font-size: 1.4em" href="https://www.linkedin.com/shareArticle?mini=true&title=Using%20Information%20Critera&url=%2fprojects%2fstatistical-rethinking%2fchapter_6%2fchapter6c%2f"
+  <a class="icon-linkedin" style="font-size: 1.4em" href="https://www.linkedin.com/shareArticle?mini=true&title=&url=%2fprojects%2fstatistical-rethinking%2fchapter_6%2fchapter6c%2f"
                onclick="window.open(this.href, 'linkedin-share', 'width=554,height=571');return false;">
     <span class="hidden">LinkedIn</span>
     </a>
@@ -557,7 +678,7 @@ s.setAttribute('data-timestamp', +new Date());
 
     <footer class="site-footer clearfix">
         <section class="copyright"><a href="">Samples of Thoughts</a> 
-        © Corrie Bartelheimer 2020 &middot; </section>
+        &copy; Corrie Bartelheimer 2020 &middot; </section>
         
     </footer>
     </div>

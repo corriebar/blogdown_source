@@ -61,7 +61,7 @@
         <link href="/categories/statistical-rethinking/index.xml" rel="alternate" type="application/rss+xml" title="Statistical Rethinking &middot; Samples of Thoughts" />
       
     
-    <meta name="generator" content="Hugo 0.63.1" />
+    <meta name="generator" content="Hugo 0.55.5" />
 
     <link rel="canonical" href="/categories/statistical-rethinking/" />
 
@@ -271,7 +271,9 @@ if (!doNotTrack) {
 	  
     <nav class="pagination" role="navigation">
 	
-	<span class="page-number">Page 1 of 1</span>
+	<span class="page-number">Page 1 of 4</span>
+	
+	    <a class="older-posts" href="/categories/statistical-rethinking/page/2/">Older Posts &rarr;</a>
 	
 </nav>
 
@@ -320,10 +322,178 @@ p_grid &lt;- seq( from=0, to=1, length.out=1000 ) prior &lt;- rep( 1, 1000 ) lik
 </article>
 
 	
+	   <article class="post projects">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_12/chp12-part-two/">Ordered Categories</a></h2>
+    </header>
+    <section class="post-excerpt">
+        
+            <p>Ordered Categorical Outcomes library(rethinking) data(Trolley) d &lt;- Trolley The data contains answers of 331 individuals for different stories, about how morally permissible the action in the story is. The answer is an integer from 1 to 7. The outcome is thus categorical and ordered.
+simplehist( d$response, xlim=c(1,7), xlab=&quot;response&quot;) Describing an ordered distribution with intercepts We want to redescribe this histogram on the log-cumulative-odds scale. We first compute the cumulative probabilities: <a class="read-more" href="/projects/statistical-rethinking/chapter_12/chp12-part-two/">&raquo;</a></p>
+        
+    </section>
+    <footer class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 10 min</span>
+            </p>
+        
+        
+            
+            
+
+            
+            
+            
+            Corrie
+                 
+        
+
+        on
+            
+                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
+            
+                <a href="/tags/bayesian/">#Bayesian</a>,
+            
+        
+        <time class="post-date" datetime="2019-07-28T00:00:00Z">
+            28 Jul 2019
+        </time>
+    </footer>
+</article>
+
+	
+	   <article class="post projects">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_12/chp12-part-one/">Of Monsters and Mixtures</a></h2>
+    </header>
+    <section class="post-excerpt">
+        
+            <p>Over-dispersed outcomes For the beta-binomial model, we’ll make use of the beta distribution. The beta distribution is a probability distribution over probabilities (over the interval \([0, 1]\)).
+library(rethinking) pbar &lt;- 0.5 theta &lt;- 5 curve( dbeta2( x, pbar, theta), from=0, to=1, xlab=&quot;probability&quot;, ylab=&quot;Density&quot;) There are different ways to parametrize the beta distribution:
+dbeta2 &lt;- function( x , prob , theta , log=FALSE ) { a &lt;- prob * theta b &lt;- (1-prob) * theta dbeta( x , shape1=a , shape2=b , log=log ) } We use the beta-binomial for the UCBadmit data, which is over-dispersed if we ignore department (since the admission rate varied quite a lot for different departments). <a class="read-more" href="/projects/statistical-rethinking/chapter_12/chp12-part-one/">&raquo;</a></p>
+        
+    </section>
+    <footer class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 8 min</span>
+            </p>
+        
+        
+            
+            
+
+            
+            
+            
+            Corrie
+                 
+        
+
+        on
+            
+                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
+            
+                <a href="/tags/bayesian/">#Bayesian</a>,
+            
+        
+        <time class="post-date" datetime="2019-04-14T00:00:00Z">
+            14 Apr 2019
+        </time>
+    </footer>
+</article>
+
+	
+	   <article class="post projects">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_10/chp10-ex/">Chapter 10 - Exercises</a></h2>
+    </header>
+    <section class="post-excerpt">
+        
+            <p>Easy. 10E1. If an event has probability 0.35, what are the log-odds of this event?
+log( 0.35 / (1 - 0.35)) [1] -0.6190392 10E2. If an event has log-odds 3.2, what is the probabiity of this event?
+1 / (1 + exp(-3.2)) [1] 0.9608343 10E3. A coefficient in a logistic regression has value 1.7. What does this imply about the proportional change in odds of the outcome?
+exp(1.7) [1] 5. <a class="read-more" href="/projects/statistical-rethinking/chapter_10/chp10-ex/">&raquo;</a></p>
+        
+    </section>
+    <footer class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 23 min</span>
+            </p>
+        
+        
+            
+            
+
+            
+            
+            
+            Corrie
+                 
+        
+
+        on
+            
+                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
+            
+                <a href="/tags/bayesian/">#Bayesian</a>,
+            
+        
+        <time class="post-date" datetime="2018-11-17T00:00:00Z">
+            17 Nov 2018
+        </time>
+    </footer>
+</article>
+
+	
+	   <article class="post projects">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_10/chp10-part-three/">Ohter Count Regressions</a></h2>
+    </header>
+    <section class="post-excerpt">
+        
+            <p>Multinomial Regression A multinomial regression is used when more than two things can happen. As an example, suppose we are modelling career choices for some young adults. Let’s assume there are three career choices one can take and expected income is one of the predictors. One option to model the career choices would be the explicit multinomial model which uses the multinomial logit. The multinomial logit uses the multinomial distribution which is an extension of the binomial distribution to the case with \(K&gt;2\) events. <a class="read-more" href="/projects/statistical-rethinking/chapter_10/chp10-part-three/">&raquo;</a></p>
+        
+    </section>
+    <footer class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 8 min</span>
+            </p>
+        
+        
+            
+            
+
+            
+            
+            
+            Corrie
+                 
+        
+
+        on
+            
+                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
+            
+                <a href="/tags/bayesian/">#Bayesian</a>,
+            
+        
+        <time class="post-date" datetime="2018-11-11T00:00:00Z">
+            11 Nov 2018
+        </time>
+    </footer>
+</article>
+
+	
 
 	<nav class="pagination" role="navigation">
 	
-	<span class="page-number">Page 1 of 1</span>
+	<span class="page-number">Page 1 of 4</span>
+	
+	    <a class="older-posts" href="/categories/statistical-rethinking/page/2/">Older Posts &rarr;</a>
 	
 </nav>
 
@@ -333,7 +503,7 @@ p_grid &lt;- seq( from=0, to=1, length.out=1000 ) prior &lt;- rep( 1, 1000 ) lik
 
     <footer class="site-footer clearfix">
         <section class="copyright"><a href="">Samples of Thoughts</a> 
-        © Corrie Bartelheimer 2020 &middot; </section>
+        &copy; Corrie Bartelheimer 2020 &middot; </section>
         
     </footer>
     </div>

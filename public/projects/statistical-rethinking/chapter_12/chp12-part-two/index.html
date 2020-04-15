@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    
+        
+        <meta name="twitter:card" content="summary_large_image"/>
+        <meta name="twitter:image" content="/images/tea_with_books.jpg"/>
+    
+
+
+
+<meta name="twitter:title" content="Ordered Categories"/>
+<meta name="twitter:description" content=""/>
+<meta name="twitter:site" content="@corrieaar"/>
+
+
+
+  	<meta property="og:title" content="Ordered Categories &middot; Samples of Thoughts" />
+  	<meta property="og:site_name" content="Samples of Thoughts" />
+  	<meta property="og:url" content="/projects/statistical-rethinking/chapter_12/chp12-part-two/" />
+
+    
+       <meta property="og:image" content="/images/tea_with_books.jpg"/>
+    
+    
+    <meta property="og:description" content="" />
+  	<meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2019-07-28T00:00:00Z" />
+
+    
+    <meta property="article:tag" content="Statistical Rethinking" />
+    
+    <meta property="article:tag" content="Bayesian" />
+    
+    
+
+    <title>Ordered Categories &middot; Samples of Thoughts</title>
+
+    
+    <meta name="description" content="Ordered Categorical Outcomes library(rethinking) data(Trolley) d &amp;lt;- Trolley The data contains answers of 331 individuals for different stories, about how mor" />
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/css/nav.css" />
+
+    
+    
+    
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/googlecode.min.css' rel='stylesheet' type='text/css' />
+
+
+
+  
+     
+      
+          <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Samples of Thoughts" />
+      
+      
+    
+    <meta name="generator" content="Hugo 0.55.5" />
+
+    <link rel="canonical" href="/projects/statistical-rethinking/chapter_12/chp12-part-two/" />
+
+    
+      
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name":  null 
+    },
+    "author": {
+        "@type": "Person",
+        "name":  null ,
+        
+        "url":  null ,
+        "sameAs": [
+            
+            
+             
+             
+             
+             
+             
+            
+        ]
+    },
+    "headline": "Ordered Categories",
+    "name": "Ordered Categories",
+    "wordCount":  2104 ,
+    "timeRequired": "PT10M",
+    "inLanguage": {
+      "@type": "Language",
+      "alternateName": "en"
+    },
+    "url": "/projects/statistical-rethinking/chapter_12/chp12-part-two/",
+    "datePublished": "2019-07-28T00:00Z",
+    "dateModified": "2019-07-28T00:00Z",
+    
+    "image": {
+        "@type": "ImageObject",
+        "url": "/images/tea_with_books.jpg",
+        "width": 3000,
+        "height": 1445
+    },
+    
+    "keywords": "Statistical Rethinking, Bayesian",
+    "description": "",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/projects/statistical-rethinking/chapter_12/chp12-part-two/"
+    }
+}
+    </script>
+    
+
+
+    
+
+    
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140745376-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+
+    
+    
+    
+
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+<script>
+  window.addEventListener("load", function(){
+    window.cookieconsent.initialise({
+      "palette": {
+        "popup": {
+          "background": "#40485A",
+          "text": "#ffffff"
+        },
+        "button": {
+          "background": "#5B5A68",
+          "text": "#ffffff"
+        }
+      },
+      "content": {
+        "message": "This website uses cookies to ensure you get the best experience on my website.",
+        "dismiss": "Got it!",
+        "link": "Learn more",
+        "href": "https://cookies.insites.com"
+      }
+    })});
+</script>
+
+
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/projects">Projects</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/talks">Talks</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/about">About</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/">Home</a>
+            </li>
+        
+        
+    </ul>
+
+    
+    <a class="subscribe-button icon-feed" href="/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+  
+ <header class="main-header post-head" style="background-image: url(/images/tea_with_books.jpg)"> 
+  
+  <nav class="main-nav overlay clearfix">
+
+
+
+      <ul>
+        
+			<li> <a class="blog-logo" href="/">Home</a> </li>
+			  
+			<li> <a class="blog-logo" href="/about">About</a> </li>
+			  
+			<li> <a class="blog-logo" href="/talks">Talks</a> </li>
+			  
+			<li> <a class="blog-logo" href="/projects">Projects</a> </li>
+			  
+
+            
+              <a class="menu-button icon-feed" href="">&nbsp;&nbsp;Subscribe</a>
+            
+            
+      
+       </ul>
+    </nav>
+    
+     <div class="vertical">
+        <div class="main-header-content inner">
+            
+
+
+    <a class="bloglogo" href="https://github.com/corriebar" target="_blank">
+    <span class="icon-github" style="color:white;font-size:2em"></span>
+    </a>
+&nbsp;
+
+
+
+
+
+
+
+
+
+    <a class="bloglogo" href="https://twitter.com/corrieaar" target="_blank">
+        <span class="icon-twitter" style="color:white;font-size:2em"></span>
+    </a>
+&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <h1 class="page-title">Samples of Thoughts</h1>
+            <h2 class="page-description">about data, statistics  and everything in between</h2>
+        </div>
+    </div>  
+    
+
+
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post projects">
+
+    <header class="post-header">
+        <h1 class="post-title">Ordered Categories</h1>
+        <small></small>
+
+        <section class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 10 min</span>
+            </p>
+        
+        
+        
+         
+          <span class="post-tag small"><a href="/tags/statistical-rethinking/">#Statistical Rethinking</a></span>
+         
+          <span class="post-tag small"><a href="/tags/bayesian/">#Bayesian</a></span>
+         
+        </section>
+    </header>
+
+    <section class="post-content">
+      
+
+
+<div id="ordered-categorical-outcomes" class="section level1">
+<h1>Ordered Categorical Outcomes</h1>
+<pre class="r"><code>library(rethinking)
+data(Trolley)
+d &lt;- Trolley</code></pre>
+<p>The data contains answers of 331 individuals for different stories, about how morally permissible the action in the story is. The answer is an integer from 1 to 7. The outcome is thus categorical and ordered.</p>
+<pre class="r"><code>simplehist( d$response, xlim=c(1,7), xlab=&quot;response&quot;)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_12/chapter12b_files/figure-html/unnamed-chunk-2-1.png" width="384" /></p>
+<div id="describing-an-ordered-distribution-with-intercepts" class="section level2">
+<h2>Describing an ordered distribution with intercepts</h2>
+<p>We want to redescribe this histogram on the log-cumulative-odds scale.
+We first compute the cumulative probabilities:</p>
+<pre class="r"><code>pr_k &lt;- table( d$response ) / nrow(d)
+
+cum_pr_k &lt;- cumsum( pr_k )
+
+plot( 1:7, cum_pr_k, type=&quot;b&quot;, xlab=&quot;response&quot;, 
+      ylab=&quot;cumulative proportions&quot;, ylim=c(0, 1))</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_12/chapter12b_files/figure-html/unnamed-chunk-3-1.png" width="384" /></p>
+<p>Next, to get the log-cumulative odds, we use the following link function to get an intercept parameter for each reponse:
+<span class="math display">\[\begin{align*}
+\log \frac{Pr(y_i \leq k)}{1 - Pr(y_i \leq k)} = \alpha_k
+\end{align*}\]</span>
+where <span class="math inline">\(\alpha_k\)</span> is the intercept parameter unique to each possible outcome value <span class="math inline">\(k\)</span>.</p>
+<pre class="r"><code>logit &lt;- function(x) log(x/(1-x))
+( lco &lt;- logit( cum_pr_k ) )</code></pre>
+<pre><code>         1          2          3          4          5          6          7 
+-1.9160912 -1.2666056 -0.7186340  0.2477857  0.8898637  1.7693809        Inf </code></pre>
+<p>The cumulative probability for the last response will always be 1, so its log-cumulative odds is always infinity and thus we only need 6 parameters.</p>
+<p>From the log-cumulative odds, we can then get back again to our cumulative proportions by using the inverse of the link, and then obtain the likelihood for each (ordered) category by substraction.
+<span class="math display">\[p_k = Pr(y_i = k)  =  Pr(y_i \leq k) - Pr(y_i \leq k-1)\]</span>
+These likelihoods are the blue line segments in the following plot:</p>
+<pre class="r"><code>plot( 1:7, cum_pr_k, type=&quot;b&quot;, xlab=&quot;response&quot;, 
+      ylab=&quot;cumulative proportions&quot;, ylim=c(0, 1), xlim=c(1, 7.4))
+for (i in 1:7) {
+  lines(c(i, i), c(0, cum_pr_k[i]) , lwd=2.5, col=&quot;grey&quot;)
+  lines(c(i,i) + 0.1, c(cum_pr_k[i] - pr_k[i], cum_pr_k[i]),
+        lwd=2.5, col=&quot;steelblue&quot;)
+  text( i + 0.3, cum_pr_k[i] -  pr_k[i]/2, labels=i,
+        col=&quot;steelblue&quot;)
+}</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_12/chapter12b_files/figure-html/unnamed-chunk-5-1.png" width="384" /></p>
+<p>Putting these together, we get this model:
+<span class="math display">\[\begin{align*}
+R_i &amp;\sim \text{Ordered-logit}(\phi_i, \kappa)  &amp;\text{[probability of data]}\\
+\phi_i &amp;= 0 &amp;\text{[linear model]} \\
+\kappa_k &amp;\sim \text{Normal}(0, 1.5) &amp;\text{[common prior for each intercept]} 
+\end{align*}\]</span></p>
+<p>More verbose, this model is the same as
+<span class="math display">\[\begin{align*}
+R_i &amp;\sim \text{Categorical}(\boldsymbol p)  &amp;\text{[probability of data]}\\
+p_i &amp;= q_i &amp;\text{[probabilities for each value }k] \\
+p_k &amp;= q_k - q_{k-1} \quad \text{ for } K &gt; k &gt; 1 &amp; \\
+p_K &amp;= 1 - q_{k-1} &amp; \\
+\text{logit}(q_k) &amp;= \kappa_k - \phi_i &amp;\text{[cumulative logit link]} \\
+\phi_i &amp;= \text{terms of linear model} &amp;\text{[linear model]} \\
+\kappa_k &amp;\sim \text{Normal}(0, 1.5) &amp;\text{[common prior for each intercept]}
+\end{align*}\]</span></p>
+<p>In <code>ulam</code>:</p>
+<pre class="r"><code>m12.5 &lt;- ulam(
+  alist(
+    R ~ dordlogit( 0, cutpoints ),
+    cutpoints ~ dnorm( 0, 1.5 )
+  ), 
+  data=list( R = d$response ), chains=4, cores=3, refresh=0
+)</code></pre>
+<p>or in quap, where we need to specify <code>start</code> values. The exact values aren’t important, but their ordering is:</p>
+<pre class="r"><code>m12.5q &lt;- quap(
+  alist(
+    response ~ dordlogit( 0, c(a1, a2, a3, a4, a5, a6)),
+    c(a1,a2,a3,a4,a5,a6) ~ dnorm(0, 1.5)
+  ), data=d, 
+  start=list(a1=-2, a2=-1, a3=0, a4=1, a5=2, a6=2.5)
+)</code></pre>
+<p>The posterior distribution:</p>
+<pre class="r"><code>precis( m12.5 , depth=2) </code></pre>
+<pre><code>                   mean         sd       5.5%      94.5%    n_eff     Rhat4
+cutpoints[1] -1.9160333 0.03061587 -1.9652723 -1.8673509 1398.757 1.0028701
+cutpoints[2] -1.2657203 0.02439893 -1.3040607 -1.2260394 1903.602 1.0028004
+cutpoints[3] -0.7177779 0.02191545 -0.7529061 -0.6819212 2224.825 1.0008826
+cutpoints[4]  0.2481206 0.02053067  0.2159976  0.2818062 2922.036 0.9988227
+cutpoints[5]  0.8902924 0.02196657  0.8538981  0.9243229 2343.677 0.9994340
+cutpoints[6]  1.7702364 0.02839789  1.7244130  1.8152051 2277.799 0.9990671</code></pre>
+<p>Note that these values are on the log-cumulative-odds scale. We transform them to the cumulative probabilities by using the inverse logit:</p>
+<pre class="r"><code>inv_logit( coef(m12.5))</code></pre>
+<pre><code>cutpoints[1] cutpoints[2] cutpoints[3] cutpoints[4] cutpoints[5] cutpoints[6] 
+   0.1283046    0.2199907    0.3278825    0.5617139    0.7089505    0.8544871 </code></pre>
+<p>Compare this with the cumulative probabilities we computed earlier:</p>
+<pre class="r"><code>cum_pr_k</code></pre>
+<pre><code>        1         2         3         4         5         6         7 
+0.1282981 0.2198389 0.3276939 0.5616314 0.7088620 0.8543807 1.0000000 </code></pre>
+<p>Okay great, we now have a Bayesian representation of the histogram from before. Lots of caclucation for rather little. But we can now include predictor variables in our model.</p>
+</div>
+<div id="adding-predictor-variables" class="section level2">
+<h2>Adding predictor variables</h2>
+<p>To include predictor variables, we add a linear model <span class="math inline">\(\phi_i=\beta x_i\)</span>. Then each cumulative logit becomes:
+<span class="math display">\[\begin{align*}
+\text{log}\frac{Pr(y_i \leq k)}{1 - Pr(y_i \leq k)} &amp;= \alpha_k - \phi_i \\
+\phi_i &amp;= \beta x_i
+\end{align*}\]</span>
+Why is the linear model <span class="math inline">\(\phi\)</span> subtracted from each intercept? Because if we decrease the log-cumulative-odds of every outcome value <span class="math inline">\(k\)</span> below the maximum, this necessarily shifts probability mass upwards towards higher outcome values.
+For example, suppose we take the posterior means from <code>m12.5</code> and subtract 0.5 from each:</p>
+<pre class="r"><code>( pk &lt;- dordlogit( 1:7, 0, coef(m12.5) ) )</code></pre>
+<pre><code>[1] 0.12830456 0.09168619 0.10789175 0.23383136 0.14723666 0.14553655 0.14551294</code></pre>
+<p>These probabilities imply an average outcome value of:</p>
+<pre class="r"><code>sum( pk * (1:7) )</code></pre>
+<pre><code>[1] 4.198671</code></pre>
+<p>And now subtracting 0.5 from each:</p>
+<pre class="r"><code>( pk &lt;- dordlogit( 1:7, 0, coef(m12.5) - 0.5 ) )</code></pre>
+<pre><code>[1] 0.08195822 0.06411714 0.08225238 0.20903322 0.15899213 0.18443011 0.21921679</code></pre>
+<p>Now values on the left have decreased while values on the right have increased. The expected value is now:</p>
+<pre class="r"><code>sum( pk * (1:7) )</code></pre>
+<pre><code>[1] 4.729141</code></pre>
+<p>That’s why we subtract <span class="math inline">\(\phi\)</span>, the linear model, from each intercept. This way, a positive <span class="math inline">\(\beta\)</span> value indicates that an increase in the predictor variable <span class="math inline">\(x\)</span> results in an increase in the average response.</p>
+<p>Going back to the trolley data, we will use <code>action</code>, <code>intention</code>, and <code>contact</code> as predictor variables.
+Since the influence of intention may depend upon the simultaneous presence of action or contact, we include an interaction. This gives us the following log-cumulative-odds:
+<span class="math display">\[\begin{align*}
+\text{log}\frac{Pr(y_i \leq k)}{1 - Pr(y_i \leq k)} &amp;= \alpha_k - \phi_i \\
+\phi_i &amp;= \beta_A A_i + \beta_C C_i + \text{B}_{I,i}I_i \\
+\text {B}_{I,i} &amp;= \beta_I + \beta_{IA}A_i + \beta_{IC}C_i
+\end{align*}\]</span></p>
+<p>For the interaction, we use an accessory linear model, <span class="math inline">\(\text{B}_I\)</span>. This helps to make the notation clearer.</p>
+<pre class="r"><code>dat &lt;- list(
+  R = d$response,
+  A = d$action,
+  I = d$intention,
+  C = d$contact
+)
+
+m12.6 &lt;- ulam(
+  alist(
+    R ~ dordlogit( phi, cutpoints ),
+    phi &lt;- bA*A + bC*C + BI*I,
+    BI &lt;- bI + bIA*A + bIC*C,
+    c(bA, bI, bC, bIA, bIC) ~ dnorm(0, 0.5),
+    cutpoints ~ dnorm( 0, 1.5)
+  ), data=dat, chains=4, cores=4, refresh=0 )</code></pre>
+<pre class="r"><code>precis(m12.6)</code></pre>
+<pre><code>          mean         sd       5.5%      94.5%    n_eff    Rhat4
+bIC -1.2375365 0.09506630 -1.3867936 -1.0847873 1188.208 1.000377
+bIA -0.4355137 0.07818393 -0.5647729 -0.3071681 1148.478 1.001882
+bC  -0.3412000 0.06714190 -0.4497271 -0.2353824 1103.074 1.001444
+bI  -0.2902317 0.05712674 -0.3842900 -0.1991619 1008.461 1.003361
+bA  -0.4716408 0.05228266 -0.5536497 -0.3877824 1037.580 1.001588</code></pre>
+<pre class="r"><code>plot( precis(m12.6), xlim=c(-1.4, 0))</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_12/chapter12b_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p>The combination of contact and intention is the worst. Interestingly, neither contanct nor intention by itself have a large impact on ratings.</p>
+<p>Visualizing log-cumulative-odds models is not quite straight-forward. That is because each prediction is actually a vector of probabilities, one probability for each possible response value.</p>
+<pre class="r"><code>post &lt;- extract.samples(m12.6)
+
+par(mfrow=c(1,3))
+modi &lt;- c(&quot;00&quot;, &quot;10&quot;, &quot;01&quot;)
+for (modus in modi) {
+  plot (NULL, type=&quot;n&quot;, xlab=&quot;intention&quot;, ylab=&quot;probability&quot;,
+      xlim=c(0,1), ylim=c(0,1), xaxp=c(0,1,1), yaxp=c(0,1,2), bty=&quot;l&quot; )
+
+  kA &lt;- as.numeric( substring(modus, 1,1) )
+  kC &lt;- as.numeric( substring(modus, 2,2) )
+  
+  kI &lt;- 0:1
+  pdat &lt;- data.frame(A=kA, C=kC, I=kI)
+  phi &lt;- link( m12.6, data=pdat )$phi
+  
+  for (k in 1:3){
+    
+    for (s in 1:50) {
+      pk &lt;- pordlogit( 1:6, phi[s, ], post$cutpoints[s,])
+      for (i in 1:6) {
+        lines( kI, pk[, i], col=col.alpha(&quot;black&quot;, 0.1), lwd=0.4)
+      }
+      
+    }
+    mtext(paste(&quot;action=&quot;,kA, &quot;, contact=&quot;, kC ))
+
+    temp &lt;- d %&gt;% 
+      filter(action == kA &amp; contact == kC) %&gt;%
+      select(response, intention) %&gt;%
+      group_by(response, intention) %&gt;%
+      summarize(n=n()) %&gt;%
+      group_by(intention) %&gt;%
+      arrange(response) %&gt;%
+      mutate(prop = n / sum(n), cumprop = cumsum(prop)) %&gt;%
+      filter(response != 7)
+    points(temp$intention, temp$cumprop, col=&quot;steelblue&quot;, pch=19, cex=1.7)
+  }
+}</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_12/chapter12b_files/figure-html/unnamed-chunk-18-1.png" width="864" /></p>
+<p>This plot shows how the distribution of predicted responses varies by <code>intention</code>. We can see that if <code>contact = 1</code> then intention has the highest impact so that this story combination is deemed by people the least morally permissible (most people have given low-valued responses).</p>
+<p>We can also visualize the histogram of outcomes:</p>
+<pre class="r"><code>par(mfrow=c(1,3))
+for (modus in modi) {
+  kA &lt;- as.numeric( substring(modus, 1,1) )
+  kC &lt;- as.numeric( substring(modus, 2,2) )
+  
+  kI &lt;- 0:1
+  kI &lt;- 0:1
+  pdat &lt;- data.frame(A=kA, C=kC, I=kI)
+  s &lt;- sim( m12.6, data=pdat)
+  simplehist( s, xlab=&quot;response&quot;, col=c(&quot;black&quot;, &quot;steelblue&quot;), bty=&quot;l&quot;)
+  mtext(paste(&quot;action=&quot;,kA, &quot;, contact=&quot;, kC ))
+}</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_12/chapter12b_files/figure-html/unnamed-chunk-19-1.png" width="864" /></p>
+<p>The blue segments are the frequences when <code>intention</code> is 1. In this visualization it is easy to see that some answers are more salient than others: the middle response 4 is much more frequent. This is one reason why it is better to treat these kind of responses as ordered categorical outcomes instead of just as an ordinary metric variable.</p>
+</div>
+</div>
+<div id="ordered-categorical-predictors" class="section level1">
+<h1>Ordered Categorical Predictors</h1>
+<p>Just as we can have ordered categorical outcomes, we can also have ordered predictor variables.
+In this data set for example, there is the variable of completed education:</p>
+<pre class="r"><code>levels(d$edu)</code></pre>
+<pre><code>[1] &quot;Bachelor&#39;s Degree&quot;    &quot;Elementary School&quot;    &quot;Graduate Degree&quot;     
+[4] &quot;High School Graduate&quot; &quot;Master&#39;s Degree&quot;      &quot;Middle School&quot;       
+[7] &quot;Some College&quot;         &quot;Some High School&quot;    </code></pre>
+<p>The right order is as follows:</p>
+<pre class="r"><code>edu_levels &lt;- c(2, 6, 8, 4, 7, 1, 5, 3)
+d$edu_new &lt;- edu_levels[ d$edu]
+levels(d$edu)[edu_levels]</code></pre>
+<pre><code>[1] &quot;Elementary School&quot;    &quot;Middle School&quot;        &quot;Some High School&quot;    
+[4] &quot;High School Graduate&quot; &quot;Some College&quot;         &quot;Bachelor&#39;s Degree&quot;   
+[7] &quot;Master&#39;s Degree&quot;      &quot;Graduate Degree&quot;     </code></pre>
+<p>The idea is, that for such a categorical predictor, each step up in value comes with its own incremental effect on the outcome. So completing middle school can have a different impact than completing your bachelor.
+We will absorb the first level into the intercept, which means with 8 education levels we will need 7 parameters.
+We get a linear model as follows:
+<span class="math display">\[\phi_i = \beta_E \sum_{j=0}^{E_i -1} \delta_j + \text{other stuff}\]</span>
+where the parameter <span class="math inline">\(\delta_j\)</span> is the effect of completing the <span class="math inline">\(j\)</span>th level of education and <span class="math inline">\(E_i\)</span> the completed education level of individual <span class="math inline">\(i\)</span>. The parameters <span class="math inline">\(\delta_j\)</span> are fractions so that <span class="math inline">\(\sum_{j=0}^{7}\delta_j = 1\)</span>. This means that <span class="math inline">\(\beta_E\)</span> is the maximum effect of education.
+This parameterization also helps with setting priors. If for example the prior expectation is that all of the levels have the same incremental effect, then we want all the <span class="math inline">\(\delta_j\)</span>’s to have the same prior. We can set a separate prior for <span class="math inline">\(\beta_E\)</span>.</p>
+<p>So now our full model:
+<span class="math display">\[\begin{align*}
+R_i &amp;\sim \text{Ordered-logit}(\phi_i, \kappa) \\
+\phi_i &amp;= \beta_E \sum_{j=0}^{E_i -1} \delta_j + \beta_A A_i + \beta_I I_i + \beta_C C_i \\
+\kappa_k &amp;\sim \text{Normal}(0, 1.5) \\
+\beta_A, \beta_I, \beta_C, \beta_E &amp;\sim \text{Normal}(0, 1) \\
+\delta &amp;\sim \text{Dirichlet}(\alpha)
+\end{align*}\]</span></p>
+<p>The prior for <span class="math inline">\(\delta\)</span> is a Dirichlet distribution which is the multivariate extension of the beta distribution.
+The Dirichlet distribution is parametrized by a vector <span class="math inline">\(\alpha\)</span> of pseudo-counts for each possibility. We’ll use a rather weak prior with each value inside <span class="math inline">\(\alpha\)</span> being 2.
+Let’s simulate from this prior:</p>
+<pre class="r"><code>library(gtools)
+set.seed(1805)
+delta &lt;- rdirichlet( 10, alpha = rep(2,7))
+str(delta)</code></pre>
+<pre><code> num [1:10, 1:7] 0.1053 0.2504 0.1917 0.1241 0.0877 ...</code></pre>
+<pre class="r"><code>h &lt;- 3
+plot(NULL, xlim=c(1,7), ylim=c(0,0.4), xlab=&quot;index&quot;, ylab=&quot;probability&quot;)
+for (i in 1:nrow(delta) ) {
+  lines( 1:7, delta[i,], type=&quot;b&quot;,
+         pch=ifelse(i==h, 16, 1),
+         lwd=ifelse(i==h, 4, 1.5),
+         col=ifelse(i==h, &quot;black&quot;, col.alpha(&quot;black&quot;, 0.7)))
+}</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_12/chapter12b_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p>The highlighted vector isn’t special but simply shows how much variation can exist in a single vector.</p>
+<p>Now, let’s code the model:</p>
+<pre class="r"><code>dat &lt;- list(
+  R = d$response,
+  action = d$action,
+  intention = d$intention,
+  contact = d$contact,
+  E = as.integer(d$edu_new ),   # edu_new as an index
+  alpha = rep(2, 7)             # delta prior
+)
+
+m12.7 &lt;- ulam(
+  alist(
+    R ~ ordered_logistic( phi, kappa ),
+    phi &lt;- bE*sum( delta_j[1:E] ) + bA*action + bI*intention + bC*contact,
+    kappa ~ normal( 0, 1.5 ),
+    c(bA, bI, bC, bE) ~ normal( 0, 1 ),
+    vector[8]: delta_j &lt;&lt;- append_row( 0, delta ),
+    simplex[7]: delta ~ dirichlet(alpha)
+  ), data=dat, chains=3, cores=3, refresh=0
+)</code></pre>
+<pre class="r"><code>precis(m12.7, depth=2, omit=&quot;kappa&quot;)</code></pre>
+<pre><code>                mean         sd        5.5%      94.5%    n_eff     Rhat4
+bE       -0.24199358 0.05303379 -0.33168202 -0.1593494 1242.595 0.9998003
+bC       -0.95829974 0.05031225 -1.04082898 -0.8820681 1258.110 0.9990665
+bI       -0.71707055 0.03663222 -0.77611303 -0.6589980 1229.436 1.0019991
+bA       -0.70428785 0.04010258 -0.76913912 -0.6414254 1132.548 1.0010330
+delta[1]  0.11704672 0.07138965  0.02613915  0.2457580 1997.753 1.0000268
+delta[2]  0.14080012 0.08474988  0.02718562  0.2924116 2771.578 0.9987934
+delta[3]  0.21579313 0.11290178  0.06044549  0.4151034 1776.309 0.9989093
+delta[4]  0.28181314 0.12989130  0.08846192  0.4983804 1910.673 0.9983736
+delta[5]  0.06175723 0.04203348  0.01254910  0.1373547 1870.382 0.9989488
+delta[6]  0.07228345 0.05112297  0.01427695  0.1712458 1925.217 0.9990211
+delta[7]  0.11050621 0.06875393  0.02493212  0.2382028 1767.699 0.9993556</code></pre>
+<p>The overall associaton of education is negative, more educated individuals disapproved more of everything.</p>
+<pre class="r"><code>delta_labels &lt;- c(&quot;Elem&quot;, &quot;MidSch&quot;, &quot;SHS&quot;, &quot;HSG&quot;, &quot;SCol&quot;, &quot;Bach&quot;, &quot;Mast&quot;, &quot;Grad&quot;)
+pairs( m12.7, pars=&quot;delta&quot;, labels=delta_labels )</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_12/chapter12b_files/figure-html/unnamed-chunk-26-1.png" width="768" /></p>
+<p>All but one level of education (Some Colege, SCol) produce some modest increment on average.</p>
+<p>Let’s compare this posterior with one we would get from a more conventional model where education is entered as an ordinary continuous variable.</p>
+<pre class="r"><code>dat$edu_norm &lt;- normalize( d$edu_new )
+m12.8 &lt;- ulam(
+  alist(
+    R ~ ordered_logistic( mu, cutpoints ),
+    mu &lt;- bE*edu_norm + bA*action + bI*intention + bC*contact,
+    c(bA, bI, bC, bE) ~ normal( 0, 1) ,
+    cutpoints ~ normal( 0, 1.5)
+  ), data=dat, chains=3, cores=3, refresh=0
+)
+precis( m12.8 )</code></pre>
+<pre><code>         mean         sd       5.5%      94.5%     n_eff     Rhat4
+bE -0.2113820 0.05773207 -0.3010982 -0.1171681 1174.7162 0.9998395
+bC -0.9576836 0.05236242 -1.0437901 -0.8739644  902.8339 1.0019555
+bI -0.7183698 0.03675487 -0.7757871 -0.6599124 1263.8602 0.9984837
+bA -0.7057842 0.04229579 -0.7725477 -0.6403573  918.1924 1.0022448</code></pre>
+<p>This model finds a slightly weaker association between education and the rating response. This is possibly because the effect isn’t actually linear; different levels have different incremental associations.</p>
+</div>
+
+    
+    </section>
+
+  <footer class="post-footer">
+
+
+    
+
+
+
+
+
+
+
+
+
+<section class="author">
+  <h4><a href="/">Corrie</a></h4>
+  
+  <p>Read <a href="/">more posts</a> by this author.</p>
+  
+  <div class="author-meta">
+    
+    
+  </div>
+</section>
+
+
+
+
+    
+<section class="share">
+  <h4>Share this projects</h4>
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Ordered%20Categories&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2fprojects%2fstatistical-rethinking%2fchapter_12%2fchp12-part-two%2f"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=421');return false;">
+      <span class="hidden">Twitter</span>
+  </a>
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=%2fprojects%2fstatistical-rethinking%2fchapter_12%2fchp12-part-two%2f"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=551');return false;">
+      <span class="hidden">Facebook</span>
+  </a>
+  <a class="icon-linkedin" style="font-size: 1.4em" href="https://www.linkedin.com/shareArticle?mini=true&title=Ordered%20Categories&url=%2fprojects%2fstatistical-rethinking%2fchapter_12%2fchp12-part-two%2f"
+               onclick="window.open(this.href, 'linkedin-share', 'width=554,height=571');return false;">
+    <span class="hidden">LinkedIn</span>
+    </a>
+
+</section>
+
+
+
+
+    
+
+<div id="disqus_thread"></div>
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "\/projects\/statistical-rethinking\/chapter_12\/chp12-part-two\/";  
+this.page.identifier = "\/projects\/statistical-rethinking\/chapter_12\/chp12-part-two\/"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://corriebar-github-io.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+
+
+
+  </footer>
+</article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Samples of Thoughts</a> 
+        &copy; Corrie Bartelheimer 2020 &middot; </section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+    
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+    
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+    
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140745376-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+
+    
+</body>
+</html>
+

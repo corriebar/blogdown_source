@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Samples of Thoughts</title>
@@ -93,15 +93,6 @@ Until I was about to hold my Houseprice Talk again and wanted to make some small
       
       <guid>/2018/my-first-post/</guid>
       <description>Hello World! I’m Corrie and this is my blog where I plan to occasionally write about interesting topics. Interesting topics is of course entirely subjective and for me, machine learning, statistics (in particular the Bayesian flavor), and data science sound very exciting, so most of my posts will touch any of these topics. As a Mathematician by training, I spent quite some time during my studies with differential geometry, topology, and number theory (knots and prime numbers are cool!</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>/1/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/1/</guid>
-      <description></description>
     </item>
     
   </channel>

@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    
+        
+        <meta name="twitter:card" content="summary_large_image"/>
+        <meta name="twitter:image" content="/images/tea_with_books.jpg"/>
+    
+
+
+
+<meta name="twitter:title" content="Markov Chain Monte Carlo"/>
+<meta name="twitter:description" content=""/>
+<meta name="twitter:site" content="@corrieaar"/>
+
+
+
+  	<meta property="og:title" content="Markov Chain Monte Carlo &middot; Samples of Thoughts" />
+  	<meta property="og:site_name" content="Samples of Thoughts" />
+  	<meta property="og:url" content="/projects/statistical-rethinking/chapter_8/chp8-part-one/" />
+
+    
+       <meta property="og:image" content="/images/tea_with_books.jpg"/>
+    
+    
+    <meta property="og:description" content="" />
+  	<meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2018-09-04T00:00:00Z" />
+
+    
+    <meta property="article:tag" content="Statistical Rethinking" />
+    
+    <meta property="article:tag" content="Bayesian" />
+    
+    
+
+    <title>Markov Chain Monte Carlo &middot; Samples of Thoughts</title>
+
+    
+    <meta name="description" content="8.1 King Markov and His island kingdom A simple example of the Markov Chain Monte Carlo algorithm:
+num_weeks &amp;lt;- 1e5 positions &amp;lt;- rep(0, num_weeks) current" />
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/css/nav.css" />
+
+    
+    
+    
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/googlecode.min.css' rel='stylesheet' type='text/css' />
+
+
+
+  
+     
+      
+          <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Samples of Thoughts" />
+      
+      
+    
+    <meta name="generator" content="Hugo 0.55.5" />
+
+    <link rel="canonical" href="/projects/statistical-rethinking/chapter_8/chp8-part-one/" />
+
+    
+      
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name":  null 
+    },
+    "author": {
+        "@type": "Person",
+        "name":  null ,
+        
+        "url":  null ,
+        "sameAs": [
+            
+            
+             
+             
+             
+             
+             
+            
+        ]
+    },
+    "headline": "Markov Chain Monte Carlo",
+    "name": "Markov Chain Monte Carlo",
+    "wordCount":  897 ,
+    "timeRequired": "PT5M",
+    "inLanguage": {
+      "@type": "Language",
+      "alternateName": "en"
+    },
+    "url": "/projects/statistical-rethinking/chapter_8/chp8-part-one/",
+    "datePublished": "2018-09-04T00:00Z",
+    "dateModified": "2018-09-04T00:00Z",
+    
+    "image": {
+        "@type": "ImageObject",
+        "url": "/images/tea_with_books.jpg",
+        "width": 3000,
+        "height": 1445
+    },
+    
+    "keywords": "Statistical Rethinking, Bayesian",
+    "description": "",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/projects/statistical-rethinking/chapter_8/chp8-part-one/"
+    }
+}
+    </script>
+    
+
+
+    
+
+    
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140745376-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+
+    
+    
+    
+
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+<script>
+  window.addEventListener("load", function(){
+    window.cookieconsent.initialise({
+      "palette": {
+        "popup": {
+          "background": "#40485A",
+          "text": "#ffffff"
+        },
+        "button": {
+          "background": "#5B5A68",
+          "text": "#ffffff"
+        }
+      },
+      "content": {
+        "message": "This website uses cookies to ensure you get the best experience on my website.",
+        "dismiss": "Got it!",
+        "link": "Learn more",
+        "href": "https://cookies.insites.com"
+      }
+    })});
+</script>
+
+
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/projects">Projects</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/talks">Talks</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/about">About</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/">Home</a>
+            </li>
+        
+        
+    </ul>
+
+    
+    <a class="subscribe-button icon-feed" href="/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+  
+ <header class="main-header post-head" style="background-image: url(/images/tea_with_books.jpg)"> 
+  
+  <nav class="main-nav overlay clearfix">
+
+
+
+      <ul>
+        
+			<li> <a class="blog-logo" href="/">Home</a> </li>
+			  
+			<li> <a class="blog-logo" href="/about">About</a> </li>
+			  
+			<li> <a class="blog-logo" href="/talks">Talks</a> </li>
+			  
+			<li> <a class="blog-logo" href="/projects">Projects</a> </li>
+			  
+
+            
+              <a class="menu-button icon-feed" href="">&nbsp;&nbsp;Subscribe</a>
+            
+            
+      
+       </ul>
+    </nav>
+    
+     <div class="vertical">
+        <div class="main-header-content inner">
+            
+
+
+    <a class="bloglogo" href="https://github.com/corriebar" target="_blank">
+    <span class="icon-github" style="color:white;font-size:2em"></span>
+    </a>
+&nbsp;
+
+
+
+
+
+
+
+
+
+    <a class="bloglogo" href="https://twitter.com/corrieaar" target="_blank">
+        <span class="icon-twitter" style="color:white;font-size:2em"></span>
+    </a>
+&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <h1 class="page-title">Samples of Thoughts</h1>
+            <h2 class="page-description">about data, statistics  and everything in between</h2>
+        </div>
+    </div>  
+    
+
+
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post projects">
+
+    <header class="post-header">
+        <h1 class="post-title">Markov Chain Monte Carlo</h1>
+        <small></small>
+
+        <section class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 5 min</span>
+            </p>
+        
+        
+        
+         
+          <span class="post-tag small"><a href="/tags/statistical-rethinking/">#Statistical Rethinking</a></span>
+         
+          <span class="post-tag small"><a href="/tags/bayesian/">#Bayesian</a></span>
+         
+        </section>
+    </header>
+
+    <section class="post-content">
+      
+
+
+<div id="king-markov-and-his-island-kingdom" class="section level2">
+<h2>8.1 King Markov and His island kingdom</h2>
+<p>A simple example of the Markov Chain Monte Carlo algorithm:</p>
+<pre class="r"><code>num_weeks &lt;- 1e5
+positions &lt;- rep(0, num_weeks)
+current &lt;- 10
+for (i in 1:num_weeks) {
+  # record current position
+  positions[i] &lt;- current
+  
+  # flip coin to generate proposal
+  proposal &lt;- current + sample( c(-1, 1), size=1)
+  if ( proposal &lt; 1 ) proposal &lt;- 10
+  if ( proposal &gt; 10 ) proposal &lt;- 1
+  
+  # move?
+  prob_move &lt;- proposal / current
+  current &lt;- ifelse( runif(1) &lt; prob_move , proposal, current)
+}</code></pre>
+<pre class="r"><code>par(mfrow=c(1,2))
+plot( (1:100), positions[1:100], xlab=&quot;week&quot;, ylab=&quot;island&quot;, col=&quot;midnightblue&quot;)
+plot(table(positions), col=&quot;midnightblue&quot;, xlab=&quot;island&quot;, ylab=&quot;number of weeks&quot;)</code></pre>
+</div>
+<div id="easy-hmc-map2stan" class="section level2">
+<h2>8.3 Easy HMC: <code>map2stan</code></h2>
+<p>Using the terrain ruggedness data from Chapter 7:</p>
+<pre class="r"><code>library(rethinking)
+data(rugged)
+d &lt;- rugged
+d$log_gdp &lt;- log(d$rgdppc_2000)
+dd &lt;- d[ complete.cases(d$rgdppc_2000), ]</code></pre>
+<p>Fitting the old way using <code>map</code>:</p>
+<pre class="r"><code>m8.1 &lt;- map(
+  alist(
+    log_gdp ~ dnorm( mu, sigma ),
+    mu &lt;- a + bR*rugged + bA*cont_africa + bAR*rugged*cont_africa ,
+    a ~ dnorm( 0, 100),
+    bR ~ dnorm(0, 10),
+    bA ~ dnorm(0 , 10),
+    bAR ~ dnorm(0, 10),
+    sigma ~ dunif(0, 10)
+  ),
+  data = dd
+)
+precis(m8.1)</code></pre>
+<p>To use Stan, we should do some preprocessing. In particular, preprocess all variable transformations and make a trimmed data frame, only containing the variables used in the model.</p>
+<pre class="r"><code>dd.trim &lt;- dd[ , c(&quot;log_gdp&quot;, &quot;rugged&quot;, &quot;cont_africa&quot;)]
+str(dd.trim)</code></pre>
+<p>Using Stan:</p>
+<pre class="r"><code>m8.1stan &lt;- map2stan(
+  alist(
+    log_gdp ~ dnorm( mu, sigma) ,
+    mu &lt;- a + bR*rugged + bA*cont_africa + bAR*rugged*cont_africa,
+    a ~ dnorm(0, 100),
+    bR ~ dnorm(0, 10),
+    bA ~ dnorm(0, 10),
+    bAR ~ dnorm(0, 10),
+    sigma ~ dcauchy(0, 2)
+  ), 
+  data=dd.trim,
+  start=list(a=5, bR=0, bA=0, bAR=0, sigma=1)
+)</code></pre>
+<pre class="r"><code>precis(m8.1stan)</code></pre>
+<p>It is possible to draw more samples from the stan model, also using more chains:</p>
+<pre class="r"><code>m8.1stan_4chains &lt;- map2stan( m8.1stan, chains=4, cores=4)
+precis(m8.1stan_4chains)</code></pre>
+<p>To visualize the results, you can plot the samples. To pull out samples, use</p>
+<pre class="r"><code>post &lt;- extract.samples( m8.1stan )
+str(post)</code></pre>
+<pre class="r"><code>pairs(post)</code></pre>
+<p>A prettier plot is also available, directly on the stan model:</p>
+<pre class="r"><code>pairs( m8.1stan )</code></pre>
+<p>By default, <code>map2stan</code> computes DIC and WAIC. We can extract them with</p>
+<pre class="r"><code>DIC(m8.1stan)</code></pre>
+<p>and</p>
+<pre class="r"><code>WAIC(m8.1stan)</code></pre>
+<p>Alternatively, it is also displayed in the default <code>show</code> output:</p>
+<pre class="r"><code>show(m8.1stan)</code></pre>
+<p>To get the trace plots of the Markov Chain:</p>
+<pre class="r"><code>plot( m8.1stan, window=c(100,2000), col=&quot;royalblue4&quot;, n_cols=2)</code></pre>
+<p>To get a glimpse at the raw stan code, we can use <code>stancode()</code></p>
+<pre class="r"><code>stancode(m8.1stan)</code></pre>
+</div>
+<div id="care-and-feeding-of-your-markov-chain" class="section level2">
+<h2>8.4 Care and feeding of your Markov chain</h2>
+<p>Example of non-convergent chain:</p>
+<pre class="r"><code>y &lt;- c(-1, 1)
+m8.2 &lt;- map2stan(
+  alist(
+    y ~ dnorm( mu, sigma),
+    mu &lt;- alpha
+  ),
+  data=list(y=y), start=list(alpha=0, sigma=1),
+  chains=2, iter=4000, warmup=1000
+)</code></pre>
+<p>There are quite a few warnings on divergencies. Let’s have a look at the estimates:</p>
+<pre class="r"><code>precis(m8.2)</code></pre>
+<p>This doesn’t look right: The estimates are a very far way out there, the effective number of samples is relatively low and <code>Rhat</code> is above 1. While <code>Rhat</code> in my case is only around 1.01, even such a value is already suspicious. Let’s have a look at the trace plots.</p>
+<pre class="r"><code>plot(m8.2, col=c(&quot;black&quot;, &quot;royalblue4&quot;), n_cols=1)</code></pre>
+<p>The problem: The priors are very flat which means that even values of 500 millions are plausible values.
+We can fix this by adding a weakly informative prior:</p>
+<pre class="r"><code>m8.3 &lt;- map2stan(
+  alist(
+    y ~ dnorm( mu, sigma),
+    mu &lt;- alpha,
+    alpha ~ dnorm(1, 10),
+    sigma ~ dcauchy( 0, 1)
+  ),
+  data=list(y=y), start=list(alpha=0, sigma=1),
+  chains=2, iter=4000, warmup=1000
+)
+precis(m8.3)</code></pre>
+<p>The estimates seem much more reasonable and the <code>Rhat</code> value is now 1.</p>
+<pre class="r"><code>plot(m8.3, col=c(&quot;black&quot;, &quot;royalblue4&quot;), n_cols=1)</code></pre>
+<p>The chains also look good now.</p>
+<p>If we compare the prior and posterior distribution, even two points can overcome these weakly informative priors and thus lead to better results than flat priors.</p>
+<pre class="r"><code>post &lt;- extract.samples(m8.3)
+par(mfrow=c(1, 2))
+sq &lt;- seq(-15, 20, length.out = 100)
+plot( density(post$alpha,  from=-15, to=20, adj=1),
+      lwd=2, col=&quot;royalblue4&quot;, xlab=&quot;alpha&quot;, 
+     main=&quot;&quot;)
+points(sq, dnorm(sq, 1, 10), type=&quot;l&quot;, lty=2)
+text(4.5, 0.3, labels = &quot;Posterior&quot;)
+text(8, 0.06, labels=&quot;Prior&quot;)
+
+sq &lt;- seq(0, 10, length.out = 100)
+plot( density( post$sigma, from=0, to=10, adj=1.5),
+      lwd=2, col=&quot;royalblue4&quot;, xlab=&quot;sigma&quot;, 
+      main=&quot;&quot;)
+points(sq, 2*dcauchy(sq, 0, 1), type=&quot;l&quot;, lty=2)</code></pre>
+<div id="non-identifiable-parameters" class="section level3">
+<h3>Non-identifiable parameters</h3>
+<p>We’ve learned before how highly correlated predictors lead to non-identifiable parameters. Let’s have a look how these look inside a Markov chain.</p>
+<pre class="r"><code>y &lt;- rnorm( 100, mean=0, sd=1 )</code></pre>
+<p>We fit the following unidentifiable model:</p>
+<pre class="r"><code>m8.4 &lt;- map2stan(
+  alist(
+    y ~ dnorm( mu, sigma),
+    mu &lt;- a1 + a2,
+    sigma ~ dcauchy( 0, 1)
+  ), 
+  data=list(y=y), start=list(a1=0, a2=0, sigma=1),
+  chains=2, iter=4000, warmup=1000
+)
+precis(m8.4)</code></pre>
+<p>These estimates of <code>a1</code> and <code>a2</code> look suspicious. Also, <code>n_eff</code> and <code>Rhat</code> have terrible values.</p>
+<pre class="r"><code>plot(m8.4, col=c(&quot;black&quot;, &quot;royalblue4&quot;), n_cols=1)</code></pre>
+<p>The trace plots also don’t look good: The two chains are not mixing and are definitely not stationary.
+Again, we can use weak priors to solve this problem:</p>
+<pre class="r"><code>m8.5 &lt;- map2stan(
+  alist(
+    y ~ dnorm( mu, sigma),
+    mu &lt;- a1 + a2,
+    a1 ~ dnorm(0, 10),
+    a2 ~ dnorm(0, 10),
+    sigma ~ dcauchy(0, 1)
+  ),
+  data=list(y=y), start=list(a1=0, a2=0, sigma=1),
+  chains=2, iter=4000, warmup=1000
+)
+precis(m8.5)</code></pre>
+<p>Not only did the model sample much faster, both the estimates and the values for <code>n_eff</code> and <code>Rhat</code> look much better.</p>
+<pre class="r"><code>plot(m8.5, col=c(&quot;black&quot;, &quot;royalblue4&quot;), n_cols=1)</code></pre>
+<p>The trace plots as well look very good: stationary and well mixed.</p>
+</div>
+<div id="overthinking-cauchy-distribution" class="section level3">
+<h3>Overthinking: Cauchy distribution</h3>
+<p>The Cauchy distribution does not have mean since it has a very thick-tailed distribution.
+At any moment in a Cauchy sampling process, a very high value can be drawn that overwhelms all of the previous draw and hence the the distribution does not converge to a mean.</p>
+<pre class="r"><code>set.seed(13)
+y &lt;- rcauchy(1e4, 0, 5)
+mu &lt;- sapply(1:length(y), function(i) sum(y[1:i]/i))
+plot(mu, type=&quot;l&quot;)</code></pre>
+</div>
+</div>
+
+    
+    </section>
+
+  <footer class="post-footer">
+
+
+    
+
+
+
+
+
+
+
+
+
+<section class="author">
+  <h4><a href="/">Corrie</a></h4>
+  
+  <p>Read <a href="/">more posts</a> by this author.</p>
+  
+  <div class="author-meta">
+    
+    
+  </div>
+</section>
+
+
+
+
+    
+<section class="share">
+  <h4>Share this projects</h4>
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Markov%20Chain%20Monte%20Carlo&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2fprojects%2fstatistical-rethinking%2fchapter_8%2fchp8-part-one%2f"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=421');return false;">
+      <span class="hidden">Twitter</span>
+  </a>
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=%2fprojects%2fstatistical-rethinking%2fchapter_8%2fchp8-part-one%2f"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=551');return false;">
+      <span class="hidden">Facebook</span>
+  </a>
+  <a class="icon-linkedin" style="font-size: 1.4em" href="https://www.linkedin.com/shareArticle?mini=true&title=Markov%20Chain%20Monte%20Carlo&url=%2fprojects%2fstatistical-rethinking%2fchapter_8%2fchp8-part-one%2f"
+               onclick="window.open(this.href, 'linkedin-share', 'width=554,height=571');return false;">
+    <span class="hidden">LinkedIn</span>
+    </a>
+
+</section>
+
+
+
+
+    
+
+<div id="disqus_thread"></div>
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "\/projects\/statistical-rethinking\/chapter_8\/chp8-part-one\/";  
+this.page.identifier = "\/projects\/statistical-rethinking\/chapter_8\/chp8-part-one\/"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://corriebar-github-io.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+
+
+
+  </footer>
+</article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Samples of Thoughts</a> 
+        &copy; Corrie Bartelheimer 2020 &middot; </section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+    
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+    
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+    
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140745376-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+
+    
+</body>
+</html>
+

@@ -12,13 +12,13 @@
 
 
 
-<meta name="twitter:title" content="Chapter 4 - Exercise"/>
+<meta name="twitter:title" content=""/>
 <meta name="twitter:description" content=""/>
 <meta name="twitter:site" content="@corrieaar"/>
 
 
 
-  	<meta property="og:title" content="Chapter 4 - Exercise &middot; Samples of Thoughts" />
+  	<meta property="og:title" content=" &middot; Samples of Thoughts" />
   	<meta property="og:site_name" content="Samples of Thoughts" />
   	<meta property="og:url" content="/projects/statistical-rethinking/chapter_4/chapter4_ex/" />
 
@@ -35,11 +35,11 @@
     
     
 
-    <title>Chapter 4 - Exercise &middot; Samples of Thoughts</title>
+    <title> &middot; Samples of Thoughts</title>
 
     
-    <meta name="description" content="Chapter 4 - Exercises These are my solutions to the practice questions of chapter 4, Linear Models, of the book “Statistical Rethinking” by Richard McElreath.
-E" />
+    <meta name="description" content="Chapter 4 - Exercise Corrie May 21, 2018
+Chapter 4 - Exercises These are my solutions to the practice questions of chapter 4, Linear Models, of the book &amp;ldquo;" />
     
 
     <meta name="HandheldFriendly" content="True" />
@@ -67,7 +67,7 @@ E" />
       
       
     
-    <meta name="generator" content="Hugo 0.63.1" />
+    <meta name="generator" content="Hugo 0.55.5" />
 
     <link rel="canonical" href="/projects/statistical-rethinking/chapter_4/chapter4_ex/" />
 
@@ -98,10 +98,10 @@ E" />
             
         ]
     },
-    "headline": "Chapter 4 - Exercise",
-    "name": "Chapter 4 - Exercise",
-    "wordCount":  1939 ,
-    "timeRequired": "PT10M",
+    "headline": "",
+    "name": "",
+    "wordCount":  1857 ,
+    "timeRequired": "PT9M",
     "inLanguage": {
       "@type": "Language",
       "alternateName": "en"
@@ -296,13 +296,13 @@ if (!doNotTrack) {
   <article class="post projects">
 
     <header class="post-header">
-        <h1 class="post-title">Chapter 4 - Exercise</h1>
+        <h1 class="post-title"></h1>
         <small></small>
 
         <section class="post-meta">
         
             <p class="post-reading post-line">
-            <span>Estimated reading time: 10 min</span>
+            <span>Estimated reading time: 9 min</span>
             </p>
         
         
@@ -314,103 +314,182 @@ if (!doNotTrack) {
     <section class="post-content">
       
 
+<h1 id="chapter-4-exercise">Chapter 4 - Exercise</h1>
 
-<div id="chapter-4---exercises" class="section level1">
-<h1>Chapter 4 - Exercises</h1>
-<p>These are my solutions to the practice questions of chapter 4, Linear Models, of the book “Statistical Rethinking” by Richard McElreath.</p>
-<div id="easy-questions." class="section level2">
-<h2>Easy Questions.</h2>
-<p><strong>4E1.</strong> In the model definition below, which line is the likelihood:
-<span class="math display">\[
-\begin{align*}
-y_i &amp;\sim \text{Normal}(\mu, \sigma) &amp; &amp; \text{This is the likelihood}\\
-\mu &amp;\sim \text{Normal}(0, 10) \\
+<p>Corrie
+May 21, 2018</p>
+
+<h1 id="chapter-4-exercises">Chapter 4 - Exercises</h1>
+
+<p>These are my solutions to the practice questions of chapter 4, Linear Models, of the book &ldquo;Statistical Rethinking&rdquo; by Richard McElreath.</p>
+
+<h2 id="easy-questions">Easy Questions.</h2>
+
+<p><strong>4E1.</strong> In the model definition below, which line is the likelihood:</p>
+
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Balign%2A%7D%0Ay_i%20%26%5Csim%20%5Ctext%7BNormal%7D%28%5Cmu%2C%20%5Csigma%29%20%26%20%26%20%5Ctext%7BThis%20is%20the%20likelihood%7D%5C%5C%0A%5Cmu%20%26%5Csim%20%5Ctext%7BNormal%7D%280%2C%2010%29%20%5C%5C%0A%5Csigma%20%26%5Csim%20%5Ctext%7BNormal%7D%280%2C10%29%0A%5Cend%7Balign%2A%7D%20 &quot;
+begin{align*}
+y_i &amp;sim text{Normal}(mu, sigma" alt="
+\\begin{align\*}
+y\_i &amp;\\sim \\text{Normal}(\\mu, \\sigma) &amp; &amp; \\text{This is the likelihood}\\\\
+\\mu &amp;\\sim \\text{Normal}(0, 10) \\\\
+\\sigma &amp;\\sim \\text{Normal}(0,10)
+\\end{align\*} " /> &amp; &amp; \text{This is the likelihood}<br />
+\mu &amp;\sim \text{Normal}(0, 10) <br />
 \sigma &amp;\sim \text{Normal}(0,10)
-\end{align*} \]</span></p>
+\end{align*} &ldquo;)</p>
+
 <p><strong>4E2.</strong> In the model definition just above, how many parameters are in the posterior distribution?</p>
-<p>There are <strong>2</strong> parameters, <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>.</p>
-<p><strong>4E3.</strong> Write down the appropriate form of Bayes’ theorem that includes the proper likelihood and priors.</p>
-<p><span class="math display">\[\begin{align*}
-P(\mu, \sigma| y_i) &amp;\propto \text{Likelihood } \times \text{ Prior probability} \\
-\\
-P(\mu, \sigma| y_i) &amp;= \frac{\prod_i \text{Normal}(y_i|\mu, \sigma) \times 
+
+<p>There are <strong>2</strong> parameters, <img src="https://latex.codecogs.com/png.latex?%5Cmu" alt="\\mu" title="\mu" /> and <img src="https://latex.codecogs.com/png.latex?%5Csigma" alt="\\sigma" title="\sigma" />.</p>
+
+<p><strong>4E3.</strong> Write down the appropriate form of Bayes&rsquo; theorem that includes the proper likelihood and priors.</p>
+
+<p><img src="https://latex.codecogs.com/png.latex?%5Cbegin%7Balign%2A%7D%0AP%28%5Cmu%2C%20%5Csigma%7C%20y_i%29%20%26%5Cpropto%20%5Ctext%7BLikelihood%20%7D%20%5Ctimes%20%5Ctext%7B%20Prior%20probability%7D%20%5C%5C%0A%5C%5C%0AP%28%5Cmu%2C%20%5Csigma%7C%20y_i%29%20%26%3D%20%5Cfrac%7B%5Cprod_i%20%5Ctext%7BNormal%7D%28y_i%7C%5Cmu%2C%20%5Csigma%29%20%5Ctimes%20%0A%5Ctext%7BNormal%7D%28%5Cmu%7C%200%2C10%29%20%5Ctimes%20%5Ctext%7BNormal%7D%28%5Csigma%7C0%2C10%29%20%7D%0A%7B%5Cint%20%5Cprod_i%20%5Ctext%7BNormal%7D%28y_i%7C%5Cmu%2C%20%5Csigma%29%20%5Ctimes%20%0A%5Ctext%7BNormal%7D%28%5Cmu%7C%200%2C10%29%20%5Ctimes%20%5Ctext%7BNormal%7D%28%5Csigma%7C0%2C10%29%20%5Ctext%7B%20d%7D%5Cmu%5Ctext%7Bd%7D%5Csigma%7D%20%0A%5Cend%7Balign%2A%7D &quot;begin{align*}
+P(mu, sigma| y_i" alt="\\begin{align\*}
+P(\\mu, \\sigma| y\_i) &amp;\\propto \\text{Likelihood } \\times \\text{ Prior probability} \\\\
+\\\\
+P(\\mu, \\sigma| y\_i) &amp;= \\frac{\\prod\_i \\text{Normal}(y\_i|\\mu, \\sigma) \\times 
+\\text{Normal}(\\mu| 0,10) \\times \\text{Normal}(\\sigma|0,10) }
+{\\int \\prod\_i \\text{Normal}(y\_i|\\mu, \\sigma) \\times 
+\\text{Normal}(\\mu| 0,10) \\times \\text{Normal}(\\sigma|0,10) \\text{ d}\\mu\\text{d}\\sigma} 
+\\end{align\*}" /> &amp;\propto \text{Likelihood } \times \text{ Prior probability} <br />
+<br />
+P(\mu, \sigma| y_i) &amp;= \frac{\prod_i \text{Normal}(y_i|\mu, \sigma) \times
 \text{Normal}(\mu| 0,10) \times \text{Normal}(\sigma|0,10) }
-{\int \prod_i \text{Normal}(y_i|\mu, \sigma) \times 
-\text{Normal}(\mu| 0,10) \times \text{Normal}(\sigma|0,10) \text{ d}\mu\text{d}\sigma} 
-\end{align*}\]</span>
-where
-<span class="math display">\[\text{Normal}(x|\mu, \sigma) = \frac{1}{\sqrt{2\pi \sigma^2} }\exp(- \frac{(x-\mu)^2}{2\sigma^2})\]</span>.</p>
-<p><strong>4E4.</strong> In the model definition below, which line is the linear model?
-<span class="math display">\[\begin{align*}
-y_i &amp;\sim \text{Normal}(\mu_i, \sigma) \\
-\mu_i &amp;= \alpha + \beta x_i &amp; \text{This is the linear model}\\
-\alpha &amp;\sim \text{Normal}(0,10) \\
-\beta &amp;\sim \text{Normal}(0,1) \\
+{\int \prod_i \text{Normal}(y_i|\mu, \sigma) \times
+\text{Normal}(\mu| 0,10) \times \text{Normal}(\sigma|0,10) \text{ d}\mu\text{d}\sigma}
+\end{align*}&ldquo;)</p>
+
+<p>where</p>
+
+<p><img src="https://latex.codecogs.com/png.latex?%5Ctext%7BNormal%7D%28x%7C%5Cmu%2C%20%5Csigma%29%20%3D%20%5Cfrac%7B1%7D%7B%5Csqrt%7B2%5Cpi%20%5Csigma%5E2%7D%20%7D%5Cexp%28-%20%5Cfrac%7B%28x-%5Cmu%29%5E2%7D%7B2%5Csigma%5E2%7D%29 &quot;text{Normal}(x|mu, sigma" alt="\\text{Normal}(x|\\mu, \\sigma) = \\frac{1}{\\sqrt{2\\pi \\sigma^2} }\\exp(- \\frac{(x-\\mu)^2}{2\\sigma^2})" /> = \frac{1}{\sqrt{2\pi \sigma^2} }\exp(- \frac{(x-\mu)^2}{2\sigma^2})&ldquo;)</p>
+
+<p>.</p>
+
+<p><strong>4E4.</strong> In the model definition below, which line is the linear model?</p>
+
+<p><img src="https://latex.codecogs.com/png.latex?%5Cbegin%7Balign%2A%7D%0Ay_i%20%26%5Csim%20%5Ctext%7BNormal%7D%28%5Cmu_i%2C%20%5Csigma%29%20%5C%5C%0A%5Cmu_i%20%26%3D%20%5Calpha%20%2B%20%5Cbeta%20x_i%20%26%20%5Ctext%7BThis%20is%20the%20linear%20model%7D%5C%5C%0A%5Calpha%20%26%5Csim%20%5Ctext%7BNormal%7D%280%2C10%29%20%5C%5C%0A%5Cbeta%20%26%5Csim%20%5Ctext%7BNormal%7D%280%2C1%29%20%5C%5C%0A%5Csigma%20%26%5Csim%20%5Ctext%7BUniform%7D%280%2C10%29%0A%5Cend%7Balign%2A%7D &quot;begin{align*}
+y_i &amp;sim text{Normal}(mu_i, sigma" alt="\\begin{align\*}
+y\_i &amp;\\sim \\text{Normal}(\\mu\_i, \\sigma) \\\\
+\\mu\_i &amp;= \\alpha + \\beta x\_i &amp; \\text{This is the linear model}\\\\
+\\alpha &amp;\\sim \\text{Normal}(0,10) \\\\
+\\beta &amp;\\sim \\text{Normal}(0,1) \\\\
+\\sigma &amp;\\sim \\text{Uniform}(0,10)
+\\end{align\*}" /> <br />
+\mu_i &amp;= \alpha + \beta x_i &amp; \text{This is the linear model}<br />
+\alpha &amp;\sim \text{Normal}(0,10) <br />
+\beta &amp;\sim \text{Normal}(0,1) <br />
 \sigma &amp;\sim \text{Uniform}(0,10)
-\end{align*}\]</span></p>
+\end{align*}&ldquo;)</p>
+
 <p><strong>4E5.</strong> In the model definition just above, how many parameters are in the posterior distribution?</p>
-<p>There are <strong>3</strong> parameters in the posterior distribution, <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, and <span class="math inline">\(\sigma\)</span>.</p>
-</div>
-<div id="medium-questions." class="section level2">
-<h2>Medium questions.</h2>
-<p><strong>4M1.</strong> For the model definition below, simulate observed heights from the prior (not the posterior).
-<span class="math display">\[\begin{align*}
-y_i &amp;\sim \text{Normal}(\mu, \sigma) \\
-\mu &amp;\sim \text{Normal}(0, 10) \\
+
+<p>There are <strong>3</strong> parameters in the posterior distribution, <img src="https://latex.codecogs.com/png.latex?%5Calpha" alt="\\alpha" title="\alpha" />, <img src="https://latex.codecogs.com/png.latex?%5Cbeta" alt="\\beta" title="\beta" />, and <img src="https://latex.codecogs.com/png.latex?%5Csigma" alt="\\sigma" title="\sigma" />.</p>
+
+<h2 id="medium-questions">Medium questions.</h2>
+
+<p><strong>4M1.</strong> For the model definition below, simulate observed heights from the prior (not the posterior).</p>
+
+<p><img src="https://latex.codecogs.com/png.latex?%5Cbegin%7Balign%2A%7D%0Ay_i%20%26%5Csim%20%5Ctext%7BNormal%7D%28%5Cmu%2C%20%5Csigma%29%20%5C%5C%0A%5Cmu%20%26%5Csim%20%5Ctext%7BNormal%7D%280%2C%2010%29%20%5C%5C%0A%5Csigma%20%26%5Csim%20%5Ctext%7BUniform%7D%280%2C10%29%0A%5Cend%7Balign%2A%7D &quot;begin{align*}
+y_i &amp;sim text{Normal}(mu, sigma" alt="\\begin{align\*}
+y\_i &amp;\\sim \\text{Normal}(\\mu, \\sigma) \\\\
+\\mu &amp;\\sim \\text{Normal}(0, 10) \\\\
+\\sigma &amp;\\sim \\text{Uniform}(0,10)
+\\end{align\*}" /> <br />
+\mu &amp;\sim \text{Normal}(0, 10) <br />
 \sigma &amp;\sim \text{Uniform}(0,10)
-\end{align*}\]</span></p>
-<pre class="r"><code>n &lt;- 10000
+\end{align*}&ldquo;)</p>
+
+<pre><code class="language-r">n &lt;- 10000
 mu &lt;- rnorm(n, 0, 10)
 sigma &lt;- runif(n, 0, 10)
 y_prior &lt;- rnorm(n, mu, sigma)
-hist(y_prior)</code></pre>
-<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+hist(y_prior)
+</code></pre>
+
+<p><img src="chapter4_Ex_files/figure-markdown_github/unnamed-chunk-1-1.png" alt="" /></p>
+
 <p><strong>4M2.</strong> Translate the model just above into a <code>map</code> formula.</p>
-<pre class="r"><code>flist &lt;- alist(
+
+<pre><code class="language-r">flist &lt;- alist(
             y ~ dnorm(mu, sigma),
             mu ~ dnorm(0, 10),
             sigma ~ dunif(0,10)
-          ) </code></pre>
+          ) 
+</code></pre>
+
 <p><strong>4M3.</strong> Translate the <code>map</code> formula below into a mathematical model definition.</p>
-<pre class="r"><code>flist &lt;- alist(
+
+<pre><code class="language-r">flist &lt;- alist(
   y ~ dnorm( mu, sigma ),
   mu &lt;- a + b*x,
   a ~ dnorm( 0, 50 ),
   b ~ dnorm( 0, 10 ),
   sigma ~ dunif( 0, 50 )
-)</code></pre>
-<p>The mathematical definition:
-<span class="math display">\[\begin{align*}
-y_i &amp;\sim \text{Normal}(\mu_i, \sigma) \\
-\mu_i &amp;= \alpha + \beta x_i \\
-\alpha &amp;\sim \text{Normal}(0,50) \\
-\beta &amp;\sim  \text{Uniform}(0,10) \\
-\sigma &amp;\sim \text{Uniform}(0,50) 
-\end{align*}\]</span></p>
-<p><strong>4M4.</strong> A sample of students is measured for height each year for three years. You want to fit a linear regression, using year as a prediction. Write down the mathematical model definition.
-<span class="math display">\[\begin{align*}
-h_i &amp;\sim \text{Normal}(\mu_i, \sigma) \\
-\mu_i &amp;= \alpha + \beta t_i \\
-\alpha &amp;\sim \text{Normal}(160, 50) \\
-\beta &amp;\sim \text{Normal}(0, 10) \\
+)
+</code></pre>
+
+<p>The mathematical definition:</p>
+
+<p><img src="https://latex.codecogs.com/png.latex?%5Cbegin%7Balign%2A%7D%0Ay_i%20%26%5Csim%20%5Ctext%7BNormal%7D%28%5Cmu_i%2C%20%5Csigma%29%20%5C%5C%0A%5Cmu_i%20%26%3D%20%5Calpha%20%2B%20%5Cbeta%20x_i%20%5C%5C%0A%5Calpha%20%26%5Csim%20%5Ctext%7BNormal%7D%280%2C50%29%20%5C%5C%0A%5Cbeta%20%26%5Csim%20%20%5Ctext%7BUniform%7D%280%2C10%29%20%5C%5C%0A%5Csigma%20%26%5Csim%20%5Ctext%7BUniform%7D%280%2C50%29%20%0A%5Cend%7Balign%2A%7D &quot;begin{align*}
+y_i &amp;sim text{Normal}(mu_i, sigma" alt="\\begin{align\*}
+y\_i &amp;\\sim \\text{Normal}(\\mu\_i, \\sigma) \\\\
+\\mu\_i &amp;= \\alpha + \\beta x\_i \\\\
+\\alpha &amp;\\sim \\text{Normal}(0,50) \\\\
+\\beta &amp;\\sim  \\text{Uniform}(0,10) \\\\
+\\sigma &amp;\\sim \\text{Uniform}(0,50) 
+\\end{align\*}" /> <br />
+\mu_i &amp;= \alpha + \beta x_i <br />
+\alpha &amp;\sim \text{Normal}(0,50) <br />
+\beta &amp;\sim  \text{Uniform}(0,10) <br />
+\sigma &amp;\sim \text{Uniform}(0,50)
+\end{align*}&ldquo;)</p>
+
+<p><strong>4M4.</strong> A sample of students is measured for height each year for three years. You want to fit a linear regression, using year as a prediction. Write down the mathematical model definition.</p>
+
+<p><img src="https://latex.codecogs.com/png.latex?%5Cbegin%7Balign%2A%7D%0Ah_i%20%26%5Csim%20%5Ctext%7BNormal%7D%28%5Cmu_i%2C%20%5Csigma%29%20%5C%5C%0A%5Cmu_i%20%26%3D%20%5Calpha%20%2B%20%5Cbeta%20t_i%20%5C%5C%0A%5Calpha%20%26%5Csim%20%5Ctext%7BNormal%7D%28160%2C%2050%29%20%5C%5C%0A%5Cbeta%20%26%5Csim%20%5Ctext%7BNormal%7D%280%2C%2010%29%20%5C%5C%0A%5Csigma%20%26%5Csim%20%5Ctext%7BUniform%7D%280%2C%2050%29%0A%5Cend%7Balign%2A%7D &quot;begin{align*}
+h_i &amp;sim text{Normal}(mu_i, sigma" alt="\\begin{align\*}
+h\_i &amp;\\sim \\text{Normal}(\\mu\_i, \\sigma) \\\\
+\\mu\_i &amp;= \\alpha + \\beta t\_i \\\\
+\\alpha &amp;\\sim \\text{Normal}(160, 50) \\\\
+\\beta &amp;\\sim \\text{Normal}(0, 10) \\\\
+\\sigma &amp;\\sim \\text{Uniform}(0, 50)
+\\end{align\*}" /> <br />
+\mu_i &amp;= \alpha + \beta t_i <br />
+\alpha &amp;\sim \text{Normal}(160, 50) <br />
+\beta &amp;\sim \text{Normal}(0, 10) <br />
 \sigma &amp;\sim \text{Uniform}(0, 50)
-\end{align*}\]</span>
-Here, <span class="math inline">\(h_i\)</span> is the height and <span class="math inline">\(t_i\)</span> is the year of the <span class="math inline">\(i\)</span>th observation. Since <span class="math inline">\(\alpha\)</span> is the average height of a student at year zero, I picked a normal distribution with mean 160 (assuming an average height of 160cm) and standard deviation 50, this is relatively weak, leaving a wide range of possible heights. For <span class="math inline">\(\beta\)</span>, I picked a normal distribution with mean 0 and standard deviation 10, meaning on average, a person grows 0cm per year with standard deviation 10cm, since I don’t expect many people to grow or shrink more than 20cm per year.</p>
-<p><strong>4M5.</strong> Now suppose, the average in the first year was 120cm and that every student got taller each year. I will change my priors as follows:
-<span class="math display">\[\begin{align*}
-\alpha &amp;\sim \text{Normal}(120, 50) \\
+\end{align*}&ldquo;)</p>
+
+<p>Here, <img src="https://latex.codecogs.com/png.latex?h_i" alt="h\_i" title="h_i" /> is the height and <img src="https://latex.codecogs.com/png.latex?t_i" alt="t\_i" title="t_i" /> is the year of the <img src="https://latex.codecogs.com/png.latex?i" alt="i" title="i" />th observation. Since <img src="https://latex.codecogs.com/png.latex?%5Calpha" alt="\\alpha" title="\alpha" /> is the average height of a student at year zero, I picked a normal distribution with mean 160 (assuming an average height of 160cm) and standard deviation 50, this is relatively weak, leaving a wide range of possible heights. For <img src="https://latex.codecogs.com/png.latex?%5Cbeta" alt="\\beta" title="\beta" />, I picked a normal distribution with mean 0 and standard deviation 10, meaning on average, a person grows 0cm per year with standard deviation 10cm, since I don&rsquo;t expect many people to grow or shrink more than 20cm per year.</p>
+
+<p><strong>4M5.</strong> Now suppose, the average in the first year was 120cm and that every student got taller each year. I will change my priors as follows:</p>
+
+<p><img src="https://latex.codecogs.com/png.latex?%5Cbegin%7Balign%2A%7D%0A%5Calpha%20%26%5Csim%20%5Ctext%7BNormal%7D%28120%2C%2050%29%20%5C%5C%0A%5Cbeta%20%26%5Csim%20%5Ctext%7BUniform%7D%280%2C%2020%29%0A%5Cend%7Balign%2A%7D &quot;begin{align*}
+alpha &amp;sim text{Normal}(120, 50" alt="\\begin{align\*}
+\\alpha &amp;\\sim \\text{Normal}(120, 50) \\\\
+\\beta &amp;\\sim \\text{Uniform}(0, 20)
+\\end{align\*}" /> <br />
 \beta &amp;\sim \text{Uniform}(0, 20)
-\end{align*}\]</span>
-I adjusted the mean for the average height accordingly and changed <span class="math inline">\(\beta\)</span> to a uniform distribution, so that <span class="math inline">\(\beta\)</span>, the indicator for growth per year, is greater or equal than zero. I still don’t expect people to grow more than 20cm per year.</p>
-<p><strong>4M6.</strong> Now suppose, the variance among heights for students of the same age is never more than 64cm. I thus change my priors as follows:
-<span class="math display">\[\sigma \sim \text{Uniform}(0, 64).\]</span></p>
-</div>
-<div id="hard-question." class="section level2">
-<h2>Hard question.</h2>
+\end{align*}&ldquo;)</p>
+
+<p>I adjusted the mean for the average height accordingly and changed <img src="https://latex.codecogs.com/png.latex?%5Cbeta" alt="\\beta" title="\beta" /> to a uniform distribution, so that <img src="https://latex.codecogs.com/png.latex?%5Cbeta" alt="\\beta" title="\beta" />, the indicator for growth per year, is greater or equal than zero. I still don&rsquo;t expect people to grow more than 20cm per year.</p>
+
+<p><strong>4M6.</strong> Now suppose, the variance among heights for students of the same age is never more than 64cm. I thus change my priors as follows:</p>
+
+<p><img src="https://latex.codecogs.com/png.latex?%5Csigma%20%5Csim%20%5Ctext%7BUniform%7D%280%2C%2064%29. &quot;sigma sim text{Uniform}(0, 64" alt="\\sigma \\sim \\text{Uniform}(0, 64)." />.&ldquo;)</p>
+
+<h2 id="hard-question">Hard question.</h2>
+
 <p><strong>4H1.</strong> !Kung census data: Provide predicted heights and 89% intervals (either HPDI or PI) for the following weights of individuals.</p>
-<pre class="r"><code>weights &lt;- c(46.95, 43.72, 64.78, 32.59, 54.63)</code></pre>
+
+<pre><code class="language-r">weights &lt;- c(46.95, 43.72, 64.78, 32.59, 54.63)
+</code></pre>
+
 <p>For this, we first load the !Kung data from the <code>Howell1</code> data set and set up a model. I will use a linear model with priors as in the model definition given earlier in the chapter.</p>
-<pre class="r"><code>library(rethinking)
+
+<pre><code class="language-r">library(rethinking)
 data(Howell1)
 d &lt;- Howell1
 d2 &lt;- d[ d$age &gt;= 18, ]
@@ -428,14 +507,18 @@ model &lt;- map(
   data=d2
 )
 
-precis( model)</code></pre>
-<pre><code>##              mean         sd        5.5%       94.5%
-## a     154.5969239 0.27033196 154.1648812 155.0289666
-## b       0.9050112 0.04192777   0.8380026   0.9720199
-## sigma   5.0718956 0.19115590   4.7663916   5.3773997</code></pre>
-<p>How to interpret the model: Since we centered the weights such that the mean of <code>weight.c</code> is zero, <code>a</code> corresponds to the average height. The value 0.91 for <code>b</code> means that a person 1kg heavier is expected to be 0.90cm taller. The estimate for <span class="math inline">\(\sigma\)</span>, <code>sigma</code> tells us about the width of the distribution of heights around the mean.
-Let’s now use the model to predict the heights for the weight values given above. For this, we simulate heights for each given weight value. We do this by first obtaining a sample from the posterior distribution and then use this sample to draw samples from a Gaussian distribution. Note that we also need to center the given weights now.</p>
-<pre class="r"><code>weights.c &lt;- weights - mean(d2$weight)
+precis( model)
+</code></pre>
+
+<pre><code>##         Mean StdDev   5.5%  94.5%
+## a     154.60   0.27 154.17 155.03
+## b       0.91   0.04   0.84   0.97
+## sigma   5.07   0.19   4.77   5.38
+</code></pre>
+
+<p>How to interpret the model: Since we centered the weights such that the mean of <code>weight.c</code> is zero, <code>a</code> corresponds to the average height. The value 0.91 for <code>b</code> means that a person 1kg heavier is expected to be 0.90cm taller. The estimate for <img src="https://latex.codecogs.com/png.latex?%5Csigma" alt="\\sigma" title="\sigma" />, <code>sigma</code> tells us about the width of the distribution of heights around the mean. Let&rsquo;s now use the model to predict the heights for the weight values given above. For this, we simulate heights for each given weight value. We do this by first obtaining a sample from the posterior distribution and then use this sample to draw samples from a Gaussian distribution. Note that we also need to center the given weights now.</p>
+
+<pre><code class="language-r">weights.c &lt;- weights - mean(d2$weight)
 post &lt;- extract.samples(model)
 sim.height &lt;- sapply( weights.c, function(weight) {
   rnorm(
@@ -451,19 +534,24 @@ height.mean &lt;- apply(sim.height, 2, mean)
 
 pred_df &lt;- data.frame(&quot;individual&quot;=1:5, &quot;weight&quot;=weights, &quot;exptected_height&quot;=height.mean, 
                       &quot;PI_89_lower&quot;=height.PI[1,], &quot;PI_89_upper&quot;=height.PI[2,])
-pred_df</code></pre>
+pred_df
+</code></pre>
+
 <pre><code>##   individual weight exptected_height PI_89_lower PI_89_upper
-## 1          1  46.95         156.4820    148.2687    164.6616
-## 2          2  43.72         153.4181    145.1454    161.5758
-## 3          3  64.78         172.5132    164.3326    180.6486
-## 4          4  32.59         143.4134    135.3042    151.4555
-## 5          5  54.63         163.2921    155.1128    171.6002</code></pre>
+## 1          1  46.95         156.3805    148.3043    164.7225
+## 2          2  43.72         153.4712    145.4467    161.4731
+## 3          3  64.78         172.5536    164.1396    180.7728
+## 4          4  32.59         143.3558    135.4099    151.5933
+## 5          5  54.63         163.2698    154.9963    171.4575
+</code></pre>
+
 <p><strong>4H2.</strong> Select the rows from the <code>Howell1</code> data with age below 18 years.</p>
-<ol style="list-style-type: lower-alpha">
-<li>Fit a linear regression to these data, using <code>map</code>.
-I will use the same model as above.</li>
+
+<ol>
+<li>Fit a linear regression to these data, using <code>map</code>. I will use the same model as above.</li>
 </ol>
-<pre class="r"><code>d18 &lt;- d[ d$age &lt; 18, ]
+
+<pre><code class="language-r">d18 &lt;- d[ d$age &lt; 18, ]
 d18$weight.c &lt;- d18$weight - mean(d18$weight)   # centering the data
 
 # fit the model
@@ -478,18 +566,22 @@ model18 &lt;- map(
   ),
   data=d18
 )
-precis(model18)</code></pre>
-<pre><code>##             mean         sd       5.5%      94.5%
-## a     108.320665 0.60888121 107.347555 109.293774
-## b       2.719960 0.06829049   2.610818   2.829101
-## sigma   8.437062 0.43054886   7.748961   9.125162</code></pre>
+precis(model18)
+</code></pre>
+
+<pre><code>##         Mean StdDev   5.5%  94.5%
+## a     108.32   0.61 107.35 109.29
+## b       2.72   0.07   2.61   2.83
+## sigma   8.44   0.43   7.75   9.13
+</code></pre>
+
 <p>As above, since we centered the weights, the intercept <code>a</code> corresponds to the average height, which is here 108.3. This is much lower than in the model above (but expected since the individuals in this data set are younger). The slope <code>b</code> is interpreted such that for every 10kg heavier, an individual is expected to be 27cm taller. The standard deviation <code>sigma</code> in this model is higher than in the one above, suggesting a higher uncertainty in the predictions.</p>
-<ol start="2" style="list-style-type: lower-alpha">
-<li>Plot the raw data and superimpose the MAP regression line and 89% HPDI for the mean and for the predicted height.
-We first compute the regression line by generating a sequence over the whole range of (centered) weights for which we then sample from the posterior distribution to compute a sample of mu, of which we can then compute the mean and the 89% HPDI.
-We similarly compute the 89% HPDI for the predicted height (as also done in the question before).</li>
+
+<ol>
+<li>Plot the raw data and superimpose the MAP regression line and 89% HPDI for the mean and for the predicted height. We first compute the regression line by generating a sequence over the whole range of (centered) weights for which we then sample from the posterior distribution to compute a sample of mu, of which we can then compute the mean and the 89% HPDI. We similarly compute the 89% HPDI for the predicted height (as also done in the question before).</li>
 </ol>
-<pre class="r"><code>weight.seq &lt;- seq(from=-15, to=30, length.out = 30)             # generate weights (centered) over the whole range
+
+<pre><code class="language-r">weight.seq &lt;- seq(from=-15, to=30, length.out = 30)             # generate weights (centered) over the whole range
 post &lt;- extract.samples(model18)                                # extract a posterior sample
 # compute mu
 mu.link &lt;- function(weight.c) post$a + post$b*weight.c           # the function to compute mu, using the sample above
@@ -513,25 +605,38 @@ height.mean &lt;- apply(sim.height, 2, mean)
 plot(height ~ weight.c, data=d18, col=col.alpha(rangi2, 0.9), ylim=c(50, 180))   # the raw data
 lines(weight.seq, mu.mean)                                      # the MAP regression line
 shade( mu.HPDI, weight.seq)                                     # draw HPDI region around the regression line
-shade( height.HPDI, weight.seq)                                 # draw HPDI region for the simulated heights</code></pre>
-<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
-<ol start="3" style="list-style-type: lower-alpha">
-<li>What aspects of the model fit concern you?
-The linear model doesn’t seem to be a very good fit for the data. It performs very poorly for the lower and higher values of weight. One possibility to improve the model could be to use a polynomial model (e.g. of 2nd order) instead.</li>
+shade( height.HPDI, weight.seq)                                 # draw HPDI region for the simulated heights
+</code></pre>
+
+<p><img src="chapter4_Ex_files/figure-markdown_github/unnamed-chunk-8-1.png" alt="" /></p>
+
+<ol>
+<li>What aspects of the model fit concern you? The linear model doesn&rsquo;t seem to be a very good fit for the data. It performs very poorly for the lower and higher values of weight. One possibility to improve the model could be to use a polynomial model (e.g. of 2nd order) instead.</li>
 </ol>
-<p><strong>4H3.</strong> A colleague exclaims: “Only the <em>logarithm</em> of body weight scales with height!” Let’s try this out.</p>
-<ol style="list-style-type: lower-alpha">
-<li>Use the entire <code>Howell1</code> data frame using the following model:
-<span class="math display">\[\begin{align*}
-h_i &amp;\sim \text{Normal}(\mu_i, \sigma) \\
-\mu_i &amp;= \alpha + \beta \log(w_i) \\
-\alpha &amp;\sim \text{Normal}(178, 100) \\
-\beta &amp;\sim \text{Normal}(0, 100) \\
+
+<p><strong>4H3.</strong> A colleague exclaims: &ldquo;Only the <em>logarithm</em> of body weight scales with height!&rdquo; Let&rsquo;s try this out.</p>
+
+<ol>
+<li><p>Use the entire <code>Howell1</code> data frame using the following model:</p>
+
+<p><img src="https://latex.codecogs.com/png.latex?%5Cbegin%7Balign%2A%7D%0Ah_i%20%26%5Csim%20%5Ctext%7BNormal%7D%28%5Cmu_i%2C%20%5Csigma%29%20%5C%5C%0A%5Cmu_i%20%26%3D%20%5Calpha%20%2B%20%5Cbeta%20%5Clog%28w_i%29%20%5C%5C%0A%5Calpha%20%26%5Csim%20%5Ctext%7BNormal%7D%28178%2C%20100%29%20%5C%5C%0A%5Cbeta%20%26%5Csim%20%5Ctext%7BNormal%7D%280%2C%20100%29%20%5C%5C%0A%5Csigma%20%26%5Csim%20%5Ctext%7BUniform%7D%280%2C%2050%29%0A%5Cend%7Balign%2A%7D &quot;begin{align*}
+h_i &amp;sim text{Normal}(mu_i, sigma" alt="\\begin{align\*}
+h\_i &amp;\\sim \\text{Normal}(\\mu\_i, \\sigma) \\\\
+\\mu\_i &amp;= \\alpha + \\beta \\log(w\_i) \\\\
+\\alpha &amp;\\sim \\text{Normal}(178, 100) \\\\
+\\beta &amp;\\sim \\text{Normal}(0, 100) \\\\
+\\sigma &amp;\\sim \\text{Uniform}(0, 50)
+\\end{align\*}" /> <br />
+\mu_i &amp;= \alpha + \beta \log(w_i) <br />
+\alpha &amp;\sim \text{Normal}(178, 100) <br />
+\beta &amp;\sim \text{Normal}(0, 100) <br />
 \sigma &amp;\sim \text{Uniform}(0, 50)
-\end{align*}\]</span>
-Here the model description in R:</li>
+\end{align*}&ldquo;)</p>
+
+<p>Here the model description in R:</p></li>
 </ol>
-<pre class="r"><code>d &lt;- Howell1
+
+<pre><code class="language-r">d &lt;- Howell1
 # fit the model
 
 model.l &lt;- map(
@@ -544,24 +649,34 @@ model.l &lt;- map(
   ),
   data=d
 )
-precis(model.l)</code></pre>
-<pre><code>##             mean        sd       5.5%      94.5%
-## a     -23.783347 1.3350891 -25.917078 -21.649617
-## b      47.074967 0.3825376  46.463598  47.686336
-## sigma   5.134596 0.1556603   4.885821   5.383371</code></pre>
-<p>Interpreting these results is a bit more difficult since we transformed the weights using the logarithm. Furthermore, the data is not centralized as before, so the intercept <code>a</code> corresponds to the average height of someone whose log weight is zero, i.e. whose weight is 1kg.
-How to interpret the <code>b</code> value?
-If we raise the weight by one unit, we get the following expression for mu:
-<span class="math display">\[\begin{align*}
-\mu &amp;= \alpha + \beta \log(\text{weight} + 1) 
-\end{align*}\]</span>
-Using some rules for logarithms, we get:
-<span class="math display">\[\begin{align*}
-\mu &amp;= \alpha + \beta \log(\text{weight}) + \beta \log(1 + \frac{1}{\text{weight}})
-\end{align*}\]</span>
-That is, an increase of one unit in the weight variable is associated with an increase of the mean <span class="math inline">\(\mu\)</span> of <span class="math inline">\(\beta \log(1 + \frac{1}{\text{weight}})\)</span>.
-I personally find that not very intuitive, so let’s have a look at some plots as well.</p>
-<pre class="r"><code>weight.seq &lt;- seq(from=2, to=65, length.out = 70)             # generate weights over the whole range
+precis(model.l)
+</code></pre>
+
+<pre><code>##         Mean StdDev   5.5%  94.5%
+## a     -23.78   1.34 -25.92 -21.65
+## b      47.08   0.38  46.46  47.69
+## sigma   5.13   0.16   4.89   5.38
+</code></pre>
+
+<p>Interpreting these results is a bit more difficult since we transformed the weights using the logarithm. Furthermore, the data is not centralized as before, so the intercept <code>a</code> corresponds to the average height of someone whose log weight is zero, i.e. whose weight is 1kg. How to interpret the <code>b</code> value? If we raise the weight by one unit, we get the following expression for mu:</p>
+
+<p><img src="https://latex.codecogs.com/png.latex?%5Cbegin%7Balign%2A%7D%0A%5Cmu%20%26%3D%20%5Calpha%20%2B%20%5Cbeta%20%5Clog%28%5Ctext%7Bweight%7D%20%2B%201%29%20%0A%5Cend%7Balign%2A%7D &quot;begin{align*}
+mu &amp;= alpha + beta log(text{weight} + 1" alt="\\begin{align\*}
+\\mu &amp;= \\alpha + \\beta \\log(\\text{weight} + 1) 
+\\end{align\*}" />
+\end{align*}&ldquo;)</p>
+
+<p>Using some rules for logarithms, we get:</p>
+
+<p><img src="https://latex.codecogs.com/png.latex?%5Cbegin%7Balign%2A%7D%0A%5Cmu%20%26%3D%20%5Calpha%20%2B%20%5Cbeta%20%5Clog%28%5Ctext%7Bweight%7D%29%20%2B%20%5Cbeta%20%5Clog%281%20%2B%20%5Cfrac%7B1%7D%7B%5Ctext%7Bweight%7D%7D%29%0A%5Cend%7Balign%2A%7D &quot;begin{align*}
+mu &amp;= alpha + beta log(text{weight}" alt="\\begin{align\*}
+\\mu &amp;= \\alpha + \\beta \\log(\\text{weight}) + \\beta \\log(1 + \\frac{1}{\\text{weight}})
+\\end{align\*}" /> + \beta \log(1 + \frac{1}{\text{weight}})
+\end{align*}&ldquo;)</p>
+
+<p>That is, an increase of one unit in the weight variable is associated with an increase of the mean <img src="https://latex.codecogs.com/png.latex?%5Cmu" alt="\\mu" title="\mu" /> of <img src="https://latex.codecogs.com/png.latex?%5Cbeta%20%5Clog%281%20%2B%20%5Cfrac%7B1%7D%7B%5Ctext%7Bweight%7D%7D%29 &quot;beta log(1 + frac{1}{text{weight}}" alt="\\beta \\log(1 + \\frac{1}{\\text{weight}})" />&rdquo;). I personally find that not very intuitive, so let&rsquo;s have a look at some plots as well.</p>
+
+<pre><code class="language-r">weight.seq &lt;- seq(from=2, to=65, length.out = 70)             # generate weights over the whole range
                                                               # min(d$weight) = 4.25, max(d$weight) = 62.99
 post &lt;- extract.samples(model.l)                              # extract a posterior sample
 # compute mu
@@ -586,20 +701,26 @@ height.mean &lt;- apply(sim.height, 2, mean)
 plot(height ~ log(weight), data=d, col=col.alpha(rangi2, 0.6))
 lines(log(weight.seq), mu.mean)                                      # the MAP regression line
 shade( mu.HPDI, log(weight.seq))                                     # draw HPDI region around the regression line
-shade( height.HPDI, log(weight.seq))                                 # draw HPDI region for the simulated heights</code></pre>
-<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+shade( height.HPDI, log(weight.seq))                                 # draw HPDI region for the simulated heights
+</code></pre>
+
+<p><img src="chapter4_Ex_files/figure-markdown_github/unnamed-chunk-10-1.png" alt="" /></p>
+
 <p>Compared to the model above fit to only the children and also compared to the models earlier in the chapter using the full data set with polynomial regression, this model seems to perform quite well on the data.</p>
-<ol start="2" style="list-style-type: lower-alpha">
-<li>Let’s make the same plot without using the logarithmic scale.</li>
+
+<ol>
+<li>Let&rsquo;s make the same plot without using the logarithmic scale.</li>
 </ol>
-<pre class="r"><code>plot(height ~ weight, data=d, col=col.alpha(rangi2, 0.6))
+
+<pre><code class="language-r">plot(height ~ weight, data=d, col=col.alpha(rangi2, 0.6))
 lines(weight.seq, mu.mean)
 shade(mu.HPDI, weight.seq)
-shade( height.HPDI, weight.seq)</code></pre>
-<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
-<p>Given the last two plots, I’d say the colleague was right: The logarithm of body weight scales very well with height.</p>
-</div>
-</div>
+shade( height.HPDI, weight.seq)
+</code></pre>
+
+<p><img src="chapter4_Ex_files/figure-markdown_github/unnamed-chunk-11-1.png" alt="" /></p>
+
+<p>Given the last two plots, I&rsquo;d say the colleague was right: The logarithm of body weight scales very well with height.</p>
 
     
     </section>
@@ -607,9 +728,9 @@ shade( height.HPDI, weight.seq)</code></pre>
 
   <aside class="read-next">
   
-      <a class="read-next-story" style="no-cover" href="/projects/statistical-rethinking/chapter_12/chapter12a/">
+      <a class="read-next-story" style="no-cover" href="/projects/statistical-rethinking/chapter_3/chapter3_ex/">
           <section class="post">
-              <h5>Chapter 12 - Of Monsters and Mixtures</h5>
+              <h5></h5>
               
           </section>
       </a>
@@ -617,7 +738,7 @@ shade( height.HPDI, weight.seq)</code></pre>
   
       <a class="read-next-story prev" style="no-cover" href="/projects/statistical-rethinking/chapter_5/chapter5_ex/">
           <section class="post">
-              <h5>Chapter 5 - Exercises</h5>
+              <h5></h5>
           </section>
       </a>
       
@@ -656,7 +777,7 @@ shade( height.HPDI, weight.seq)</code></pre>
     
 <section class="share">
   <h4>Share this projects</h4>
-  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Chapter%204%20-%20Exercise&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2fprojects%2fstatistical-rethinking%2fchapter_4%2fchapter4_ex%2f"
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2fprojects%2fstatistical-rethinking%2fchapter_4%2fchapter4_ex%2f"
       onclick="window.open(this.href, 'twitter-share', 'width=550,height=421');return false;">
       <span class="hidden">Twitter</span>
   </a>
@@ -664,7 +785,7 @@ shade( height.HPDI, weight.seq)</code></pre>
       onclick="window.open(this.href, 'facebook-share','width=580,height=551');return false;">
       <span class="hidden">Facebook</span>
   </a>
-  <a class="icon-linkedin" style="font-size: 1.4em" href="https://www.linkedin.com/shareArticle?mini=true&title=Chapter%204%20-%20Exercise&url=%2fprojects%2fstatistical-rethinking%2fchapter_4%2fchapter4_ex%2f"
+  <a class="icon-linkedin" style="font-size: 1.4em" href="https://www.linkedin.com/shareArticle?mini=true&title=&url=%2fprojects%2fstatistical-rethinking%2fchapter_4%2fchapter4_ex%2f"
                onclick="window.open(this.href, 'linkedin-share', 'width=554,height=571');return false;">
     <span class="hidden">LinkedIn</span>
     </a>
@@ -712,7 +833,7 @@ s.setAttribute('data-timestamp', +new Date());
 
     <footer class="site-footer clearfix">
         <section class="copyright"><a href="">Samples of Thoughts</a> 
-        © Corrie Bartelheimer 2020 &middot; </section>
+        &copy; Corrie Bartelheimer 2020 &middot; </section>
         
     </footer>
     </div>

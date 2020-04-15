@@ -61,7 +61,7 @@
         <link href="/categories/r/index.xml" rel="alternate" type="application/rss+xml" title="R &middot; Samples of Thoughts" />
       
     
-    <meta name="generator" content="Hugo 0.63.1" />
+    <meta name="generator" content="Hugo 0.55.5" />
 
     <link rel="canonical" href="/categories/r/" />
 
@@ -273,27 +273,30 @@ if (!doNotTrack) {
 	
 	    <a class="newer-posts" href="/categories/r/">&larr; Newer Posts</a>
 	
-	<span class="page-number">Page 2 of 2</span>
+	<span class="page-number">Page 2 of 5</span>
+	
+	    <a class="older-posts" href="/categories/r/page/3/">Older Posts &rarr;</a>
 	
 </nav>
 
 	</div>
 
 	
-	   <article class="post post">
+	   <article class="post projects">
     <header class="post-header">
-        <h2 class="post-title"><a href="/2018/how-to-make-a-website-using-blogdown-and-github/">How to make a website using blogdown and github</a></h2>
+        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_12/chp12-part-one/">Of Monsters and Mixtures</a></h2>
     </header>
     <section class="post-excerpt">
         
-            <p>In this post, I will describe how to build your own webpage (more specific, a blog) using blogdown and have it hosted on your github.
- Set up your github repo so it can serve as a web page Build your website using blogdown  Set up Github Let’s start with setting up your github. This is actually super simple, you only need to create a new repository with the name &lt;yourusername&gt;. <a class="read-more" href="/2018/how-to-make-a-website-using-blogdown-and-github/">&raquo;</a></p>
+            <p>Over-dispersed outcomes For the beta-binomial model, we’ll make use of the beta distribution. The beta distribution is a probability distribution over probabilities (over the interval \([0, 1]\)).
+library(rethinking) pbar &lt;- 0.5 theta &lt;- 5 curve( dbeta2( x, pbar, theta), from=0, to=1, xlab=&quot;probability&quot;, ylab=&quot;Density&quot;) There are different ways to parametrize the beta distribution:
+dbeta2 &lt;- function( x , prob , theta , log=FALSE ) { a &lt;- prob * theta b &lt;- (1-prob) * theta dbeta( x , shape1=a , shape2=b , log=log ) } We use the beta-binomial for the UCBadmit data, which is over-dispersed if we ignore department (since the admission rate varied quite a lot for different departments). <a class="read-more" href="/projects/statistical-rethinking/chapter_12/chp12-part-one/">&raquo;</a></p>
         
     </section>
     <footer class="post-meta">
         
             <p class="post-reading post-line">
-            <span>Estimated reading time: 10 min</span>
+            <span>Estimated reading time: 8 min</span>
             </p>
         
         
@@ -309,33 +312,34 @@ if (!doNotTrack) {
 
         on
             
-                <a href="/tags/blogdown/">#blogdown</a>,
+                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
             
-                <a href="/tags/github/">#github</a>,
-            
-                <a href="/tags/r/">#R</a>,
+                <a href="/tags/bayesian/">#Bayesian</a>,
             
         
-        <time class="post-date" datetime="2018-05-13T00:00:00Z">
-            13 May 2018
+        <time class="post-date" datetime="2019-04-14T00:00:00Z">
+            14 Apr 2019
         </time>
     </footer>
 </article>
 
 	
-	   <article class="post post">
+	   <article class="post projects">
     <header class="post-header">
-        <h2 class="post-title"><a href="/2018/my-first-post/">Welcome to my blog!</a></h2>
+        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_10/chp10-ex/">Chapter 10 - Exercises</a></h2>
     </header>
     <section class="post-excerpt">
         
-            <p>Hello World! I’m Corrie and this is my blog where I plan to occasionally write about interesting topics. Interesting topics is of course entirely subjective and for me, machine learning, statistics (in particular the Bayesian flavor), and data science sound very exciting, so most of my posts will touch any of these topics. As a Mathematician by training, I spent quite some time during my studies with differential geometry, topology, and number theory (knots and prime numbers are cool! <a class="read-more" href="/2018/my-first-post/">&raquo;</a></p>
+            <p>Easy. 10E1. If an event has probability 0.35, what are the log-odds of this event?
+log( 0.35 / (1 - 0.35)) [1] -0.6190392 10E2. If an event has log-odds 3.2, what is the probabiity of this event?
+1 / (1 + exp(-3.2)) [1] 0.9608343 10E3. A coefficient in a logistic regression has value 1.7. What does this imply about the proportional change in odds of the outcome?
+exp(1.7) [1] 5. <a class="read-more" href="/projects/statistical-rethinking/chapter_10/chp10-ex/">&raquo;</a></p>
         
     </section>
     <footer class="post-meta">
         
             <p class="post-reading post-line">
-            <span>Estimated reading time: 1 min</span>
+            <span>Estimated reading time: 23 min</span>
             </p>
         
         
@@ -351,11 +355,136 @@ if (!doNotTrack) {
 
         on
             
-                <a href="/tags/hello-world/">#hello world</a>,
+                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
+            
+                <a href="/tags/bayesian/">#Bayesian</a>,
             
         
-        <time class="post-date" datetime="2018-05-11T00:00:00Z">
-            11 May 2018
+        <time class="post-date" datetime="2018-11-17T00:00:00Z">
+            17 Nov 2018
+        </time>
+    </footer>
+</article>
+
+	
+	   <article class="post projects">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_10/chp10-part-three/">Ohter Count Regressions</a></h2>
+    </header>
+    <section class="post-excerpt">
+        
+            <p>Multinomial Regression A multinomial regression is used when more than two things can happen. As an example, suppose we are modelling career choices for some young adults. Let’s assume there are three career choices one can take and expected income is one of the predictors. One option to model the career choices would be the explicit multinomial model which uses the multinomial logit. The multinomial logit uses the multinomial distribution which is an extension of the binomial distribution to the case with \(K&gt;2\) events. <a class="read-more" href="/projects/statistical-rethinking/chapter_10/chp10-part-three/">&raquo;</a></p>
+        
+    </section>
+    <footer class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 8 min</span>
+            </p>
+        
+        
+            
+            
+
+            
+            
+            
+            Corrie
+                 
+        
+
+        on
+            
+                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
+            
+                <a href="/tags/bayesian/">#Bayesian</a>,
+            
+        
+        <time class="post-date" datetime="2018-11-11T00:00:00Z">
+            11 Nov 2018
+        </time>
+    </footer>
+</article>
+
+	
+	   <article class="post projects">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_10/chp10-part-two/">Poisson Regression</a></h2>
+    </header>
+    <section class="post-excerpt">
+        
+            <p>Poisson Regression Oceanic Tools A binomial distriution with many trials (that is \(n\) large) and a small probability of an event (\(p\) small) approaches a Poisson distribution where both the mean and the variance are equal:
+y &lt;- rbinom(1e5, 1000, 1/1000) c(mean(y), var(y)) [1] 0.996960 1.000841 A Poisson model allows us to model binomial events for which the number of trials \(n\) is unknown.
+We work with the Kline data, a dataset about Oceanic societies and the number of found tools. <a class="read-more" href="/projects/statistical-rethinking/chapter_10/chp10-part-two/">&raquo;</a></p>
+        
+    </section>
+    <footer class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 7 min</span>
+            </p>
+        
+        
+            
+            
+
+            
+            
+            
+            Corrie
+                 
+        
+
+        on
+            
+                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
+            
+                <a href="/tags/bayesian/">#Bayesian</a>,
+            
+        
+        <time class="post-date" datetime="2018-10-28T00:00:00Z">
+            28 Oct 2018
+        </time>
+    </footer>
+</article>
+
+	
+	   <article class="post projects">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_10/chp10-part-one/">Binomial Regression</a></h2>
+    </header>
+    <section class="post-excerpt">
+        
+            <p>Logistic Regression The chimpanzee data: Do chimpanzee pick the more social option?
+library(rethinking) data(chimpanzees) d &lt;- chimpanzees The important variables are the variable condition, indicating if another chimpanzee sits opposite (1) the table or not (0) and the variable prosocial_left which indicates if the left lever is the more social option. These two variables will be used to predict if the chimpanzees pull the left lever or not (pulled_left). <a class="read-more" href="/projects/statistical-rethinking/chapter_10/chp10-part-one/">&raquo;</a></p>
+        
+    </section>
+    <footer class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 13 min</span>
+            </p>
+        
+        
+            
+            
+
+            
+            
+            
+            Corrie
+                 
+        
+
+        on
+            
+                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
+            
+                <a href="/tags/bayesian/">#Bayesian</a>,
+            
+        
+        <time class="post-date" datetime="2018-10-04T00:00:00Z">
+            4 Oct 2018
         </time>
     </footer>
 </article>
@@ -366,7 +495,9 @@ if (!doNotTrack) {
 	
 	    <a class="newer-posts" href="/categories/r/">&larr; Newer Posts</a>
 	
-	<span class="page-number">Page 2 of 2</span>
+	<span class="page-number">Page 2 of 5</span>
+	
+	    <a class="older-posts" href="/categories/r/page/3/">Older Posts &rarr;</a>
 	
 </nav>
 
@@ -376,7 +507,7 @@ if (!doNotTrack) {
 
     <footer class="site-footer clearfix">
         <section class="copyright"><a href="">Samples of Thoughts</a> 
-        © Corrie Bartelheimer 2020 &middot; </section>
+        &copy; Corrie Bartelheimer 2020 &middot; </section>
         
     </footer>
     </div>

@@ -12,13 +12,13 @@
 
 
 
-<meta name="twitter:title" content="Binomial Regression"/>
+<meta name="twitter:title" content=""/>
 <meta name="twitter:description" content=""/>
 <meta name="twitter:site" content="@corrieaar"/>
 
 
 
-  	<meta property="og:title" content="Binomial Regression &middot; Samples of Thoughts" />
+  	<meta property="og:title" content=" &middot; Samples of Thoughts" />
   	<meta property="og:site_name" content="Samples of Thoughts" />
   	<meta property="og:url" content="/projects/statistical-rethinking/chapter_10/chapter10a/" />
 
@@ -35,11 +35,12 @@
     
     
 
-    <title>Binomial Regression &middot; Samples of Thoughts</title>
+    <title> &middot; Samples of Thoughts</title>
 
     
-    <meta name="description" content="Logistic Regression The chimpanzee data: Do chimpanzee pick the more social option?
-library(rethinking) data(chimpanzees) d &amp;lt;- chimpanzees The important vari" />
+    <meta name="description" content="Binomial Regression Corrie October 4, 2018
+Logistic Regression The chimpanzee data: Do chimpanzee pick the more social option?
+library(rethinking) data(chimpanz" />
     
 
     <meta name="HandheldFriendly" content="True" />
@@ -67,7 +68,7 @@ library(rethinking) data(chimpanzees) d &amp;lt;- chimpanzees The important vari
       
       
     
-    <meta name="generator" content="Hugo 0.63.1" />
+    <meta name="generator" content="Hugo 0.55.5" />
 
     <link rel="canonical" href="/projects/statistical-rethinking/chapter_10/chapter10a/" />
 
@@ -98,9 +99,9 @@ library(rethinking) data(chimpanzees) d &amp;lt;- chimpanzees The important vari
             
         ]
     },
-    "headline": "Binomial Regression",
-    "name": "Binomial Regression",
-    "wordCount":  2653 ,
+    "headline": "",
+    "name": "",
+    "wordCount":  2645 ,
     "timeRequired": "PT13M",
     "inLanguage": {
       "@type": "Language",
@@ -296,7 +297,7 @@ if (!doNotTrack) {
   <article class="post projects">
 
     <header class="post-header">
-        <h1 class="post-title">Binomial Regression</h1>
+        <h1 class="post-title"></h1>
         <small></small>
 
         <section class="post-meta">
@@ -314,24 +315,41 @@ if (!doNotTrack) {
     <section class="post-content">
       
 
+<h1 id="binomial-regression">Binomial Regression</h1>
 
-<div id="logistic-regression" class="section level2">
-<h2>Logistic Regression</h2>
+<p>Corrie
+October 4, 2018</p>
+
+<h2 id="logistic-regression">Logistic Regression</h2>
+
 <p>The chimpanzee data: Do chimpanzee pick the more social option?</p>
-<pre class="r"><code>library(rethinking)
+
+<pre><code class="language-r">library(rethinking)
 data(chimpanzees)
-d &lt;- chimpanzees</code></pre>
+d &lt;- chimpanzees
+</code></pre>
+
 <p>The important variables are the variable <code>condition</code>, indicating if another chimpanzee sits opposite (1) the table or not (0) and the variable <code>prosocial_left</code> which indicates if the left lever is the more social option. These two variables will be used to predict if the chimpanzees pull the left lever or not (<code>pulled_left</code>).</p>
-<p>The implied model is:
-<span class="math display">\[\begin{align*}
-L_i &amp;\sim \text{Binomial}(1, p_i)\\
-\text{logit}(p_i) &amp;= \alpha + (\beta_P + \beta_{PC}C_i)P_i \\
-\alpha &amp;\sim \text{Normal}(0, 10) \\
-\beta_P &amp;\sim \text{Normal}(0, 10) \\
-\beta_{PC} &amp;\sim \text{Normal}(0, 10) 
-\end{align*}\]</span></p>
-<p>We’ll write this as a <code>map()</code> model but will start with two simpler models with less predictors, starting with one model that has only an intercept and no predictor variables:</p>
-<pre class="r"><code>m10.1 &lt;- map(
+
+<p>The implied model is:</p>
+
+<p><img src="https://latex.codecogs.com/png.latex?%5Cbegin%7Balign%2A%7D%0AL_i%20%26%5Csim%20%5Ctext%7BBinomial%7D%281%2C%20p_i%29%5C%5C%0A%5Ctext%7Blogit%7D%28p_i%29%20%26%3D%20%5Calpha%20%2B%20%28%5Cbeta_P%20%2B%20%5Cbeta_%7BPC%7DC_i%29P_i%20%5C%5C%0A%5Calpha%20%26%5Csim%20%5Ctext%7BNormal%7D%280%2C%2010%29%20%5C%5C%0A%5Cbeta_P%20%26%5Csim%20%5Ctext%7BNormal%7D%280%2C%2010%29%20%5C%5C%0A%5Cbeta_%7BPC%7D%20%26%5Csim%20%5Ctext%7BNormal%7D%280%2C%2010%29%20%0A%5Cend%7Balign%2A%7D &quot;begin{align*}
+L_i &amp;sim text{Binomial}(1, p_i" alt="\\begin{align\*}
+L\_i &amp;\\sim \\text{Binomial}(1, p\_i)\\\\
+\\text{logit}(p\_i) &amp;= \\alpha + (\\beta\_P + \\beta\_{PC}C\_i)P\_i \\\\
+\\alpha &amp;\\sim \\text{Normal}(0, 10) \\\\
+\\beta\_P &amp;\\sim \\text{Normal}(0, 10) \\\\
+\\beta\_{PC} &amp;\\sim \\text{Normal}(0, 10) 
+\\end{align\*}" /><br />
+\text{logit}(p_i) &amp;= \alpha + (\beta<em>P + \beta</em>{PC}C_i)P_i <br />
+\alpha &amp;\sim \text{Normal}(0, 10) <br />
+\beta<em>P &amp;\sim \text{Normal}(0, 10) <br />
+\beta</em>{PC} &amp;\sim \text{Normal}(0, 10)
+\end{align*}&ldquo;)</p>
+
+<p>We&rsquo;ll write this as a <code>map()</code> model but will start with two simpler models with less predictors, starting with one model that has only an intercept and no predictor variables:</p>
+
+<pre><code class="language-r">m10.1 &lt;- map(
   alist(
     pulled_left ~ dbinom(1, p),
     logit(p) &lt;- a,
@@ -339,17 +357,32 @@ L_i &amp;\sim \text{Binomial}(1, p_i)\\
   ),
   data=d
 )
-precis(m10.1)</code></pre>
-<pre><code>       mean         sd     5.5%     94.5%
-a 0.3201415 0.09022718 0.175941 0.4643419</code></pre>
+precis(m10.1)
+</code></pre>
+
+<pre><code>  Mean StdDev 5.5% 94.5%
+a 0.32   0.09 0.18  0.46
+</code></pre>
+
 <p>This implies a MAP probability of pulling the left lever of</p>
-<pre class="r"><code>logistic(0.32)</code></pre>
-<pre><code>[1] 0.5793243</code></pre>
+
+<pre><code class="language-r">logistic(0.32)
+</code></pre>
+
+<pre><code>[1] 0.5793243
+</code></pre>
+
 <p>with a 89% interval of</p>
-<pre class="r"><code>logistic( c(0.18, 0.46))</code></pre>
-<pre><code>[1] 0.5448789 0.6130142</code></pre>
+
+<pre><code class="language-r">logistic( c(0.18, 0.46))
+</code></pre>
+
+<pre><code>[1] 0.5448789 0.6130142
+</code></pre>
+
 <p>Next the models using the predictors:</p>
-<pre class="r"><code>m10.2 &lt;- map(
+
+<pre><code class="language-r">m10.2 &lt;- map(
   alist(
     pulled_left ~ dbinom(1, p),
     logit(p) &lt;- a + bp*prosoc_left,
@@ -369,39 +402,73 @@ m10.3 &lt;- map(
   data=d
 )
 
-(cp &lt;- compare(m10.1, m10.2, m10.3) )</code></pre>
-<pre><code>          WAIC       SE    dWAIC       dSE    pWAIC     weight
-m10.2 680.5384 9.253663 0.000000        NA 2.020256 0.70166499
-m10.3 682.3666 9.330073 1.828221 0.9156754 3.009858 0.28127863
-m10.1 687.9722 7.105368 7.433864 6.1334050 1.016019 0.01705637</code></pre>
+(cp &lt;- compare(m10.1, m10.2, m10.3) )
+</code></pre>
+
+<pre><code>       WAIC pWAIC dWAIC weight   SE  dSE
+m10.2 680.5     2   0.0   0.69 9.20   NA
+m10.3 682.2     3   1.7   0.29 9.43 0.73
+m10.1 688.0     1   7.5   0.02 7.17 6.10
+</code></pre>
+
 <p>The model without the interaction seems to fare better even though the third model best reflects the structure of the experiment.</p>
-<pre class="r"><code>plot( cp )#, </code></pre>
-<p><img src="/projects/Statistical-Rethinking/Chapter_10/chapter10a_files/figure-html/unnamed-chunk-6-1.png" width="768" /></p>
-<pre class="r"><code>     # xlim=c( min( cp@output$WAIC - cp@output$SE) , 
-    #          max(cp@output$WAIC + cp@output$SE ) ) )</code></pre>
-<p>Note also that the difference has a small standard error, so the order of the models wouldn’t easily change.</p>
-<p>Let’s have a look at the third model to understand why it performs poorly compared with the second one:</p>
-<pre class="r"><code>precis(m10.3)</code></pre>
-<pre><code>           mean        sd       5.5%     94.5%
-a    0.04770348 0.1260040 -0.1536753 0.2490822
-bp   0.60971850 0.2261470  0.2482919 0.9711451
-bpC -0.10398939 0.2635913 -0.5252592 0.3172804</code></pre>
-<pre class="r"><code>plot( precis(m10.3) )</code></pre>
-<p><img src="/projects/Statistical-Rethinking/Chapter_10/chapter10a_files/figure-html/unnamed-chunk-8-1.png" width="768" /></p>
-<p>The interaction variable has a rather wide posterior.
-Let’s have a closer look at the parameter <code>bp</code> for the effect of the prosocial option. We have to distinguish between the absolute and relative effect.</p>
+
+<pre><code class="language-r">plot( cp , 
+      xlim=c( min( cp@output$WAIC - cp@output$SE) , 
+              max(cp@output$WAIC + cp@output$SE ) ) )
+</code></pre>
+
+<p><img src="chapter10a_files/figure-markdown_github/unnamed-chunk-6-1.png" alt="" /></p>
+
+<p>Note also that the difference has a small standard error, so the order of the models wouldn&rsquo;t easily change.</p>
+
+<p>Let&rsquo;s have a look at the third model to understand why it performs poorly compared with the second one:</p>
+
+<pre><code class="language-r">precis(m10.3)
+</code></pre>
+
+<pre><code>     Mean StdDev  5.5% 94.5%
+a    0.05   0.13 -0.15  0.25
+bp   0.61   0.23  0.25  0.97
+bpC -0.10   0.26 -0.53  0.32
+</code></pre>
+
+<pre><code class="language-r">plot( precis(m10.3) )
+</code></pre>
+
+<p><img src="chapter10a_files/figure-markdown_github/unnamed-chunk-8-1.png" alt="" /></p>
+
+<p>The interaction variable has a rather wide posterior. Let&rsquo;s have a closer look at the parameter <code>bp</code> for the effect of the prosocial option. We have to distinguish between the absolute and relative effect.</p>
+
 <p>Changing the predictor <code>prosoc_left</code> from 0 to 1 increases the log-odds of pulling the left-hand lever by 0.61. This implies the odds are multiplied by:</p>
-<pre class="r"><code>exp(0.61)</code></pre>
-<pre><code>[1] 1.840431</code></pre>
-<p>That is, the odds increase by 84%. This is the relative effect. The relative effect depend strongly on the other parameter als well. If we assume for example an <span class="math inline">\(\alpha\)</span> value of 4 then the probability for a pull, ignoring everything else:</p>
-<pre class="r"><code>logistic(4)</code></pre>
-<pre><code>[1] 0.9820138</code></pre>
+
+<pre><code class="language-r">exp(0.61)
+</code></pre>
+
+<pre><code>[1] 1.840431
+</code></pre>
+
+<p>That is, the odds increase by 84%. This is the relative effect. The relative effect depend strongly on the other parameter als well. If we assume for example an <img src="https://latex.codecogs.com/png.latex?%5Calpha" alt="\\alpha" title="\alpha" /> value of 4 then the probability for a pull, ignoring everything else:</p>
+
+<pre><code class="language-r">logistic(4)
+</code></pre>
+
+<pre><code>[1] 0.9820138
+</code></pre>
+
 <p>is already quite high. Adding then the increase of 0.61 (relative increase of 84%) changes this to</p>
-<pre class="r"><code>logistic(4 + 0.61)</code></pre>
-<pre><code>[1] 0.9901462</code></pre>
+
+<pre><code class="language-r">logistic(4 + 0.61)
+</code></pre>
+
+<pre><code>[1] 0.9901462
+</code></pre>
+
 <p>In this example, the absolute effect would thus be small.</p>
-<p>Let’s plot the absolute effect:</p>
-<pre class="r"><code># dummy data for predictions across treatments
+
+<p>Let&rsquo;s plot the absolute effect:</p>
+
+<pre><code class="language-r"># dummy data for predictions across treatments
 d.pred &lt;- data.frame(
   prosoc_left = c(0, 1, 0, 1), # right/left/right/left
   condition = c(0, 0, 1, 1)    # control/control/partner/partner
@@ -412,8 +479,10 @@ chimp.ensemble &lt;- ensemble(m10.1, m10.2, m10.3, data=d.pred)
 
 # summarize
 pred.p &lt;- apply(chimp.ensemble$link, 2, mean)
-pred.p.PI &lt;- apply(chimp.ensemble$link, 2, PI)</code></pre>
-<pre class="r"><code>plot( 0, 0, type=&quot;n&quot;, xlab=&quot;prosoc_left/condition&quot;,
+pred.p.PI &lt;- apply(chimp.ensemble$link, 2, PI)
+</code></pre>
+
+<pre><code class="language-r">plot( 0, 0, type=&quot;n&quot;, xlab=&quot;prosoc_left/condition&quot;,
       ylab=&quot;proportion pulled left&quot;,
       ylim=c(0,1), xaxt=&quot;n&quot;, xlim=c(1,4) )
 axis(1, at=1:4, labels=c(&quot;0/0&quot;, &quot;1/0&quot;, &quot;0/1&quot;, &quot;1/1&quot;))
@@ -426,35 +495,57 @@ for ( chimp in 1:7)
          col=&quot;royalblue4&quot;, lwd=1.5)
 
 lines( 1:4, pred.p )
-shade(pred.p.PI, 1:4)</code></pre>
-<p><img src="/projects/Statistical-Rethinking/Chapter_10/chapter10a_files/figure-html/unnamed-chunk-13-1.png" width="480" /></p>
+shade(pred.p.PI, 1:4)
+</code></pre>
+
+<p><img src="chapter10a_files/figure-markdown_github/unnamed-chunk-13-1.png" alt="" /></p>
+
 <p>Compare the MAP model with a MCMC Stan model:</p>
-<pre class="r"><code># clean NAs from the data
+
+<pre><code class="language-r"># clean NAs from the data
 d2 &lt;- d
 d2$recipient &lt;- NULL
 
 # re-use map fit to get the formula
 m10.3stan &lt;- map2stan(m10.3, data=d2, iter=1e4, warmup=1000 )
-precis(m10.3stan)</code></pre>
-<pre class="r"><code>precis(m10.3stan)</code></pre>
-<pre><code>           mean        sd       5.5%     94.5%    n_eff     Rhat4
-a    0.05063956 0.1253442 -0.1466587 0.2535746 4832.785 1.0000571
-bp   0.60909241 0.2253974  0.2525596 0.9732595 4171.547 0.9999050
-bpC -0.10152022 0.2665539 -0.5258567 0.3245502 4393.468 0.9998918</code></pre>
+precis(m10.3stan)
+</code></pre>
+
+<pre><code class="language-r">precis(m10.3stan)
+</code></pre>
+
+<pre><code>     Mean StdDev lower 0.89 upper 0.89 n_eff Rhat
+a    0.05   0.13      -0.15       0.25  5127    1
+bp   0.62   0.23       0.25       0.98  4138    1
+bpC -0.10   0.26      -0.52       0.32  4797    1
+</code></pre>
+
 <p>The numbers are almost identical with the MAP model and we can check the pairs plot to see that the posterior is indeed well approximated by a quadratic.</p>
-<pre class="r"><code>pairs(m10.3stan)</code></pre>
-<p><img src="/projects/Statistical-Rethinking/Chapter_10/chapter10a_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
-<p>We saw in the plot of the average proportions pulled left above that some chimpanzees have a preference for pulling the left or right lever. One even always pulled the left lever. A factor here might be the handedness of the chimp.
-One thing we can do, is to fit an intercept for each individula:
-<span class="math display">\[\begin{align*}
-L_i &amp;\sim \text{Binomial}(1, p_i)\\
-\text{logit}(p_i) &amp;= \alpha_{\text{ACTOR}[i]} + (\beta_P + \beta_{PC}C_i)P_i \\
-\alpha &amp;\sim \text{Normal}(0, 10) \\
-\beta_P &amp;\sim \text{Normal}(0, 10) \\
-\beta_{PC} &amp;\sim \text{Normal}(0, 10) 
-\end{align*}\]</span>
-We fit this with MCMC since it will turn out to have some skew in its posterior distribution.</p>
-<pre class="r"><code>m10.4 &lt;- map2stan(
+
+<pre><code class="language-r">pairs(m10.3stan)
+</code></pre>
+
+<p><img src="chapter10a_files/figure-markdown_github/unnamed-chunk-16-1.png" alt="" /></p>
+
+<p>We saw in the plot of the average proportions pulled left above that some chimpanzees have a preference for pulling the left or right lever. One even always pulled the left lever. A factor here might be the handedness of the chimp. One thing we can do, is to fit an intercept for each individula:</p>
+
+<p><img src="https://latex.codecogs.com/png.latex?%5Cbegin%7Balign%2A%7D%0AL_i%20%26%5Csim%20%5Ctext%7BBinomial%7D%281%2C%20p_i%29%5C%5C%0A%5Ctext%7Blogit%7D%28p_i%29%20%26%3D%20%5Calpha_%7B%5Ctext%7BACTOR%7D%5Bi%5D%7D%20%2B%20%28%5Cbeta_P%20%2B%20%5Cbeta_%7BPC%7DC_i%29P_i%20%5C%5C%0A%5Calpha%20%26%5Csim%20%5Ctext%7BNormal%7D%280%2C%2010%29%20%5C%5C%0A%5Cbeta_P%20%26%5Csim%20%5Ctext%7BNormal%7D%280%2C%2010%29%20%5C%5C%0A%5Cbeta_%7BPC%7D%20%26%5Csim%20%5Ctext%7BNormal%7D%280%2C%2010%29%20%0A%5Cend%7Balign%2A%7D &quot;begin{align*}
+L_i &amp;sim text{Binomial}(1, p_i" alt="\\begin{align\*}
+L\_i &amp;\\sim \\text{Binomial}(1, p\_i)\\\\
+\\text{logit}(p\_i) &amp;= \\alpha\_{\\text{ACTOR}\[i\]} + (\\beta\_P + \\beta\_{PC}C\_i)P\_i \\\\
+\\alpha &amp;\\sim \\text{Normal}(0, 10) \\\\
+\\beta\_P &amp;\\sim \\text{Normal}(0, 10) \\\\
+\\beta\_{PC} &amp;\\sim \\text{Normal}(0, 10) 
+\\end{align\*}" /><br />
+\text{logit}(p<em>i) &amp;= \alpha</em>{\text{ACTOR}[i]} + (\beta<em>P + \beta</em>{PC}C_i)P_i <br />
+\alpha &amp;\sim \text{Normal}(0, 10) <br />
+\beta<em>P &amp;\sim \text{Normal}(0, 10) <br />
+\beta</em>{PC} &amp;\sim \text{Normal}(0, 10)
+\end{align*}&ldquo;)</p>
+
+<p>We fit this with MCMC since it will turn out to have some skew in its posterior distribution.</p>
+
+<pre><code class="language-r">m10.4 &lt;- map2stan(
   alist(
     pulled_left ~ dbinom(1, p),
     logit(p) &lt;- a[actor] + (bp + bpC*condition)*prosoc_left,
@@ -463,32 +554,52 @@ We fit this with MCMC since it will turn out to have some skew in its posterior 
     bpC ~ dnorm(0, 10)
   ),
   data=d2, chains=2, iter=2500, warmup=500
-)</code></pre>
+)
+</code></pre>
+
 <p>Number of actors:</p>
-<pre class="r"><code>unique(d$actor)</code></pre>
-<pre><code>[1] 1 2 3 4 5 6 7</code></pre>
-<pre class="r"><code>precis(m10.4, depth=2)</code></pre>
-<pre><code>           mean        sd       5.5%      94.5%    n_eff     Rhat4
-a[1] -0.7430094 0.2722710 -1.1844461 -0.3065746 3644.481 1.0008288
-a[2] 11.1110158 5.4369195  4.6743364 21.4631269 1977.246 1.0011757
-a[3] -1.0587065 0.2829557 -1.5276684 -0.6243400 3703.506 0.9998681
-a[4] -1.0549979 0.2851375 -1.5194521 -0.5949534 2992.954 1.0020444
-a[5] -0.7478554 0.2728858 -1.1811437 -0.3123281 4198.502 1.0005778
-a[6]  0.2113113 0.2676306 -0.2210728  0.6336893 3698.776 1.0003385
-a[7]  1.8031784 0.3991891  1.1990170  2.4707487 4511.980 1.0002131
-bp    0.8436144 0.2648247  0.4153247  1.2656743 2197.847 1.0010277
-bpC  -0.1373488 0.2960272 -0.6124452  0.3296532 2742.691 1.0005659</code></pre>
+
+<pre><code class="language-r">unique(d$actor)
+</code></pre>
+
+<pre><code>[1] 1 2 3 4 5 6 7
+</code></pre>
+
+<pre><code class="language-r">precis(m10.4, depth=2)
+</code></pre>
+
+<pre><code>      Mean StdDev lower 0.89 upper 0.89 n_eff Rhat
+a[1] -0.73   0.27      -1.17      -0.31  3365    1
+a[2] 10.79   5.17       3.35      18.02  1566    1
+a[3] -1.06   0.28      -1.48      -0.59  3205    1
+a[4] -1.05   0.28      -1.47      -0.57  2697    1
+a[5] -0.74   0.27      -1.17      -0.30  3095    1
+a[6]  0.23   0.27      -0.24       0.63  3253    1
+a[7]  1.81   0.39       1.21       2.45  3528    1
+bp    0.84   0.27       0.40       1.27  2005    1
+bpC  -0.14   0.31      -0.61       0.38  2902    1
+</code></pre>
+
 <p>This posterior is not entirely Gaussian:</p>
-<pre class="r"><code>post &lt;- extract.samples( m10.4)
-str(post)</code></pre>
+
+<pre><code class="language-r">post &lt;- extract.samples( m10.4)
+str(post)
+</code></pre>
+
 <pre><code>List of 3
- $ a  : num [1:4000, 1:7] -0.801 -0.7 -0.812 -0.565 -0.657 ...
- $ bp : num [1:4000(1d)] 0.489 0.998 0.987 0.667 1.308 ...
- $ bpC: num [1:4000(1d)] -0.00164 -0.42957 -0.11204 -0.34127 -0.23503 ...</code></pre>
-<pre class="r"><code>dens(post$a[,2])</code></pre>
-<p><img src="/projects/Statistical-Rethinking/Chapter_10/chapter10a_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+ $ a  : num [1:4000, 1:7] -0.434 -1.233 -0.671 -1.206 -0.585 ...
+ $ bp : num [1:4000(1d)] 0.523 0.906 1.16 1.205 0.594 ...
+ $ bpC: num [1:4000(1d)] -0.356 -0.2 -0.413 -0.285 0.193 ...
+</code></pre>
+
+<pre><code class="language-r">dens(post$a[,2])
+</code></pre>
+
+<p><img src="chapter10a_files/figure-markdown_github/unnamed-chunk-21-1.png" alt="" /></p>
+
 <p>Plotting the predictions for each actor:</p>
-<pre class="r"><code>par(mfrow=c(4, 2))
+
+<pre><code class="language-r">par(mfrow=c(4, 2))
 for (chimp in 1:7) {
   d.pred &lt;- list(
     pulled_left = rep(0, 4),       # empty outcomes
@@ -513,75 +624,88 @@ for (chimp in 1:7) {
   
   lines(1:4, pred.p)
   shade(pred.p.PI, 1:4)
-}</code></pre>
-<p><img src="/projects/Statistical-Rethinking/Chapter_10/chapter10a_files/figure-html/unnamed-chunk-22-1.png" width="768" /></p>
-</div>
-<div id="aggregated-binomial" class="section level2">
-<h2>Aggregated binomial</h2>
-<div id="chimpanzees" class="section level3">
-<h3>Chimpanzees</h3>
-<p>Instead of predicting the likelihood for a single pull (0 or 1), we can also predict the counts, i.e. how likely is it that an actor pulls left <code>x</code> times out of 18 trials.</p>
-<pre class="r"><code>data(chimpanzees)
+}
+</code></pre>
+
+<p><img src="chapter10a_files/figure-markdown_github/unnamed-chunk-22-1.png" alt="" /></p>
+
+<h2 id="aggregated-binomial">Aggregated binomial</h2>
+
+<h3 id="chimpanzees">Chimpanzees</h3>
+
+<p>Instead of predicting the likelihood for a single pull (0 or 1), we can also predict the counts, i.e. how likely is it that an actor pulls left <code>x</code> times out of 18 trials.</p>
+
+<pre><code class="language-r">data(chimpanzees)
 d &lt;- chimpanzees
 d.aggregated &lt;- aggregate( d$pulled_left,
                            list(prosoc_left=d$prosoc_left,
                                 condition=d$condition,
                                 actor=d$actor),
                            sum)
-knitr::kable( head(d.aggregated,  8) )</code></pre>
+knitr::kable( head(d.aggregated,  8) )
+</code></pre>
+
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="right">prosoc_left</th>
 <th align="right">condition</th>
 <th align="right">actor</th>
 <th align="right">x</th>
 </tr>
 </thead>
+
 <tbody>
-<tr class="odd">
+<tr>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">1</td>
 <td align="right">6</td>
 </tr>
-<tr class="even">
+
+<tr>
 <td align="right">1</td>
 <td align="right">0</td>
 <td align="right">1</td>
 <td align="right">9</td>
 </tr>
-<tr class="odd">
+
+<tr>
 <td align="right">0</td>
 <td align="right">1</td>
 <td align="right">1</td>
 <td align="right">5</td>
 </tr>
-<tr class="even">
+
+<tr>
 <td align="right">1</td>
 <td align="right">1</td>
 <td align="right">1</td>
 <td align="right">10</td>
 </tr>
-<tr class="odd">
+
+<tr>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">2</td>
 <td align="right">18</td>
 </tr>
-<tr class="even">
+
+<tr>
 <td align="right">1</td>
 <td align="right">0</td>
 <td align="right">2</td>
 <td align="right">18</td>
 </tr>
-<tr class="odd">
+
+<tr>
 <td align="right">0</td>
 <td align="right">1</td>
 <td align="right">2</td>
 <td align="right">18</td>
 </tr>
-<tr class="even">
+
+<tr>
 <td align="right">1</td>
 <td align="right">1</td>
 <td align="right">2</td>
@@ -589,7 +713,8 @@ knitr::kable( head(d.aggregated,  8) )</code></pre>
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>m10.5 &lt;- map(
+
+<pre><code class="language-r">m10.5 &lt;- map(
   alist(
     x ~ dbinom( 18, p ),
     logit(p) &lt;- a + (bp + bpC*condition)*prosoc_left,
@@ -599,27 +724,38 @@ knitr::kable( head(d.aggregated,  8) )</code></pre>
   ),
   data = d.aggregated
 )
-precis(m10.5)</code></pre>
-<pre><code>           mean        sd       5.5%     94.5%
-a    0.04771759 0.1260040 -0.1536612 0.2490964
-bp   0.60966987 0.2261462  0.2482446 0.9710951
-bpC -0.10396505 0.2635904 -0.5252334 0.3173033</code></pre>
+precis(m10.5)
+</code></pre>
+
+<pre><code>     Mean StdDev  5.5% 94.5%
+a    0.05   0.13 -0.15  0.25
+bp   0.61   0.23  0.25  0.97
+bpC -0.10   0.26 -0.53  0.32
+</code></pre>
+
 <p>Compare with the same model with non-aggregated data:</p>
-<pre class="r"><code>precis(m10.3stan)</code></pre>
-<pre><code>           mean        sd       5.5%     94.5%    n_eff     Rhat4
-a    0.05063956 0.1253442 -0.1466587 0.2535746 4832.785 1.0000571
-bp   0.60909241 0.2253974  0.2525596 0.9732595 4171.547 0.9999050
-bpC -0.10152022 0.2665539 -0.5258567 0.3245502 4393.468 0.9998918</code></pre>
+
+<pre><code class="language-r">precis(m10.3stan)
+</code></pre>
+
+<pre><code>     Mean StdDev lower 0.89 upper 0.89 n_eff Rhat
+a    0.05   0.13      -0.15       0.25  5127    1
+bp   0.62   0.23       0.25       0.98  4138    1
+bpC -0.10   0.26      -0.52       0.32  4797    1
+</code></pre>
+
 <p>We get the same estimates.</p>
-</div>
-<div id="graduate-school-admissions" class="section level3">
-<h3>Graduate school admissions</h3>
-<pre class="r"><code>data(&quot;UCBadmit&quot;)
+
+<h3 id="graduate-school-admissions">Graduate school admissions</h3>
+
+<pre><code class="language-r">data(&quot;UCBadmit&quot;)
 d &lt;- UCBadmit
-knitr::kable(d)</code></pre>
+knitr::kable(d)
+</code></pre>
+
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="left">dept</th>
 <th align="left">applicant.gender</th>
 <th align="right">admit</th>
@@ -627,85 +763,97 @@ knitr::kable(d)</code></pre>
 <th align="right">applications</th>
 </tr>
 </thead>
+
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">A</td>
 <td align="left">male</td>
 <td align="right">512</td>
 <td align="right">313</td>
 <td align="right">825</td>
 </tr>
-<tr class="even">
+
+<tr>
 <td align="left">A</td>
 <td align="left">female</td>
 <td align="right">89</td>
 <td align="right">19</td>
 <td align="right">108</td>
 </tr>
-<tr class="odd">
+
+<tr>
 <td align="left">B</td>
 <td align="left">male</td>
 <td align="right">353</td>
 <td align="right">207</td>
 <td align="right">560</td>
 </tr>
-<tr class="even">
+
+<tr>
 <td align="left">B</td>
 <td align="left">female</td>
 <td align="right">17</td>
 <td align="right">8</td>
 <td align="right">25</td>
 </tr>
-<tr class="odd">
+
+<tr>
 <td align="left">C</td>
 <td align="left">male</td>
 <td align="right">120</td>
 <td align="right">205</td>
 <td align="right">325</td>
 </tr>
-<tr class="even">
+
+<tr>
 <td align="left">C</td>
 <td align="left">female</td>
 <td align="right">202</td>
 <td align="right">391</td>
 <td align="right">593</td>
 </tr>
-<tr class="odd">
+
+<tr>
 <td align="left">D</td>
 <td align="left">male</td>
 <td align="right">138</td>
 <td align="right">279</td>
 <td align="right">417</td>
 </tr>
-<tr class="even">
+
+<tr>
 <td align="left">D</td>
 <td align="left">female</td>
 <td align="right">131</td>
 <td align="right">244</td>
 <td align="right">375</td>
 </tr>
-<tr class="odd">
+
+<tr>
 <td align="left">E</td>
 <td align="left">male</td>
 <td align="right">53</td>
 <td align="right">138</td>
 <td align="right">191</td>
 </tr>
-<tr class="even">
+
+<tr>
 <td align="left">E</td>
 <td align="left">female</td>
 <td align="right">94</td>
 <td align="right">299</td>
 <td align="right">393</td>
 </tr>
-<tr class="odd">
+
+<tr>
 <td align="left">F</td>
 <td align="left">male</td>
 <td align="right">22</td>
 <td align="right">351</td>
 <td align="right">373</td>
 </tr>
-<tr class="even">
+
+<tr>
 <td align="left">F</td>
 <td align="left">female</td>
 <td align="right">24</td>
@@ -714,10 +862,12 @@ knitr::kable(d)</code></pre>
 </tr>
 </tbody>
 </table>
-<p>The data set contains only 12 rows but since it is aggregated, it actually represents 4526 applications.
-The goal is to evaluate whether the data contains evidence for gender bias in admission.</p>
+
+<p>The data set contains only 12 rows but since it is aggregated, it actually represents 4526 applications. The goal is to evaluate whether the data contains evidence for gender bias in admission.</p>
+
 <p>We will fit two models: One using gender as a predictor for <code>admit</code> and one modelling <code>admit</code> as a constant, ignoring gender.</p>
-<pre class="r"><code>d$male &lt;- ifelse( d$applicant.gender == &quot;male&quot;, 1, 0 )
+
+<pre><code class="language-r">d$male &lt;- ifelse( d$applicant.gender == &quot;male&quot;, 1, 0 )
 
 m10.6 &lt;- map(
   alist(
@@ -736,37 +886,59 @@ m10.7 &lt;- map(
     a ~ dnorm(0, 10)
   ),
   data=d
-)</code></pre>
-<pre class="r"><code>(cp &lt;- compare( m10.6, m10.7 ) )</code></pre>
-<pre><code>           WAIC       SE    dWAIC      dSE     pWAIC       weight
-m10.6  984.2015 311.2806  0.00000       NA 102.58582 1.000000e+00
-m10.7 1047.7249 314.3372 63.52339 166.2807  85.11608 1.607205e-14</code></pre>
+)
+</code></pre>
+
+<pre><code class="language-r">(cp &lt;- compare( m10.6, m10.7 ) )
+</code></pre>
+
+<pre><code>        WAIC pWAIC dWAIC weight    SE   dSE
+m10.6 5955.0   2.1   0.0      1 34.88    NA
+m10.7 6046.2   0.9  91.2      0 29.94 19.15
+</code></pre>
+
 <p>The model using male as a predictor performs better than without. The comparison suggests that gender actually matters a lot:</p>
-<pre class="r"><code>plot( cp)# , </code></pre>
-<p><img src="/projects/Statistical-Rethinking/Chapter_10/chapter10a_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
-<pre class="r"><code>     # xlim=c( min( cp@output$WAIC - cp@output$SE) , 
-      #        max(cp@output$WAIC + cp@output$SE ) ) )</code></pre>
+
+<pre><code class="language-r">plot( cp , 
+      xlim=c( min( cp@output$WAIC - cp@output$SE) , 
+              max(cp@output$WAIC + cp@output$SE ) ) )
+</code></pre>
+
+<p><img src="chapter10a_files/figure-markdown_github/unnamed-chunk-29-1.png" alt="" /></p>
+
 <p>In which way does it matter?</p>
-<pre class="r"><code>precis( m10.6 )</code></pre>
-<pre><code>         mean         sd       5.5%      94.5%
-a  -0.8304494 0.05077041 -0.9115903 -0.7493085
-bm  0.6103062 0.06389095  0.5081962  0.7124163</code></pre>
-<p>Being male does improve the chances of being admitted.
-The relative difference is <code>exp(0.61) =</code> 1.8404314. This means that a male applicant’s odds are 184% of a female applicant.
-Let’s get the absolute scale, which is more important:</p>
-<pre class="r"><code>post &lt;- extract.samples( m10.6 )
+
+<pre><code class="language-r">precis( m10.6 )
+</code></pre>
+
+<pre><code>    Mean StdDev  5.5% 94.5%
+a  -0.83   0.05 -0.91 -0.75
+bm  0.61   0.06  0.51  0.71
+</code></pre>
+
+<p>Being male does improve the chances of being admitted. The relative difference is <code>exp(0.61) =</code> 1.8404314. This means that a male applicant&rsquo;s odds are 184% of a female applicant. Let&rsquo;s get the absolute scale, which is more important:</p>
+
+<pre><code class="language-r">post &lt;- extract.samples( m10.6 )
 p.admit.male &lt;- logistic( post$a + post$bm )
 p.admit.female &lt;- logistic( post$a )
 
 diff.admit &lt;- p.admit.male - p.admit.female
 
-quantile( diff.admit, c(0.025, 0.5, 0.975 ))</code></pre>
+quantile( diff.admit, c(0.025, 0.5, 0.975 ))
+</code></pre>
+
 <pre><code>     2.5%       50%     97.5% 
-0.1130675 0.1413372 0.1690985 </code></pre>
+0.1130350 0.1418460 0.1698431 
+</code></pre>
+
 <p>Thus the median estimate of the male advantage is about 14%.</p>
-<pre class="r"><code>dens( diff.admit )</code></pre>
-<p><img src="/projects/Statistical-Rethinking/Chapter_10/chapter10a_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
-<pre class="r"><code>postcheck( m10.6, n=1e4 , col=&quot;royalblue4&quot;)
+
+<pre><code class="language-r">dens( diff.admit )
+</code></pre>
+
+<p><img src="chapter10a_files/figure-markdown_github/unnamed-chunk-32-1.png" alt="" /></p>
+
+<pre><code class="language-r">postcheck( m10.6, n=1e4 , col=&quot;royalblue4&quot;)
 
 # draw lines connecting points from same dept
 for ( i in 1:6 ){
@@ -775,14 +947,18 @@ for ( i in 1:6 ){
   y2 &lt;- d$admit[x+1]/d$applications[x+1]   # female
   lines( c(x, x+1), c(y1, y2), col=&quot;royalblue4&quot;, lwd=2)
   text(x+0.5, (y1 + y2)/2 + 0.05, d$dept[x], cex=0.8, col=&quot;royalblue4&quot;)
-}</code></pre>
-<p><img src="/projects/Statistical-Rethinking/Chapter_10/chapter10a_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
-<p>The first point of a line is the admission rate for males while the second point of a line is the admission rate for females. The expeted predictions are the black open points and the black crosses indicate the 89% interval of the expectations.
-The plot shows that only two departments (C and E) and lower admission rates for females.
-How come we get such a bad prediction?</p>
-<p>The problem: Male and female applicants don’t apply to the same departments and departments have different admission rates. Department A has much higer admission rates than department F and female applicants apply more often to F than to A.</p>
+}
+</code></pre>
+
+<p><img src="chapter10a_files/figure-markdown_github/unnamed-chunk-33-1.png" alt="" /></p>
+
+<p>The first point of a line is the admission rate for males while the second point of a line is the admission rate for females. The expeted predictions are the black open points and the black crosses indicate the 89% interval of the expectations. The plot shows that only two departments (C and E) and lower admission rates for females. How come we get such a bad prediction?</p>
+
+<p>The problem: Male and female applicants don&rsquo;t apply to the same departments and departments have different admission rates. Department A has much higer admission rates than department F and female applicants apply more often to F than to A.</p>
+
 <p>We will build a model that uses a unique intercept per department.</p>
-<pre class="r"><code># make index
+
+<pre><code class="language-r"># make index
 d$dept_id &lt;- coerce_index( d$dept )
 
 # model with unique intercept for each dept
@@ -803,33 +979,52 @@ m10.9 &lt;- map(
     bm ~ dnorm(0, 10)
   ),
   data=d
-)</code></pre>
+)
+</code></pre>
+
 <p>We then compare all three models:</p>
-<pre class="r"><code>(cp &lt;- compare( m10.6, m10.7, m10.8, m10.9 ) )</code></pre>
-<pre><code>           WAIC        SE      dWAIC        dSE      pWAIC        weight
-m10.8  104.9527  17.02849   0.000000         NA   6.434406  9.072928e-01
-m10.9  109.5148  15.58673   4.562039   3.796352   9.952036  9.270718e-02
-m10.6  998.0261 315.56249 893.073389 326.423590 113.857322 1.069855e-194
-m10.7 1044.2402 312.91308 939.287442 324.498596  82.354394 9.864409e-205</code></pre>
+
+<pre><code class="language-r">(cp &lt;- compare( m10.6, m10.7, m10.8, m10.9 ) )
+</code></pre>
+
+<pre><code>        WAIC pWAIC dWAIC weight    SE   dSE
+m10.8 5201.0   6.0   0.0   0.59 56.99    NA
+m10.9 5201.8   7.1   0.8   0.41 57.22  2.47
+m10.6 5954.9   2.0 753.9   0.00 35.03 48.46
+m10.7 6046.2   0.9 845.2   0.00 29.93 52.31
+</code></pre>
+
 <p>As a plot:</p>
-<pre class="r"><code>plot( cp )#, </code></pre>
-<p><img src="/projects/Statistical-Rethinking/Chapter_10/chapter10a_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
-<pre class="r"><code>      #xlim=c( min( cp@output$WAIC - cp@output$SE) , 
-       #       max(cp@output$WAIC + cp@output$SE ) ) )</code></pre>
+
+<pre><code class="language-r">plot( cp , 
+      xlim=c( min( cp@output$WAIC - cp@output$SE) , 
+              max(cp@output$WAIC + cp@output$SE ) ) )
+</code></pre>
+
+<p><img src="chapter10a_files/figure-markdown_github/unnamed-chunk-36-1.png" alt="" /></p>
+
 <p>The two new models with the unique intercepts perform much better. Now, the model without <code>male</code> is ranked first but the difference between the first two models is tiny. Both models got about half the Akaike weight so you could call it a tie.</p>
+
 <p>So how does gender now affect admission?</p>
-<pre class="r"><code>precis( m10.9, depth=2 )</code></pre>
-<pre><code>            mean         sd       5.5%       94.5%
-a[1]  0.68193888 0.09910200  0.5235548  0.84032302
-a[2]  0.63852994 0.11556510  0.4538346  0.82322529
-a[3] -0.58062952 0.07465092 -0.6999361 -0.46132294
-a[4] -0.61262173 0.08596001 -0.7500024 -0.47524102
-a[5] -1.05727066 0.09872297 -1.2150490 -0.89949228
-a[6] -2.62392120 0.15766770 -2.8759046 -2.37193777
-bm   -0.09992562 0.08083548 -0.2291163  0.02926509</code></pre>
+
+<pre><code class="language-r">precis( m10.9, depth=2 )
+</code></pre>
+
+<pre><code>      Mean StdDev  5.5% 94.5%
+a[1]  0.68   0.10  0.52  0.84
+a[2]  0.64   0.12  0.45  0.82
+a[3] -0.58   0.07 -0.70 -0.46
+a[4] -0.61   0.09 -0.75 -0.48
+a[5] -1.06   0.10 -1.22 -0.90
+a[6] -2.62   0.16 -2.88 -2.37
+bm   -0.10   0.08 -0.23  0.03
+</code></pre>
+
 <p>The estimate for <code>bm</code> has changed direction, meaning it now estimates that being male is a disadvantage! The estimate becomes <code>exp(-0.1) =</code> 0.9048374. So a male has about 90% the odds of admission as a female.</p>
-<p>Let’s do the posterior check again as before:</p>
-<pre class="r"><code>postcheck( m10.9, n=1e4 , col=&quot;royalblue4&quot;)
+
+<p>Let&rsquo;s do the posterior check again as before:</p>
+
+<pre><code class="language-r">postcheck( m10.9, n=1e4 , col=&quot;royalblue4&quot;)
 
 # draw lines connecting points from same dept
 for ( i in 1:6 ){
@@ -838,67 +1033,96 @@ for ( i in 1:6 ){
   y2 &lt;- d$admit[x+1]/d$applications[x+1]   # female
   lines( c(x, x+1), c(y1, y2), col=&quot;royalblue4&quot;, lwd=2)
   text(x+0.5, (y1 + y2)/2 + 0.05, d$dept[x], cex=0.8, col=&quot;royalblue4&quot;)
-}</code></pre>
-<p><img src="/projects/Statistical-Rethinking/Chapter_10/chapter10a_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+}
+</code></pre>
+
+<p><img src="chapter10a_files/figure-markdown_github/unnamed-chunk-38-1.png" alt="" /></p>
+
 <p>The predictions fit much better than before.</p>
-<p>Let’s also check the quadratic approximation. In the example with the chimpanzees, unique intercepts were a problem for quadratic approximations, so let’s check how the compare to a Stan model:</p>
-<pre class="r"><code>dstan &lt;- d[, c(&quot;admit&quot;, &quot;applications&quot;, &quot;male&quot;, &quot;dept_id&quot;)]
+
+<p>Let&rsquo;s also check the quadratic approximation. In the example with the chimpanzees, unique intercepts were a problem for quadratic approximations, so let&rsquo;s check how the compare to a Stan model:</p>
+
+<pre><code class="language-r">dstan &lt;- d[, c(&quot;admit&quot;, &quot;applications&quot;, &quot;male&quot;, &quot;dept_id&quot;)]
 m10.9stan &lt;- map2stan( m10.9, data=dstan,
                        chains=2, iter=2500, warmup=500)
-precis(m10.9stan, depth=2)</code></pre>
-<pre class="r"><code>pairs(m10.9stan)</code></pre>
-<p><img src="/projects/Statistical-Rethinking/Chapter_10/chapter10a_files/figure-html/unnamed-chunk-40-1.png" width="864" /></p>
+precis(m10.9stan, depth=2)
+</code></pre>
+
+<pre><code class="language-r">pairs(m10.9stan)
+</code></pre>
+
+<p><img src="chapter10a_files/figure-markdown_github/unnamed-chunk-40-1.png" alt="" /></p>
+
 <p>All the posterior distributions are pretty much Gaussian, a quadratic approximation thus gives good estimates.</p>
-</div>
-</div>
-<div id="fitting-binomial-regression-with-glm" class="section level2">
-<h2>Fitting binomial regression with <code>glm</code></h2>
+
+<h2 id="fitting-binomial-regression-with-glm">Fitting binomial regression with <code>glm</code></h2>
+
 <p>The following code yields similar results as the map approach for the aggregated binomial.</p>
-<pre class="r"><code>m10.7glm &lt;- glm( cbind( admit, reject) ~ 1, data=d, family=binomial)
+
+<pre><code class="language-r">m10.7glm &lt;- glm( cbind( admit, reject) ~ 1, data=d, family=binomial)
 m10.6glm &lt;- glm( cbind( admit, reject) ~ male, data=d, family=binomial)
 m10.8glm &lt;- glm( cbind( admit, reject) ~ dept, data=d, family=binomial)
 m10.9glm &lt;- glm( cbind( admit, reject) ~ male + dept, data=d, 
                  family=binomial )
-precis(m10.9glm)</code></pre>
-<pre><code>                   mean         sd       5.5%       94.5%
-(Intercept)  0.68192148 0.09911270  0.5235203  0.84032272
-male        -0.09987009 0.08084647 -0.2290784  0.02933818
-deptB       -0.04339793 0.10983890 -0.2189417  0.13214584
-deptC       -1.26259802 0.10663289 -1.4330180 -1.09217808
-deptD       -1.29460647 0.10582342 -1.4637327 -1.12548020
-deptE       -1.73930574 0.12611350 -1.9408595 -1.53775201
-deptF       -3.30648006 0.16998181 -3.5781438 -3.03481630</code></pre>
+precis(m10.9glm)
+</code></pre>
+
+<pre><code>             Mean StdDev  5.5% 94.5%
+(Intercept)  0.68   0.10  0.52  0.84
+male        -0.10   0.08 -0.23  0.03
+deptB       -0.04   0.11 -0.22  0.13
+deptC       -1.26   0.11 -1.43 -1.09
+deptD       -1.29   0.11 -1.46 -1.13
+deptE       -1.74   0.13 -1.94 -1.54
+deptF       -3.31   0.17 -3.58 -3.03
+</code></pre>
+
 <p>Compare with the <code>map()</code> model:</p>
-<pre class="r"><code>precis(m10.9stan, depth=2)</code></pre>
-<pre><code>           mean         sd       5.5%       94.5%    n_eff     Rhat4
-a[1]  0.6863076 0.09691269  0.5322626  0.83932302 2263.496 0.9999579
-a[2]  0.6417298 0.11545820  0.4553979  0.82881994 2360.370 1.0003822
-a[3] -0.5808673 0.07352865 -0.7003331 -0.46132209 3235.067 0.9998488
-a[4] -0.6104369 0.08724276 -0.7511097 -0.47465331 2591.656 0.9996333
-a[5] -1.0607945 0.09930062 -1.2174470 -0.90071297 3168.278 0.9998268
-a[6] -2.6314324 0.15796026 -2.8908603 -2.38479805 3238.932 1.0008285
-bm   -0.1019495 0.08037660 -0.2306159  0.02743101 1984.762 0.9999576</code></pre>
+
+<pre><code class="language-r">precis(m10.9stan, depth=2)
+</code></pre>
+
+<pre><code>      Mean StdDev lower 0.89 upper 0.89 n_eff Rhat
+a[1]  0.68   0.10       0.52       0.83  1950    1
+a[2]  0.64   0.12       0.45       0.82  2281    1
+a[3] -0.58   0.07      -0.70      -0.46  4000    1
+a[4] -0.61   0.09      -0.75      -0.47  2889    1
+a[5] -1.06   0.10      -1.21      -0.89  4000    1
+a[6] -2.64   0.16      -2.89      -2.39  4000    1
+bm   -0.10   0.08      -0.22       0.03  1635    1
+</code></pre>
+
 <p>Note that the departments are coded differently: the intercept in the <code>glm</code> model corresponds to <code>a[1]</code> in the Stan model and <code>deptB</code> in the <code>glm</code> model corresponds to the difference from department A to B, that is <code>a[2]-a[1]</code> in the Stan model.</p>
+
 <p>To use <code>glm()</code> for a non-aggregated model:</p>
-<pre class="r"><code>m10.4glm &lt;- glm(
+
+<pre><code class="language-r">m10.4glm &lt;- glm(
   pulled_left ~ as.factor(actor) + prosoc_left*condition  -condition,
   data=chimpanzees, family=binomial
 )
-precis(m10.4glm)</code></pre>
-<pre><code>                               mean          sd          5.5%        94.5%
-(Intercept)           -7.265827e-01   0.2686406    -1.1559223   -0.2972432
-as.factor(actor)2      1.894908e+01 754.9798310 -1187.6545076 1225.5526659
-as.factor(actor)3     -3.049664e-01   0.3500257    -0.8643751    0.2544423
-as.factor(actor)4     -3.049664e-01   0.3500257    -0.8643751    0.2544423
-as.factor(actor)5     -2.705907e-15   0.3440353    -0.5498348    0.5498348
-as.factor(actor)6      9.395168e-01   0.3489007     0.3819061    1.4971274
-as.factor(actor)7      2.483652e+00   0.4506924     1.7633580    3.2039450
-prosoc_left            8.223656e-01   0.2613048     0.4047500    1.2399812
-prosoc_left:condition -1.323906e-01   0.2971937    -0.6073635    0.3425823</code></pre>
+precis(m10.4glm)
+</code></pre>
+
+<pre><code>                       Mean StdDev     5.5%   94.5%
+(Intercept)           -0.73   0.27    -1.16   -0.30
+as.factor(actor)2     18.95 754.98 -1187.65 1225.55
+as.factor(actor)3     -0.30   0.35    -0.86    0.25
+as.factor(actor)4     -0.30   0.35    -0.86    0.25
+as.factor(actor)5      0.00   0.34    -0.55    0.55
+as.factor(actor)6      0.94   0.35     0.38    1.50
+as.factor(actor)7      2.48   0.45     1.76    3.20
+prosoc_left            0.82   0.26     0.40    1.24
+prosoc_left:condition -0.13   0.30    -0.61    0.34
+</code></pre>
+
 <p>We need to use <code>-condition</code> to remove the main effect of condition.</p>
+
 <p>We can also use <code>glimmer()</code> to get code corresponding to a <code>map</code> or <code>map2stan</code> model.</p>
-<pre class="r"><code>glimmer( pulled_left ~ prosoc_left*condition -condition,
-         data=chimpanzees, family=binomial)</code></pre>
+
+<pre><code class="language-r">glimmer( pulled_left ~ prosoc_left*condition -condition,
+         data=chimpanzees, family=binomial)
+</code></pre>
+
 <pre><code>alist(
     pulled_left ~ dbinom( 1 , p ),
     logit(p) &lt;- Intercept +
@@ -907,18 +1131,26 @@ prosoc_left:condition -1.323906e-01   0.2971937    -0.6073635    0.3425823</code
     Intercept ~ dnorm(0,10),
     b_prosoc_left ~ dnorm(0,10),
     b_prosoc_left_X_condition ~ dnorm(0,10)
-)</code></pre>
+)
+</code></pre>
+
 <p>Note that <code>glm</code> uses flat priors by default which can lead to nonsense estimates. Consider for example the following example:</p>
-<pre class="r"><code># almost perfectly associated
+
+<pre><code class="language-r"># almost perfectly associated
 y &lt;- c( rep(0, 10), rep(1, 10))
 x &lt;- c(rep(-1, 9), rep(1, 11))
 m.bad &lt;- glm( y ~ x, data=list(x=x, y=y), family=binomial)
-precis(m.bad)</code></pre>
-<pre><code>                 mean       sd      5.5%    94.5%
-(Intercept) -9.131742 2955.062 -4731.891 4713.628
-x           11.434327 2955.062 -4711.325 4734.194</code></pre>
+precis(m.bad)
+</code></pre>
+
+<pre><code>             Mean  StdDev     5.5%   94.5%
+(Intercept) -9.13 2955.06 -4731.89 4713.63
+x           11.43 2955.06 -4711.33 4734.19
+</code></pre>
+
 <p>The estimates would suggest there is no association between <code>x</code> and <code>y</code> even though there is a strong association. A weak prior helps:</p>
-<pre class="r"><code>m.good &lt;- map(
+
+<pre><code class="language-r">m.good &lt;- map(
   alist(
     y ~ dbinom(1, p),
     logit(p) &lt;- a + b*x,
@@ -927,15 +1159,21 @@ x           11.434327 2955.062 -4711.325 4734.194</code></pre>
   ),
   data=list(x=x, y=y)
 )
-precis(m.good)</code></pre>
-<pre><code>       mean       sd       5.5%    94.5%
-a -1.726593 2.775005 -6.1615867 2.708401
-b  4.016908 2.775005 -0.4180857 8.451902</code></pre>
+precis(m.good)
+</code></pre>
+
+<pre><code>   Mean StdDev  5.5% 94.5%
+a -1.73   2.78 -6.16  2.71
+b  4.02   2.78 -0.42  8.45
+</code></pre>
+
 <p>Since the uncertainty is not symmetric in this case, the quadratic assumption is misleading. Even better would be MCMC samples:</p>
-<pre class="r"><code>m.better &lt;- map2stan( m.good)
-pairs(m.better)</code></pre>
-<p><img src="/projects/Statistical-Rethinking/Chapter_10/chapter10a_files/figure-html/unnamed-chunk-47-1.png" width="576" /></p>
-</div>
+
+<pre><code class="language-r">m.better &lt;- map2stan( m.good)
+pairs(m.better)
+</code></pre>
+
+<p><img src="chapter10a_files/figure-markdown_github/unnamed-chunk-47-1.png" alt="" /></p>
 
     
     </section>
@@ -943,7 +1181,7 @@ pairs(m.better)</code></pre>
 
   <aside class="read-next">
   
-      <a class="read-next-story" style="no-cover" href="/projects/statistical-rethinking/readme/">
+      <a class="read-next-story" style="no-cover" href="/projects/statistical-rethinking/chapter_10/chapter10_ex/">
           <section class="post">
               <h5></h5>
               
@@ -951,9 +1189,9 @@ pairs(m.better)</code></pre>
       </a>
   
   
-      <a class="read-next-story prev" style="no-cover" href="/projects/statistical-rethinking/chapter_10/chapter10_ex/">
+      <a class="read-next-story prev" style="no-cover" href="/projects/statistical-rethinking/chapter_10/chapter10b/">
           <section class="post">
-              <h5>Chapter 10 - Exercise</h5>
+              <h5></h5>
           </section>
       </a>
       
@@ -992,7 +1230,7 @@ pairs(m.better)</code></pre>
     
 <section class="share">
   <h4>Share this projects</h4>
-  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Binomial%20Regression&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2fprojects%2fstatistical-rethinking%2fchapter_10%2fchapter10a%2f"
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2fprojects%2fstatistical-rethinking%2fchapter_10%2fchapter10a%2f"
       onclick="window.open(this.href, 'twitter-share', 'width=550,height=421');return false;">
       <span class="hidden">Twitter</span>
   </a>
@@ -1000,7 +1238,7 @@ pairs(m.better)</code></pre>
       onclick="window.open(this.href, 'facebook-share','width=580,height=551');return false;">
       <span class="hidden">Facebook</span>
   </a>
-  <a class="icon-linkedin" style="font-size: 1.4em" href="https://www.linkedin.com/shareArticle?mini=true&title=Binomial%20Regression&url=%2fprojects%2fstatistical-rethinking%2fchapter_10%2fchapter10a%2f"
+  <a class="icon-linkedin" style="font-size: 1.4em" href="https://www.linkedin.com/shareArticle?mini=true&title=&url=%2fprojects%2fstatistical-rethinking%2fchapter_10%2fchapter10a%2f"
                onclick="window.open(this.href, 'linkedin-share', 'width=554,height=571');return false;">
     <span class="hidden">LinkedIn</span>
     </a>
@@ -1048,7 +1286,7 @@ s.setAttribute('data-timestamp', +new Date());
 
     <footer class="site-footer clearfix">
         <section class="copyright"><a href="">Samples of Thoughts</a> 
-        © Corrie Bartelheimer 2020 &middot; </section>
+        &copy; Corrie Bartelheimer 2020 &middot; </section>
         
     </footer>
     </div>

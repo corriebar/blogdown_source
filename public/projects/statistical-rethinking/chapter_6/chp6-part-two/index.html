@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    
+        
+        <meta name="twitter:card" content="summary_large_image"/>
+        <meta name="twitter:image" content="/images/tea_with_books.jpg"/>
+    
+
+
+
+<meta name="twitter:title" content="Information Theory and Model Performance"/>
+<meta name="twitter:description" content=""/>
+<meta name="twitter:site" content="@corrieaar"/>
+
+
+
+  	<meta property="og:title" content="Information Theory and Model Performance &middot; Samples of Thoughts" />
+  	<meta property="og:site_name" content="Samples of Thoughts" />
+  	<meta property="og:url" content="/projects/statistical-rethinking/chapter_6/chp6-part-two/" />
+
+    
+       <meta property="og:image" content="/images/tea_with_books.jpg"/>
+    
+    
+    <meta property="og:description" content="" />
+  	<meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2018-07-02T00:00:00Z" />
+
+    
+    <meta property="article:tag" content="Statistical Rethinking" />
+    
+    <meta property="article:tag" content="Bayesian" />
+    
+    
+
+    <title>Information Theory and Model Performance &middot; Samples of Thoughts</title>
+
+    
+    <meta name="description" content="Entropy p &amp;lt;- c( 0.3, 0.7) -sum( p*log(p) ) compare this with:
+p &amp;lt;- c(0.01, 0.99) -sum( p*log(p) ) # contains much less information  Kullback-Leibler Diver" />
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/css/nav.css" />
+
+    
+    
+    
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/googlecode.min.css' rel='stylesheet' type='text/css' />
+
+
+
+  
+     
+      
+          <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Samples of Thoughts" />
+      
+      
+    
+    <meta name="generator" content="Hugo 0.55.5" />
+
+    <link rel="canonical" href="/projects/statistical-rethinking/chapter_6/chp6-part-two/" />
+
+    
+      
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name":  null 
+    },
+    "author": {
+        "@type": "Person",
+        "name":  null ,
+        
+        "url":  null ,
+        "sameAs": [
+            
+            
+             
+             
+             
+             
+             
+            
+        ]
+    },
+    "headline": "Information Theory and Model Performance",
+    "name": "Information Theory and Model Performance",
+    "wordCount":  2171 ,
+    "timeRequired": "PT11M",
+    "inLanguage": {
+      "@type": "Language",
+      "alternateName": "en"
+    },
+    "url": "/projects/statistical-rethinking/chapter_6/chp6-part-two/",
+    "datePublished": "2018-07-02T00:00Z",
+    "dateModified": "2018-07-02T00:00Z",
+    
+    "image": {
+        "@type": "ImageObject",
+        "url": "/images/tea_with_books.jpg",
+        "width": 3000,
+        "height": 1445
+    },
+    
+    "keywords": "Statistical Rethinking, Bayesian",
+    "description": "",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/projects/statistical-rethinking/chapter_6/chp6-part-two/"
+    }
+}
+    </script>
+    
+
+
+    
+
+    
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140745376-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+
+    
+    
+    
+
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+<script>
+  window.addEventListener("load", function(){
+    window.cookieconsent.initialise({
+      "palette": {
+        "popup": {
+          "background": "#40485A",
+          "text": "#ffffff"
+        },
+        "button": {
+          "background": "#5B5A68",
+          "text": "#ffffff"
+        }
+      },
+      "content": {
+        "message": "This website uses cookies to ensure you get the best experience on my website.",
+        "dismiss": "Got it!",
+        "link": "Learn more",
+        "href": "https://cookies.insites.com"
+      }
+    })});
+</script>
+
+
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/projects">Projects</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/talks">Talks</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/about">About</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/">Home</a>
+            </li>
+        
+        
+    </ul>
+
+    
+    <a class="subscribe-button icon-feed" href="/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+  
+ <header class="main-header post-head" style="background-image: url(/images/tea_with_books.jpg)"> 
+  
+  <nav class="main-nav overlay clearfix">
+
+
+
+      <ul>
+        
+			<li> <a class="blog-logo" href="/">Home</a> </li>
+			  
+			<li> <a class="blog-logo" href="/about">About</a> </li>
+			  
+			<li> <a class="blog-logo" href="/talks">Talks</a> </li>
+			  
+			<li> <a class="blog-logo" href="/projects">Projects</a> </li>
+			  
+
+            
+              <a class="menu-button icon-feed" href="">&nbsp;&nbsp;Subscribe</a>
+            
+            
+      
+       </ul>
+    </nav>
+    
+     <div class="vertical">
+        <div class="main-header-content inner">
+            
+
+
+    <a class="bloglogo" href="https://github.com/corriebar" target="_blank">
+    <span class="icon-github" style="color:white;font-size:2em"></span>
+    </a>
+&nbsp;
+
+
+
+
+
+
+
+
+
+    <a class="bloglogo" href="https://twitter.com/corrieaar" target="_blank">
+        <span class="icon-twitter" style="color:white;font-size:2em"></span>
+    </a>
+&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <h1 class="page-title">Samples of Thoughts</h1>
+            <h2 class="page-description">about data, statistics  and everything in between</h2>
+        </div>
+    </div>  
+    
+
+
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post projects">
+
+    <header class="post-header">
+        <h1 class="post-title">Information Theory and Model Performance</h1>
+        <small></small>
+
+        <section class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 11 min</span>
+            </p>
+        
+        
+        
+         
+          <span class="post-tag small"><a href="/tags/statistical-rethinking/">#Statistical Rethinking</a></span>
+         
+          <span class="post-tag small"><a href="/tags/bayesian/">#Bayesian</a></span>
+         
+        </section>
+    </header>
+
+    <section class="post-content">
+      
+
+
+<div id="entropy" class="section level1">
+<h1>Entropy</h1>
+<pre class="r"><code>p &lt;- c( 0.3, 0.7)
+-sum( p*log(p) )</code></pre>
+<p>compare this with:</p>
+<pre class="r"><code>p &lt;- c(0.01, 0.99)
+-sum( p*log(p) )    # contains much less information</code></pre>
+</div>
+<div id="kullback-leibler-divergence" class="section level1">
+<h1>Kullback-Leibler Divergence</h1>
+<pre class="r"><code>p &lt;- c(0.3, 0.7)
+q1 &lt;- seq(from=0.01, to=0.99, length.out = 100)
+q &lt;- data.frame(q1 = q1, q2 = 1 - q1)
+
+kl_divergence &lt;- function(p, q) {
+  sum( p* log( p/ q) )
+}
+
+kl &lt;- apply(q, 1, function(x){kl_divergence(p=p, q=x)} )
+plot( kl ~ q1, type=&quot;l&quot;, col=&quot;steelblue&quot;, lwd=2)
+abline(v = p[1], lty=2)
+text(0.33 ,1, &quot;p=q&quot;)</code></pre>
+<p>Direction matters when computing divergence:</p>
+<pre class="r"><code>p &lt;- c(0.01, 0.99)
+q1 &lt;- seq(from=0.01, to=0.99, length.out = 100)
+q &lt;- data.frame(q1=q1, q2= 1 - q1 )
+kl &lt;- apply(q, 1, function(x) {kl_divergence(p=p, q=x)})
+plot(kl ~ q1, type=&quot;l&quot;, col=&quot;steelblue&quot;, lwd=2)
+abline(v=p[1], lty=2)
+text(0.05, 1, &quot;p=q&quot;)</code></pre>
+<p>Intuition: If you use a distribution with very low entropy (i.e. little information) to approximate a usual one (rather high information), you’d be more surprised than the other way round. For example, if you try to predict the amount of water on Mars (very dry, close to no water) using the Earth (two-thirds are water), you’d not be very surprised if you land on dry ground on Mars. The other way round, if you fly from Mars to Earth and predict amount of Water on Earth using the Mars, you’d be very surprised if you land on water.</p>
+<pre class="r"><code>mars &lt;- c(0.01, 0.99)
+earth &lt;- c(0.7, 0.3)
+kl_divergence(mars, earth)    # predicting water on Mars using Earth
+kl_divergence(earth, mars)    # predicting water on Earth using Mars</code></pre>
+</div>
+<div id="deviance" class="section level1">
+<h1>Deviance</h1>
+<p>Load data:</p>
+<pre class="r"><code>sppnames &lt;- c(&quot;afarensis&quot;, &quot;africanus&quot;, &quot;habilis&quot;, &quot;boisei&quot;, 
+              &quot;rudolfensis&quot;, &quot;ergaster&quot;, &quot;sapiens&quot;)
+brainvolcc &lt;- c( 438, 452, 612, 521, 752, 871, 1350 )
+masskg &lt;- c( 37.0, 35.5, 34.5, 41.5, 55.5, 61.0, 53.5 )
+d &lt;- data.frame( species=sppnames, brain=brainvolcc, mass=masskg)</code></pre>
+<p>Fit the model:</p>
+<pre class="r"><code>m6.1 &lt;- lm( brain ~ mass, d)</code></pre>
+<p>and compute deviance (by cheating):</p>
+<pre class="r"><code>(-2) * logLik(m6.1)</code></pre>
+<p>To compute the deviance (yourself):</p>
+<pre class="r"><code>library(rethinking)
+# standardize the mass before fitting
+d$mass.s &lt;- (d$mass - mean(d$mass)) / sd(d$mass)
+m6.8 &lt;- map(
+  alist(
+    brain ~ dnorm( mu, sigma),
+    mu &lt;- a + b*mass.s
+  ), 
+  data=d,
+  start=list(a=mean(d$brain), b=0, sigma=sd(d$brain)),
+  method=&quot;Nelder-Mead&quot;
+)
+
+# extract MAP estimates
+theta &lt;- coef(m6.8)
+
+# compute deviance
+dev &lt;- (-2)*sum( dnorm(
+  d$brain,
+  mean=theta[1] + theta[2]*d$mass.s,
+  sd=theta[3],
+  log=TRUE
+))</code></pre>
+<p>compare results:</p>
+<pre class="r"><code>dev
+-2* logLik(m6.8)</code></pre>
+<p>Note:</p>
+<pre class="r"><code>library(assertthat)
+are_equal( dev, (-2*logLik(m6.8))[1] ) 
+are_equal( dev, (-2*logLik(m6.1))[1] , tol=0.0000001)</code></pre>
+<p>The only difference between m6.8 and m6.1 is the use of scaling and centralizing of the predictor variable mass. Thus scaling and centralizing has no influence on the deviance (makes sense)</p>
+<pre class="r"><code>par(mfrow=c(1,2))
+plot( brain ~ mass, data=d)
+plot( brain ~ mass.s, data=d)</code></pre>
+</div>
+<div id="thought-experiment" class="section level1">
+<h1>Thought experiment</h1>
+<p>Let’s compute (simulate) the following data generating model:
+<span class="math display">\[
+\begin{align*}
+y &amp;\sim \text{Normal}(\mu, \sigma=1) \\
+\mu &amp;= 0.15x_1 - 0.4x_2
+\end{align*}\]</span></p>
+<p>We try to fit the data using models with increasing number of parameters (up to 5), first with <span class="math inline">\(N=20\)</span> observations:</p>
+<pre class="r"><code>N &lt;- 20
+kseq &lt;- 1:5
+dev &lt;- sapply( kseq, function(k) {
+  print(k);
+  # takes a long time ~ around an hour or so
+  #r &lt;- replicate( 1e4, sim.train.test( N=N, k=k, rho=c(0.15, -0.4)), mc.cores = 4 );
+  # faster to use mcreplicate (can use multiple cpu cores)
+  r &lt;- mcreplicate( 1e4, sim.train.test( N=N, k=k, rho=c(0.15, -0.4)), mc.cores = 4 );
+  c( mean(r[1, ]), mean(r[2,] ), sd(r[1,]), sd(r[2,]) )
+  # mean deviance in sample, mean deviance out sample, sd in sample deviance, sd out sample deviance
+})</code></pre>
+<p>and then with <span class="math inline">\(N=100\)</span> observations:</p>
+<pre class="r"><code>N &lt;- 100
+kseq &lt;- 1:5
+dev100 &lt;- sapply( kseq, function(k) {
+  print(k);
+  # takes a long time
+  r &lt;- mcreplicate( 1e4, sim.train.test( N=N, k=k, rho=c(0.15, -0.4)), mc.cores=4 );
+  c( mean(r[1, ]), mean(r[2,] ), sd(r[1,]), sd(r[2,]) )
+  # mean deviance in sample, mean deviance out sample, sd in sample deviance, sd out sample deviance
+})</code></pre>
+<pre class="r"><code>par(mfrow=c(1,2))
+plot( 1:5, dev[1,], ylim=c(min(dev[1:2,]) - 5, max(dev[1:2,]) + 10),
+      xlim =c(1,5.1), xlab=&quot;number of parameters&quot;, ylab=&quot;deviance&quot;,
+      pch=16, cex=1.3, col=&quot;steelblue&quot; )
+text(2-0.15, dev[1,2], labels=c(&quot;in&quot;), col=&quot;steelblue&quot;)
+text(2+0.3, dev[2,2], labels=c(&quot;out&quot;))
+
+mtext( concat( &quot;N=&quot;, 20))
+points( (1:5)+0.1, dev[2,], cex=1.3)  # out of sample deviance, slightly right of in sample deviance
+for ( i in kseq) {
+  pts_in &lt;- dev[1,i] + c(-1,1)*dev[3,i]   # standard deviation of in sample
+  pts_out &lt;- dev[2,i] + c(-1,1)*dev[4,i]
+  lines( c(i,i), pts_in, col=&quot;steelblue&quot;, lwd=2)
+  lines( c(i,i)+0.1, pts_out, lwd=2 )
+  if (i == 2) {
+    text(c(i,i) +0.35, pts_out, labels=c(&quot;-1SD&quot;, &quot;+1SD&quot;))
+  }
+} 
+
+plot( 1:5, dev100[1,], ylim=c(min(dev100[1:2,]) - 15, max(dev100[1:2,]) + 20),
+      xlim =c(1,5.1), xlab=&quot;number of parameters&quot;, ylab=&quot;deviance&quot;,
+      pch=16, cex=1.3, col=&quot;steelblue&quot; )
+text(2-0.15, dev100[1,2], labels=c(&quot;in&quot;), col=&quot;steelblue&quot;)
+text(2+0.3, dev100[2,2], labels=c(&quot;out&quot;))
+
+mtext( concat( &quot;N=&quot;, N))
+points( (1:5)+0.1, dev100[2,], cex=1.3) # out of sample deviance, slightly right of in sample deviance
+for ( i in kseq) {
+  pts_in &lt;- dev100[1,i] + c(-1,1)*dev100[3,i]  # standard deviation of in sample
+  pts_out &lt;- dev100[2,i] + c(-1,1)*dev100[4,i]
+  lines( c(i,i), pts_in, col=&quot;steelblue&quot;, lwd=2)
+  lines( c(i,i)+0.1, pts_out, lwd=2 )
+  if (i == 2) {
+    text(c(i,i) +0.35, pts_out, labels=c(&quot;-1SD&quot;, &quot;+1SD&quot;))
+  }
+} </code></pre>
+</div>
+<div id="thought-experiment---with-regularization" class="section level1">
+<h1>Thought experiment - with regularization</h1>
+<p>We do the same again, but this time not using flat priors for the Beta-coefficients but instead Gaussian priors with increasing narrowness:</p>
+<pre class="r"><code>sq &lt;- seq(from=-3.2, to=3.2, length.out = 200)
+n02 &lt;- dnorm(sq, mean=0, sd=0.2)
+n05 &lt;- dnorm(sq, mean=0, sd=0.5)
+n1 &lt;- dnorm(sq, mean=0, sd=1)
+
+plot(sq, n02, xlab=&quot;parameter value&quot;, ylab=&quot;Density&quot;, type=&quot;l&quot;, lwd=2)
+points(sq, n1, lty=5, type=&quot;l&quot;)
+points(sq, n05, type=&quot;l&quot;)
+legend(&quot;topright&quot;, c(&quot;N(0,1)&quot;, &quot;N(0,0.5)&quot;, &quot;N(0,0.2)&quot;), lty=c(5, 1, 1), lwd=c(1,1,2), bty=&quot;n&quot;)</code></pre>
+<p>First with 20 observations:</p>
+<pre class="r"><code>N &lt;- 20
+kseq &lt;- 1:5
+reg &lt;- c(1, 0.5, 0.2)
+dev_r &lt;- list()
+
+for (i in 1:length(reg) ) {
+  dev_r[[i]] &lt;- sapply( kseq, function(k) {
+    print(k);
+    regi &lt;- reg[i];
+    r &lt;- mcreplicate( 1e4, sim.train.test( N=N, k=k, rho=c(0.15, -0.4), b_sigma=regi), mc.cores=4 );
+    c( mean(r[1, ]), mean(r[2,] ), sd(r[1,]), sd(r[2,]) )
+    # mean deviance in sample, mean deviance out sample, sd in sample deviance, sd out sample deviance
+  })
+}</code></pre>
+<p>and then with 100 observations:</p>
+<pre class="r"><code>N &lt;- 100
+kseq &lt;- 1:5
+reg &lt;- c(1, 0.5, 0.2)
+dev_r100 &lt;- list()
+
+for (i in 1:length(reg)) {
+  dev_r100[[i]] &lt;- sapply( kseq, function(k) {
+    print(k);
+    # takes a long time
+    regi &lt;- reg[i]
+    r &lt;- mcreplicate( 1e4, sim.train.test( N=N, k=k, rho=c(0.15, -0.4), b_sigma=regi), mc.cores=4 );
+    c( mean(r[1, ]), mean(r[2,] ), sd(r[1,]), sd(r[2,]) )
+    # mean deviance in sample, mean deviance out sample, sd in sample deviance, sd out sample deviance
+  })
+}</code></pre>
+<p>The plot:</p>
+<pre class="r"><code>par(mfrow=c(1,2))
+plot( 1:5, dev[1,], ylim=c(min(dev[1:2,]) - 5, max(dev[1:2,]) + 10),
+      xlim =c(1,5.1), xlab=&quot;number of parameters&quot;, ylab=&quot;deviance&quot;,
+      pch=16, cex=1.3, col=&quot;steelblue&quot; )
+points(1:5, dev[2,], cex=1.3)
+
+# N(0,1)
+points(1:5, dev_r[[1]][1,], col=&quot;steelblue&quot;, lty=5, type=&quot;l&quot;)
+points(1:5, dev_r[[1]][2,], lty=5, type=&quot;l&quot;)
+
+# N(0,0.5)
+points(1:5, dev_r[[2]][1,], col=&quot;steelblue&quot;, lty=1, type=&quot;l&quot;)
+points(1:5, dev_r[[2]][2,], lty=1, type=&quot;l&quot;)
+
+# N(0,0.2)
+points(1:5, dev_r[[3]][1,], col=&quot;steelblue&quot;, lty=1, type=&quot;l&quot;, lwd=2)
+points(1:5, dev_r[[3]][2,], lty=1, type=&quot;l&quot;, lwd=2)
+legend(&quot;bottomleft&quot;, c(&quot;N(0,1)&quot;, &quot;N(0,0.5)&quot;, &quot;N(0,0.2)&quot;), lty = c(5, 1, 1), lwd=c(1,1,2), bty=&quot;n&quot;)
+mtext( concat( &quot;N=&quot;, 20))
+
+plot( 1:5, dev100[1,], ylim=c(min(dev100[1:2,]) - 5, max(dev100[1:2,]) + 10),
+      xlim =c(1,5.1), xlab=&quot;number of parameters&quot;, ylab=&quot;deviance&quot;,
+      pch=16, cex=1.3, col=&quot;steelblue&quot; )
+points(1:5, dev100[2,], cex=1.3)
+
+# N(0,1)
+points(1:5, dev_r100[[1]][1,], col=&quot;steelblue&quot;, lty=5, type=&quot;l&quot;)
+points(1:5, dev_r100[[1]][2,], lty=5, type=&quot;l&quot;)
+
+# N(0,0.5)
+points(1:5, dev_r100[[2]][1,], col=&quot;steelblue&quot;, lty=1, type=&quot;l&quot;)
+points(1:5, dev_r100[[2]][2,], lty=1, type=&quot;l&quot;)
+
+# N(0,0.2)
+points(1:5, dev_r100[[3]][1,], col=&quot;steelblue&quot;, lty=1, type=&quot;l&quot;, lwd=2)
+points(1:5, dev_r100[[3]][2,], lty=1, type=&quot;l&quot;, lwd=2)
+
+mtext( concat( &quot;N=&quot;, 100))</code></pre>
+<p>The points are the deviance in (blue) and out of sample (black), using flat priors (i.e. <span class="math inline">\(N(0,100)\)</span>). The lines show training (blue) and testing (black) deviance for three regularizing priors.</p>
+</div>
+<div id="motivation-for-aic" class="section level1">
+<h1>Motivation for AIC</h1>
+<p>The AIC (Akaike Information Criteria) provides a simple estimate of the average out-of-sample deviance:
+<span class="math display">\[ \text{AIC} = D_{\text{train}} + 2p\]</span> where p is the number of free parameters to be estimated in the model. The motivation for this can be seen in the following plots:</p>
+<pre class="r"><code>aic &lt;- dev[1,] + 2*kseq
+aic100 &lt;- dev100[1,] + 2*kseq
+
+par(mfrow=c(1,2))
+plot( 1:5, dev[1,], ylim=c(min(dev[1:2,]) - 5, max(dev[1:2,]) + 10),
+      xlim =c(1,5.5), xlab=&quot;number of parameters&quot;, ylab=&quot;deviance&quot;,
+      pch=16, col=&quot;steelblue&quot;, cex=1.3 )
+lines(aic, lty=2, lwd=1.5)
+legend(&quot;bottomleft&quot;, c(&quot;AIC&quot;), lty = c(2), lwd=c(1), bty=&quot;n&quot;)
+
+mtext( concat( &quot;N=&quot;, 20))
+points( (1:5), dev[2,], cex=1.3)   # out of sample deviance, slightly right of in sample deviance
+for ( i in kseq) {
+  dif &lt;- dev[2,i] - dev[1,i]
+  arrows(i+0.07, dev[1,i], i+0.07, dev[2,i], length=0.05, angle=90, code=3)
+  text(i+0.25, dev[1,i]+0.5*dif, labels = round(dif, digits=1))
+  }
+
+# for N=100
+plot( 1:5, dev100[1,], ylim=c(min(dev100[1:2,]) - 5, max(dev100[1:2,]) + 10),
+      xlim =c(1,5.5), xlab=&quot;number of parameters&quot;, ylab=&quot;deviance&quot;,
+      pch=16, col=&quot;steelblue&quot;, cex=1.3 )
+lines(aic100, lty=2, lwd=1.5)
+
+mtext( concat( &quot;N=&quot;, 100))
+points( (1:5), dev100[2,], cex=1.3)   # out of sample deviance, slightly right of in sample deviance
+for ( i in kseq) {
+  dif &lt;- dev100[2,i] - dev100[1,i]
+  arrows(i+0.07, dev100[1,i], i+0.07, dev100[2,i], length=0.05, angle=90, code=3)
+  text(i+0.25, dev100[1,i]+0.5*dif, labels = round(dif, digits=1))
+}</code></pre>
+</div>
+<div id="dic" class="section level1">
+<h1>DIC</h1>
+<p><span class="math display">\[\begin{align*}
+\text{DIC} &amp;= \bar{D} + (\bar{D} - \hat{D}) \\
+&amp;= \hat{D} + 2(\bar{D} - \hat{D}) \\
+&amp;= \hat{D} + 2p_D
+\end{align*}\]</span>
+where <span class="math inline">\(\bar{D}\)</span> is the mean of the posterior deviance, that is, if we draw 10,000 samples from the posterior, we compute 10,000 deviances, one for each sample, and then take the average. <span class="math inline">\(\hat{D}\)</span> is the deviance computed using the mean of the posterior sample. <span class="math inline">\(p_D\)</span> is the effective number of parameters.
+For comparison, we first compute the deviance and AIC:</p>
+<pre class="r"><code>data(cars)
+m &lt;- map(
+  alist(
+    dist ~ dnorm(mu, sigma) ,   # dist = distance
+    mu &lt;- a + b*speed,
+    a ~ dnorm(0, 100),
+    b ~ dnorm(0, 10),
+    sigma ~ dunif(0, 30)
+  ), data=cars
+)
+# deviance, AIC and DIC
+dev &lt;- (-2) * logLik(m)
+aic &lt;- dev + 2*length( coef(m) )
+assert_that(aic == AIC(m))   # can also use the function AIC() from R stats</code></pre>
+<p>Now computing the DIC:</p>
+<pre class="r"><code>post &lt;- extract.samples(m,n=1000)
+
+# compute dev at each sample
+n_samples &lt;- 1000
+dev.samples &lt;- sapply(1:n_samples,     
+             function(s) {
+               mu &lt;- post$a[s] + post$b[s]*cars$speed
+                (-2)*sum( dnorm( cars$dist, mu, post$sigma[s], log=TRUE)  )
+             })
+dev.bar &lt;- mean( dev.samples )         
+
+dev.hat &lt;- (-2)*sum( dnorm(     # dev (mean( post) )
+  cars$dist,
+  mean=mean(post$a) + mean(post$b)*cars$speed,
+  sd=mean(post$sigma), 
+  log=TRUE
+))
+p.D &lt;- dev.bar - dev.hat
+dic &lt;- dev.hat + 2*p.D    # = dev.bar + ( dev.bar - dev.hat )
+dic</code></pre>
+</div>
+<div id="waic---widely-applicable-information-critera" class="section level1">
+<h1>WAIC - Widely Applicable Information Critera</h1>
+<p>The WAIC does not require a multivariate Gaussian posterior and is thus even wider applicable, as the name says. It is computed pointwise, i.e. for each case in the data.
+It consists of the log-pointwise-predictive-density:
+<span class="math display">\[\text{lppd} = \sum_{i=1}^{N} \log \text{Pr}(y_i)\]</span>
+where <span class="math inline">\(\text{Pr}(y_i)\)</span> is the average likelihood of observation <span class="math inline">\(i\)</span> in the training sample. That is, we compute the likelihood of <span class="math inline">\(y_i\)</span> for parameter sample from the posterior and then average.
+The effective number of parameters for the WAIC is defined as follows:
+<span class="math display">\[p_{\text{WAIC}} = \sum_{i=1}^{N} V(y_i)\]</span>
+where <span class="math inline">\(V(y_i)\)</span> is the variance in log-likelihood for observation <span class="math inline">\(i\)</span> in the training sample.</p>
+<p>Easier to understand with code, so let’s compute WAIC using the same model as above:</p>
+<pre class="r"><code>ll &lt;- sapply( 1:n_samples,
+              function(s) {
+                mu &lt;- post$a[s] + post$b[s]*cars$speed
+                dnorm( cars$dist , mu, post$sigma[s], log=TRUE)
+              })
+dim(ll)   # computed likelihood for each sample in post, for each observation in cars
+          # observations in rows, samples in columns
+lppd &lt;- sum( log( apply(ll, 1, mean ) ) )</code></pre>
+<p>Problem: this is not numerically stable, so we use the numercially stable function <code>log_sum_exp</code>.</p>
+<pre class="r"><code>n_cases &lt;- nrow(cars)
+lppd &lt;-  sapply(1:n_cases, function(i) log_sum_exp(ll[i,]) - log(n_samples) ) 
+pWAIC &lt;- sapply( 1:n_cases, function(i) var(ll[i,]) ) 
+
+waic &lt;- -2*(sum( lppd ) - sum( pWAIC ) )</code></pre>
+<p>There will be simulation variance but the variance remains much smaller than the standard error of WAIC itself, which can be computed as follows:</p>
+<pre class="r"><code>waic_vec &lt;- -2*( lppd - pWAIC )
+se &lt;- sqrt( n_cases*var( waic_vec ) )
+se
+
+# almost the same, some difference remains because of simulation variance
+are_equal( waic, WAIC(m)[1] , tol=0.01)</code></pre>
+<p>Compare the three Information Criteria and the deviance:</p>
+<pre class="r"><code>ic &lt;- c(dev, aic, dic, waic)
+names(ic) &lt;- c(&quot;Deviance&quot;, &quot;AIC&quot;, &quot;DIC&quot;, &quot;WAIC&quot;)
+print(ic)</code></pre>
+<p>This is better seen in a plot, so as before, we compute a simulation and see how DIC and WAIC fare, in particular, how good do they estimate <strong>out-of-sample deviance</strong>?</p>
+<pre class="r"><code>N &lt;- 20
+kseq &lt;- 1:5
+reg &lt;- c(100, 0.5)
+dev_DIC_WAIC &lt;- list()
+
+for (i in 1:length(reg) ) {
+  dev_DIC_WAIC[[i]] &lt;- sapply( kseq, function(k) {
+    print(k);
+    regi &lt;- reg[i];
+    r &lt;- mcreplicate( 1e4, sim.train.test( N=N, k=k, rho=c(0.15, -0.4), b_sigma=regi, 
+                                            DIC=TRUE, WAIC=TRUE), mc.cores=4 );
+    c( mean(r[1, ]), mean(r[2,] ), mean(r[3,]), mean(r[4,]) )
+    # mean deviance in sample, mean deviance out sample, mean DIC, mean WAIC
+  })
+}</code></pre>
+<p>And the plot:</p>
+<pre class="r"><code>par(mfrow=c(2,1))
+par(mar = c(0.5, 2, 1, 1), oma=c(3,2,2,2))
+plot( 1:5, dev_DIC_WAIC[[1]][2,], 
+      #ylim=c(min(dev_DIC_WAIC[[1]][1:2,]) - 5, max(dev_DIC_WAIC[[1]][1:2,]) + 10),
+      xlim =c(1,5.1), xlab=NA, xaxt=&quot;n&quot;, cex=1.3 )
+axis(side = 1, at = 1:5, labels = FALSE, tck = -0.04)
+points( 1:5, dev_DIC_WAIC[[2]][2,], col=&quot;steelblue&quot;, cex=1.3)
+lines( dev_DIC_WAIC[[1]][3,] )
+lines( dev_DIC_WAIC[[2]][3,], col=&quot;steelblue&quot;)
+text(2, dev_DIC_WAIC[[2]][2,2]-5, &quot;N(0,0.5)&quot;, col=&quot;steelblue&quot;)
+text(4, dev_DIC_WAIC[[1]][2,4]+5, &quot;N(0,100)&quot;)
+legend(&quot;topleft&quot;, &quot;DIC&quot;, bty=&quot;n&quot;)
+mtext(text=&quot;deviance&quot;, side=2, line=2.5, outer=FALSE)
+mtext(concat(&quot;N=&quot;,20))
+
+plot( 1:5, dev_DIC_WAIC[[1]][2,], 
+      ylim=c(min(dev_DIC_WAIC[[1]][c(2,4),], dev_DIC_WAIC[[2]][c(2,4),]) - 5, 
+             max(dev_DIC_WAIC[[1]][c(2,4),], dev_DIC_WAIC[[2]][c(2,4),]) + 10),
+      xlim =c(1,5.1), xlab=NA, xaxt=&quot;n&quot;, cex=1.3 )
+axis(side = 1, at = 1:5, labels = FALSE, tck = -0.04)
+points( 1:5, dev_DIC_WAIC[[2]][2,], col=&quot;steelblue&quot;, cex=1.3)
+lines( dev_DIC_WAIC[[1]][4,] )                         # WAIC for N(0,100)
+lines( dev_DIC_WAIC[[2]][4,], col=&quot;steelblue&quot;)         # WAIC for N(0,0.5)
+legend(&quot;topleft&quot;, &quot;WAIC&quot;, bty=&quot;n&quot;)
+mtext(text=&quot;deviance&quot;, side=2, line=2.5, outer=FALSE)
+mtext(text=&quot;number of parameter&quot;,side=1,line=1,outer=TRUE)</code></pre>
+<p>The points in the plot are the out of sample deviance, once for the flat prior <span class="math inline">\(N(0,100)\)</span> in black, and once for the regularizing prior <span class="math inline">\(N(0,0.5)\)</span> in blue. The lines are the DIC respective WAIC, also both with flat and regularizing prior. While the DIC and WAIC alone can already give a good estimate of the out-of-sampe deviance, using regularizing priors still helps.</p>
+</div>
+
+    
+    </section>
+
+  <footer class="post-footer">
+
+
+    
+
+
+
+
+
+
+
+
+
+<section class="author">
+  <h4><a href="/">Corrie</a></h4>
+  
+  <p>Read <a href="/">more posts</a> by this author.</p>
+  
+  <div class="author-meta">
+    
+    
+  </div>
+</section>
+
+
+
+
+    
+<section class="share">
+  <h4>Share this projects</h4>
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Information%20Theory%20and%20Model%20Performance&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2fprojects%2fstatistical-rethinking%2fchapter_6%2fchp6-part-two%2f"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=421');return false;">
+      <span class="hidden">Twitter</span>
+  </a>
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=%2fprojects%2fstatistical-rethinking%2fchapter_6%2fchp6-part-two%2f"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=551');return false;">
+      <span class="hidden">Facebook</span>
+  </a>
+  <a class="icon-linkedin" style="font-size: 1.4em" href="https://www.linkedin.com/shareArticle?mini=true&title=Information%20Theory%20and%20Model%20Performance&url=%2fprojects%2fstatistical-rethinking%2fchapter_6%2fchp6-part-two%2f"
+               onclick="window.open(this.href, 'linkedin-share', 'width=554,height=571');return false;">
+    <span class="hidden">LinkedIn</span>
+    </a>
+
+</section>
+
+
+
+
+    
+
+<div id="disqus_thread"></div>
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "\/projects\/statistical-rethinking\/chapter_6\/chp6-part-two\/";  
+this.page.identifier = "\/projects\/statistical-rethinking\/chapter_6\/chp6-part-two\/"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://corriebar-github-io.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+
+
+
+  </footer>
+</article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Samples of Thoughts</a> 
+        &copy; Corrie Bartelheimer 2020 &middot; </section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+    
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+    
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+    
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140745376-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+
+    
+</body>
+</html>
+

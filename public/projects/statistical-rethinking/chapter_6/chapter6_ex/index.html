@@ -12,13 +12,13 @@
 
 
 
-<meta name="twitter:title" content="Chpter 6 - Exercies"/>
+<meta name="twitter:title" content=""/>
 <meta name="twitter:description" content=""/>
 <meta name="twitter:site" content="@corrieaar"/>
 
 
 
-  	<meta property="og:title" content="Chpter 6 - Exercies &middot; Samples of Thoughts" />
+  	<meta property="og:title" content=" &middot; Samples of Thoughts" />
   	<meta property="og:site_name" content="Samples of Thoughts" />
   	<meta property="og:url" content="/projects/statistical-rethinking/chapter_6/chapter6_ex/" />
 
@@ -35,12 +35,12 @@
     
     
 
-    <title>Chpter 6 - Exercies &middot; Samples of Thoughts</title>
+    <title> &middot; Samples of Thoughts</title>
 
     
-    <meta name="description" content="Chapter 6 - Exercises These are my solutions to the exercises from chapter 6.
-Easy. 6E1. State the three motivating criteria that define information entropy.
-In" />
+    <meta name="description" content="Chpter 6 - Exercies Corrie July 8, 2018
+Chapter 6 - Exercises These are my solutions to the exercises from chapter 6.
+Easy. 6E1. State the three motivating crit" />
     
 
     <meta name="HandheldFriendly" content="True" />
@@ -68,7 +68,7 @@ In" />
       
       
     
-    <meta name="generator" content="Hugo 0.63.1" />
+    <meta name="generator" content="Hugo 0.55.5" />
 
     <link rel="canonical" href="/projects/statistical-rethinking/chapter_6/chapter6_ex/" />
 
@@ -99,10 +99,10 @@ In" />
             
         ]
     },
-    "headline": "Chpter 6 - Exercies",
-    "name": "Chpter 6 - Exercies",
-    "wordCount":  3577 ,
-    "timeRequired": "PT17M",
+    "headline": "",
+    "name": "",
+    "wordCount":  5243 ,
+    "timeRequired": "PT25M",
     "inLanguage": {
       "@type": "Language",
       "alternateName": "en"
@@ -297,13 +297,13 @@ if (!doNotTrack) {
   <article class="post projects">
 
     <header class="post-header">
-        <h1 class="post-title">Chpter 6 - Exercies</h1>
+        <h1 class="post-title"></h1>
         <small></small>
 
         <section class="post-meta">
         
             <p class="post-reading post-line">
-            <span>Estimated reading time: 17 min</span>
+            <span>Estimated reading time: 25 min</span>
             </p>
         
         
@@ -315,97 +315,174 @@ if (!doNotTrack) {
     <section class="post-content">
       
 
+<h1 id="chpter-6-exercies">Chpter 6 - Exercies</h1>
 
-<div id="chapter-6---exercises" class="section level1">
-<h1>Chapter 6 - Exercises</h1>
+<p>Corrie
+July 8, 2018</p>
+
+<h1 id="chapter-6-exercises">Chapter 6 - Exercises</h1>
+
 <p>These are my solutions to the exercises from chapter 6.</p>
-<div id="easy." class="section level2">
-<h2>Easy.</h2>
+
+<h2 id="easy">Easy.</h2>
+
 <p><strong>6E1.</strong> State the three motivating criteria that define information entropy.</p>
+
 <p>Information entropy (a measure of uncertainty) should be</p>
+
 <ul>
-<li><em>continous</em>. A small change in probability should also lead to only a small change in uncertainty. We don’t want to allow for sudden jumps.</li>
+<li><em>continous</em>. A small change in probability should also lead to only a small change in uncertainty. We don&rsquo;t want to allow for sudden jumps.</li>
 <li><em>increasing</em> as the number of possible events increases. That means, if only one event has a very high chance of happening and all other have only a very small chance, then there is little uncertainty in what comes next and thus more less information. On the other hand, if all events are equally likely, there is the most uncertainty about what comes next and thus most information.</li>
-<li><em>additive</em>. If we take the uncertainty of two independent distributions, e.g. rain or not (two events) and if I drink coffee in the morning or not (also two events), these events are independent of each other. Then taking the uncertainty for the distribution over all four combinations (rain and coffee, rain and no coffee, etc) is the same as taking the sum over the single distributions. Note that if the two distributions are dependent of each other (maybe instead of me drinking coffee, take the event me biking to work or taking the bus), then the uncertainty is not additive.</li>
+<li><em>additive</em>. If we take the uncertainty of two independent distributions, e.g. rain or not (two events) and if I drink coffee in the morning or not (also two events), these events are independent of each other. Then taking the uncertainty for the distribution over all four combinations (rain and coffee, rain and no coffee, etc) is the same as taking the sum over the single distributions. Note that if the two distributions are dependent of each other (maybe instead of me drinking coffee, take the event me biking to work or taking the bus), then the uncertainty is not additive.</li>
 </ul>
+
 <p><strong>6E2.</strong> Suppose a coin is weighted such that it comes up head 70% of the time. What is the entropy of this coin?</p>
-<pre class="r"><code>p &lt;- c(0.7, 0.3)
+
+<pre><code class="language-r">p &lt;- c(0.7, 0.3)
 entropy &lt;- function(p) - sum( p[p!=0] * log(p[p!=0]) ) # to avoid NaN errors when probability = 0
-entropy(p)</code></pre>
+entropy(p)
+</code></pre>
+
+<pre><code>## [1] 0.6108643
+</code></pre>
+
 <p><strong>6E3.</strong> Suppose a four-sided die is loaded such that it shows up with the following probabilities: 1 comes up 20%, 2 comes up 25%, 3 comes up 25% and 4 comes up 30%. What is the entropy of this die?</p>
-<pre class="r"><code>p_die &lt;- c(0.2, 0.25, 0.25, 0.3)
-entropy(p_die)</code></pre>
+
+<pre><code class="language-r">p_die &lt;- c(0.2, 0.25, 0.25, 0.3)
+entropy(p_die)
+</code></pre>
+
+<pre><code>## [1] 1.376227
+</code></pre>
+
 <p><strong>6E4.</strong> Suppose another four-sided die is loaded such that it never shows 4. The other three sides show equally often. What is the entropy of this die?</p>
-<pre class="r"><code>p_die2 &lt;- c(1/3, 1/3, 1/3, 0) 
-entropy(p_die2)</code></pre>
+
+<pre><code class="language-r">p_die2 &lt;- c(1/3, 1/3, 1/3, 0) 
+entropy(p_die2)
+</code></pre>
+
+<pre><code>## [1] 1.098612
+</code></pre>
+
 <p>This is the same entropy as for the three-sided fair die.</p>
-</div>
-<div id="medium." class="section level2">
-<h2>Medium.</h2>
-<p><strong>6M1.</strong> Compare the definitions of AIC, DIC, and WAIC. Which of these criteria is most general, which assumptions are required to transform a more general criterion into a less general one?
-The criteria from the least to the most general:</p>
+
+<h2 id="medium">Medium.</h2>
+
+<p><strong>6M1.</strong> Compare the definitions of AIC, DIC, and WAIC. Which of these criteria is most general, which assumptions are required to transform a more general criterion into a less general one? The criteria from the least to the most general:</p>
+
 <p><strong>AIC</strong>:</p>
-<p><span class="math inline">\(\text{AIC} = D_{train} + 2p\)</span> where <span class="math inline">\(D_{train}\)</span> is the deviance of the training set and <span class="math inline">\(p\)</span> is the number of parameters. AIC provides an estimate for the test deviance when the following assumptions are met:</p>
+
+<p><img src="https://latex.codecogs.com/png.latex?%5Ctext%7BAIC%7D%20%3D%20D_%7Btrain%7D%20%2B%202p" alt="\\text{AIC} = D\_{train} + 2p" title="\text{AIC} = D_{train} + 2p" /> where <img src="https://latex.codecogs.com/png.latex?D_%7Btrain%7D" alt="D\_{train}" title="D_{train}" /> is the deviance of the training set and <img src="https://latex.codecogs.com/png.latex?p" alt="p" title="p" /> is the number of parameters. AIC provides an estimate for the test deviance when the following assumptions are met:</p>
+
 <ul>
 <li>Priors are flat or overwhelmed by the likelihood.</li>
 <li>The posterior distribution is approximately multivariate Gaussian.</li>
-<li>The sample size <span class="math inline">\(N\)</span> is much greater than the number of parameters.</li>
+<li>The sample size <img src="https://latex.codecogs.com/png.latex?N" alt="N" title="N" /> is much greater than the number of parameters.</li>
 </ul>
+
 <p><strong>DIC</strong>:</p>
-<p><span class="math inline">\(\text{DIC} = \hat{D} + 2p_D\)</span> where <span class="math inline">\(2p_D = \bar{D} - \hat{D}\)</span>. Furthermore, <span class="math inline">\(\hat{D}\)</span> is the deviance computed using the mean of the posterior sample and <span class="math inline">\(\bar{D}\)</span> is the mean of the posterior deviance. The DIC is only valid when the following assumptions are met:</p>
+
+<p><img src="https://latex.codecogs.com/png.latex?%5Ctext%7BDIC%7D%20%3D%20%5Chat%7BD%7D%20%2B%202p_D" alt="\\text{DIC} = \\hat{D} + 2p\_D" title="\text{DIC} = \hat{D} + 2p_D" /> where <img src="https://latex.codecogs.com/png.latex?2p_D%20%3D%20%5Cbar%7BD%7D%20-%20%5Chat%7BD%7D" alt="2p\_D = \\bar{D} - \\hat{D}" title="2p_D = \bar{D} - \hat{D}" />. Furthermore, <img src="https://latex.codecogs.com/png.latex?%5Chat%7BD%7D" alt="\\hat{D}" title="\hat{D}" /> is the deviance computed using the mean of the posterior sample and <img src="https://latex.codecogs.com/png.latex?%5Cbar%7BD%7D" alt="\\bar{D}" title="\bar{D}" /> is the mean of the posterior deviance. The DIC is only valid when the following assumptions are met:</p>
+
 <ul>
 <li>The posterior distribution is approximately multivariate Gaussian.</li>
-<li>The sample size <span class="math inline">\(N\)</span> is much greater than the number of parameters.</li>
+<li>The sample size <img src="https://latex.codecogs.com/png.latex?N" alt="N" title="N" /> is much greater than the number of parameters.</li>
 </ul>
+
 <p><strong>WAIC</strong>:</p>
-<p><span class="math inline">\(\text{WAIC} = -2(\text{lppd} - p_{WAIC})\)</span> where <span class="math inline">\(\text{lppd} = \sum_{i=1}^N \log \text{Pr}(y_i)\)</span> is the log-pointwise-predictive-density, i.e. over all observations the sum of the average likelihood of each observation. <span class="math inline">\(p_{WAIC} = \sum_{i=1}^N V(y_i)\)</span> is the effective number of parameters with <span class="math inline">\(V(y_i)\)</span> being the variance in log-likelihood for observation observation <span class="math inline">\(i\)</span>. The WAIC is valid when the following assumption is met:</p>
+
+<p><img src="https://latex.codecogs.com/png.latex?%5Ctext%7BWAIC%7D%20%3D%20-2%28%5Ctext%7Blppd%7D%20-%20p_%7BWAIC%7D%29 &quot;text{WAIC} = -2(text{lppd} - p_{WAIC}" alt="\\text{WAIC} = -2(\\text{lppd} - p\_{WAIC})" />&rdquo;) where <img src="https://latex.codecogs.com/png.latex?%5Ctext%7Blppd%7D%20%3D%20%5Csum_%7Bi%3D1%7D%5EN%20%5Clog%20%5Ctext%7BPr%7D%28y_i%29 &quot;text{lppd} = sum_{i=1}^N log text{Pr}(y_i" alt="\\text{lppd} = \\sum\_{i=1}^N \\log \\text{Pr}(y\_i)" />&rdquo;) is the log-pointwise-predictive-density, i.e. over all observations the sum of the average likelihood of each observation. <img src="https://latex.codecogs.com/png.latex?p_%7BWAIC%7D%20%3D%20%5Csum_%7Bi%3D1%7D%5EN%20V%28y_i%29 &quot;p_{WAIC} = sum_{i=1}^N V(y_i" alt="p\_{WAIC} = \\sum\_{i=1}^N V(y\_i)" />&rdquo;) is the effective number of parameters with <img src="https://latex.codecogs.com/png.latex?V%28y_i%29 &quot;V(y_i" alt="V(y\_i)" />&rdquo;) being the variance in log-likelihood for observation observation <img src="https://latex.codecogs.com/png.latex?i" alt="i" title="i" />. The WAIC is valid when the following assumption is met:</p>
+
 <ul>
-<li>The sample size <span class="math inline">\(N\)</span> is much greater than the number of parameters.</li>
+<li>The sample size <img src="https://latex.codecogs.com/png.latex?N" alt="N" title="N" /> is much greater than the number of parameters.</li>
 </ul>
+
 <p><strong>6M2.</strong> Explain the difference between model <em>selection</em> and model <em>averaging</em>. What information is lost under model selection? What information is lost under model averaging?</p>
+
 <ul>
 <li><em>Model selection</em>: In model selection, we use the information criteria to select one model: Among multiple models (all fit to the same observations!), we pick the one that has the best information criteria value. Best means for AIC, DIC, and WAIC the lowest value. This procedure discards information about relative model accuracy contained in the differences among the AIC, DIC, and WAIC values. Model comparison instead uses the DIC or WAIC together with other information from the models (estimate, posterior predictives etc) to find out why one model performs better than another. Information criteria can, for example, help to detect masking associations.</li>
 <li><em>Model averaging</em>: In model averaging, the DIC or WAIC are used to construct a posterior predictive distribution that combines all models. The DIC or WAIC are used to compute weights for each model, and these weights are then used to average the posterior predictive distributions of the models to one single distribution. Model averaging is a rather conservative procedure, meaning that it will never make a predictor variable appear more influential than it already appears in any single model.</li>
 </ul>
+
 <p><strong>6M3.</strong> When comparing models with an information criterion, why must all models be fit to exactly the same observations? What would happen to the information criterion values, if the models were fit to different numbers of observations? Perform some experiments.</p>
-<pre class="r"><code>library(rethinking)
+
+<pre><code class="language-r">library(rethinking)
 # generate some data
 set.seed(1234)
 x &lt;-  rnorm(200, mean=1, sd=1.5)
 x1 &lt;- rnorm(200, mean=0, sd=1)            # not associated with outcome
 y &lt;- rnorm(200, mean = 5 + 2.4*x, sd=1)
-d &lt;- data.frame(x=x, y=y, x1=x1)</code></pre>
+d &lt;- data.frame(x=x, y=y, x1=x1)
+</code></pre>
+
 <p><em>Control:</em>: Three models are fit on the same data, two using the same linear model, the last one using a third predictor variable (that is not associated with the outcome).</p>
-<pre class="r"><code>mod1 &lt;- lm( y ~ x, data=d)
+
+<pre><code class="language-r">mod1 &lt;- lm( y ~ x, data=d)
 mod2 &lt;- lm( y ~ x, data=d)
 mod3 &lt;- lm( y ~ x + x1, data=d)
 control &lt;- compare( mod1, mod2, mod3 )
-control</code></pre>
+control
+</code></pre>
+
+<pre><code>##       WAIC pWAIC dWAIC weight    SE  dSE
+## mod2 580.4   2.1   0.0    0.4 20.58   NA
+## mod1 580.4   2.1   0.0    0.4 20.60 0.09
+## mod3 581.8   3.3   1.4    0.2 20.58 1.97
+</code></pre>
+
 <p>The first two models have essentially the same WAIC and have approximately equal weights. The last model has a slightly higher WAIC and lower weight.</p>
+
 <p><em>First experiment</em>: Two models are fit with the same linear model, but using different data (but with the same number of observations).</p>
-<pre class="r"><code>mod1_e1 &lt;- lm( y ~ x, data=d, subset=1:33)
+
+<pre><code class="language-r">mod1_e1 &lt;- lm( y ~ x, data=d, subset=1:33)
 mod2_e1 &lt;- lm( y ~ x, data=d, subset=34:66)
 mod3_e1 &lt;- lm( y ~ x, data=d, subset=67:99)
 exp1 &lt;- compare( mod1_e1, mod2_e1, mod3_e1)
-exp1</code></pre>
+exp1
+</code></pre>
+
+<pre><code>##          WAIC pWAIC dWAIC weight   SE   dSE
+## mod1_e1  89.3   1.5   0.0   0.79 7.30    NA
+## mod2_e1  91.9   1.6   2.6   0.21 5.85  8.81
+## mod3_e1 116.8   2.3  27.5   0.00 7.55 10.07
+</code></pre>
+
 <p>The WAIC differ quite a bit even though all models are fit with the same linear model. Almost weight is on the first model, and the other two have little or zero weight.</p>
+
 <p><em>Second experiment</em>:</p>
-<pre class="r"><code>mod1_e2 &lt;- lm( y ~ x + x1, data=d, subset=1:33)
+
+<pre><code class="language-r">mod1_e2 &lt;- lm( y ~ x + x1, data=d, subset=1:33)
 mod2_e2 &lt;- lm( y ~ x, data=d, subset=34:66)
 mod3_e2 &lt;- lm( y ~ x + x1, data=d, subset=67:99)
 exp2 &lt;- compare( mod1_e2, mod2_e2, mod3_e2)
-exp2</code></pre>
+exp2
+</code></pre>
+
+<pre><code>##          WAIC pWAIC dWAIC weight   SE  dSE
+## mod1_e2  85.5   3.0   0.0   0.97 5.86   NA
+## mod2_e2  92.4   1.8   6.8   0.03 5.88 6.89
+## mod3_e2 119.1   3.3  33.6   0.00 7.80 9.65
+</code></pre>
+
 <p>Now the first has a much lower WAIC and basically all weight is on the first model. The first and the last model both use the unnecessary (since not associated) variable <code>x1</code> but this does not become apparent in the WAICs.</p>
+
 <p><strong>6M4.</strong> What happens to the effective number of parameters, as measured by DIC or WAIC, as a prior becomes more concentrated? Why? Perform some experiments.</p>
+
 <p>We use the same data again as before.</p>
-<pre class="r"><code>x &lt;-  rnorm(100, mean=1, sd=2)
+
+<pre><code class="language-r">x &lt;-  rnorm(100, mean=1, sd=2)
 x1 &lt;- rnorm(100, mean=0, sd=1)            # not associated with outcome
 x2 &lt;- rnorm(100, mean=x, sd=2)            # spurious assocation
 y &lt;- rnorm(100, mean = 2 + 2.4*x, sd=2)
 d &lt;- data.frame( y=y, x=x, x1=x1, x2=x2)
-pairs(d)</code></pre>
+pairs(d)
+</code></pre>
+
+<p><img src="chapter6_Ex_files/figure-markdown_github/unnamed-chunk-8-1.png" alt="" /></p>
+
 <p>We run 6 models using the data as above, each time with a different prior. The models thus have 5 parameters: <code>a, b, b1, b2</code> and <code>sigma</code> of which only <code>a, b</code> and <code>sigma</code> are actually relevant.</p>
-<pre class="r"><code>N &lt;- 10    # Number of experiments
+
+<pre><code class="language-r">N &lt;- 10    # Number of experiments
 dic.l &lt;- list()
 waic.l &lt;- list()
 for (i in 1:N){
@@ -508,8 +585,82 @@ for (i in 1:N){
   dic.l[[&quot;0.01&quot;]] &lt;- c(dic.l[[&quot;0.01&quot;]], attr(DIC(mod_0.01), &quot;pD&quot;))
   waic.l[[&quot;0.01&quot;]] &lt;- c(waic.l[[&quot;0.01&quot;]], attr(WAIC(mod_0.01), &quot;pWAIC&quot;))
   
-}</code></pre>
-<pre class="r"><code>options(scipen = 3)
+}
+</code></pre>
+
+<pre><code>## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+## Constructing posterior predictions
+</code></pre>
+
+<pre><code class="language-r">options(scipen = 3)
 prior &lt;- c(100, 10, 1, 0.5, 0.2, 0.1, 0.01)
 prior2 &lt;- c(110, 11, 1.1, 0.55, 0.22, 0.15, 0.015)
 dic.mean &lt;- sapply(dic.l, mean)
@@ -529,14 +680,18 @@ for ( i in 1:length(prior)) {
   lines( c(prior2[i],prior2[i]), pts_out, lwd=2 )
 }
 legend(&quot;bottomright&quot;, c(&quot;DIC&quot;, &quot;WAIC&quot;), pch=c(16, 1), lwd=c(1,1), 
-       col=c(&quot;steelblue&quot;, &quot;black&quot;), bty=&quot;n&quot;)</code></pre>
-<p>The more concentrated a prior becomes, the smaller DIC and WAIC become. They’re both bounded from above by the number of used parameters (here 5) but can go lower than the actual relevant parameters (here 3).</p>
-<p><strong>6M5.</strong> Provide an informal explanation of why informative priors reduce overfitting.
-Overfitting occurs when there are too many parameters (for too little data). If these parameters are allowed to vary, they can fit the data too closely, such that the curve perfectly matches the data, including all the noise and it generalizes poorly to new data. If on the other hand, we use informative priors, we restrict the parameters to only vary in the bounds of the prior. It thus limits strongly the degree to which the model can overfit to the data.</p>
-<p><strong>6M6.</strong> Provide an informal explanation of why overly informative priors result in underfitting.
-If we put very restrictive priors on a parameter, the parameter is not allowed to vary much and has to stay inside the bounds of the prior. If then the true parameter is outside these bounds, the model can not learn this parameter, or only with a lot of data.
-Compare for example the following two models, one with a very restrictive prior and one with a weakly informative prior on the parameter coefficients.</p>
-<pre class="r"><code>mod_0.01 &lt;- map(
+       col=c(&quot;steelblue&quot;, &quot;black&quot;), bty=&quot;n&quot;)
+</code></pre>
+
+<p><img src="chapter6_Ex_files/figure-markdown_github/unnamed-chunk-10-1.png" alt="" /></p>
+
+<p>The more concentrated a prior becomes, the smaller DIC and WAIC become. They&rsquo;re both bounded from above by the number of used parameters (here 5) but can go lower than the actual relevant parameters (here 3).</p>
+
+<p><strong>6M5.</strong> Provide an informal explanation of why informative priors reduce overfitting. Overfitting occurs when there are too many parameters (for too little data). If these parameters are allowed to vary, they can fit the data too closely, such that the curve perfectly matches the data, including all the noise and it generalizes poorly to new data. If on the other hand, we use informative priors, we restrict the parameters to only vary in the bounds of the prior. It thus limits strongly the degree to which the model can overfit to the data.</p>
+
+<p><strong>6M6.</strong> Provide an informal explanation of why overly informative priors result in underfitting. If we put very restrictive priors on a parameter, the parameter is not allowed to vary much and has to stay inside the bounds of the prior. If then the true parameter is outside these bounds, the model can not learn this parameter, or only with a lot of data. Compare for example the following two models, one with a very restrictive prior and one with a weakly informative prior on the parameter coefficients.</p>
+
+<pre><code class="language-r">mod_0.01 &lt;- map(
     alist(
       y ~ dnorm(mu, sigma),
       mu &lt;- a + b*x + b1*x1 +b2*x2,
@@ -556,44 +711,71 @@ Compare for example the following two models, one with a very restrictive prior 
     ), data=d
   )
   
-coeftab_plot( coeftab( mod_0.01, mod_1) )</code></pre>
+coeftab_plot( coeftab( mod_0.01, mod_1) )
+</code></pre>
+
+<p><img src="chapter6_Ex_files/figure-markdown_github/unnamed-chunk-11-1.png" alt="" /></p>
+
 <p>Both models correctly identify that <code>b1</code> and <code>b2</code> are not relevant to predict the data, but the restrictive model severely underfits and sets all parameters (except <code>sigma</code>) to 0.</p>
-</div>
-<div id="hard." class="section level2">
-<h2>Hard.</h2>
-<p>All practice problems to follow use the !Kung demography data.
-We split the data in two equally sized subsets.</p>
-<pre class="r"><code>data(&quot;Howell1&quot;)
+
+<h2 id="hard">Hard.</h2>
+
+<p>All practice problems to follow use the !Kung demography data. We split the data in two equally sized subsets.</p>
+
+<pre><code class="language-r">data(&quot;Howell1&quot;)
 d &lt;- Howell1
 d$age &lt;- (d$age - mean(d$age) ) / sd(d$age)
 set.seed(1000)
 i &lt;- sample( 1:nrow(d), size=nrow(d)/2)
 d1 &lt;- d[ i, ]
-d2 &lt;- d[ -i,]</code></pre>
-<p>We will use <code>d1</code> to fit models and evaluate them on <code>d2</code>.
-We will predict the height <span class="math inline">\(h_i\)</span> using the centered age values <span class="math inline">\(x_i\)</span> with the following models:</p>
-<p><span class="math display">\[\begin{align*}
-\mathcal{M}_1 : \,&amp; h_i \sim \text{Normal}(\mu_i, \sigma) \\
-&amp; \mu_i = \alpha + \beta_1 x_i \\
-\\
-\mathcal{M}_2 : \,&amp; h_i \sim \text{Normal}(\mu_i, \sigma) \\
-&amp; \mu_i = \alpha + \beta_1 x_i + \beta_2 x_i^2\\
-\\
-\mathcal{M}_3 : \,&amp; h_i \sim \text{Normal}(\mu_i, \sigma) \\
-&amp; \mu_i = \alpha + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3   \\
-\\
-\mathcal{M}_4 :\, &amp; h_i \sim \text{Normal}(\mu_i, \sigma) \\
-&amp; \mu_i = \alpha + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3  + \beta_4 x_i^4  \\
-\\
-\mathcal{M}_5 : \,&amp; h_i \sim \text{Normal}(\mu_i, \sigma) \\
-&amp; \mu_i = \alpha + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3  + \beta_4 x_i^4 + \beta_5 x_i^5 \\
-\\
-\mathcal{M}_6 : \,&amp; h_i \sim \text{Normal}(\mu_i, \sigma) \\
+d2 &lt;- d[ -i,]
+</code></pre>
+
+<p>We will use <code>d1</code> to fit models and evaluate them on <code>d2</code>. We will predict the height <img src="https://latex.codecogs.com/png.latex?h_i" alt="h\_i" title="h_i" /> using the centered age values <img src="https://latex.codecogs.com/png.latex?x_i" alt="x\_i" title="x_i" /> with the following models:</p>
+
+<p><img src="https://latex.codecogs.com/png.latex?%5Cbegin%7Balign%2A%7D%0A%5Cmathcal%7BM%7D_1%20%3A%20%5C%2C%26%20h_i%20%5Csim%20%5Ctext%7BNormal%7D%28%5Cmu_i%2C%20%5Csigma%29%20%5C%5C%0A%26%20%5Cmu_i%20%3D%20%5Calpha%20%2B%20%5Cbeta_1%20x_i%20%5C%5C%0A%5C%5C%0A%5Cmathcal%7BM%7D_2%20%3A%20%5C%2C%26%20h_i%20%5Csim%20%5Ctext%7BNormal%7D%28%5Cmu_i%2C%20%5Csigma%29%20%5C%5C%0A%26%20%5Cmu_i%20%3D%20%5Calpha%20%2B%20%5Cbeta_1%20x_i%20%2B%20%5Cbeta_2%20x_i%5E2%5C%5C%0A%5C%5C%0A%5Cmathcal%7BM%7D_3%20%3A%20%5C%2C%26%20h_i%20%5Csim%20%5Ctext%7BNormal%7D%28%5Cmu_i%2C%20%5Csigma%29%20%5C%5C%0A%26%20%5Cmu_i%20%3D%20%5Calpha%20%2B%20%5Cbeta_1%20x_i%20%2B%20%5Cbeta_2%20x_i%5E2%20%2B%20%5Cbeta_3%20x_i%5E3%20%20%20%5C%5C%0A%5C%5C%0A%5Cmathcal%7BM%7D_4%20%3A%5C%2C%20%26%20h_i%20%5Csim%20%5Ctext%7BNormal%7D%28%5Cmu_i%2C%20%5Csigma%29%20%5C%5C%0A%26%20%5Cmu_i%20%3D%20%5Calpha%20%2B%20%5Cbeta_1%20x_i%20%2B%20%5Cbeta_2%20x_i%5E2%20%2B%20%5Cbeta_3%20x_i%5E3%20%20%2B%20%5Cbeta_4%20x_i%5E4%20%20%5C%5C%0A%5C%5C%0A%5Cmathcal%7BM%7D_5%20%3A%20%5C%2C%26%20h_i%20%5Csim%20%5Ctext%7BNormal%7D%28%5Cmu_i%2C%20%5Csigma%29%20%5C%5C%0A%26%20%5Cmu_i%20%3D%20%5Calpha%20%2B%20%5Cbeta_1%20x_i%20%2B%20%5Cbeta_2%20x_i%5E2%20%2B%20%5Cbeta_3%20x_i%5E3%20%20%2B%20%5Cbeta_4%20x_i%5E4%20%2B%20%5Cbeta_5%20x_i%5E5%20%5C%5C%0A%5C%5C%0A%5Cmathcal%7BM%7D_6%20%3A%20%5C%2C%26%20h_i%20%5Csim%20%5Ctext%7BNormal%7D%28%5Cmu_i%2C%20%5Csigma%29%20%5C%5C%0A%26%20%5Cmu_i%20%3D%20%5Calpha%20%2B%20%5Cbeta_1%20x_i%20%2B%20%5Cbeta_2%20x_i%5E2%20%2B%20%5Cbeta_3%20x_i%5E3%20%20%2B%20%5Cbeta_4%20x_i%5E4%20%2B%20%5Cbeta_5%20x_i%5E5%20%2B%20%5Cbeta_6%20x_i%5E6%0A%5Cend%7Balign%2A%7D &quot;begin{align*}
+mathcal{M}_1 : ,&amp; h_i sim text{Normal}(mu_i, sigma" alt="\\begin{align\*}
+\\mathcal{M}\_1 : \\,&amp; h\_i \\sim \\text{Normal}(\\mu\_i, \\sigma) \\\\
+&amp; \\mu\_i = \\alpha + \\beta\_1 x\_i \\\\
+\\\\
+\\mathcal{M}\_2 : \\,&amp; h\_i \\sim \\text{Normal}(\\mu\_i, \\sigma) \\\\
+&amp; \\mu\_i = \\alpha + \\beta\_1 x\_i + \\beta\_2 x\_i^2\\\\
+\\\\
+\\mathcal{M}\_3 : \\,&amp; h\_i \\sim \\text{Normal}(\\mu\_i, \\sigma) \\\\
+&amp; \\mu\_i = \\alpha + \\beta\_1 x\_i + \\beta\_2 x\_i^2 + \\beta\_3 x\_i^3   \\\\
+\\\\
+\\mathcal{M}\_4 :\\, &amp; h\_i \\sim \\text{Normal}(\\mu\_i, \\sigma) \\\\
+&amp; \\mu\_i = \\alpha + \\beta\_1 x\_i + \\beta\_2 x\_i^2 + \\beta\_3 x\_i^3  + \\beta\_4 x\_i^4  \\\\
+\\\\
+\\mathcal{M}\_5 : \\,&amp; h\_i \\sim \\text{Normal}(\\mu\_i, \\sigma) \\\\
+&amp; \\mu\_i = \\alpha + \\beta\_1 x\_i + \\beta\_2 x\_i^2 + \\beta\_3 x\_i^3  + \\beta\_4 x\_i^4 + \\beta\_5 x\_i^5 \\\\
+\\\\
+\\mathcal{M}\_6 : \\,&amp; h\_i \\sim \\text{Normal}(\\mu\_i, \\sigma) \\\\
+&amp; \\mu\_i = \\alpha + \\beta\_1 x\_i + \\beta\_2 x\_i^2 + \\beta\_3 x\_i^3  + \\beta\_4 x\_i^4 + \\beta\_5 x\_i^5 + \\beta\_6 x\_i^6
+\\end{align\*}" /> <br />
+&amp; \mu_i = \alpha + \beta_1 x_i <br />
+<br />
+\mathcal{M}_2 : \,&amp; h_i \sim \text{Normal}(\mu_i, \sigma) <br />
+&amp; \mu_i = \alpha + \beta_1 x_i + \beta_2 x_i^2<br />
+<br />
+\mathcal{M}_3 : \,&amp; h_i \sim \text{Normal}(\mu_i, \sigma) <br />
+&amp; \mu_i = \alpha + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3   <br />
+<br />
+\mathcal{M}_4 :\, &amp; h_i \sim \text{Normal}(\mu_i, \sigma) <br />
+&amp; \mu_i = \alpha + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3  + \beta_4 x_i^4  <br />
+<br />
+\mathcal{M}_5 : \,&amp; h_i \sim \text{Normal}(\mu_i, \sigma) <br />
+&amp; \mu_i = \alpha + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3  + \beta_4 x_i^4 + \beta_5 x_i^5 <br />
+<br />
+\mathcal{M}_6 : \,&amp; h_i \sim \text{Normal}(\mu_i, \sigma) <br />
 &amp; \mu_i = \alpha + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3  + \beta_4 x_i^4 + \beta_5 x_i^5 + \beta_6 x_i^6
-\end{align*}\]</span></p>
-<p>We fit the models using <code>map</code> using a weakly regularizing prior. What is a weakly regularizing prior? This <a href="https://github.com/stan-dev/stan/wiki/Prior-Choice-Recommendations">article</a> states that a weakly informative prior “should contain enough information to regularize: the idea is that the prior rules out unreasonable parameter values but is not so strong as to rule out values that might make sense”. A helpful example on how to get a weakly informative prior has been this <a href="http://mc-stan.org/users/documentation/case-studies/weakly_informative_shapes.html">article</a>.</p>
-<p>Since we centered and standardized age, the <span class="math inline">\(\beta\)</span> coefficients correspond to a decrease in centimeter if age increases by one standard deviation (about 20 years). So the question is, how much to we expect someone to grow in 20 years? Maybe up to 100cm if they’re still young (e.g. less than 10years), otherwise maybe around 5cm. As a compromise, I picked <span class="math inline">\(\text{Normal}(0,50)\)</span> as a prior.</p>
-<pre class="r"><code>mod1 &lt;- map(
+\end{align*}&ldquo;)</p>
+
+<p>We fit the models using <code>map</code> using a weakly regularizing prior. What is a weakly regularizing prior? This <a href="https://github.com/stan-dev/stan/wiki/Prior-Choice-Recommendations">article</a> states that a weakly informative prior &ldquo;should contain enough information to regularize: the idea is that the prior rules out unreasonable parameter values but is not so strong as to rule out values that might make sense&rdquo;. A helpful example on how to get a weakly informative prior has been this <a href="http://mc-stan.org/users/documentation/case-studies/weakly_informative_shapes.html">article</a>.</p>
+
+<p>Since we centered and standardized age, the <img src="https://latex.codecogs.com/png.latex?%5Cbeta" alt="\\beta" title="\beta" /> coefficients correspond to a decrease in centimeter if age increases by one standard deviation (about 20 years). So the question is, how much to we expect someone to grow in 20 years? Maybe up to 100cm if they&rsquo;re still young (e.g. less than 10years), otherwise maybe around 5cm. As a compromise, I picked <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BNormal%7D%280%2C50%29 &quot;text{Normal}(0,50" alt="\\text{Normal}(0,50)" />&rdquo;) as a prior.</p>
+
+<pre><code class="language-r">mod1 &lt;- map(
   alist(
     height ~ dnorm(mu, sigma),
     mu &lt;- a + b1*age,
@@ -656,14 +838,37 @@ mod6 &lt;- map(
 )
 
 plot(coeftab( mod1, mod2, mod3, mod4, mod5, mod6), 
-     pars=c(&quot;b1&quot;, &quot;b2&quot;, &quot;b3&quot;, &quot;b4&quot;, &quot;b5&quot;, &quot;b6&quot;))</code></pre>
+     pars=c(&quot;b1&quot;, &quot;b2&quot;, &quot;b3&quot;, &quot;b4&quot;, &quot;b5&quot;, &quot;b6&quot;))
+</code></pre>
+
+<p><img src="chapter6_Ex_files/figure-markdown_github/unnamed-chunk-13-1.png" alt="" /></p>
+
 <p>The parameters for the beta coefficients vary quite a bit and are in between -20 and +20.</p>
+
 <p><strong>6H1.</strong> Compare the models above, using WAIC. Compare the models ranking, as well as the WAIC weights.</p>
-<pre class="r"><code>( height.models &lt;- compare(mod1, mod2, mod3, mod4, mod5, mod6) )</code></pre>
-<pre class="r"><code>plot( height.models )</code></pre>
+
+<pre><code class="language-r">( height.models &lt;- compare(mod1, mod2, mod3, mod4, mod5, mod6) )
+</code></pre>
+
+<pre><code>##        WAIC pWAIC dWAIC weight    SE   dSE
+## mod4 1926.1   5.6   0.0   0.57 25.45    NA
+## mod5 1927.5   6.4   1.4   0.28 25.33  0.97
+## mod6 1928.8   7.8   2.7   0.15 25.25  2.74
+## mod3 1952.3   5.4  26.2   0.00 24.19 10.86
+## mod2 2150.0   5.2 223.9   0.00 22.60 26.66
+## mod1 2395.4   3.4 469.3   0.00 22.96 31.01
+</code></pre>
+
+<pre><code class="language-r">plot( height.models )
+</code></pre>
+
+<p><img src="chapter6_Ex_files/figure-markdown_github/unnamed-chunk-15-1.png" alt="" /></p>
+
 <p>The fourth model has the lowest WAIC but the fifth and sixth model have basically almost indistinguishably slightly higher WAICs. The first and second model on the other hand have much higher WAIC. Thus all the Akaike weight is on the fourth, fifth and sixth model.</p>
+
 <p><strong>6H2.</strong> For each model, produce a plot with model averaged mean and 97% confidence interval of the mean, superimposed on the raw data.</p>
-<pre class="r"><code>plot_model &lt;- function(mod){
+
+<pre><code class="language-r">plot_model &lt;- function(mod){
   name &lt;- deparse(substitute(mod))
   age.seq &lt;- seq(from=-3, to=3, length.out = 30)    # generate ages (centered and scaled)
   post &lt;- extract.samples(mod)                     # extract a posterior sample
@@ -689,21 +894,174 @@ plot(coeftab( mod1, mod2, mod3, mod4, mod5, mod6),
   
   legend(&quot;bottomright&quot;, c(&quot;Train&quot;, &quot;Test&quot;), pch=c(1,1), col=c(&quot;black&quot;, rangi2), bty=&quot;n&quot;)
   mtext(name)
-}</code></pre>
-<pre class="r"><code>par(mfrow=c(3,2))
+}
+</code></pre>
+
+<pre><code class="language-r">par(mfrow=c(3,2))
 plot_model(mod1)
-plot_model(mod2)
-plot_model(mod3)
-plot_model(mod4)
-plot_model(mod5)
-plot_model(mod6)</code></pre>
+</code></pre>
+
+<pre><code>## [ 100 / 1000 ]
+[ 200 / 1000 ]
+[ 300 / 1000 ]
+[ 400 / 1000 ]
+[ 500 / 1000 ]
+[ 600 / 1000 ]
+[ 700 / 1000 ]
+[ 800 / 1000 ]
+[ 900 / 1000 ]
+[ 1000 / 1000 ]
+</code></pre>
+
+<pre><code class="language-r">plot_model(mod2)
+</code></pre>
+
+<pre><code>## [ 100 / 1000 ]
+[ 200 / 1000 ]
+[ 300 / 1000 ]
+[ 400 / 1000 ]
+[ 500 / 1000 ]
+[ 600 / 1000 ]
+[ 700 / 1000 ]
+[ 800 / 1000 ]
+[ 900 / 1000 ]
+[ 1000 / 1000 ]
+</code></pre>
+
+<pre><code class="language-r">plot_model(mod3)
+</code></pre>
+
+<pre><code>## [ 100 / 1000 ]
+[ 200 / 1000 ]
+[ 300 / 1000 ]
+[ 400 / 1000 ]
+[ 500 / 1000 ]
+[ 600 / 1000 ]
+[ 700 / 1000 ]
+[ 800 / 1000 ]
+[ 900 / 1000 ]
+[ 1000 / 1000 ]
+</code></pre>
+
+<pre><code class="language-r">plot_model(mod4)
+</code></pre>
+
+<pre><code>## [ 100 / 1000 ]
+[ 200 / 1000 ]
+[ 300 / 1000 ]
+[ 400 / 1000 ]
+[ 500 / 1000 ]
+[ 600 / 1000 ]
+[ 700 / 1000 ]
+[ 800 / 1000 ]
+[ 900 / 1000 ]
+[ 1000 / 1000 ]
+</code></pre>
+
+<pre><code class="language-r">plot_model(mod5)
+</code></pre>
+
+<pre><code>## [ 100 / 1000 ]
+[ 200 / 1000 ]
+[ 300 / 1000 ]
+[ 400 / 1000 ]
+[ 500 / 1000 ]
+[ 600 / 1000 ]
+[ 700 / 1000 ]
+[ 800 / 1000 ]
+[ 900 / 1000 ]
+[ 1000 / 1000 ]
+</code></pre>
+
+<pre><code class="language-r">plot_model(mod6)
+</code></pre>
+
+<pre><code>## [ 100 / 1000 ]
+[ 200 / 1000 ]
+[ 300 / 1000 ]
+[ 400 / 1000 ]
+[ 500 / 1000 ]
+[ 600 / 1000 ]
+[ 700 / 1000 ]
+[ 800 / 1000 ]
+[ 900 / 1000 ]
+[ 1000 / 1000 ]
+</code></pre>
+
+<p><img src="chapter6_Ex_files/figure-markdown_github/unnamed-chunk-17-1.png" alt="" /></p>
+
 <p>Both the first and second model have an inflexible model that does not fit the data well. The only discernible difference in the last three models is in the way the model predicts outside of the data. This is also the part where we can see that the model follows more closely the training data.</p>
+
 <p><strong>6H3.</strong> Plot the model averaged predictions, across all models. In what ways do the averaged predictions differ from the predictions of the model with the lowest WAIC value?</p>
-<pre class="r"><code>age.seq &lt;- seq(from=-3, to=3, length.out = 30)
+
+<pre><code class="language-r">age.seq &lt;- seq(from=-3, to=3, length.out = 30)
 height.ensemble &lt;- ensemble( mod1, mod2, mod3, mod4, mod5, mod6, 
                              data=data.frame(age=age.seq ) )
+</code></pre>
 
-# compute mu
+<pre><code>## [ 100 / 1000 ]
+[ 200 / 1000 ]
+[ 300 / 1000 ]
+[ 400 / 1000 ]
+[ 500 / 1000 ]
+[ 600 / 1000 ]
+[ 700 / 1000 ]
+[ 800 / 1000 ]
+[ 900 / 1000 ]
+[ 1000 / 1000 ]
+## [ 100 / 1000 ]
+[ 200 / 1000 ]
+[ 300 / 1000 ]
+[ 400 / 1000 ]
+[ 500 / 1000 ]
+[ 600 / 1000 ]
+[ 700 / 1000 ]
+[ 800 / 1000 ]
+[ 900 / 1000 ]
+[ 1000 / 1000 ]
+## [ 100 / 1000 ]
+[ 200 / 1000 ]
+[ 300 / 1000 ]
+[ 400 / 1000 ]
+[ 500 / 1000 ]
+[ 600 / 1000 ]
+[ 700 / 1000 ]
+[ 800 / 1000 ]
+[ 900 / 1000 ]
+[ 1000 / 1000 ]
+## [ 100 / 1000 ]
+[ 200 / 1000 ]
+[ 300 / 1000 ]
+[ 400 / 1000 ]
+[ 500 / 1000 ]
+[ 600 / 1000 ]
+[ 700 / 1000 ]
+[ 800 / 1000 ]
+[ 900 / 1000 ]
+[ 1000 / 1000 ]
+## [ 100 / 1000 ]
+[ 200 / 1000 ]
+[ 300 / 1000 ]
+[ 400 / 1000 ]
+[ 500 / 1000 ]
+[ 600 / 1000 ]
+[ 700 / 1000 ]
+[ 800 / 1000 ]
+[ 900 / 1000 ]
+[ 1000 / 1000 ]
+## [ 100 / 1000 ]
+[ 200 / 1000 ]
+[ 300 / 1000 ]
+[ 400 / 1000 ]
+[ 500 / 1000 ]
+[ 600 / 1000 ]
+[ 700 / 1000 ]
+[ 800 / 1000 ]
+[ 900 / 1000 ]
+[ 1000 / 1000 ]
+</code></pre>
+
+<pre><code class="language-r"># compute mu
 mu.mean &lt;- apply(height.ensemble$link, 2, mean)
 mu.HPDI &lt;- apply(height.ensemble$link, 2, HPDI, prob=0.97)
 
@@ -718,10 +1076,28 @@ shade( mu.HPDI, age.seq)                              # draw HPDI region around 
 legend(&quot;bottomright&quot;, c(&quot;Train&quot;, &quot;Test&quot;), pch=c(1,1), col=c(&quot;black&quot;, rangi2), bty=&quot;n&quot;)
 mtext(&quot;Averaged model&quot;)
 
-plot_model(mod4)</code></pre>
+plot_model(mod4)
+</code></pre>
+
+<pre><code>## [ 100 / 1000 ]
+[ 200 / 1000 ]
+[ 300 / 1000 ]
+[ 400 / 1000 ]
+[ 500 / 1000 ]
+[ 600 / 1000 ]
+[ 700 / 1000 ]
+[ 800 / 1000 ]
+[ 900 / 1000 ]
+[ 1000 / 1000 ]
+</code></pre>
+
+<p><img src="chapter6_Ex_files/figure-markdown_github/unnamed-chunk-18-1.png" alt="" /></p>
+
 <p>Since only the models 4, 5, and 6 had some positive weight, we do not see any influence of the other three models in the averaged predictions. Compared with model 4 (the one with the lowest WAIC), the averaged model places more uncertainty at the higher ends of the data.</p>
+
 <p><strong>6H4.</strong> Compute the test-sample deviance for each model. We can compute the deviance for each model as follow:</p>
-<pre class="r"><code>compute_deviance &lt;- function(mod, data) {
+
+<pre><code class="language-r">compute_deviance &lt;- function(mod, data) {
   mu &lt;- link( mod, data=data )
   mu.mean &lt;- apply(mu, 2, mean)
   sigma &lt;- coef(mod)[&quot;sigma&quot;]
@@ -732,35 +1108,123 @@ plot_model(mod4)</code></pre>
             log=TRUE))
   deviance &lt;- (-2) * logLikelihood
   deviance
-}</code></pre>
+}
+</code></pre>
+
 <p>The test-sample deviance for the models are thus:</p>
-<pre class="r"><code>dev &lt;- sapply(list(mod1, mod2, mod3, mod4, mod5, mod6), compute_deviance, data=d2)
-names(dev) &lt;- c(&quot;mod1&quot;, &quot;mod2&quot;, &quot;mod3&quot;, &quot;mod4&quot;, &quot;mod5&quot;, &quot;mod6&quot;)
-dev</code></pre>
+
+<pre><code class="language-r">dev &lt;- sapply(list(mod1, mod2, mod3, mod4, mod5, mod6), compute_deviance, data=d2)
+</code></pre>
+
+<pre><code>## [ 100 / 1000 ]
+[ 200 / 1000 ]
+[ 300 / 1000 ]
+[ 400 / 1000 ]
+[ 500 / 1000 ]
+[ 600 / 1000 ]
+[ 700 / 1000 ]
+[ 800 / 1000 ]
+[ 900 / 1000 ]
+[ 1000 / 1000 ]
+## [ 100 / 1000 ]
+[ 200 / 1000 ]
+[ 300 / 1000 ]
+[ 400 / 1000 ]
+[ 500 / 1000 ]
+[ 600 / 1000 ]
+[ 700 / 1000 ]
+[ 800 / 1000 ]
+[ 900 / 1000 ]
+[ 1000 / 1000 ]
+## [ 100 / 1000 ]
+[ 200 / 1000 ]
+[ 300 / 1000 ]
+[ 400 / 1000 ]
+[ 500 / 1000 ]
+[ 600 / 1000 ]
+[ 700 / 1000 ]
+[ 800 / 1000 ]
+[ 900 / 1000 ]
+[ 1000 / 1000 ]
+## [ 100 / 1000 ]
+[ 200 / 1000 ]
+[ 300 / 1000 ]
+[ 400 / 1000 ]
+[ 500 / 1000 ]
+[ 600 / 1000 ]
+[ 700 / 1000 ]
+[ 800 / 1000 ]
+[ 900 / 1000 ]
+[ 1000 / 1000 ]
+## [ 100 / 1000 ]
+[ 200 / 1000 ]
+[ 300 / 1000 ]
+[ 400 / 1000 ]
+[ 500 / 1000 ]
+[ 600 / 1000 ]
+[ 700 / 1000 ]
+[ 800 / 1000 ]
+[ 900 / 1000 ]
+[ 1000 / 1000 ]
+## [ 100 / 1000 ]
+[ 200 / 1000 ]
+[ 300 / 1000 ]
+[ 400 / 1000 ]
+[ 500 / 1000 ]
+[ 600 / 1000 ]
+[ 700 / 1000 ]
+[ 800 / 1000 ]
+[ 900 / 1000 ]
+[ 1000 / 1000 ]
+</code></pre>
+
+<pre><code class="language-r">names(dev) &lt;- c(&quot;mod1&quot;, &quot;mod2&quot;, &quot;mod3&quot;, &quot;mod4&quot;, &quot;mod5&quot;, &quot;mod6&quot;)
+dev
+</code></pre>
+
+<pre><code>##     mod1     mod2     mod3     mod4     mod5     mod6 
+## 2422.126 2137.808 1932.311 1876.782 1878.145 1877.711
+</code></pre>
+
 <p><strong>6H5.</strong> Compare the deviances to the WAIC values. To make the values easier to compare, we center both by subtracting the minimum.</p>
-<pre class="r"><code>dev.c &lt;- dev - min(dev)
+
+<pre><code class="language-r">dev.c &lt;- dev - min(dev)
 waic &lt;- compare(mod1, mod2, mod3, mod4, mod5, mod6, sort=NULL)
 waic &lt;- attr(waic, &quot;output&quot;)$WAIC
-waic.c &lt;- waic - min(waic)</code></pre>
-<pre class="r"><code>plot(1:6 , waic.c, ylim=c(0,max(c( waic.c, dev.c))),
+waic.c &lt;- waic - min(waic)
+</code></pre>
+
+<pre><code class="language-r">plot(1:6 , waic.c, ylim=c(0,max(c( waic.c, dev.c))),
        xlab=&quot;Model&quot;, ylab=&quot;centered estimate&quot;, 
       pch=16, cex=1, col=&quot;steelblue&quot;, type=&quot;b&quot;,
      main=&quot;WAIC Estimates vs Test Deviance&quot;)
 points(1:6, dev.c, cex=1, pch=16, type=&quot;b&quot;)
 
 legend(&quot;topright&quot;, c( &quot;WAIC&quot;, &quot;Test Deviance&quot;), pch=c(16, 16), 
-       lwd=c(1,1), col=c(&quot;steelblue&quot;, &quot;black&quot;), bty=&quot;n&quot;)</code></pre>
+       lwd=c(1,1), col=c(&quot;steelblue&quot;, &quot;black&quot;), bty=&quot;n&quot;)
+</code></pre>
+
+<p><img src="chapter6_Ex_files/figure-markdown_github/unnamed-chunk-22-1.png" alt="" /></p>
+
 <p>Both the WAIC and the test deviance agree which models best predict the data: model 4, 5, and 6. In this case, WAIC does a quite good job in approximating the test deviance.</p>
-<p><strong>6H6:</strong> Consider the following model:
-<span class="math display">\[\begin{align*}
-h_i &amp;\sim \text{Normal}(\mu_i, \sigma) \\
-\mu_i &amp;= \alpha + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3 + \beta_4 x_i^4 + \beta_5 x_i^5 + \beta_6 x_i^6 \\
-\beta_i &amp;\sim \text{Normal}(0, 5) 
-\end{align*}\]</span>
-and assume flat (or nearly flat) priors on <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\sigma\)</span>.</p>
-<p>This model has more strongly regularizing priors on the beta coefficients.
-Fit the model to <code>d1</code>:</p>
-<pre class="r"><code>mod &lt;- map(
+
+<p><strong>6H6:</strong> Consider the following model:</p>
+
+<p><img src="https://latex.codecogs.com/png.latex?%5Cbegin%7Balign%2A%7D%0Ah_i%20%26%5Csim%20%5Ctext%7BNormal%7D%28%5Cmu_i%2C%20%5Csigma%29%20%5C%5C%0A%5Cmu_i%20%26%3D%20%5Calpha%20%2B%20%5Cbeta_1%20x_i%20%2B%20%5Cbeta_2%20x_i%5E2%20%2B%20%5Cbeta_3%20x_i%5E3%20%2B%20%5Cbeta_4%20x_i%5E4%20%2B%20%5Cbeta_5%20x_i%5E5%20%2B%20%5Cbeta_6%20x_i%5E6%20%5C%5C%0A%5Cbeta_i%20%26%5Csim%20%5Ctext%7BNormal%7D%280%2C%205%29%20%0A%5Cend%7Balign%2A%7D &quot;begin{align*}
+h_i &amp;sim text{Normal}(mu_i, sigma" alt="\\begin{align\*}
+h\_i &amp;\\sim \\text{Normal}(\\mu\_i, \\sigma) \\\\
+\\mu\_i &amp;= \\alpha + \\beta\_1 x\_i + \\beta\_2 x\_i^2 + \\beta\_3 x\_i^3 + \\beta\_4 x\_i^4 + \\beta\_5 x\_i^5 + \\beta\_6 x\_i^6 \\\\
+\\beta\_i &amp;\\sim \\text{Normal}(0, 5) 
+\\end{align\*}" /> <br />
+\mu_i &amp;= \alpha + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3 + \beta_4 x_i^4 + \beta_5 x_i^5 + \beta_6 x_i^6 <br />
+\beta_i &amp;\sim \text{Normal}(0, 5)
+\end{align*}&ldquo;)</p>
+
+<p>and assume flat (or nearly flat) priors on <img src="https://latex.codecogs.com/png.latex?%5Calpha" alt="\\alpha" title="\alpha" /> and <img src="https://latex.codecogs.com/png.latex?%5Csigma" alt="\\sigma" title="\sigma" />.</p>
+
+<p>This model has more strongly regularizing priors on the beta coefficients. Fit the model to <code>d1</code>:</p>
+
+<pre><code class="language-r">mod &lt;- map(
   alist(
     height ~ dnorm(mu, sigma),
     mu &lt;- a + b1*age + b2*age^2 + b3*age^3 + b4*age^4 + 
@@ -771,23 +1235,124 @@ Fit the model to <code>d1</code>:</p>
   ), data=d1
 )
 
-precis(mod)</code></pre>
-<pre class="r"><code>plot(precis(mod))</code></pre>
+precis(mod)
+</code></pre>
+
+<pre><code>##         Mean StdDev   5.5%  94.5%
+## a     155.85   0.88 154.45 157.25
+## b1      5.97   1.81   3.08   8.86
+## b2    -16.60   2.13 -20.00 -13.19
+## b3     12.09   2.72   7.75  16.44
+## b4     -3.51   1.16  -5.37  -1.66
+## b5      0.23   1.04  -1.43   1.89
+## b6      0.05   0.33  -0.48   0.58
+## sigma   8.20   0.36   7.63   8.77
+</code></pre>
+
+<pre><code class="language-r">plot(precis(mod))
+</code></pre>
+
+<p><img src="chapter6_Ex_files/figure-markdown_github/unnamed-chunk-24-1.png" alt="" /></p>
+
 <p>The beta parameter values are all much smaller than the parameter values in the models before.</p>
-<pre class="r"><code>WAIC(mod)</code></pre>
-<pre class="r"><code>waic</code></pre>
+
+<pre><code class="language-r">WAIC(mod)
+</code></pre>
+
+<pre><code>## Constructing posterior predictions
+
+## [ 100 / 1000 ]
+[ 200 / 1000 ]
+[ 300 / 1000 ]
+[ 400 / 1000 ]
+[ 500 / 1000 ]
+[ 600 / 1000 ]
+[ 700 / 1000 ]
+[ 800 / 1000 ]
+[ 900 / 1000 ]
+[ 1000 / 1000 ]
+
+## [1] 1930.578
+## attr(,&quot;lppd&quot;)
+## [1] -958.6746
+## attr(,&quot;pWAIC&quot;)
+## [1] 6.614642
+## attr(,&quot;se&quot;)
+## [1] 25.39394
+</code></pre>
+
+<pre><code class="language-r">waic
+</code></pre>
+
+<pre><code>## [1] 2395.283 2150.568 1952.729 1925.894 1927.909 1928.541
+</code></pre>
+
 <p>The model has a WAIC of 1930 which gives it a similar (though slightly higher) WAIC than the best performing models from before. The effective number of parameter for the regularized model is 6.4.</p>
+
 <p>We plot the predictions together with the confidence interval of the mean. For comparison, I also plot the model 4 (with the best WAIC) from before.</p>
-<pre class="r"><code>par(mfrow=c(1,2))
+
+<pre><code class="language-r">par(mfrow=c(1,2))
 plot_model(mod)
-plot_model(mod4)</code></pre>
+</code></pre>
+
+<pre><code>## [ 100 / 1000 ]
+[ 200 / 1000 ]
+[ 300 / 1000 ]
+[ 400 / 1000 ]
+[ 500 / 1000 ]
+[ 600 / 1000 ]
+[ 700 / 1000 ]
+[ 800 / 1000 ]
+[ 900 / 1000 ]
+[ 1000 / 1000 ]
+</code></pre>
+
+<pre><code class="language-r">plot_model(mod4)
+</code></pre>
+
+<pre><code>## [ 100 / 1000 ]
+[ 200 / 1000 ]
+[ 300 / 1000 ]
+[ 400 / 1000 ]
+[ 500 / 1000 ]
+[ 600 / 1000 ]
+[ 700 / 1000 ]
+[ 800 / 1000 ]
+[ 900 / 1000 ]
+[ 1000 / 1000 ]
+</code></pre>
+
+<p><img src="chapter6_Ex_files/figure-markdown_github/unnamed-chunk-27-1.png" alt="" /></p>
+
 <p>The curves are both very similar, though the regularized model seems to have a slightly less wiggly curve. Also, it puts more uncertainty to the higher ages.</p>
-<p>Let’s compute the deviance:</p>
-<pre class="r"><code>compute_deviance(mod, data=d2)</code></pre>
-<pre class="r"><code>dev</code></pre>
+
+<p>Let&rsquo;s compute the deviance:</p>
+
+<pre><code class="language-r">compute_deviance(mod, data=d2)
+</code></pre>
+
+<pre><code>## [ 100 / 1000 ]
+[ 200 / 1000 ]
+[ 300 / 1000 ]
+[ 400 / 1000 ]
+[ 500 / 1000 ]
+[ 600 / 1000 ]
+[ 700 / 1000 ]
+[ 800 / 1000 ]
+[ 900 / 1000 ]
+[ 1000 / 1000 ]
+
+## [1] 1875.827
+</code></pre>
+
+<pre><code class="language-r">dev
+</code></pre>
+
+<pre><code>##     mod1     mod2     mod3     mod4     mod5     mod6 
+## 2422.126 2137.808 1932.311 1876.782 1878.145 1877.711
+</code></pre>
+
 <p>The regularized model has an out-of-sample deviance even lower than the best deviance from the models before. The regularizing prior thus produce a better model, with better predictive power than the models with less regularizing prior.</p>
-</div>
-</div>
 
     
     </section>
@@ -795,9 +1360,9 @@ plot_model(mod4)</code></pre>
 
   <aside class="read-next">
   
-      <a class="read-next-story" style="no-cover" href="/projects/statistical-rethinking/chapter_8/chapter8_ex/">
+      <a class="read-next-story" style="no-cover" href="/projects/statistical-rethinking/chapter_5/chapter5_ex/">
           <section class="post">
-              <h5>Chapter 8 - Exercises</h5>
+              <h5></h5>
               
           </section>
       </a>
@@ -805,7 +1370,7 @@ plot_model(mod4)</code></pre>
   
       <a class="read-next-story prev" style="no-cover" href="/projects/statistical-rethinking/chapter_6/chapter6b/">
           <section class="post">
-              <h5>Information Theory and Model Performance</h5>
+              <h5></h5>
           </section>
       </a>
       
@@ -844,7 +1409,7 @@ plot_model(mod4)</code></pre>
     
 <section class="share">
   <h4>Share this projects</h4>
-  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Chpter%206%20-%20Exercies&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2fprojects%2fstatistical-rethinking%2fchapter_6%2fchapter6_ex%2f"
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2fprojects%2fstatistical-rethinking%2fchapter_6%2fchapter6_ex%2f"
       onclick="window.open(this.href, 'twitter-share', 'width=550,height=421');return false;">
       <span class="hidden">Twitter</span>
   </a>
@@ -852,7 +1417,7 @@ plot_model(mod4)</code></pre>
       onclick="window.open(this.href, 'facebook-share','width=580,height=551');return false;">
       <span class="hidden">Facebook</span>
   </a>
-  <a class="icon-linkedin" style="font-size: 1.4em" href="https://www.linkedin.com/shareArticle?mini=true&title=Chpter%206%20-%20Exercies&url=%2fprojects%2fstatistical-rethinking%2fchapter_6%2fchapter6_ex%2f"
+  <a class="icon-linkedin" style="font-size: 1.4em" href="https://www.linkedin.com/shareArticle?mini=true&title=&url=%2fprojects%2fstatistical-rethinking%2fchapter_6%2fchapter6_ex%2f"
                onclick="window.open(this.href, 'linkedin-share', 'width=554,height=571');return false;">
     <span class="hidden">LinkedIn</span>
     </a>
@@ -900,7 +1465,7 @@ s.setAttribute('data-timestamp', +new Date());
 
     <footer class="site-footer clearfix">
         <section class="copyright"><a href="">Samples of Thoughts</a> 
-        © Corrie Bartelheimer 2020 &middot; </section>
+        &copy; Corrie Bartelheimer 2020 &middot; </section>
         
     </footer>
     </div>

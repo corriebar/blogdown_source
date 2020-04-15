@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    
+        
+        <meta name="twitter:card" content="summary_large_image"/>
+        <meta name="twitter:image" content="/images/tea_with_books.jpg"/>
+    
+
+
+
+<meta name="twitter:title" content="Poisson Regression"/>
+<meta name="twitter:description" content=""/>
+<meta name="twitter:site" content="@corrieaar"/>
+
+
+
+  	<meta property="og:title" content="Poisson Regression &middot; Samples of Thoughts" />
+  	<meta property="og:site_name" content="Samples of Thoughts" />
+  	<meta property="og:url" content="/projects/statistical-rethinking/chapter_10/chp10-part-two/" />
+
+    
+       <meta property="og:image" content="/images/tea_with_books.jpg"/>
+    
+    
+    <meta property="og:description" content="" />
+  	<meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2018-10-28T00:00:00Z" />
+
+    
+    <meta property="article:tag" content="Statistical Rethinking" />
+    
+    <meta property="article:tag" content="Bayesian" />
+    
+    
+
+    <title>Poisson Regression &middot; Samples of Thoughts</title>
+
+    
+    <meta name="description" content="Poisson Regression Oceanic Tools A binomial distriution with many trials (that is \(n\) large) and a small probability of an event (\(p\) small) approaches a Po" />
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/css/nav.css" />
+
+    
+    
+    
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/googlecode.min.css' rel='stylesheet' type='text/css' />
+
+
+
+  
+     
+      
+          <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Samples of Thoughts" />
+      
+      
+    
+    <meta name="generator" content="Hugo 0.55.5" />
+
+    <link rel="canonical" href="/projects/statistical-rethinking/chapter_10/chp10-part-two/" />
+
+    
+      
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name":  null 
+    },
+    "author": {
+        "@type": "Person",
+        "name":  null ,
+        
+        "url":  null ,
+        "sameAs": [
+            
+            
+             
+             
+             
+             
+             
+            
+        ]
+    },
+    "headline": "Poisson Regression",
+    "name": "Poisson Regression",
+    "wordCount":  1457 ,
+    "timeRequired": "PT7M",
+    "inLanguage": {
+      "@type": "Language",
+      "alternateName": "en"
+    },
+    "url": "/projects/statistical-rethinking/chapter_10/chp10-part-two/",
+    "datePublished": "2018-10-28T00:00Z",
+    "dateModified": "2018-10-28T00:00Z",
+    
+    "image": {
+        "@type": "ImageObject",
+        "url": "/images/tea_with_books.jpg",
+        "width": 3000,
+        "height": 1445
+    },
+    
+    "keywords": "Statistical Rethinking, Bayesian",
+    "description": "",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/projects/statistical-rethinking/chapter_10/chp10-part-two/"
+    }
+}
+    </script>
+    
+
+
+    
+
+    
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140745376-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+
+    
+    
+    
+
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+<script>
+  window.addEventListener("load", function(){
+    window.cookieconsent.initialise({
+      "palette": {
+        "popup": {
+          "background": "#40485A",
+          "text": "#ffffff"
+        },
+        "button": {
+          "background": "#5B5A68",
+          "text": "#ffffff"
+        }
+      },
+      "content": {
+        "message": "This website uses cookies to ensure you get the best experience on my website.",
+        "dismiss": "Got it!",
+        "link": "Learn more",
+        "href": "https://cookies.insites.com"
+      }
+    })});
+</script>
+
+
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/projects">Projects</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/talks">Talks</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/about">About</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/">Home</a>
+            </li>
+        
+        
+    </ul>
+
+    
+    <a class="subscribe-button icon-feed" href="/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+  
+ <header class="main-header post-head" style="background-image: url(/images/tea_with_books.jpg)"> 
+  
+  <nav class="main-nav overlay clearfix">
+
+
+
+      <ul>
+        
+			<li> <a class="blog-logo" href="/">Home</a> </li>
+			  
+			<li> <a class="blog-logo" href="/about">About</a> </li>
+			  
+			<li> <a class="blog-logo" href="/talks">Talks</a> </li>
+			  
+			<li> <a class="blog-logo" href="/projects">Projects</a> </li>
+			  
+
+            
+              <a class="menu-button icon-feed" href="">&nbsp;&nbsp;Subscribe</a>
+            
+            
+      
+       </ul>
+    </nav>
+    
+     <div class="vertical">
+        <div class="main-header-content inner">
+            
+
+
+    <a class="bloglogo" href="https://github.com/corriebar" target="_blank">
+    <span class="icon-github" style="color:white;font-size:2em"></span>
+    </a>
+&nbsp;
+
+
+
+
+
+
+
+
+
+    <a class="bloglogo" href="https://twitter.com/corrieaar" target="_blank">
+        <span class="icon-twitter" style="color:white;font-size:2em"></span>
+    </a>
+&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <h1 class="page-title">Samples of Thoughts</h1>
+            <h2 class="page-description">about data, statistics  and everything in between</h2>
+        </div>
+    </div>  
+    
+
+
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post projects">
+
+    <header class="post-header">
+        <h1 class="post-title">Poisson Regression</h1>
+        <small></small>
+
+        <section class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 7 min</span>
+            </p>
+        
+        
+        
+         
+          <span class="post-tag small"><a href="/tags/statistical-rethinking/">#Statistical Rethinking</a></span>
+         
+          <span class="post-tag small"><a href="/tags/bayesian/">#Bayesian</a></span>
+         
+        </section>
+    </header>
+
+    <section class="post-content">
+      
+
+
+<div id="poisson-regression" class="section level2">
+<h2>Poisson Regression</h2>
+<div id="oceanic-tools" class="section level3">
+<h3>Oceanic Tools</h3>
+<p>A binomial distriution with many trials (that is <span class="math inline">\(n\)</span> large) and a small probability of an event (<span class="math inline">\(p\)</span> small) approaches a Poisson distribution where both the mean and the variance are equal:</p>
+<pre class="r"><code>y &lt;- rbinom(1e5, 1000, 1/1000)
+c(mean(y), var(y))</code></pre>
+<pre><code>[1] 0.996960 1.000841</code></pre>
+<p>A Poisson model allows us to model binomial events for which the number of trials <span class="math inline">\(n\)</span> is unknown.</p>
+<p>We work with the <code>Kline</code> data, a dataset about Oceanic societies and the number of found tools. We will analyse the number of found tools in dependance of the population size and contact rate. The hypothesis is, that a society with a large population has a larger number of tools and further that a high contact rate to other societies increases the effect of population size.</p>
+<pre class="r"><code>library(rethinking)
+data(Kline)
+d &lt;- Kline
+knitr::kable(d)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">culture</th>
+<th align="right">population</th>
+<th align="left">contact</th>
+<th align="right">total_tools</th>
+<th align="right">mean_TU</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Malekula</td>
+<td align="right">1100</td>
+<td align="left">low</td>
+<td align="right">13</td>
+<td align="right">3.2</td>
+</tr>
+<tr class="even">
+<td align="left">Tikopia</td>
+<td align="right">1500</td>
+<td align="left">low</td>
+<td align="right">22</td>
+<td align="right">4.7</td>
+</tr>
+<tr class="odd">
+<td align="left">Santa Cruz</td>
+<td align="right">3600</td>
+<td align="left">low</td>
+<td align="right">24</td>
+<td align="right">4.0</td>
+</tr>
+<tr class="even">
+<td align="left">Yap</td>
+<td align="right">4791</td>
+<td align="left">high</td>
+<td align="right">43</td>
+<td align="right">5.0</td>
+</tr>
+<tr class="odd">
+<td align="left">Lau Fiji</td>
+<td align="right">7400</td>
+<td align="left">high</td>
+<td align="right">33</td>
+<td align="right">5.0</td>
+</tr>
+<tr class="even">
+<td align="left">Trobriand</td>
+<td align="right">8000</td>
+<td align="left">high</td>
+<td align="right">19</td>
+<td align="right">4.0</td>
+</tr>
+<tr class="odd">
+<td align="left">Chuuk</td>
+<td align="right">9200</td>
+<td align="left">high</td>
+<td align="right">40</td>
+<td align="right">3.8</td>
+</tr>
+<tr class="even">
+<td align="left">Manus</td>
+<td align="right">13000</td>
+<td align="left">low</td>
+<td align="right">28</td>
+<td align="right">6.6</td>
+</tr>
+<tr class="odd">
+<td align="left">Tonga</td>
+<td align="right">17500</td>
+<td align="left">high</td>
+<td align="right">55</td>
+<td align="right">5.4</td>
+</tr>
+<tr class="even">
+<td align="left">Hawaii</td>
+<td align="right">275000</td>
+<td align="left">low</td>
+<td align="right">71</td>
+<td align="right">6.6</td>
+</tr>
+</tbody>
+</table>
+<p>The data looks rather small, it has only 10 rows.</p>
+<pre class="r"><code>d$log_pop &lt;- log(d$population)
+d$contact_high &lt;- ifelse( d$contact == &quot;high&quot;, 1, 0)</code></pre>
+<p>We will use the following model:
+<span class="math display">\[\begin{align*}
+T_i &amp;\sim \text{Poisson}(\lambda_i) \\
+\log \lambda_i &amp;= \alpha + \beta_P \log P_i + \beta_C C_i + \beta_{PC}C_i \log P_i \\
+\alpha &amp;\sim \text{Normal}(0, 100) \\
+\beta_P &amp;\sim \text{Normal}(0, 1) \\
+\beta_C &amp;\sim \text{Normal}(0, 1) \\
+\beta_{PC} &amp;\sim \text{Normal}(0, 1)
+\end{align*}\]</span>
+where <span class="math inline">\(P\)</span> is <code>population</code>, <span class="math inline">\(C\)</span> is <code>contact_high</code>, and the <span class="math inline">\(T\)</span> is <code>total_tools</code>.</p>
+<pre class="r"><code>m10.10 &lt;- map(
+  alist(
+    total_tools ~ dpois( lambda ),
+    log(lambda) &lt;- a + bp*log_pop + 
+                    bc*contact_high + bpc*contact_high*log_pop,
+    a ~ dnorm( 0, 100),
+    c(bp, bc, bpc) ~ dnorm(0, 1)
+  ), data=d
+)
+precis(m10.10, corr=TRUE)</code></pre>
+<pre><code>           mean         sd       5.5%     94.5%
+a    0.94422292 0.36008794  0.3687328 1.5197130
+bp   0.26401583 0.03466759  0.2086103 0.3194213
+bc  -0.09002292 0.84140405 -1.4347491 1.2547033
+bpc  0.04254207 0.09227171 -0.1049259 0.1900101</code></pre>
+<pre class="r"><code>plot( precis( m10.10 ))</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_10/chapter10b_files/figure-html/unnamed-chunk-5-1.png" width="576" /></p>
+<p>It appears as if the contact rate, as well as its interaction with population, has no influence on the number of tools.
+But the table is misleading. Let’s compute some counterfactual predictions. Consider two islands, both with log-population of 8 but one with high and the other with low contact rate.</p>
+<pre class="r"><code>post &lt;- extract.samples(m10.10 )
+lambda_high &lt;- exp( post$a + post$bc + (post$bp + post$bpc)*8 ) 
+lambda_low &lt;- exp( post$a + post$bp*8 )
+diff &lt;- lambda_high - lambda_low
+sum(diff &gt; 0) / length(diff)</code></pre>
+<pre><code>[1] 0.9532</code></pre>
+<p>There is a 95% probability that the high-contact island has more tools than the island with low-contact.</p>
+<pre class="r"><code>par(mfrow=c(1,2))
+dens( diff , col=&quot;steelblue&quot;, lwd=2, 
+      xlab=&quot;lambda_high - lambda_low&quot;)
+abline(v = 0, lty=2)
+abline(h=0, col=&quot;grey&quot;, lwd=1)
+
+pr &lt;- as.data.frame(precis(m10.10, prob=0.95))
+bc &lt;- post$bc[1:500]
+bpc &lt;- post$bpc[1:500]
+plot( bc, bpc, col=densCols(bc, bpc), pch=16, cex=0.7 )
+lines( pr[&quot;bc&quot;, 3:4], rep(min(bpc), 2))
+lines( rep(min(bc), 2),  pr[&quot;bpc&quot;, 3:4])
+points(c( pr[&quot;bc&quot;, 1], min(bc) ), c(min(bpc), pr[&quot;bpc&quot;, 1] ), 
+       pch=16, cex=0.7 )</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_10/chapter10b_files/figure-html/unnamed-chunk-7-1.png" width="960" /></p>
+<p>The reason for this behaviour lies in the strong correlation in the uncertainty of the two parameters. It is important to not just inspect the <em>marginal</em> uncertainty in each parameter, but also the <em>joint</em> uncertainty.</p>
+<p>A better way to assess whether a predictor is expected to improve prediction is to use model comparison.
+We will compare 5 models.</p>
+<p>A model that omits the interaction:</p>
+<pre class="r"><code># no interaction
+m10.11 &lt;- map(
+  alist(
+    total_tools ~ dpois( lambda ),
+    log(lambda) &lt;- a + bp*log_pop + bc*contact_high,
+    a ~ dnorm(0, 100),
+    c(bp, bc) ~ dnorm(0, 1)
+  ), data=d
+)</code></pre>
+<p>Two more models, each with only one of the predictors:</p>
+<pre class="r"><code># one predictor
+m10.12 &lt;- map(
+  alist(
+    total_tools ~ dpois( lambda ),
+    log(lambda) &lt;- a + bp*log_pop,
+    a ~ dnorm(0, 100),
+    bp ~ dnorm(0, 1)
+  ), data=d
+)
+m10.13 &lt;- map(
+  alist(
+    total_tools ~ dpois( lambda ),
+    log(lambda) &lt;- a + bc*contact_high,
+    a ~ dnorm(0, 100),
+    bc ~ dnorm( 0, 1)
+  ), data=d
+)</code></pre>
+<p>A “null” model with only the intercept:</p>
+<pre class="r"><code># no predictor
+m10.14 &lt;- map(
+  alist(
+    total_tools ~ dpois( lambda ),
+    log(lambda) &lt;- a,
+    a ~ dnorm(0, 100)
+  ), data=d
+)</code></pre>
+<p>We compare all models using WAIC:</p>
+<pre class="r"><code>( islands.compare &lt;- compare( m10.10, m10.11, m10.12, m10.13, m10.14, n=1e4) )</code></pre>
+<pre><code>            WAIC        SE      dWAIC       dSE     pWAIC       weight
+m10.11  79.22960 11.185306  0.0000000        NA  4.290270 5.805228e-01
+m10.10  80.09441 11.382020  0.8648086  1.191099  4.822664 3.767285e-01
+m10.12  84.44679  8.819275  5.2171839  8.306973  3.757409 4.274863e-02
+m10.14 141.30179 31.414794 62.0721813 34.262213  8.212397 1.927598e-14
+m10.13 150.67501 44.862135 71.4454091 46.903474 16.906044 1.776830e-16</code></pre>
+<pre class="r"><code>plot( islands.compare )</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_10/chapter10b_files/figure-html/unnamed-chunk-12-1.png" width="768" /></p>
+<p>The top two models include both predictors but the top model excludes the interaction. However, a lot of model weight is assigned to both models. This suggests that the interactionis probably overfit but the model set is decent evidence that contact rate matters.</p>
+<p>Let’s plot some counterfactual predictions.</p>
+<pre class="r"><code># different plot markers for high/low contact
+pch &lt;- ifelse( d$contact_high==1, 16, 1)
+plot( d$log_pop, d$total_tools, col=&quot;steelblue&quot;, pch=pch,
+      xlab=&quot;log-population&quot;, ylab=&quot;total tools&quot;)
+
+# sequence of log-population sizes to compute over
+log_pop.seq &lt;- seq(from=6, to=13, length.out = 30)
+
+# compute trend for high contact islands
+d.pred &lt;- data.frame(
+  log_pop = log_pop.seq,
+  contact_high = 1
+)
+
+lambda.pred.h &lt;- ensemble( m10.10, m10.11, m10.12, data=d.pred)
+lambda.med &lt;- apply( lambda.pred.h$link, 2, median )
+lambda.PI &lt;- apply( lambda.pred.h$link, 2, PI )
+
+# plot predicted trend for high contact islands
+lines( log_pop.seq, lambda.med, col=&quot;steelblue&quot;)
+shade( lambda.PI, log_pop.seq, col=col.alpha(&quot;steelblue&quot;, 0.2))
+
+# compute trend for low contact islands
+d.pred &lt;- data.frame(
+  log_pop = log_pop.seq,
+  contact_high = 0
+)
+
+lambda.pred.l &lt;- ensemble( m10.10, m10.11, m10.12, data=d.pred)
+lambda.med &lt;- apply( lambda.pred.l$link, 2, median )
+lambda.PI &lt;- apply( lambda.pred.l$link, 2, PI )
+
+# plot predicted trend for high contact islands
+lines( log_pop.seq, lambda.med, lty=2)
+shade( lambda.PI, log_pop.seq, col=col.alpha(&quot;black&quot;, 0.1 ))</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_10/chapter10b_files/figure-html/unnamed-chunk-13-1.png" width="576" /></p>
+<p>Next, we’ll check if the MAP estimates accurately describe the shape of the posterior.</p>
+<pre class="r"><code>m10.10stan &lt;- map2stan( m10.10, iter=3000, warmup=1000, chains=4)</code></pre>
+<pre class="r"><code>precis( m10.10stan)</code></pre>
+<pre><code>           mean         sd       5.5%     94.5%    n_eff    Rhat4
+a    0.94146861 0.36526139  0.3440976 1.5085371 2722.643 1.001720
+bp   0.26359976 0.03523350  0.2091810 0.3204490 2713.974 1.001768
+bc  -0.08922339 0.84032207 -1.4562229 1.2267930 2786.084 1.001813
+bpc  0.04271506 0.09228461 -0.1012971 0.1929941 2842.538 1.001923</code></pre>
+<p>The estimates and intervals are the same as before. However, if we look at the pairs plot</p>
+<pre class="r"><code>pairs(m10.10stan)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_10/chapter10b_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>we see that there is a very high correlation between the parameters <code>a</code> and <code>bp</code> and between <code>bc</code> and <code>bpc</code>. Hamiltonian Monte Carlo can handle these correlations, however, it would still be better to avoid them. We can center the predictors to reduce the correlation:</p>
+<pre class="r"><code>d$log_pop_c &lt;- d$log_pop - mean(d$log_pop)
+
+m10.10stan.c &lt;- map2stan(
+  alist(
+    total_tools ~ dpois( lambda ),
+    log(lambda) &lt;- a + bp*log_pop_c + bc*contact_high +
+                    bcp*log_pop_c*contact_high,
+    a ~ dnorm(0, 10),
+    bp ~ dnorm(0, 1),
+    bc ~ dnorm(0, 1),
+    bcp ~ dnorm(0, 1)
+  ), 
+  data=d, iter=3000, warmup=1000, chains=4
+)</code></pre>
+<pre class="r"><code>precis(m10.10stan.c)</code></pre>
+<pre><code>          mean         sd       5.5%     94.5%    n_eff    Rhat4
+a   3.30922186 0.08957579  3.1615992 3.4495053 3510.400 1.000697
+bp  0.26316573 0.03504921  0.2083146 0.3200965 4450.243 1.000443
+bc  0.28669798 0.11713837  0.0971141 0.4766120 3667.258 1.000495
+bcp 0.06443262 0.17111533 -0.2113402 0.3405277 5206.212 1.000072</code></pre>
+<p>The estimates look different because of the centering, but the predictions remain the same.
+If we look at the pairs plot now, we see that the strong correlations are gone:</p>
+<pre class="r"><code>pairs(m10.10stan.c)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_10/chapter10b_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p>The Markov Chain has also become more efficient which we can see at the increased number of effective samples.</p>
+</div>
+<div id="examples-with-different-exposure-time" class="section level3">
+<h3>Examples with different exposure Time</h3>
+<p>When the length of observation varies, the counts we observe also vary. We can handle this by adding an <em>offset</em> to the linear model.</p>
+<p>As in the previous example, we have a monastery that completes about 1.5 manuscripts per day, that is <span class="math inline">\(\lambda=1.5\)</span>.</p>
+<pre class="r"><code>num_days &lt;- 30
+y &lt;- rpois( num_days, 1.5)</code></pre>
+<p>Now <code>y</code> holds 30 days of simulated counts of completed manuscripts.
+Next, we consider to buy another monastery which unfortunately doesn’t keep daily records but weekly records instead.
+Let’s assume this monastery has a real daily rate of <span class="math inline">\(\lambda = 0.5\)</span>. To simulate data on a weekly basis, we just multiply this average by 7, the exposure:</p>
+<pre class="r"><code>num_weeks &lt;- 4
+y_new &lt;- rpois( num_weeks, 0.5*7 )</code></pre>
+<p>So <code>y_new</code> holds four weeks of counts of completed manuscripts.</p>
+<pre class="r"><code>y_all &lt;- c(y, y_new)
+exposure &lt;- c( rep(1, 30), rep(7, 4) )
+monastery &lt;- c(rep(0, 30), rep(1, 4))
+d &lt;- data.frame(y=y_all, days=exposure, monastery=monastery)
+knitr::kable( head(d) )</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">y</th>
+<th align="right">days</th>
+<th align="right">monastery</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p>Next, we fit a model to estimate the rate of manuscript production at each monastery.</p>
+<pre class="r"><code>d$log_days &lt;- log(d$days)
+
+m10.15 &lt;- map(
+  alist(
+    y ~ dpois( lambda ),
+    log(lambda) &lt;- log_days + a + b*monastery,
+    a ~ dnorm(0, 100),
+    b ~ dnorm(0, 1)
+  ), data=d
+)</code></pre>
+<pre class="r"><code>post &lt;- extract.samples(m10.15 )
+lambda_old &lt;- exp( post$a )
+lambda_new &lt;- exp( post$a + post$b)
+precis( data.frame( lambda_old, lambda_new))</code></pre>
+<pre><code>                mean        sd      5.5%     94.5%    histogram
+lambda_old 1.8471127 0.2495663 1.4672893 2.2651459  ▁▁▁▃▇▇▃▂▁▁▁
+lambda_new 0.5934118 0.1447132 0.3898765 0.8506193 ▁▂▅▇▅▃▁▁▁▁▁▁</code></pre>
+<p>The estimates are indeed very close to the real values.</p>
+</div>
+</div>
+
+    
+    </section>
+
+  <footer class="post-footer">
+
+
+    
+
+
+
+
+
+
+
+
+
+<section class="author">
+  <h4><a href="/">Corrie</a></h4>
+  
+  <p>Read <a href="/">more posts</a> by this author.</p>
+  
+  <div class="author-meta">
+    
+    
+  </div>
+</section>
+
+
+
+
+    
+<section class="share">
+  <h4>Share this projects</h4>
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Poisson%20Regression&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2fprojects%2fstatistical-rethinking%2fchapter_10%2fchp10-part-two%2f"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=421');return false;">
+      <span class="hidden">Twitter</span>
+  </a>
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=%2fprojects%2fstatistical-rethinking%2fchapter_10%2fchp10-part-two%2f"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=551');return false;">
+      <span class="hidden">Facebook</span>
+  </a>
+  <a class="icon-linkedin" style="font-size: 1.4em" href="https://www.linkedin.com/shareArticle?mini=true&title=Poisson%20Regression&url=%2fprojects%2fstatistical-rethinking%2fchapter_10%2fchp10-part-two%2f"
+               onclick="window.open(this.href, 'linkedin-share', 'width=554,height=571');return false;">
+    <span class="hidden">LinkedIn</span>
+    </a>
+
+</section>
+
+
+
+
+    
+
+<div id="disqus_thread"></div>
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "\/projects\/statistical-rethinking\/chapter_10\/chp10-part-two\/";  
+this.page.identifier = "\/projects\/statistical-rethinking\/chapter_10\/chp10-part-two\/"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://corriebar-github-io.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+
+
+
+  </footer>
+</article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Samples of Thoughts</a> 
+        &copy; Corrie Bartelheimer 2020 &middot; </section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+    
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+    
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+    
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140745376-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+
+    
+</body>
+</html>
+
