@@ -11,4 +11,4 @@ author: ""
 
 This is a list of projects I've been working on that didn't quite fit in a blog post:
 
-- [Statistical Rethinking]( {{< relref "Statistical-Rethinking/README_html" >}})
+- [Statistical Rethinking]( {{< relref "Statistical-Rethinking/_index.md" >}})
