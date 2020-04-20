@@ -284,6 +284,48 @@ if (!doNotTrack) {
 	
 	   <article class="post projects">
     <header class="post-header">
+        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_7/chp7-part-one/">Interaction</a></h2>
+    </header>
+    <section class="post-excerpt">
+        
+            <p>7.1 Building an interaction library(rethinking) data(rugged) d &lt;- rugged How does terrain ruggedness influence the GDP?
+# make log version of outcome d$log_gdp &lt;- log(d$rgdppc_2000) dd &lt;- d[ complete.cases(d$rgdppc_2000), ] # split into Africa andnot-Africa d.A1 &lt;- dd[ dd$cont_africa == 1, ] d.A0 &lt;- dd[ dd$cont_africa == 0, ] Make two model: one for Africa, one for non-Africa:
+# Africa m7.1 &lt;- map( alist( log_gdp ~ dnorm( mu, sigma) , mu &lt;- a + bR*rugged , a ~ dnorm(8, 100), bR ~ dnorm( 0, 1 ), sigma ~ dunif( 0, 10 ) ), data=d. <a class="read-more" href="/projects/statistical-rethinking/chapter_7/chp7-part-one/">&raquo;</a></p>
+        
+    </section>
+    <footer class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 13 min</span>
+            </p>
+        
+        
+            
+            
+
+            
+            
+            
+            Corrie
+                 
+        
+
+        on
+            
+                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
+            
+                <a href="/tags/bayesian/">#Bayesian</a>,
+            
+        
+        <time class="post-date" datetime="2018-08-14T00:00:00Z">
+            14 Aug 2018
+        </time>
+    </footer>
+</article>
+
+	
+	   <article class="post projects">
+    <header class="post-header">
         <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_6/chp6-ex/">Chapter 6 - Exercises</a></h2>
     </header>
     <section class="post-excerpt">
@@ -445,48 +487,6 @@ Easy. 5E1. The following linear models are multiple linear regressions:
         
         <time class="post-date" datetime="2018-06-03T00:00:00Z">
             3 Jun 2018
-        </time>
-    </footer>
-</article>
-
-	
-	   <article class="post projects">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_4/chp4-ex/">Chapter 4 - Exercises</a></h2>
-    </header>
-    <section class="post-excerpt">
-        
-            <p>These are my solutions to the practice questions of chapter 4, Linear Models, of the book “Statistical Rethinking” by Richard McElreath.
-Easy. 4E1. In the model definition below, which line is the likelihood: \[ \begin{align*} y_i &amp;\sim \text{Normal}(\mu, \sigma) &amp; &amp; \text{This is the likelihood}\\ \mu &amp;\sim \text{Normal}(0, 10) \\ \sigma &amp;\sim \text{Normal}(0,10) \end{align*} \]
-4E2. In the model definition just above, how many parameters are in the posterior distribution? <a class="read-more" href="/projects/statistical-rethinking/chapter_4/chp4-ex/">&raquo;</a></p>
-        
-    </section>
-    <footer class="post-meta">
-        
-            <p class="post-reading post-line">
-            <span>Estimated reading time: 10 min</span>
-            </p>
-        
-        
-            
-            
-
-            
-            
-            
-            Corrie
-                 
-        
-
-        on
-            
-                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
-            
-                <a href="/tags/bayesian/">#Bayesian</a>,
-            
-        
-        <time class="post-date" datetime="2018-05-21T00:00:00Z">
-            21 May 2018
         </time>
     </footer>
 </article>

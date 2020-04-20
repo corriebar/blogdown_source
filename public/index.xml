@@ -7,10 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Corrie Bartelheimer {year}</copyright>
-    <lastBuildDate>Thu, 09 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 20 Apr 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Chapter 2 - Exercises</title>
+      <link>/projects/statistical-rethinking/chapter_2/chp2-ex/</link>
+      <pubDate>Mon, 20 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_2/chp2-ex/</guid>
+      <description>These are my solutions to the practice questions of chapter 2, Small Words and Large Worlds, of the book “Statistical Rethinking” (version 2) by Richard McElreath.
+Easy. 2E1. Which of the expressions below correspond to the statement: the probability of rain on Monday?
+Pr(rain) Pr(rain | Monday) Pr(Monday | rain) Pr(rain, Monday) / Pr(Monday)  Statement (4) is equivalent to (2) by Bayes theorem using joint probability.
+2E2. Which of the following statements corresponds to the expression: Pr(Monday | rain )?</description>
+    </item>
     
     <item>
       <title>Chapter 3 - Exercises</title>
@@ -312,6 +324,19 @@ Multinomial Regression A multinomial regression is used when more than two thing
     
     <item>
       <title></title>
+      <link>/projects/statistical-rethinking/chapter_2/chapter2_ex/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_2/chapter2_ex/</guid>
+      <description>Chapter 2 - Exercises Corrie 2020-04-20
+These are my solutions to the practice questions of chapter 2, Small Words and Large Worlds, of the book “Statistical Rethinking” (version 2) by Richard McElreath.
+Easy. 2E1. Which of the expressions below correspond to the statement: the probability of rain on Monday?
+1) Pr(rain) 2) Pr(rain | Monday) 3) Pr(Monday | rain) 4) Pr(rain, Monday) / Pr(Monday)
+Statement (4) is equivalent to (2) by Bayes theorem using joint probability.</description>
+    </item>
+    
+    <item>
+      <title></title>
       <link>/projects/statistical-rethinking/chapter_3/chapter3_ex/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
@@ -437,7 +462,7 @@ Gibbs sampling uses conjugate priors which allows it to make smarter proposals a
       <guid>/projects/statistical-rethinking/readme/</guid>
       <description> Statistical Rethinking These are code snippets, plots and my solutions to some of the exercises of the book &amp;ldquo;Statistical Rethinking&amp;rdquo; by Richard McElreath.
 I am currently updating code snippets and exercise solution to follow the second version of the book. Solutions to old exercises can still be found on another branch.
-Chapter 3  Exercises  Chapter 4  How Normality arises Linear Models Polynomial Regression Exercises  Chapter 5  Spurious Associations Masked Relationships When adding variables hurt Categorical Variables Ordinary Least Squares Exercises  Chapter 6  Overfitting Information Theory and Model Performance Using Information Criteria Exercises  Chapter 7  Interactions Exercises  Chapter 8  MCMC Exercises  Chapter 10  Binomial Regression Poisson Regression Other Count Regressions Exercises  </description>
+Chapter 2  Exercises  Chapter 3  Exercises  Chapter 4  How Normality arises Linear Models Polynomial Regression Exercises  Chapter 5  Spurious Associations Masked Relationships When adding variables hurt Categorical Variables Ordinary Least Squares Exercises  Chapter 6  Overfitting Information Theory and Model Performance Using Information Criteria Exercises  Chapter 7  Interactions Exercises  Chapter 8  MCMC Exercises  Chapter 10  Binomial Regression Poisson Regression Other Count Regressions Exercises  </description>
     </item>
     
   </channel>
