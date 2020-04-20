@@ -415,7 +415,7 @@ df &lt;- data.frame( earth = earth,
 df %&gt;%
   filter(water == 0) %&gt;%
   summarize(prob_earth = mean(earth))</code></pre>
-<table class="table" style="margin-left: auto; margin-right: auto;">
+<table class="table" style="width: auto !important; ">
 <thead>
 <tr>
 <th style="text-align:right;">
@@ -426,7 +426,7 @@ prob_earth
 <tbody>
 <tr>
 <td style="text-align:right;">
-0.2328269
+0.2298239
 </td>
 </tr>
 </tbody>
@@ -451,7 +451,7 @@ df &lt;- data.frame( card = card,
 df %&gt;%
   filter( black == 1) %&gt;%
   summarize( prob_other_side_black = mean( card == 1))</code></pre>
-<table class="table" style="margin-left: auto; margin-right: auto;">
+<table class="table" style="width: auto !important; ">
 <thead>
 <tr>
 <th style="text-align:right;">
@@ -462,7 +462,7 @@ prob_other_side_black
 <tbody>
 <tr>
 <td style="text-align:right;">
-0.6682427
+0.6715947
 </td>
 </tr>
 </tbody>
@@ -483,7 +483,7 @@ df &lt;- data.frame( card = card,
 df %&gt;%
   filter( black == 1) %&gt;%
   summarize( prob_other_side_black = mean( card %in% c(1, 4) ))</code></pre>
-<table class="table" style="margin-left: auto; margin-right: auto;">
+<table class="table" style="width: auto !important; ">
 <thead>
 <tr>
 <th style="text-align:right;">
@@ -494,7 +494,7 @@ prob_other_side_black
 <tbody>
 <tr>
 <td style="text-align:right;">
-0.8015353
+0.8025751
 </td>
 </tr>
 </tbody>
@@ -518,7 +518,7 @@ df &lt;- data.frame( card = card,
 df %&gt;%
   filter( black == 1) %&gt;%
   summarize( prob_other_side_black = mean( card == 1))</code></pre>
-<table class="table" style="margin-left: auto; margin-right: auto;">
+<table class="table" style="width: auto !important; ">
 <thead>
 <tr>
 <th style="text-align:right;">
@@ -529,7 +529,7 @@ prob_other_side_black
 <tbody>
 <tr>
 <td style="text-align:right;">
-0.5197067
+0.4812646
 </td>
 </tr>
 </tbody>
@@ -561,7 +561,7 @@ df %&gt;%
   filter( first_black == 1 &amp;
             second_white == 1) %&gt;%
   summarize( prob_other_side_black = mean( first_card == &quot;1&quot;))</code></pre>
-<table class="table" style="margin-left: auto; margin-right: auto;">
+<table class="table" style="width: auto !important; ">
 <thead>
 <tr>
 <th style="text-align:right;">
@@ -572,7 +572,7 @@ prob_other_side_black
 <tbody>
 <tr>
 <td style="text-align:right;">
-0.748074
+0.7513923
 </td>
 </tr>
 </tbody>
@@ -602,7 +602,7 @@ df &lt;- data.frame(species = species,
 
 df %&gt;% filter( birth1 == 1 ) %&gt;%
   summarise(prob_next_birth_twins = mean( birth2 ))</code></pre>
-<table class="table" style="margin-left: auto; margin-right: auto;">
+<table class="table" style="width: auto !important; ">
 <thead>
 <tr>
 <th style="text-align:right;">
@@ -613,7 +613,7 @@ prob_next_birth_twins
 <tbody>
 <tr>
 <td style="text-align:right;">
-0.1662251
+0.1666988
 </td>
 </tr>
 </tbody>
@@ -624,7 +624,7 @@ prob_next_birth_twins
 <pre class="r"><code>df %&gt;%
   filter( birth1 == 1 ) %&gt;%
   summarise( prob_species_A = mean( species == &quot;A&quot;))</code></pre>
-<table class="table" style="margin-left: auto; margin-right: auto;">
+<table class="table" style="width: auto !important; ">
 <thead>
 <tr>
 <th style="text-align:right;">
@@ -635,7 +635,7 @@ prob_species_A
 <tbody>
 <tr>
 <td style="text-align:right;">
-0.3336484
+0.3315143
 </td>
 </tr>
 </tbody>
@@ -646,7 +646,7 @@ prob_species_A
   filter( birth1 == 1 &amp;
             birth2 == 0 ) %&gt;%
   summarise( prob_species_A = mean( species == &quot;A&quot;))</code></pre>
-<table class="table" style="margin-left: auto; margin-right: auto;">
+<table class="table" style="width: auto !important; ">
 <thead>
 <tr>
 <th style="text-align:right;">
@@ -657,7 +657,7 @@ prob_species_A
 <tbody>
 <tr>
 <td style="text-align:right;">
-0.360579
+0.3579495
 </td>
 </tr>
 </tbody>
@@ -680,7 +680,7 @@ df &lt;- df %&gt;%
 df %&gt;%
   filter(test_A == 1 ) %&gt;%
   summarise(prob_species_A = mean( species == &quot;A&quot;))</code></pre>
-<table class="table" style="margin-left: auto; margin-right: auto;">
+<table class="table" style="width: auto !important; ">
 <thead>
 <tr>
 <th style="text-align:right;">
@@ -691,7 +691,7 @@ prob_species_A
 <tbody>
 <tr>
 <td style="text-align:right;">
-0.6955013
+0.6946337
 </td>
 </tr>
 </tbody>
@@ -703,7 +703,7 @@ prob_species_A
            birth2 == 0 &amp;
            test_A == 1 ) %&gt;%
   summarise(prob_species_A = mean( species == &quot;A&quot; ))</code></pre>
-<table class="table" style="margin-left: auto; margin-right: auto;">
+<table class="table" style="width: auto !important; ">
 <thead>
 <tr>
 <th style="text-align:right;">
@@ -714,7 +714,7 @@ prob_species_A
 <tbody>
 <tr>
 <td style="text-align:right;">
-0.5629665
+0.5612302
 </td>
 </tr>
 </tbody>
