@@ -291,6 +291,18 @@ Easy Questions. 4E1. In the model definition below, which line is the likelihood
     
     <item>
       <title></title>
+      <link>/projects/statistical-rethinking/chapter_4/chapter4b/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_4/chapter4b/</guid>
+      <description>library(rethinking) data(“Howell1”) d &amp;lt;- Howell1 d2 &amp;lt;- d[ d$age &amp;gt;= 18, ]
+plot(height ~ weight, data=d2) # looks like a nice perfect linear relationship!
+first linear model m4.3 &amp;lt;- map( alist( height ~ dnorm( mu, sigma), mu &amp;lt;- a + b*weight , a ~ dnorm( 156, 100), b ~ dnorm( 0, 10), sigma ~ dunif(0, 50) ) , data = d2 )
+precis( m4.3, corr=T ) # the intercept a corresponds now to the height for some that weighs 0kg # not very interpretable</description>
+    </item>
+    
+    <item>
+      <title></title>
       <link>/projects/statistical-rethinking/chapter_5/chapter5_ex/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
