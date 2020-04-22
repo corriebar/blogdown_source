@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    
+        
+        <meta name="twitter:card" content="summary_large_image"/>
+        <meta name="twitter:image" content="/images/tea_with_books.jpg"/>
+    
+
+
+
+<meta name="twitter:title" content="Why everything so normal"/>
+<meta name="twitter:description" content=""/>
+<meta name="twitter:site" content="@corrieaar"/>
+
+
+
+  	<meta property="og:title" content="Why everything so normal &middot; Samples of Thoughts" />
+  	<meta property="og:site_name" content="Samples of Thoughts" />
+  	<meta property="og:url" content="/projects/statistical-rethinking/chapter_4/chp4-part-one/" />
+
+    
+       <meta property="og:image" content="/images/tea_with_books.jpg"/>
+    
+    
+    <meta property="og:description" content="" />
+  	<meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2020-04-21T00:00:00Z" />
+
+    
+    <meta property="article:tag" content="Statistical Rethinking" />
+    
+    <meta property="article:tag" content="Bayesian" />
+    
+    
+
+    <title>Why everything so normal &middot; Samples of Thoughts</title>
+
+    
+    <meta name="description" content="These are code snippets and notes for the fourth chapter, Geocentric Models, , sections 1 to 3, of the book “Statistical Rethinking” (version 2) by Richard McEl" />
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/css/nav.css" />
+
+    
+    
+    
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/googlecode.min.css' rel='stylesheet' type='text/css' />
+
+
+
+  
+     
+      
+          <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Samples of Thoughts" />
+      
+      
+    
+    <meta name="generator" content="Hugo 0.55.5" />
+
+    <link rel="canonical" href="/projects/statistical-rethinking/chapter_4/chp4-part-one/" />
+
+    
+      
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name":  null 
+    },
+    "author": {
+        "@type": "Person",
+        "name":  null ,
+        
+        "url":  null ,
+        "sameAs": [
+            
+            
+             
+             
+             
+             
+             
+            
+        ]
+    },
+    "headline": "Why everything so normal",
+    "name": "Why everything so normal",
+    "wordCount":  1536 ,
+    "timeRequired": "PT8M",
+    "inLanguage": {
+      "@type": "Language",
+      "alternateName": "en"
+    },
+    "url": "/projects/statistical-rethinking/chapter_4/chp4-part-one/",
+    "datePublished": "2020-04-21T00:00Z",
+    "dateModified": "2020-04-21T00:00Z",
+    
+    "image": {
+        "@type": "ImageObject",
+        "url": "/images/tea_with_books.jpg",
+        "width": 3000,
+        "height": 1445
+    },
+    
+    "keywords": "Statistical Rethinking, Bayesian",
+    "description": "",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/projects/statistical-rethinking/chapter_4/chp4-part-one/"
+    }
+}
+    </script>
+    
+
+
+    
+
+    
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140745376-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+
+    
+    
+    
+
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+<script>
+  window.addEventListener("load", function(){
+    window.cookieconsent.initialise({
+      "palette": {
+        "popup": {
+          "background": "#40485A",
+          "text": "#ffffff"
+        },
+        "button": {
+          "background": "#5B5A68",
+          "text": "#ffffff"
+        }
+      },
+      "content": {
+        "message": "This website uses cookies to ensure you get the best experience on my website.",
+        "dismiss": "Got it!",
+        "link": "Learn more",
+        "href": "https://cookies.insites.com"
+      }
+    })});
+</script>
+
+
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/projects">Projects</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/talks">Talks</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/about">About</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/">Home</a>
+            </li>
+        
+        
+    </ul>
+
+    
+    <a class="subscribe-button icon-feed" href="/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+  
+ <header class="main-header post-head" style="background-image: url(/images/tea_with_books.jpg)"> 
+  
+  <nav class="main-nav overlay clearfix">
+
+
+
+      <ul>
+        
+			<li> <a class="blog-logo" href="/">Home</a> </li>
+			  
+			<li> <a class="blog-logo" href="/about">About</a> </li>
+			  
+			<li> <a class="blog-logo" href="/talks">Talks</a> </li>
+			  
+			<li> <a class="blog-logo" href="/projects">Projects</a> </li>
+			  
+
+            
+              <a class="menu-button icon-feed" href="">&nbsp;&nbsp;Subscribe</a>
+            
+            
+      
+       </ul>
+    </nav>
+    
+     <div class="vertical">
+        <div class="main-header-content inner">
+            
+
+
+    <a class="bloglogo" href="https://github.com/corriebar" target="_blank">
+    <span class="icon-github" style="color:white;font-size:2em"></span>
+    </a>
+&nbsp;
+
+
+
+
+
+
+
+
+
+    <a class="bloglogo" href="https://twitter.com/corrieaar" target="_blank">
+        <span class="icon-twitter" style="color:white;font-size:2em"></span>
+    </a>
+&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <h1 class="page-title">Samples of Thoughts</h1>
+            <h2 class="page-description">about data, statistics  and everything in between</h2>
+        </div>
+    </div>  
+    
+
+
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post projects">
+
+    <header class="post-header">
+        <h1 class="post-title">Why everything so normal</h1>
+        <small></small>
+
+        <section class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 8 min</span>
+            </p>
+        
+        
+        
+         
+          <span class="post-tag small"><a href="/tags/statistical-rethinking/">#Statistical Rethinking</a></span>
+         
+          <span class="post-tag small"><a href="/tags/bayesian/">#Bayesian</a></span>
+         
+        </section>
+    </header>
+
+    <section class="post-content">
+      
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+
+
+<p>These are code snippets and notes for the fourth chapter, <em>Geocentric Models</em>, , sections 1 to 3, of the book “Statistical Rethinking” (version 2) by Richard McElreath.</p>
+<div id="why-normal-distributions-are-normal" class="section level3">
+<h3>Why normal distributions are normal</h3>
+<p>The chapter discusses linear models and starts with a recap on the normal distributions. Why is it such a commonly used distribution and how does it arise?</p>
+<ul>
+<li><strong>Normal by addition</strong>
+Normalcy arises when we sum up random variables:</li>
+</ul>
+<pre class="r"><code>pos &lt;- replicate( 1000, sum( runif(16, -1, 1)))
+dens(pos, norm.comp = T)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_files/figure-html/unnamed-chunk-1-1.svg" width="480" /></p>
+<ul>
+<li><strong>Normal by multiplication</strong>
+In some cases, normalcy can also arise from multiplication. If the multiplication encapsulates some kind of growth with relatively small growth percentages then the effect is approximately the same as addition and thus also leads to a bell curve:</li>
+</ul>
+<pre class="r"><code>growth &lt;- replicate(1000, prod(1 + runif(12, 0, 0.1)))
+dens(growth, norm.comp = T)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_files/figure-html/unnamed-chunk-2-1.svg" width="480" /></p>
+<p>This fails, if the growth factor is too large:</p>
+<pre class="r"><code>big &lt;- replicate(1000, prod(1 + runif(12, 0, 0.5)))
+dens(big, norm.comp = T)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_files/figure-html/unnamed-chunk-3-1.svg" width="480" /></p>
+<p>The smaller the factor, the better the approximation:</p>
+<pre class="r"><code>small &lt;- replicate(1000, prod(1 + runif(12, 0, 0.0001)))
+dens(small, norm.comp = T)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_files/figure-html/unnamed-chunk-4-1.svg" width="480" /></p>
+<ul>
+<li><strong>Normal by log-multiplication</strong>
+Since the log of a product is the same as the sum of the log of each factor, log-multiplication also leads to a normal distribution:</li>
+</ul>
+<pre class="r"><code>log.big &lt;- replicate(1000, log( prod( 1 + runif(12, 0, 0.05))))
+dens(log.big, norm.comp = T)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_files/figure-html/unnamed-chunk-5-1.svg" width="480" /></p>
+<p>There are boradly two reasons why we’re using Gaussian distributions in modelling:
+(1) <strong>ontological</strong>: we have reason to believe the process we’re modelling is actually following a Gaussian distribution, for the reasons laid out above. E.g. measurement errors follow a Gaussian since at the heart, the measurement errors arise through a process of added fluctuations.
+(2) <strong>epistemological</strong>: we don’t really know much about our process, except that it has a mean and a variance, so we use a normal distribution because it makes the least assumptions. (If we know more, we should probably use a different distribution!)</p>
+</div>
+<div id="a-gaussian-model-of-height" class="section level3">
+<h3>A Gaussian Model of Height</h3>
+<p>For the example, we’ll be using the !Kung data to estimate height.</p>
+<p>A short look at the data:</p>
+<pre class="r"><code>data(&quot;Howell1&quot;)
+d &lt;- Howell1
+str(d )</code></pre>
+<pre><code>&#39;data.frame&#39;:   544 obs. of  4 variables:
+ $ height: num  152 140 137 157 145 ...
+ $ weight: num  47.8 36.5 31.9 53 41.3 ...
+ $ age   : num  63 63 65 41 51 35 32 27 19 54 ...
+ $ male  : int  1 0 0 1 0 1 0 1 0 1 ...</code></pre>
+<pre class="r"><code>precis(d)</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
+<th style="text-align:right;">
+5.5%
+</th>
+<th style="text-align:right;">
+94.5%
+</th>
+<th style="text-align:left;">
+histogram
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+height
+</td>
+<td style="text-align:right;">
+138.26
+</td>
+<td style="text-align:right;">
+27.6
+</td>
+<td style="text-align:right;">
+81.11
+</td>
+<td style="text-align:right;">
+165.7
+</td>
+<td style="text-align:left;">
+▁▁▁▁▁▁▁▂▁▇▇▅▁
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+weight
+</td>
+<td style="text-align:right;">
+35.61
+</td>
+<td style="text-align:right;">
+14.7
+</td>
+<td style="text-align:right;">
+9.36
+</td>
+<td style="text-align:right;">
+54.5
+</td>
+<td style="text-align:left;">
+▁▂▃▂▂▂▂▅▇▇▃▂▁
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+age
+</td>
+<td style="text-align:right;">
+29.34
+</td>
+<td style="text-align:right;">
+20.8
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+66.1
+</td>
+<td style="text-align:left;">
+▇▅▅▃▅▂▂▁▁
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+male
+</td>
+<td style="text-align:right;">
+0.47
+</td>
+<td style="text-align:right;">
+0.5
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.0
+</td>
+<td style="text-align:left;">
+▇▁▁▁▁▁▁▁▁▇
+</td>
+</tr>
+</tbody>
+</table>
+<p>Since height strongly correlates with age before adulthood, we’ll only use adults for the following analysis:</p>
+<pre class="r"><code>d2 &lt;- d[ d$age &gt;= 18 ,]
+dens(d2$height)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_files/figure-html/unnamed-chunk-9-1.svg" width="480" /></p>
+<p>The distribution of height then looks approximately Gaussian.</p>
+<p>Our model looks as follows:
+<span class="math display">\[\begin{align*}
+h_i &amp;\sim \text{Normal}(\mu, \sigma)\\
+\mu &amp;\sim \text{Normal}(178, 20) \\
+\sigma &amp;\sim \text{Uniform}(0, 50)
+\end{align*}\]</span></p>
+<p>To better understand the assumptions we’re making with our priors, let’s have a short look at them:</p>
+<pre class="r"><code>curve( dnorm( x, 178, 20 ), from=100, to=250) </code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_files/figure-html/unnamed-chunk-11-1.svg" width="480" /></p>
+<pre class="r"><code>curve( dunif( x, 0, 50), from=-10, to=60) </code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_files/figure-html/unnamed-chunk-13-1.svg" width="480" /></p>
+<p>To better understand what these priors mean, we can do a <strong>prior predictive</strong> simulation. That is, we sample from our priors and pluck this into the likelihood to find out what the model thinks would be reasonable observations, just based on the priors, before having seen the data.</p>
+<pre class="r"><code>sample_mu &lt;- rnorm(1e4, mean=178, sd=20)
+sample_sigma &lt;- runif(1e4, 0, 50)
+prior_height &lt;- rnorm(1e4, mean=sample_mu, sd=sample_sigma)
+dens(prior_height)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_files/figure-html/unnamed-chunk-14-1.svg" width="480" /></p>
+<p>The model expects people to have a height between 100 and 250cm. Wide range, but seems reasonable.
+Compare this with the prior predictive we would get from flat priors (changing the standard deviation for the <span class="math inline">\(\mu\)</span> prior to 100):</p>
+<pre class="r"><code>sample_mu &lt;- rnorm(1e4, mean=178, sd=100)
+prior_height &lt;- rnorm(1e4, mean=sample_mu, sd=sample_sigma)
+dens(prior_height)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_files/figure-html/unnamed-chunk-16-1.svg" width="480" /></p>
+<p>The flat prior thinks people could have negative height (to the left of the dashed line) or be extremely tall (the right line indicates the height of one of the tallest persons ever recorded). Not very sensible.</p>
+<p>For educational purpose, let’s do a grid approximation of our model.</p>
+<p>Start with the grid:</p>
+<pre class="r"><code>mu.list &lt;- seq(from=150, to=160, length.out = 200)
+sigma.list &lt;- seq(from=7, to=9, length.out = 200)
+post &lt;- expand.grid(mu=mu.list, sigma=sigma.list)</code></pre>
+<p>For each value in the grid, compute the log-likelihood for the whole data:</p>
+<pre class="r"><code>post$LL &lt;- sapply( 1:nrow(post), function(i) sum( dnorm( 
+    d2$height,                                            
+    mean=post$mu[i],                                    
+    sd=post$sigma[i],                                 
+    log=TRUE                                            
+)))</code></pre>
+<p>Since we’re working with the log-likelihood, we can sum everything up instead of multiplying. This is mostly to avoid rounding errors.
+So the same way, we can add the prior densities (again on log):</p>
+<pre class="r"><code>post$prod &lt;- post$LL + dnorm( post$mu, 178, 20, TRUE) +   
+  dunif( post$sigma, 0, 50, TRUE)</code></pre>
+<p>Finally, we return from log-scale to normal again but first scale it to avoid too small values and rounding errors.</p>
+<pre class="r"><code>post$prob &lt;- exp( post$prod - max(post$prod))</code></pre>
+<p>Because of the scaling, the resulting values are actually not proper probabilities but relative probabilities.</p>
+<p>We can visualize the distribution using a contour map:</p>
+<pre class="r"><code>contour_xyz( post$mu, post$sigma, post$prob)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_files/figure-html/unnamed-chunk-21-1.svg" width="480" /></p>
+<p>Or a heatmap:</p>
+<pre class="r"><code>image_xyz( post$mu, post$sigma, post$prob)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_files/figure-html/unnamed-chunk-22-1.svg" width="480" /></p>
+<p>The highest probability density for <span class="math inline">\(\mu\)</span> is somewhere around 155 with highest probality densitiy for <span class="math inline">\(\sigma\)</span> around 8.</p>
+<p>Instead of working with the grid posterior, we can use the grid to obtain a sample from our posterior:</p>
+<pre class="r"><code>sample.rows &lt;- sample( 1:nrow(post), size=1e4, replace=TRUE,
+                       prob=post$prob)
+sample.mu &lt;- post$mu[ sample.rows ]
+sample.sigma &lt;- post$sigma[ sample.rows]</code></pre>
+<p>And can plot this instead:</p>
+<pre class="r"><code>plot(sample.mu, sample.sigma, cex=0.5, pch=16, col=col.alpha(rangi2, 0.1))</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_files/figure-html/unnamed-chunk-24-1.svg" width="480" /></p>
+<p>In the plot, we can still see the artifacts of the grid we used to approximate the posterior. One could either pick a finer grid or add a tiny bit of jitter to the samples to get rid of these artifacts.</p>
+<p>We can also look at the marginal posterior:</p>
+<pre class="r"><code>dens( sample.mu )</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_files/figure-html/unnamed-chunk-26-1.svg" width="480" /></p>
+<p>As sample size increases, posterior densities approach the normal. Indeed, the posterior for <span class="math inline">\(\mu\)</span> looks very normal already. The posterior for <span class="math inline">\(\sigma\)</span> on the other hand is very slightly right-skewed:</p>
+<pre class="r"><code>dens( sample.simga)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_files/figure-html/unnamed-chunk-28-1.svg" width="480" /></p>
+<p>We can compute posterior compatibility intervals:</p>
+<pre class="r"><code>PI( sample.mu )</code></pre>
+<pre><code> 5% 94% 
+154 155 </code></pre>
+<pre class="r"><code>PI( sample.sigma)</code></pre>
+<pre><code>  5%  94% 
+7.32 8.26 </code></pre>
+<div id="short-note-on-why-the-standard-deviation-is-less-normal" class="section level5">
+<h5>Short note on why the standard deviation is less normal:</h5>
+<p>Posterior of <span class="math inline">\(\sigma\)</span> tend to have a long-right hand tail. The reasons? Complex! But an intution is that, because the standard deviation has to be positive, there is less uncertainty how small it is (it is bounded by 0 after all) and more uncertainty about how big it is.
+If we repeat the example from above on a small subset of the data, this tail in the uncertainty of <span class="math inline">\(\sigma\)</span> becomes more pronounced:
+<img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_files/figure-html/unnamed-chunk-30-1.svg" width="480" /></p>
+<p>There’s a longer tail at the top of this point-cloud. We can also see it in the marginal density of <span class="math inline">\(\sigma\)</span>:
+<img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_files/figure-html/unnamed-chunk-31-1.svg" width="480" /></p>
+</div>
+</div>
+<div id="quadtratic-approximation-and-prior-predictive-checks" class="section level3">
+<h3>Quadtratic Approximation and Prior Predictive Checks</h3>
+<p>Since grid approximation becomes infeasible with more complex models, we now start using quadratic approximation. As we’ve seen above, the posterior approaches a normal distribution with enough data, so we can use that to approximate the posterior. The quadratic approximation, <code>quap()</code>, first climbs the posterior distribution to find the mode, i.e. the MAP (Maximum A Posteriori) and then estimates the quadratic curvature.</p>
+<p>To use <code>quap()</code>, we place our model into a formula list (<code>flist()</code> in R):</p>
+<pre class="r"><code>flist &lt;- alist(
+  height ~ dnorm( mu, sigma) ,
+  mu ~ dnorm( 178, 20),
+  sigma ~ dunif(0, 50)
+)
+
+m4.1 &lt;- quap( flist, data=d2 )
+precis( m4.1 )</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
+<th style="text-align:right;">
+5.5%
+</th>
+<th style="text-align:right;">
+94.5%
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+mu
+</td>
+<td style="text-align:right;">
+154.61
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+<td style="text-align:right;">
+153.95
+</td>
+<td style="text-align:right;">
+155.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sigma
+</td>
+<td style="text-align:right;">
+7.73
+</td>
+<td style="text-align:right;">
+0.29
+</td>
+<td style="text-align:right;">
+7.27
+</td>
+<td style="text-align:right;">
+8.2
+</td>
+</tr>
+</tbody>
+</table>
+<p>Comparing this with the compatibility intervals from the grid approximation model before, we that they’re nearly identical:</p>
+<pre class="r"><code>PI( sample.mu )</code></pre>
+<pre><code> 5% 94% 
+154 155 </code></pre>
+<pre class="r"><code>PI( sample.sigma )</code></pre>
+<pre><code>  5%  94% 
+7.32 8.26 </code></pre>
+<p>Let’s see what happens if we use a very narrow prior on <span class="math inline">\(\mu\)</span> instead:</p>
+<pre class="r"><code>m4.2 &lt;- quap( 
+          alist(
+            height ~ dnorm(mu, sigma),
+            mu ~ dnorm(178, 0.1),
+            sigma ~ dunif(0, 50)
+          ), 
+          data=d2)
+precis(m4.2)</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
+<th style="text-align:right;">
+5.5%
+</th>
+<th style="text-align:right;">
+94.5%
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+mu
+</td>
+<td style="text-align:right;">
+177.9
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+<td style="text-align:right;">
+178
+</td>
+<td style="text-align:right;">
+178
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sigma
+</td>
+<td style="text-align:right;">
+24.5
+</td>
+<td style="text-align:right;">
+0.93
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+26
+</td>
+</tr>
+</tbody>
+</table>
+<p>Now the estimate for <span class="math inline">\(\mu\)</span> has hardly moved off the prior. Note however, how the posterior for <span class="math inline">\(\sigma\)</span> changed by quite a lot, even though we didn’t change its prior. Since we told the model that <span class="math inline">\(\mu\)</span> is basically 178, very convincingly with this prior, it changes the estimate for <span class="math inline">\(\sigma\)</span> in return to make the data fit with the model.</p>
+<p>To sample from the quadratic approximation, note that the quadratic approximation of a posterior distribution is just a multi-dimensional Gaussian distribution. To sufficiently describe a multidimensional Gaussian distribution, we only need a list of means and a matrix of variances and covariances.</p>
+<pre class="r"><code>vcov( m4.1 )</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+mu
+</th>
+<th style="text-align:right;">
+sigma
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+mu
+</td>
+<td style="text-align:right;">
+0.17
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sigma
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.085
+</td>
+</tr>
+</tbody>
+</table>
+<p>We can decompose the matrix of variances and covariances into a vector of variances and a correlation matrix:</p>
+<pre class="r"><code>diag( vcov(m4.1 ))  
+cov2cor( vcov( m4.1 ))  </code></pre>
+<pre><code>    mu  sigma 
+0.1697 0.0849 </code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+mu
+</th>
+<th style="text-align:right;">
+sigma
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+mu
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+<td style="text-align:right;">
+0.002
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sigma
+</td>
+<td style="text-align:right;">
+0.002
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+</tr>
+</tbody>
+</table>
+<p>We could use the variances and correlation matrix to sample from a multi-dimensional Gaussian distribution. Or simply use the provided short-cut:</p>
+<pre class="r"><code>post &lt;- extract.samples( m4.1, n=1e4)
+head(post)</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+mu
+</th>
+<th style="text-align:right;">
+sigma
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+155
+</td>
+<td style="text-align:right;">
+8.13
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+155
+</td>
+<td style="text-align:right;">
+7.15
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+155
+</td>
+<td style="text-align:right;">
+7.05
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+155
+</td>
+<td style="text-align:right;">
+7.89
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+154
+</td>
+<td style="text-align:right;">
+7.73
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+154
+</td>
+<td style="text-align:right;">
+7.94
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>precis(post)</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
+<th style="text-align:right;">
+5.5%
+</th>
+<th style="text-align:right;">
+94.5%
+</th>
+<th style="text-align:left;">
+histogram
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+mu
+</td>
+<td style="text-align:right;">
+154.61
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+<td style="text-align:right;">
+153.95
+</td>
+<td style="text-align:right;">
+155.3
+</td>
+<td style="text-align:left;">
+▁▁▅▇▂▁▁
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sigma
+</td>
+<td style="text-align:right;">
+7.74
+</td>
+<td style="text-align:right;">
+0.29
+</td>
+<td style="text-align:right;">
+7.28
+</td>
+<td style="text-align:right;">
+8.2
+</td>
+<td style="text-align:left;">
+▁▁▁▁▂▅▇▇▃▁▁▁
+</td>
+</tr>
+</tbody>
+</table>
+<p>Equivalently, we could also get the posterior samples manually as follows:</p>
+<pre class="r"><code>library(MASS)
+post &lt;- mvrnorm(n = 1e4, mu=coef(m4.1), Sigma=vcov(m4.1))</code></pre>
+<p><small><a href="https://github.com/corriebar/Statistical-Rethinking/blob/master/Chapter_4/chapter4.Rmd">Full code.</a><small></p>
+</div>
+
+    
+    </section>
+
+  <footer class="post-footer">
+
+
+    
+
+
+
+
+
+
+
+
+
+<section class="author">
+  <h4><a href="/">Corrie</a></h4>
+  
+  <p>Read <a href="/">more posts</a> by this author.</p>
+  
+  <div class="author-meta">
+    
+    
+  </div>
+</section>
+
+
+
+
+    
+<section class="share">
+  <h4>Share this projects</h4>
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Why%20everything%20so%20normal&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2fprojects%2fstatistical-rethinking%2fchapter_4%2fchp4-part-one%2f"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=421');return false;">
+      <span class="hidden">Twitter</span>
+  </a>
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=%2fprojects%2fstatistical-rethinking%2fchapter_4%2fchp4-part-one%2f"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=551');return false;">
+      <span class="hidden">Facebook</span>
+  </a>
+  <a class="icon-linkedin" style="font-size: 1.4em" href="https://www.linkedin.com/shareArticle?mini=true&title=Why%20everything%20so%20normal&url=%2fprojects%2fstatistical-rethinking%2fchapter_4%2fchp4-part-one%2f"
+               onclick="window.open(this.href, 'linkedin-share', 'width=554,height=571');return false;">
+    <span class="hidden">LinkedIn</span>
+    </a>
+
+</section>
+
+
+
+
+    
+
+<div id="disqus_thread"></div>
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "\/projects\/statistical-rethinking\/chapter_4\/chp4-part-one\/";  
+this.page.identifier = "\/projects\/statistical-rethinking\/chapter_4\/chp4-part-one\/"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://corriebar-github-io.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+
+
+
+  </footer>
+</article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Samples of Thoughts</a> 
+        &copy; Corrie Bartelheimer 2020 &middot; </section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+    
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+    
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+    
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140745376-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+
+    
+</body>
+</html>
+

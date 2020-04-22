@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Corrie Bartelheimer {year}</copyright>
-    <lastBuildDate>Mon, 20 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 21 Apr 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/statistical-rethinking/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Why everything so normal</title>
+      <link>/projects/statistical-rethinking/chapter_4/chp4-part-one/</link>
+      <pubDate>Tue, 21 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_4/chp4-part-one/</guid>
+      <description>These are code snippets and notes for the fourth chapter, Geocentric Models, , sections 1 to 3, of the book “Statistical Rethinking” (version 2) by Richard McElreath.
+Why normal distributions are normal The chapter discusses linear models and starts with a recap on the normal distributions. Why is it such a commonly used distribution and how does it arise?
+ Normal by addition Normalcy arises when we sum up random variables:  pos &amp;lt;- replicate( 1000, sum( runif(16, -1, 1))) dens(pos, norm.</description>
+    </item>
     
     <item>
       <title>Chapter 2 - Exercises</title>

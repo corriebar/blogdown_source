@@ -284,6 +284,47 @@ if (!doNotTrack) {
 	
 	   <article class="post projects">
     <header class="post-header">
+        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_8/chp8-part-one/">Markov Chain Monte Carlo</a></h2>
+    </header>
+    <section class="post-excerpt">
+        
+            <p>8.1 King Markov and His island kingdom A simple example of the Markov Chain Monte Carlo algorithm:
+num_weeks &lt;- 1e5 positions &lt;- rep(0, num_weeks) current &lt;- 10 for (i in 1:num_weeks) { # record current position positions[i] &lt;- current # flip coin to generate proposal proposal &lt;- current + sample( c(-1, 1), size=1) if ( proposal &lt; 1 ) proposal &lt;- 10 if ( proposal &gt; 10 ) proposal &lt;- 1 # move? <a class="read-more" href="/projects/statistical-rethinking/chapter_8/chp8-part-one/">&raquo;</a></p>
+        
+    </section>
+    <footer class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 5 min</span>
+            </p>
+        
+        
+            
+            
+
+            
+            
+            
+            Corrie
+                 
+        
+
+        on
+            
+                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
+            
+                <a href="/tags/bayesian/">#Bayesian</a>,
+            
+        
+        <time class="post-date" datetime="2018-09-04T00:00:00Z">
+            4 Sep 2018
+        </time>
+    </footer>
+</article>
+
+	
+	   <article class="post projects">
+    <header class="post-header">
         <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_7/chp7-ex/">Chapter 7 - Exercises</a></h2>
     </header>
     <section class="post-excerpt">
@@ -444,47 +485,6 @@ a.start &lt;- mean(d$kcal.per.g) sigma.start &lt;- log( sd( d$kcal.per.g )) m6.1
         
         <time class="post-date" datetime="2018-07-04T00:00:00Z">
             4 Jul 2018
-        </time>
-    </footer>
-</article>
-
-	
-	   <article class="post projects">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_6/chp6-part-two/">Information Theory and Model Performance</a></h2>
-    </header>
-    <section class="post-excerpt">
-        
-            <p>Entropy p &lt;- c( 0.3, 0.7) -sum( p*log(p) ) compare this with:
-p &lt;- c(0.01, 0.99) -sum( p*log(p) ) # contains much less information  Kullback-Leibler Divergence p &lt;- c(0.3, 0.7) q1 &lt;- seq(from=0.01, to=0.99, length.out = 100) q &lt;- data.frame(q1 = q1, q2 = 1 - q1) kl_divergence &lt;- function(p, q) { sum( p* log( p/ q) ) } kl &lt;- apply(q, 1, function(x){kl_divergence(p=p, q=x)} ) plot( kl ~ q1, type=&quot;l&quot;, col=&quot;steelblue&quot;, lwd=2) abline(v = p[1], lty=2) text(0. <a class="read-more" href="/projects/statistical-rethinking/chapter_6/chp6-part-two/">&raquo;</a></p>
-        
-    </section>
-    <footer class="post-meta">
-        
-            <p class="post-reading post-line">
-            <span>Estimated reading time: 11 min</span>
-            </p>
-        
-        
-            
-            
-
-            
-            
-            
-            Corrie
-                 
-        
-
-        on
-            
-                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
-            
-                <a href="/tags/bayesian/">#Bayesian</a>,
-            
-        
-        <time class="post-date" datetime="2018-07-02T00:00:00Z">
-            2 Jul 2018
         </time>
     </footer>
 </article>
