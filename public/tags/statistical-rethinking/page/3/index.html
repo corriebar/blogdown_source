@@ -284,6 +284,48 @@ if (!doNotTrack) {
 	
 	   <article class="post projects">
     <header class="post-header">
+        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_8/chp8-ex/">Chapter 8 - Exercises</a></h2>
+    </header>
+    <section class="post-excerpt">
+        
+            <p>Chapter 8 - Exercises Easy. 8E1. Which of the following is a requirement of the simple Metropolis algorithm?
+ The proposal distribution must be symmetric  8E2. Gibbs sampling is more efficient than the Metropolis algorithm. How does it achieve this extra efficiency? Are there any limitations?
+Gibbs sampling uses conjugate priors which allows it to make smarter proposals and is thus more efficient. The downside to this, is that it uses conjugate priors which might not be a good or valid prior from a scientific perspective. <a class="read-more" href="/projects/statistical-rethinking/chapter_8/chp8-ex/">&raquo;</a></p>
+        
+    </section>
+    <footer class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 16 min</span>
+            </p>
+        
+        
+            
+            
+
+            
+            
+            
+            Corrie
+                 
+        
+
+        on
+            
+                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
+            
+                <a href="/tags/bayesian/">#Bayesian</a>,
+            
+        
+        <time class="post-date" datetime="2018-09-11T00:00:00Z">
+            11 Sep 2018
+        </time>
+    </footer>
+</article>
+
+	
+	   <article class="post projects">
+    <header class="post-header">
         <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_8/chp8-part-one/">Markov Chain Monte Carlo</a></h2>
     </header>
     <section class="post-excerpt">
@@ -444,47 +486,6 @@ Information entropy (a measure of uncertainty) should be
         
         <time class="post-date" datetime="2018-07-08T00:00:00Z">
             8 Jul 2018
-        </time>
-    </footer>
-</article>
-
-	
-	   <article class="post projects">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_6/chp6-part-three/">Using Information Criteria</a></h2>
-    </header>
-    <section class="post-excerpt">
-        
-            <p>Using information criteria Model comparison library(rethinking) data(milk) d &lt;- milk[ complete.cases(milk), ] # remove NA values d$neocortex &lt;- d$neocortex.perc / 100 dim(d) head(d) We will predict kcal.per.g using the predictors neocortex and the logarithm of mass. For this, we use four different models (all with flat priors):
-a.start &lt;- mean(d$kcal.per.g) sigma.start &lt;- log( sd( d$kcal.per.g )) m6.11 &lt;- map( alist( kcal.per.g ~ dnorm( a, exp(log.sigma) ) ), data=d, start=list(a=a.start, log. <a class="read-more" href="/projects/statistical-rethinking/chapter_6/chp6-part-three/">&raquo;</a></p>
-        
-    </section>
-    <footer class="post-meta">
-        
-            <p class="post-reading post-line">
-            <span>Estimated reading time: 4 min</span>
-            </p>
-        
-        
-            
-            
-
-            
-            
-            
-            Corrie
-                 
-        
-
-        on
-            
-                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
-            
-                <a href="/tags/bayesian/">#Bayesian</a>,
-            
-        
-        <time class="post-date" datetime="2018-07-04T00:00:00Z">
-            4 Jul 2018
         </time>
     </footer>
 </article>
