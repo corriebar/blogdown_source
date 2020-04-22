@@ -365,7 +365,7 @@ Since the log of a product is the same as the sum of the log of each factor, log
 <pre class="r"><code>log.big &lt;- replicate(1000, log( prod( 1 + runif(12, 0, 0.05))))
 dens(log.big, norm.comp = T)</code></pre>
 <p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_files/figure-html/unnamed-chunk-5-1.svg" width="480" /></p>
-<p>There are boradly two reasons why we’re using Gaussian distributions in modelling:
+<p>There are broadly two reasons why we’re using Gaussian distributions in modelling:
 (1) <strong>ontological</strong>: we have reason to believe the process we’re modelling is actually following a Gaussian distribution, for the reasons laid out above. E.g. measurement errors follow a Gaussian since at the heart, the measurement errors arise through a process of added fluctuations.
 (2) <strong>epistemological</strong>: we don’t really know much about our process, except that it has a mean and a variance, so we use a normal distribution because it makes the least assumptions. (If we know more, we should probably use a different distribution!)</p>
 </div>
@@ -541,7 +541,7 @@ So the same way, we can add the prior densities (again on log):</p>
 <p>Or a heatmap:</p>
 <pre class="r"><code>image_xyz( post$mu, post$sigma, post$prob)</code></pre>
 <p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_files/figure-html/unnamed-chunk-22-1.svg" width="480" /></p>
-<p>The highest probability density for <span class="math inline">\(\mu\)</span> is somewhere around 155 with highest probality densitiy for <span class="math inline">\(\sigma\)</span> around 8.</p>
+<p>The highest probability density for <span class="math inline">\(\mu\)</span> is somewhere around 155 with highest probability density for <span class="math inline">\(\sigma\)</span> around 8.</p>
 <p>Instead of working with the grid posterior, we can use the grid to obtain a sample from our posterior:</p>
 <pre class="r"><code>sample.rows &lt;- sample( 1:nrow(post), size=1e4, replace=TRUE,
                        prob=post$prob)
@@ -566,16 +566,16 @@ sample.sigma &lt;- post$sigma[ sample.rows]</code></pre>
 7.32 8.26 </code></pre>
 <div id="short-note-on-why-the-standard-deviation-is-less-normal" class="section level5">
 <h5>Short note on why the standard deviation is less normal:</h5>
-<p>Posterior of <span class="math inline">\(\sigma\)</span> tend to have a long-right hand tail. The reasons? Complex! But an intution is that, because the standard deviation has to be positive, there is less uncertainty how small it is (it is bounded by 0 after all) and more uncertainty about how big it is.
+<p>Posterior of <span class="math inline">\(\sigma\)</span> tend to have a long-right hand tail. The reasons? Complex! But an intuition is that, because the standard deviation has to be positive, there is less uncertainty how small it is (it is bounded by 0 after all) and more uncertainty about how big it is.
 If we repeat the example from above on a small subset of the data, this tail in the uncertainty of <span class="math inline">\(\sigma\)</span> becomes more pronounced:
 <img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_files/figure-html/unnamed-chunk-30-1.svg" width="480" /></p>
 <p>There’s a longer tail at the top of this point-cloud. We can also see it in the marginal density of <span class="math inline">\(\sigma\)</span>:
 <img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_files/figure-html/unnamed-chunk-31-1.svg" width="480" /></p>
 </div>
 </div>
-<div id="quadtratic-approximation-and-prior-predictive-checks" class="section level3">
-<h3>Quadtratic Approximation and Prior Predictive Checks</h3>
-<p>Since grid approximation becomes infeasible with more complex models, we now start using quadratic approximation. As we’ve seen above, the posterior approaches a normal distribution with enough data, so we can use that to approximate the posterior. The quadratic approximation, <code>quap()</code>, first climbs the posterior distribution to find the mode, i.e. the MAP (Maximum A Posteriori) and then estimates the quadratic curvature.</p>
+<div id="quadratic-approximation-and-prior-predictive-checks" class="section level3">
+<h3>Quadratic Approximation and Prior Predictive Checks</h3>
+<p>Since grid approximation becomes unfeasible with more complex models, we now start using quadratic approximation. As we’ve seen above, the posterior approaches a normal distribution with enough data, so we can use that to approximate the posterior. The quadratic approximation, <code>quap()</code>, first climbs the posterior distribution to find the mode, i.e. the MAP (Maximum A Posteriori) and then estimates the quadratic curvature.</p>
 <p>To use <code>quap()</code>, we place our model into a formula list (<code>flist()</code> in R):</p>
 <pre class="r"><code>flist &lt;- alist(
   height ~ dnorm( mu, sigma) ,
@@ -822,10 +822,18 @@ sigma
 </tr>
 <tr>
 <td style="text-align:right;">
-155
+154
 </td>
 <td style="text-align:right;">
-7.15
+7.86
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+154
+</td>
+<td style="text-align:right;">
+7.61
 </td>
 </tr>
 <tr>
@@ -833,12 +841,12 @@ sigma
 155
 </td>
 <td style="text-align:right;">
-7.05
+8.12
 </td>
 </tr>
 <tr>
 <td style="text-align:right;">
-155
+156
 </td>
 <td style="text-align:right;">
 7.89
@@ -849,15 +857,7 @@ sigma
 154
 </td>
 <td style="text-align:right;">
-7.73
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-154
-</td>
-<td style="text-align:right;">
-7.94
+7.68
 </td>
 </tr>
 </tbody>
@@ -897,13 +897,13 @@ mu
 0.41
 </td>
 <td style="text-align:right;">
-153.95
+153.96
 </td>
 <td style="text-align:right;">
-155.3
+155.28
 </td>
 <td style="text-align:left;">
-▁▁▅▇▂▁▁
+▁▁▇▇▂▁▁
 </td>
 </tr>
 <tr>
@@ -917,13 +917,13 @@ sigma
 0.29
 </td>
 <td style="text-align:right;">
-7.28
+7.26
 </td>
 <td style="text-align:right;">
-8.2
+8.21
 </td>
 <td style="text-align:left;">
-▁▁▁▁▂▅▇▇▃▁▁▁
+▁▁▁▂▅▇▇▃▁▁▁▁
 </td>
 </tr>
 </tbody>
