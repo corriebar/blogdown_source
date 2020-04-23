@@ -282,6 +282,47 @@ if (!doNotTrack) {
 	
 	   <article class="post projects">
     <header class="post-header">
+        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_6/chp6-part-three/">Using Information Criteria</a></h2>
+    </header>
+    <section class="post-excerpt">
+        
+            <p>Using information criteria Model comparison library(rethinking) data(milk) d &lt;- milk[ complete.cases(milk), ] # remove NA values d$neocortex &lt;- d$neocortex.perc / 100 dim(d) head(d) We will predict kcal.per.g using the predictors neocortex and the logarithm of mass. For this, we use four different models (all with flat priors):
+a.start &lt;- mean(d$kcal.per.g) sigma.start &lt;- log( sd( d$kcal.per.g )) m6.11 &lt;- map( alist( kcal.per.g ~ dnorm( a, exp(log.sigma) ) ), data=d, start=list(a=a.start, log. <a class="read-more" href="/projects/statistical-rethinking/chapter_6/chp6-part-three/">&raquo;</a></p>
+        
+    </section>
+    <footer class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 4 min</span>
+            </p>
+        
+        
+            
+            
+
+            
+            
+            
+            Corrie
+                 
+        
+
+        on
+            
+                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
+            
+                <a href="/tags/bayesian/">#Bayesian</a>,
+            
+        
+        <time class="post-date" datetime="2018-07-04T00:00:00Z">
+            4 Jul 2018
+        </time>
+    </footer>
+</article>
+
+	
+	   <article class="post projects">
+    <header class="post-header">
         <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_6/chp6-part-two/">Information Theory and Model Performance</a></h2>
     </header>
     <section class="post-excerpt">
@@ -359,48 +400,6 @@ Easy. 5E1. The following linear models are multiple linear regressions:
         
         <time class="post-date" datetime="2018-06-03T00:00:00Z">
             3 Jun 2018
-        </time>
-    </footer>
-</article>
-
-	
-	   <article class="post projects">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_4/chp4-ex/">Chapter 4 - Exercises</a></h2>
-    </header>
-    <section class="post-excerpt">
-        
-            <p>These are my solutions to the practice questions of chapter 4, Linear Models, of the book “Statistical Rethinking” by Richard McElreath.
-Easy. 4E1. In the model definition below, which line is the likelihood: \[ \begin{align*} y_i &amp;\sim \text{Normal}(\mu, \sigma) &amp; &amp; \text{This is the likelihood}\\ \mu &amp;\sim \text{Normal}(0, 10) \\ \sigma &amp;\sim \text{Normal}(0,10) \end{align*} \]
-4E2. In the model definition just above, how many parameters are in the posterior distribution? <a class="read-more" href="/projects/statistical-rethinking/chapter_4/chp4-ex/">&raquo;</a></p>
-        
-    </section>
-    <footer class="post-meta">
-        
-            <p class="post-reading post-line">
-            <span>Estimated reading time: 10 min</span>
-            </p>
-        
-        
-            
-            
-
-            
-            
-            
-            Corrie
-                 
-        
-
-        on
-            
-                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
-            
-                <a href="/tags/bayesian/">#Bayesian</a>,
-            
-        
-        <time class="post-date" datetime="2018-05-21T00:00:00Z">
-            21 May 2018
         </time>
     </footer>
 </article>
