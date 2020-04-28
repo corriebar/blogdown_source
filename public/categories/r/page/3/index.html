@@ -273,13 +273,55 @@ if (!doNotTrack) {
 	
 	    <a class="newer-posts" href="/categories/r/page/2/">&larr; Newer Posts</a>
 	
-	<span class="page-number">Page 3 of 5</span>
+	<span class="page-number">Page 3 of 6</span>
 	
 	    <a class="older-posts" href="/categories/r/page/4/">Older Posts &rarr;</a>
 	
 </nav>
 
 	</div>
+
+	
+	   <article class="post projects">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_12/chp12-part-one/">Of Monsters and Mixtures</a></h2>
+    </header>
+    <section class="post-excerpt">
+        
+            <p>Over-dispersed outcomes For the beta-binomial model, we’ll make use of the beta distribution. The beta distribution is a probability distribution over probabilities (over the interval \([0, 1]\)).
+library(rethinking) pbar &lt;- 0.5 theta &lt;- 5 curve( dbeta2( x, pbar, theta), from=0, to=1, xlab=&quot;probability&quot;, ylab=&quot;Density&quot;) There are different ways to parametrize the beta distribution:
+dbeta2 &lt;- function( x , prob , theta , log=FALSE ) { a &lt;- prob * theta b &lt;- (1-prob) * theta dbeta( x , shape1=a , shape2=b , log=log ) } We use the beta-binomial for the UCBadmit data, which is over-dispersed if we ignore department (since the admission rate varied quite a lot for different departments). <a class="read-more" href="/projects/statistical-rethinking/chapter_12/chp12-part-one/">&raquo;</a></p>
+        
+    </section>
+    <footer class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 8 min</span>
+            </p>
+        
+        
+            
+            
+
+            
+            
+            
+            Corrie
+                 
+        
+
+        on
+            
+                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
+            
+                <a href="/tags/bayesian/">#Bayesian</a>,
+            
+        
+        <time class="post-date" datetime="2019-04-14T00:00:00Z">
+            14 Apr 2019
+        </time>
+    </footer>
+</article>
 
 	
 	   <article class="post projects">
@@ -448,56 +490,12 @@ library(rethinking) data(chimpanzees) d &lt;- chimpanzees The important variable
 </article>
 
 	
-	   <article class="post post">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/2018/scraping-the-web-or-how-to-find-a-flat/">Scraping the web or how to find a flat</a></h2>
-    </header>
-    <section class="post-excerpt">
-        
-            <p>Berlin is a great city that used to have the reputation of affordable rents. While for sure other cities are still much more expensive, the rents in Berlin have risen considerably. Or so says everyone of my friends and my colleagues and so does it feel looking at renting listings. I decided to have a look myself at the data to find out if there’s still a secret neighborhood in Berlin resisting the raising prices and who knows, maybe the data can even tell us if the neighborhood Wedding is indeed “coming”. <a class="read-more" href="/2018/scraping-the-web-or-how-to-find-a-flat/">&raquo;</a></p>
-        
-    </section>
-    <footer class="post-meta">
-        
-            <p class="post-reading post-line">
-            <span>Estimated reading time: 9 min</span>
-            </p>
-        
-        
-            
-            
-
-            
-            
-            
-            Corrie
-                 
-        
-
-        on
-            
-                <a href="/tags/r/">#R</a>,
-            
-                <a href="/tags/scraping/">#scraping</a>,
-            
-                <a href="/tags/berlin/">#Berlin</a>,
-            
-                <a href="/tags/flats/">#flats</a>,
-            
-        
-        <time class="post-date" datetime="2018-10-03T00:00:00Z">
-            3 Oct 2018
-        </time>
-    </footer>
-</article>
-
-	
 
 	<nav class="pagination" role="navigation">
 	
 	    <a class="newer-posts" href="/categories/r/page/2/">&larr; Newer Posts</a>
 	
-	<span class="page-number">Page 3 of 5</span>
+	<span class="page-number">Page 3 of 6</span>
 	
 	    <a class="older-posts" href="/categories/r/page/4/">Older Posts &rarr;</a>
 	

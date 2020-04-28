@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Corrie Bartelheimer {year}</copyright>
-    <lastBuildDate>Wed, 25 Mar 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 28 Apr 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Visa Costs meet Data Viz</title>
+      <link>/2020/visa-costs-data-viz/</link>
+      <pubDate>Tue, 28 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/visa-costs-data-viz/</guid>
+      <description>I recently stumbled across this data set about visa costs. It is a collection of visa costs for all countries for different kind of visas (tourist, business, work, transit, and some other visas). Each row corresponds to visa relations between a source country (the country applying for the visa) and a target country (the country issuing the visa) together with the cost for the different visa types.
+Since I had a bit of free time on my hand, I decided to do some “plotcrastinating”, play around with the data and try out some new visualizations.</description>
+    </item>
     
     <item>
       <title>Connecting Disinformation with tidygraph</title>
