@@ -21,13 +21,13 @@
   </url>
   
   <url>
-    <loc>/tags/r/</loc>
+    <loc>/categories/r/</loc>
     <lastmod>2020-04-28T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/categories/r/</loc>
+    <loc>/tags/r/</loc>
     <lastmod>2020-04-28T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -84,13 +84,13 @@
   </url>
   
   <url>
-    <loc>/tags/statistical-rethinking/</loc>
+    <loc>/categories/statistical-rethinking/</loc>
     <lastmod>2020-04-22T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/categories/statistical-rethinking/</loc>
+    <loc>/tags/statistical-rethinking/</loc>
     <lastmod>2020-04-22T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -160,13 +160,13 @@
   </url>
   
   <url>
-    <loc>/tags/conference/</loc>
+    <loc>/categories/conference/</loc>
     <lastmod>2019-11-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/categories/conference/</loc>
+    <loc>/tags/conference/</loc>
     <lastmod>2019-11-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
