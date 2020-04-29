@@ -110,7 +110,7 @@
     },
     "headline": "Visa Costs meet Data Viz",
     "name": "Visa Costs meet Data Viz",
-    "wordCount":  1444 ,
+    "wordCount":  1447 ,
     "timeRequired": "PT7M",
     "inLanguage": {
       "@type": "Language",
@@ -388,8 +388,10 @@ I first wondered if there might be some countries that don’t get any free tour
 <h2>Exchange of Ideas</h2>
 <p>While free travel visas are nice to visit new cities and beaches, it is easier to form deeper connections with land and people through a longer stay, such as by studying in the country.</p>
 <p>Obviously, some countries are such popular destinations for studying that higher visa cost wouldn’t deter international students, think e.g. US or Australia.
-However, I was interested to see how visa policies regarding student visas are in the rest of the world. As the data set forms a directed network, I’m going to plot the student visa data as a network. And since the nodes are country, I’ll plot the network on top of a world map.
-As this seems a rather complex plot, I was pleasantly surprised that <code>{{ggraph}}</code> makes this surprisingly simple.</p>
+However, I was interested to see how visa policies regarding student visas are in the rest of the world. As the data set forms a directed network, I’m going to plot the student visa data as a network. And since the nodes are countries, I’ll plot the network on top of a world map.</p>
+<div id="another-technical-note" class="section level4">
+<h4>Another technical note</h4>
+<p>As this seems a rather complex plot, I was pleasantly surprised that <code>{{ggraph}}</code> makes this surprisingly simple.</p>
 <p>First, we built the graph using <code>{{tidygraph}}</code> by extracting the countries as nodes from our data set. The data set itself provides the edges.</p>
 <pre class="r"><code>nodes &lt;- d %&gt;%
   group_by(country=source) %&gt;%
@@ -418,6 +420,7 @@ graph &lt;- tbl_graph(edges = d %&gt;% select(source, target),
 <p><img src="/post/2020/2020-04-28-visa-costs-data-viz_files/figure-html/unnamed-chunk-11-1.svg" width="120%" height="120%" /></p>
 <p>I found curious that both North and South America have almost no free visa relations inside their own continent. Especially for South America, I expected more free visa connections amongst the countries.</p>
 <p>Having visa relations between two countries doesn’t necessarily mean that people use this visa though. For example, the country offering the most free student visas in Africa is Benin which, according to <a href="https://en.wikipedia.org/wiki/Benin#Education">Wikipedia</a>, has one of the lowest literacy rates in the world. Benin managed to more than double their university enrollment, so their visa policy might be part of their education strategy. Still, it’s unlikely that generous visa policies by themselves lead to more international students.</p>
+</div>
 </div>
 <div id="summary" class="section level2">
 <h2>Summary</h2>

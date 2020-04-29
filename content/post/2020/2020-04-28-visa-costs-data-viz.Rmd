@@ -334,7 +334,9 @@ The bubble sizes make it much clearer that the lower field has some of the most 
 While free travel visas are nice to visit new cities and beaches, it is easier to form deeper connections with land and people through a longer stay, such as by studying in the country.
 
 Obviously, some countries are such popular destinations for studying that higher visa cost wouldn't deter international students, think e.g. US or Australia.
-However, I was interested to see how visa policies regarding student visas are in the rest of the world. As the data set forms a directed network, I'm going to plot the student visa data as a network. And since the nodes are country, I'll plot the network on top of a world map.
+However, I was interested to see how visa policies regarding student visas are in the rest of the world. As the data set forms a directed network, I'm going to plot the student visa data as a network. And since the nodes are countries, I'll plot the network on top of a world map.
+
+#### Another technical note
 As this seems a rather complex plot, I was pleasantly surprised that `{{ggraph}}` makes this surprisingly simple.
 
 First, we built the graph using `{{tidygraph}}` by extracting the countries as nodes from our data set. The data set itself provides the edges. 
