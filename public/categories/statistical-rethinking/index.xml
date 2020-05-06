@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Corrie Bartelheimer {year}</copyright>
-    <lastBuildDate>Wed, 22 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 05 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/statistical-rethinking/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Curvy Regression</title>
+      <link>/projects/statistical-rethinking/chapter_4/chp4-part-three/</link>
+      <pubDate>Tue, 05 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_4/chp4-part-three/</guid>
+      <description>These are code snippets and notes for the fourth chapter, Geocentric Models, , sections 5, of the book “Statistical Rethinking” (version 2) by Richard McElreath.
+Polynomial Regression Standard linear models using a straight line to fit data are nice for their simplicity but a straight line is also very restrictive. Most data does not come in a straight line. We can use polynomial regression to extend the linear model.</description>
+    </item>
     
     <item>
       <title>Chapter 4 - Exercises</title>

@@ -366,7 +366,7 @@ if (!doNotTrack) {
   ggplot(aes(x = source_continent, y = n, col=source_continent )) +
   geom_point() +
   coord_flip()</code></pre>
-<p>There’s a great <a href="https://cedricscherer.netlify.app/2019/05/17/the-evolution-of-a-ggplot-ep.-1/">blog post</a> by Cedric Scherer that walks through all the steps on how to prettify this plot, in particular, how to include the arrows and annotations. There are a few adaptions I made: Instead of <code>geom_point()</code>, I use <code>geom_quasirandom()</code> from <code>{{ggbeeswarm}}</code>. It packs points close together while trying to avoid overplotting. It doesn’t solve the overplotting problem completely though. I therefore like to add a small border line to the points so they don’t look like a big, weirdly shaped blob. The trick to getting these is to use a shape that has <code>fill</code> and <code>color</code> parameters. The only point shapes that have these are the shapes 21 to 25:</p>
+<p>There’s a great <a href="https://cedricscherer.netlify.app/2019/05/17/the-evolution-of-a-ggplot-ep.-1/">blog post</a> by Cedric Scherer that walks through all the steps on how to prettify this plot, in particular, how to include the arrows and annotations. There are a few adaptions I made: Instead of <code>geom_point()</code>, I use <code>geom_quasirandom()</code> from <code>{ggbeeswarm}</code>. It packs points close together while trying to avoid overplotting. It doesn’t solve the overplotting problem completely though. I therefore like to add a small border line to the points so they don’t look like a big, weirdly shaped blob. The trick to getting these is to use a shape that has <code>fill</code> and <code>color</code> parameters. The only point shapes that have these are the shapes 21 to 25:</p>
 <pre class="r"><code>p &lt;- d %&gt;% 
   count(source, source_continent) %&gt;%
   ggplot(aes(x = source_continent, y = n )) +
@@ -391,8 +391,8 @@ I first wondered if there might be some countries that don’t get any free tour
 However, I was interested to see how visa policies regarding student visas are in the rest of the world. As the data set forms a directed network, I’m going to plot the student visa data as a network. And since the nodes are countries, I’ll plot the network on top of a world map.</p>
 <div id="another-technical-note" class="section level4">
 <h4>Another technical note</h4>
-<p>As this seems a rather complex plot, I was pleasantly surprised that <code>{{ggraph}}</code> makes this surprisingly simple.</p>
-<p>First, we built the graph using <code>{{tidygraph}}</code> by extracting the countries as nodes from our data set. The data set itself provides the edges.</p>
+<p>As this seems a rather complex plot, I was pleasantly surprised that <code>{ggraph}</code> makes this surprisingly simple.</p>
+<p>First, we built the graph using <code>{tidygraph}</code> by extracting the countries as nodes from our data set. The data set itself provides the edges.</p>
 <pre class="r"><code>nodes &lt;- d %&gt;%
   group_by(country=source) %&gt;%
   summarise(lat = unique(source_lat),
@@ -404,7 +404,7 @@ graph &lt;- tbl_graph(edges = d %&gt;% select(source, target),
 <p>To build the plot, we first specify our layout manually by providing the coordinates for each node.</p>
 <pre class="r"><code>g &lt;- graph %&gt;%
   ggraph(layout = &quot;manual&quot;, x=nodes$long, y=nodes$lat) </code></pre>
-<p>Next, we’ll need the map which is provided in the <code>{{maps}}</code> package via <code>map_data(&quot;world&quot;)</code></p>
+<p>Next, we’ll need the map which is provided in the <code>{maps}</code> package via <code>map_data(&quot;world&quot;)</code></p>
 <pre class="r"><code>country_shapes &lt;- geom_polygon(aes(x = long, y = lat, group = group),
                                data = map_data(&#39;world&#39;))</code></pre>
 <p>To get the full plot, we then simply add up the different layers:</p>
@@ -424,7 +424,7 @@ graph &lt;- tbl_graph(edges = d %&gt;% select(source, target),
 </div>
 <div id="summary" class="section level2">
 <h2>Summary</h2>
-<p>The more I learn about <code>{{ggplot2}}</code> the more impressed I am with what is possible. On the other hand, the more new tricks I learn, the more tempted I am to spend more time on it. Anyway, I think the results were still worth the time invest and hopefully, next time, it takes less time to tweak color and fonts.</p>
+<p>The more I learn about <code>{ggplot2}</code> the more impressed I am with what is possible. On the other hand, the more new tricks I learn, the more tempted I am to spend more time on it. Anyway, I think the results were still worth the time invest and hopefully, next time, it takes less time to tweak color and fonts.</p>
 <p><small><a href="https://github.com/corriebar/blogdown_source/blob/master/content/post/2020/2020-04-28-visa-costs-data-viz.Rmd">Full code.</a><small></p>
 </div>
 

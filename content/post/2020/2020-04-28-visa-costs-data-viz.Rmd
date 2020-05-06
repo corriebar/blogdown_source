@@ -251,7 +251,7 @@ p <- d %>%
   coord_flip()
 ```
 
-There's a great [blog post](https://cedricscherer.netlify.app/2019/05/17/the-evolution-of-a-ggplot-ep.-1/) by Cedric Scherer that walks through all the steps on how to prettify this plot, in particular, how to include the arrows and annotations. There are a few adaptions I made: Instead of `geom_point()`, I use `geom_quasirandom()` from `{{ggbeeswarm}}`. It packs points close together while trying to avoid overplotting. It doesn't solve the overplotting problem completely though. I therefore like to add a small border line to the points so they don't look like a big, weirdly shaped blob. The trick to getting these is to use a shape that has `fill` and `color` parameters. The only point shapes that have these are the shapes 21 to 25:
+There's a great [blog post](https://cedricscherer.netlify.app/2019/05/17/the-evolution-of-a-ggplot-ep.-1/) by Cedric Scherer that walks through all the steps on how to prettify this plot, in particular, how to include the arrows and annotations. There are a few adaptions I made: Instead of `geom_point()`, I use `geom_quasirandom()` from `{ggbeeswarm}`. It packs points close together while trying to avoid overplotting. It doesn't solve the overplotting problem completely though. I therefore like to add a small border line to the points so they don't look like a big, weirdly shaped blob. The trick to getting these is to use a shape that has `fill` and `color` parameters. The only point shapes that have these are the shapes 21 to 25:
 ```{r, eval = F}
 p <- d %>% 
   count(source, source_continent) %>%
@@ -337,9 +337,9 @@ Obviously, some countries are such popular destinations for studying that higher
 However, I was interested to see how visa policies regarding student visas are in the rest of the world. As the data set forms a directed network, I'm going to plot the student visa data as a network. And since the nodes are countries, I'll plot the network on top of a world map.
 
 #### Another technical note
-As this seems a rather complex plot, I was pleasantly surprised that `{{ggraph}}` makes this surprisingly simple.
+As this seems a rather complex plot, I was pleasantly surprised that `{ggraph}` makes this surprisingly simple.
 
-First, we built the graph using `{{tidygraph}}` by extracting the countries as nodes from our data set. The data set itself provides the edges. 
+First, we built the graph using `{tidygraph}` by extracting the countries as nodes from our data set. The data set itself provides the edges. 
 
 ```{r, eval=F}
 nodes <- d %>%
@@ -357,7 +357,7 @@ To build the plot, we first specify our layout manually by providing the coordin
 g <- graph %>%
   ggraph(layout = "manual", x=nodes$long, y=nodes$lat) 
 ```
-Next, we'll need the map which is provided in the `{{maps}}` package via `map_data("world")`
+Next, we'll need the map which is provided in the `{maps}` package via `map_data("world")`
 ```{r, eval=F}
 country_shapes <- geom_polygon(aes(x = long, y = lat, group = group),
                                data = map_data('world'))
@@ -504,6 +504,6 @@ I found curious that both North and South America have almost no free visa relat
 Having visa relations between two countries doesn't necessarily mean that people use this visa though. For example, the country offering the most free student visas in Africa is Benin which, according to [Wikipedia](https://en.wikipedia.org/wiki/Benin#Education), has one of the lowest literacy rates in the world. Benin managed to more than double their university enrollment, so their visa policy might be part of their education strategy. Still, it's unlikely that generous visa policies by themselves lead to more international students.
 
 ## Summary
-The more I learn about `{{ggplot2}}` the more impressed I am with what is possible. On the other hand, the more new tricks I learn, the more tempted I am to spend more time on it. Anyway, I think the results were still worth the time invest and hopefully, next time, it takes less time to tweak color and fonts.
+The more I learn about `{ggplot2}` the more impressed I am with what is possible. On the other hand, the more new tricks I learn, the more tempted I am to spend more time on it. Anyway, I think the results were still worth the time invest and hopefully, next time, it takes less time to tweak color and fonts.
 
 <small>[Full code.](https://github.com/corriebar/blogdown_source/blob/master/content/post/2020/2020-04-28-visa-costs-data-viz.Rmd)<small>

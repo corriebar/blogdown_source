@@ -284,6 +284,48 @@ if (!doNotTrack) {
 	
 	   <article class="post projects">
     <header class="post-header">
+        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_3/chp3-ex/">Chapter 3 - Exercises</a></h2>
+    </header>
+    <section class="post-excerpt">
+        
+            <p>These are my solutions to the practice questions of chapter 3, Sampling the Imaginary, of the book “Statistical Rethinking” (version 2) by Richard McElreath.
+Easy. The Easy problems use the samples from the globe tossing example:
+p_grid &lt;- seq( from=0, to=1, length.out=1000 ) prior &lt;- rep( 1, 1000 ) likelihood &lt;- dbinom( 6, size=9, prob=p_grid) posterior &lt;- likelihood * prior posterior &lt;- posterior / sum(posterior) set.seed(100) samples &lt;- sample( p_grid, prob=posterior, size=1e4, replace=TRUE ) 3E1. <a class="read-more" href="/projects/statistical-rethinking/chapter_3/chp3-ex/">&raquo;</a></p>
+        
+    </section>
+    <footer class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 8 min</span>
+            </p>
+        
+        
+            
+            
+
+            
+            
+            
+            Corrie
+                 
+        
+
+        on
+            
+                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
+            
+                <a href="/tags/bayesian/">#Bayesian</a>,
+            
+        
+        <time class="post-date" datetime="2020-04-09T00:00:00Z">
+            9 Apr 2020
+        </time>
+    </footer>
+</article>
+
+	
+	   <article class="post projects">
+    <header class="post-header">
         <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_12/chp12-part-two/">Ordered Categories</a></h2>
     </header>
     <section class="post-excerpt">
@@ -443,48 +485,6 @@ exp(1.7) [1] 5. <a class="read-more" href="/projects/statistical-rethinking/chap
         
         <time class="post-date" datetime="2018-11-11T00:00:00Z">
             11 Nov 2018
-        </time>
-    </footer>
-</article>
-
-	
-	   <article class="post projects">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_10/chp10-part-two/">Poisson Regression</a></h2>
-    </header>
-    <section class="post-excerpt">
-        
-            <p>Poisson Regression Oceanic Tools A binomial distriution with many trials (that is \(n\) large) and a small probability of an event (\(p\) small) approaches a Poisson distribution where both the mean and the variance are equal:
-y &lt;- rbinom(1e5, 1000, 1/1000) c(mean(y), var(y)) [1] 0.996960 1.000841 A Poisson model allows us to model binomial events for which the number of trials \(n\) is unknown.
-We work with the Kline data, a dataset about Oceanic societies and the number of found tools. <a class="read-more" href="/projects/statistical-rethinking/chapter_10/chp10-part-two/">&raquo;</a></p>
-        
-    </section>
-    <footer class="post-meta">
-        
-            <p class="post-reading post-line">
-            <span>Estimated reading time: 7 min</span>
-            </p>
-        
-        
-            
-            
-
-            
-            
-            
-            Corrie
-                 
-        
-
-        on
-            
-                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
-            
-                <a href="/tags/bayesian/">#Bayesian</a>,
-            
-        
-        <time class="post-date" datetime="2018-10-28T00:00:00Z">
-            28 Oct 2018
         </time>
     </footer>
 </article>

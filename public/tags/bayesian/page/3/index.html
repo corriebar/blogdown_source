@@ -284,6 +284,48 @@ if (!doNotTrack) {
 	
 	   <article class="post projects">
     <header class="post-header">
+        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_10/chp10-part-two/">Poisson Regression</a></h2>
+    </header>
+    <section class="post-excerpt">
+        
+            <p>Poisson Regression Oceanic Tools A binomial distriution with many trials (that is \(n\) large) and a small probability of an event (\(p\) small) approaches a Poisson distribution where both the mean and the variance are equal:
+y &lt;- rbinom(1e5, 1000, 1/1000) c(mean(y), var(y)) [1] 0.996960 1.000841 A Poisson model allows us to model binomial events for which the number of trials \(n\) is unknown.
+We work with the Kline data, a dataset about Oceanic societies and the number of found tools. <a class="read-more" href="/projects/statistical-rethinking/chapter_10/chp10-part-two/">&raquo;</a></p>
+        
+    </section>
+    <footer class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 7 min</span>
+            </p>
+        
+        
+            
+            
+
+            
+            
+            
+            Corrie
+                 
+        
+
+        on
+            
+                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
+            
+                <a href="/tags/bayesian/">#Bayesian</a>,
+            
+        
+        <time class="post-date" datetime="2018-10-28T00:00:00Z">
+            28 Oct 2018
+        </time>
+    </footer>
+</article>
+
+	
+	   <article class="post projects">
+    <header class="post-header">
         <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_10/chp10-part-one/">Binomial Regression</a></h2>
     </header>
     <section class="post-excerpt">
@@ -442,48 +484,6 @@ Bread dough rises because of yeast.   sugar, since the yeast needs some food to 
         
         <time class="post-date" datetime="2018-08-17T00:00:00Z">
             17 Aug 2018
-        </time>
-    </footer>
-</article>
-
-	
-	   <article class="post projects">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_7/chp7-part-one/">Interaction</a></h2>
-    </header>
-    <section class="post-excerpt">
-        
-            <p>7.1 Building an interaction library(rethinking) data(rugged) d &lt;- rugged How does terrain ruggedness influence the GDP?
-# make log version of outcome d$log_gdp &lt;- log(d$rgdppc_2000) dd &lt;- d[ complete.cases(d$rgdppc_2000), ] # split into Africa andnot-Africa d.A1 &lt;- dd[ dd$cont_africa == 1, ] d.A0 &lt;- dd[ dd$cont_africa == 0, ] Make two model: one for Africa, one for non-Africa:
-# Africa m7.1 &lt;- map( alist( log_gdp ~ dnorm( mu, sigma) , mu &lt;- a + bR*rugged , a ~ dnorm(8, 100), bR ~ dnorm( 0, 1 ), sigma ~ dunif( 0, 10 ) ), data=d. <a class="read-more" href="/projects/statistical-rethinking/chapter_7/chp7-part-one/">&raquo;</a></p>
-        
-    </section>
-    <footer class="post-meta">
-        
-            <p class="post-reading post-line">
-            <span>Estimated reading time: 13 min</span>
-            </p>
-        
-        
-            
-            
-
-            
-            
-            
-            Corrie
-                 
-        
-
-        on
-            
-                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
-            
-                <a href="/tags/bayesian/">#Bayesian</a>,
-            
-        
-        <time class="post-date" datetime="2018-08-14T00:00:00Z">
-            14 Aug 2018
         </time>
     </footer>
 </article>
