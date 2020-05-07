@@ -109,8 +109,8 @@ Easy. 4E1. " />
     },
     "headline": "Chapter 4 - Exercises",
     "name": "Chapter 4 - Exercises",
-    "wordCount":  2224 ,
-    "timeRequired": "PT11M",
+    "wordCount":  3975 ,
+    "timeRequired": "PT19M",
     "inLanguage": {
       "@type": "Language",
       "alternateName": "en"
@@ -320,7 +320,7 @@ if (!doNotTrack) {
         <section class="post-meta">
         
             <p class="post-reading post-line">
-            <span>Estimated reading time: 11 min</span>
+            <span>Estimated reading time: 19 min</span>
             </p>
         
         
@@ -403,7 +403,7 @@ mu &lt;- rnorm(n, 0, 10)
 sigma &lt;- rexp(n, 2)
 y_prior &lt;- rnorm(n, mu, sigma)
 dens(y_prior)</code></pre>
-<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-2-1.svg" width="480" /></p>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-2-1.png" width="480" /></p>
 <p><strong>4M2.</strong> Translate the model just above into a <code>quap()</code> formula.</p>
 <pre class="r"><code>flist &lt;- alist(
             y ~ dnorm(mu, sigma),
@@ -440,12 +440,12 @@ Here, <span class="math inline">\(h_i\)</span> is the height and <span class="ma
 a &lt;- rnorm( N, 120, 20 )
 b &lt;- rnorm( N, 0, 10 )
 sigma &lt;- runif( N, 0, 50 )</code></pre>
-<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-6-1.svg" width="480" /></p>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-6-1.png" width="480" /></p>
 <p>The model mostly stays between 0cm and 250cm. It still goes quite extreme and also has negative growth but otherwise it doesn’t look to unreasonable.</p>
 <p>A short look at the predicted distribution of height at the first year:</p>
 <pre class="r"><code>height_0 &lt;- rnorm( N, a + b * 0, sigma )
 dens( height_0 )</code></pre>
-<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-7-1.svg" width="480" /></p>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-7-1.png" width="480" /></p>
 <p>Most students at first year would be expected to be between 50cm and 200cm tall.</p>
 <p><strong>4M5.</strong> Now suppose, I remind you that every student got taller each year. I will change my priors as follows:
 <span class="math display">\[\begin{align*}
@@ -453,11 +453,11 @@ dens( height_0 )</code></pre>
 \beta &amp;\sim \text{Log-Normal}(0, 2.5)
 \end{align*}\]</span>
 I changed <span class="math inline">\(\beta\)</span> to a log-normal distribution, so that <span class="math inline">\(\beta\)</span>, the indicator for growth per year, is greater or equal than zero.
-The resulting model lines then look as follows:
-<img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-8-1.svg" width="480" /></p>
+The resulting model lines then look as follows:</p>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-8-1.png" width="480" /></p>
 <p><strong>4M6.</strong> Now suppose, the variance among heights for students of the same age is never more than 64cm. I thus change my priors as follows:
-<span class="math display">\[\sigma \sim \text{Uniform}(0, 64).\]</span>
-<strong>4M7.</strong> Refit model <code>m4.3</code> from the chapter but omit the mean weight <code>xbar</code>. Compare the new model’s posterior to that of the original model. In particular, look at the covariance among the parameters. What is different?</p>
+<span class="math display">\[\sigma \sim \text{Uniform}(0, 64).\]</span></p>
+<p><strong>4M7.</strong> Refit model <code>m4.3</code> from the chapter but omit the mean weight <code>xbar</code>. Compare the new model’s posterior to that of the original model. In particular, look at the covariance among the parameters. What is different?</p>
 <p>First, let’s load the data and fit the <code>m4.3</code> model again:</p>
 <pre class="r"><code>data(&quot;Howell1&quot;)
 d &lt;- Howell1
@@ -765,16 +765,63 @@ sigma
 </table>
 <p>Now, there’s a quite strong negative correlation between the two parameters.</p>
 <p>The same in visual:</p>
-<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-16-1.svg" width="576" /></p>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>What is happening here? Every time the slope parameter increases a bit, the intercept changes in the opposite direction, i.e. decreases.</p>
 <p>Compare the posterior predictions of both models:
-<img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-17-1.svg" width="960" /></p>
+<img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-17-1.png" width="864" /></p>
 <p>The posterior predictions look very much the same for both models.</p>
-<p><strong>4M8.</strong> In the chapter, we used 15 knots with the cherry blossom spline. Increase the number of knots and observe what happens to the resulting spline.
-[WIP]</p>
+<p><strong>4M8.</strong> In the chapter, we used 15 knots with the cherry blossom spline. Increase the number of knots and observe what happens to the resulting spline.</p>
+<p>First, let’s load the data:</p>
+<pre class="r"><code>data(&quot;cherry_blossoms&quot;)
+d &lt;- cherry_blossoms
+d2 &lt;- d[ complete.cases(d$doy) , ]</code></pre>
+<p>Just to be sure to see an effect, I’m going to double the number of knots to 30:</p>
+<pre class="r"><code>library(splines)
+num_knots &lt;- 30
+knot_list &lt;- quantile( d2$year, probs = seq(0, 1, length.out = num_knots ) )
+
+B &lt;- bs(d2$year,
+        knots=knot_list[-c(1, num_knots)],
+        degree=3, intercept=TRUE)
+
+ms &lt;- quap(
+  alist(
+    D ~ dnorm( mu, sigma ),
+    mu &lt;- a + B %*% w,
+    a ~ dnorm( 100, 10 ),
+    w ~ dnorm( 0, 10 ),
+    sigma ~ dexp(1)
+  ), data=list(D=d2$doy, B=B) ,
+  start = list( w=rep( 0, ncol(B)))
+)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-20-1.png" width="960" /></p>
+<p>Compare this with the fit we had before with 15 knots:
+<img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-21-1.png" width="960" /></p>
+<p>The curve with 30 knots is less smooth and even wigglier than the curve with 15 knots.</p>
+<p>Let’s now also change the width of the prior on the weights. I am going to change the standard deviation for the prior on the weights <span class="math inline">\(w\)</span> to 100 (before it was 10).</p>
+<pre class="r"><code>ms &lt;- quap(
+  alist(
+    D ~ dnorm( mu, sigma ),
+    mu &lt;- a + B %*% w,
+    a ~ dnorm( 100, 10 ),
+    w ~ dnorm( 0, 100 ),
+    sigma ~ dexp(1)
+  ), data=list(D=d2$doy, B=B) ,
+  start = list( w=rep( 0, ncol(B)))
+)</code></pre>
+<p>Let’s see what happens:
+<img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-23-1.png" width="960" /></p>
+<p>It got even wigglier! This is a bit difficult to see because the curve with 15 knots and the narrower priors was quite wiggly but it can for example be seen at the end to the right.</p>
+<p>More knots means there are more basis functions and so the curve can fit smaller local details. Fitting only a handful of knots will force the model to fit the more global trends:</p>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-24-1.png" width="960" /></p>
+<p>If we turn up the standard deviation of the prior we allow the weights to become larger. If the standard deviation is small, the weights will be closer to 0 and thus wiggle around closer to the mean line. If the weights become larger, we allow the curve to have more peaks.
+Check what happens if we make the prior on <span class="math inline">\(w\)</span> extremely narrow:
+<img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-25-1.png" width="960" /></p>
 </div>
 <div id="hard." class="section level2">
 <h2>Hard.</h2>
+<p>The first hard questions use the !Kung data again, so we need to reload them:</p>
+<pre class="r"><code>d &lt;- Howell1</code></pre>
 <p><strong>4H1.</strong> !Kung census data: Provide predicted heights and 89% intervals for the following weights of individuals.</p>
 <pre class="r"><code>weights &lt;- c(46.95, 43.72, 64.78, 32.59, 54.63)</code></pre>
 <p>For this, I reuse the model <code>m4.3</code> from above and simulate heights for the individuals above by hand:</p>
@@ -856,7 +903,7 @@ PI_89_upper
 164
 </td>
 <td style="text-align:right;">
-180
+181
 </td>
 </tr>
 <tr>
@@ -890,7 +937,7 @@ PI_89_upper
 155
 </td>
 <td style="text-align:right;">
-172
+171
 </td>
 </tr>
 </tbody>
@@ -1002,7 +1049,7 @@ mu.PI &lt;- apply(mu, 2, PI, prob=0.89)
 
 sim.height &lt;- sim( model18, data = list(weight = weight.seq ))
 height.PI &lt;- apply(sim.height, 2, PI, prob=0.89)</code></pre>
-<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-23-1.svg" width="480" /></p>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-32-1.png" width="480" /></p>
 <ol start="3" style="list-style-type: lower-alpha">
 <li>What aspects of the model fit concern you?</li>
 </ol>
@@ -1076,7 +1123,7 @@ a
 b
 </td>
 <td style="text-align:right;">
-47.07
+47.08
 </td>
 <td style="text-align:right;">
 0.383
@@ -1085,7 +1132,7 @@ b
 46.46
 </td>
 <td style="text-align:right;">
-47.68
+47.69
 </td>
 </tr>
 <tr>
@@ -1129,16 +1176,375 @@ mu.PI &lt;- apply(mu, 2, PI, prob=0.89)
 # compute predicted height
 sim.height &lt;- sim( model.l, data = list(weight = weight.seq))
 height.PI &lt;- apply(sim.height, 2, PI, prob=0.89)</code></pre>
-<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-26-1.svg" width="480" /></p>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-35-1.png" width="480" /></p>
 <p>Compared to the model above fit to only the children and also compared to the models earlier in the chapter using the full data set with polynomial regression, this model seems to perform quite well on the data.</p>
 <p>We can also visualize the model on log scale:</p>
-<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-27-1.svg" width="480" /></p>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-36-1.png" width="480" /></p>
 <p>Given the last two plots, I’d say the colleague was right: The logarithm of body weight scales very well with height.</p>
-<p><strong>4H4.</strong> [WIP]</p>
-<p><strong>4H5.</strong></p>
-<p><strong>4H6.</strong></p>
-<p><strong>4H7.</strong></p>
+<p><strong>4H4.</strong> Plot the prior predictive distribution for the parabolic polynomial regression model in the chapter.</p>
+<p>For the prior predictive check, we don’t actually need to run the model code again. Just remember that we’re fitting the following model:
+<span class="math display">\[\begin{align*}
+h_i &amp;\sim \text{Normal}(\mu_i, \sigma) \\
+\mu_i &amp;= \alpha + \beta_1 x_i + \beta_2 x_i^2 \\
+\alpha &amp;\sim \text{Normal}(178, 20) \\
+\beta_1 &amp;\sim  \text{Log-Normal}(0,1) \\
+\beta_2 &amp;\sim \text{Normal}(0,1) \\
+\sigma &amp;\sim \text{Uniform}(0, 50) 
+\end{align*}\]</span></p>
+<p>It suffices to generate samples from our priors and then plot the resulting curves:</p>
+<pre class="r"><code>N &lt;- 1000
+a &lt;- rnorm( N, 178, 20 )
+b1 &lt;- rlnorm( N, 0, 1 )
+b2 &lt;- rnorm(N, 0, 1)
+sigma &lt;- runif( N, 0, 50 )</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-38-1.png" width="480" /></p>
+<p>The curves are all over the place and it is hard to see much from it.
+The next part of the question asks to modify the priors in a way so that the prior predictions stay within the biologically reasonable space.</p>
+<p>Let’s recap some high school math.
+In the equation <span class="math inline">\(f(x) = b_2x^2\)</span>, the larger <span class="math inline">\(b_2\)</span> is, the narrower will be the parabola:
+<img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-39-1.png" width="480" />
+As a negative <span class="math inline">\(b_2\)</span> would mean a downwards curve, we want <span class="math inline">\(b_2\)</span> to be positive.
+To keep <span class="math inline">\(b_2\)</span> positive, we can use the Log-Normal again. However, the standard deviation of the Log-Normal is a bit difficult to tune. A small standard deviation means the function is less skewed (has less values that are very high) but then it also has fewer values that are very small. Whereas a high standard deviation means there are many very small values but also a few very very big values. Overall, a distribution that is a bit hard to tune.
+I instead will use an Exponential with a high value for <span class="math inline">\(\lambda\)</span>. In that case, most values will be small.</p>
+<pre class="r"><code>N &lt;- 1000
+a &lt;- rnorm( N, 178, 20 )
+b1 &lt;- rlnorm( N, 0, 1 )
+b2 &lt;- rexp(N, 20)
+sigma &lt;- runif( N, 0, 50 )</code></pre>
+<p>With these priors, the prior predictions look as follow:</p>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-41-1.png" width="480" /></p>
+<p>The new priors look more reasonable based on these curves. However, they are much more restrictive and it is hard to argue if the line should curve upwards or downwards. In the model fit in the chapter, the estimated parameter for <span class="math inline">\(b_2\)</span> is actually negative and curves downwards for high values of weight.
+To summarize, getting the priors right and interpretating the parameters for a polynomial regression is really difficult.</p>
+<p><strong>4H5.</strong> Return to <code>data(cherry_blossoms)</code> and model the association between blossom date (<code>doy</code>) and March temperature.
+You may consider a linear model, a polynomial, or a spline on temperature.
+How well does temperature trend predict the blossom trend?</p>
+<p>First, let’s plot the two variables.</p>
+<pre class="r"><code>d &lt;- cherry_blossoms
+plot( doy ~ temp, d, col=col.alpha(rangi2, 0.5), pch=20, cex=1.4,
+      ylab = &quot;Day of Year&quot;, xlab=&quot;Temperature [°C]&quot;)
+mtext(&quot;Temperature vs Day of Blossom&quot;)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-42-1.png" width="480" /></p>
+<p>It looks like there is a negative relationship between the two: the higher the temperature, the earlier in the year does it start to blossom.</p>
+<p>Since there are many missing values, I’ll restrict the data to cases where both <code>doy</code> and <code>temp</code> exist.</p>
+<pre class="r"><code>d2 &lt;- d[complete.cases(d[, c(&quot;doy&quot;, &quot;temp&quot;)]), ] %&gt;%
+  arrange(temp)</code></pre>
+<div id="linear-model" class="section level4">
+<h4>Linear Model</h4>
+<p>First, I’ll try a linear model:</p>
+<pre class="r"><code>set.seed(2020)
+mean_temp &lt;- mean(d2$temp)
+ml &lt;- quap(
+  alist(
+    D ~ dnorm( mu, sigma ),
+    mu &lt;- a + b*(temp - mean_temp),
+    a ~ dnorm( 100, 10 ),
+    b ~ dnorm( 0, 1 ),
+    sigma ~ dexp(1)
+  ), data=list(D=d2$doy, temp=d2$temp) 
+)
+precis(ml)</code></pre>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
+<th style="text-align:right;">
+5.5%
+</th>
+<th style="text-align:right;">
+94.5%
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+a
+</td>
+<td style="text-align:right;">
+104.92
+</td>
+<td style="text-align:right;">
+0.210
+</td>
+<td style="text-align:right;">
+104.58
+</td>
+<td style="text-align:right;">
+105.25
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+b
+</td>
+<td style="text-align:right;">
+-2.74
+</td>
+<td style="text-align:right;">
+0.294
+</td>
+<td style="text-align:right;">
+-3.21
+</td>
+<td style="text-align:right;">
+-2.27
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sigma
+</td>
+<td style="text-align:right;">
+5.89
+</td>
+<td style="text-align:right;">
+0.148
+</td>
+<td style="text-align:right;">
+5.65
+</td>
+<td style="text-align:right;">
+6.13
+</td>
+</tr>
+</tbody>
+</table>
+<p>Indeed, the model estimates a negative slope <span class="math inline">\(\beta\)</span>.
+Let’s plot the model:
+<img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-45-1.png" width="480" /></p>
+<p>The temperature does have some effect on the day of first blossom but note that the uncertainty is quite high.</p>
+</div>
+<div id="polynomial-model" class="section level4">
+<h4>Polynomial Model</h4>
+<p>I will try both a quadratic and a cubic model.</p>
+<pre class="r"><code>d2$temp_s &lt;- (d2$temp - mean_temp) / sd(d2$temp)
+d2$temp_s2 &lt;- d2$temp_s^2
+d2$temp_s3 &lt;- d2$temp_s^3</code></pre>
+<p>The quadratic model:</p>
+<pre class="r"><code>mquadratic &lt;- quap(
+  alist(
+    D ~ dnorm( mu, sigma ),
+    mu &lt;- a + b1*temp_s + b2*temp_s2,
+    a ~ dnorm( 100, 10 ),
+    b1 ~ dnorm( 0, 1 ),
+    b2  ~ dnorm(0, 1),
+    sigma ~ dexp(1)
+  ), data=list(D=d2$doy, temp_s=d2$temp_s, temp_s2 = d2$temp_s2) 
+)</code></pre>
+<p>And the cubic model:</p>
+<pre class="r"><code>mcubic &lt;- quap(
+  alist(
+    D ~ dnorm( mu, sigma ),
+    mu &lt;- a + b1*temp_s + b2*temp_s2 + b3*temp_s3,
+    a ~ dnorm( 100, 10 ),
+    b1 ~ dnorm( 0, 1 ),
+    b2 ~ dnorm( 0, 1 ),
+    b3 ~ dnorm( 0, 1 ),
+    sigma ~ dexp(1)
+  ), data=list(D=d2$doy, temp_s=d2$temp_s, temp_s2 = d2$temp_s2,
+               temp_s3 = d2$temp_s3) 
+)</code></pre>
+<p>And this is what the models look like:
+<img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-49-1.png" width="960" /></p>
+<p>Interestingly, the two models look pretty much the same as the linear model. So we don’t gain anything from using a polynomial model, instead we only loose interpretability:</p>
+<pre class="r"><code>precis(mcubic)</code></pre>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
+<th style="text-align:right;">
+5.5%
+</th>
+<th style="text-align:right;">
+94.5%
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+a
+</td>
+<td style="text-align:right;">
+104.930
+</td>
+<td style="text-align:right;">
+0.268
+</td>
+<td style="text-align:right;">
+104.503
+</td>
+<td style="text-align:right;">
+105.358
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+b1
+</td>
+<td style="text-align:right;">
+-1.950
+</td>
+<td style="text-align:right;">
+0.341
+</td>
+<td style="text-align:right;">
+-2.495
+</td>
+<td style="text-align:right;">
+-1.404
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+b2
+</td>
+<td style="text-align:right;">
+-0.010
+</td>
+<td style="text-align:right;">
+0.203
+</td>
+<td style="text-align:right;">
+-0.335
+</td>
+<td style="text-align:right;">
+0.314
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+b3
+</td>
+<td style="text-align:right;">
+-0.001
+</td>
+<td style="text-align:right;">
+0.105
+</td>
+<td style="text-align:right;">
+-0.169
+</td>
+<td style="text-align:right;">
+0.167
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sigma
+</td>
+<td style="text-align:right;">
+5.889
+</td>
+<td style="text-align:right;">
+0.148
+</td>
+<td style="text-align:right;">
+5.653
+</td>
+<td style="text-align:right;">
+6.125
+</td>
+</tr>
+</tbody>
+</table>
+<p>While the quadratic and cubic terms have very small parameters, almost close to 0, they still make the interpretation less forward. So in this case, nothing gained from polynomial regression.</p>
+</div>
+<div id="splines" class="section level4">
+<h4>Splines</h4>
+<p>Lastly, let’s also check out how splines perform for this example.
+I will use 15 knots and the same priors as also used in the chapter on the weight.</p>
+<pre class="r"><code>num_knots &lt;- 15
+knot_list &lt;- quantile( d2$temp, probs = seq(0, 1, length.out = num_knots ) )
+
+B &lt;- bs(d2$temp,
+        knots=knot_list[-c(1, num_knots)],
+        degree=3, intercept=TRUE)
+
+ms &lt;- quap(
+  alist(
+    D ~ dnorm( mu, sigma ),
+    mu &lt;- a + B %*% w,
+    a ~ dnorm( 100, 10 ),
+    w ~ dnorm( 0, 10 ),
+    sigma ~ dexp(1)
+  ), data=list(D=d2$doy, B=B) ,
+  start = list( w=rep( 0, ncol(B)))
+)</code></pre>
+<p>And that’s what the model looks like:</p>
+<p><img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-52-1.png" width="480" /></p>
+<p>The splines are wigglier and have one especially weird dip just for temperatures below 6°C. Personally, I am sceptical this dip makes physically sense and it isn’t just an artifact of the splines being too wiggly. Comparing the three models, in this case, I’d go with the simple linear model.</p>
+<p><strong>4H6.</strong> Simulate the prior predictive distribution for the cherry blossom spline in the chapter.
+Adjust the prior on the weights and observe what happens. What do you think the prior on the weight is doing?</p>
+<p>I will only draw 10 different samples for each weight so that the plot won’t get too cluttered.</p>
+<pre class="r"><code>num_knots &lt;- 15
+knot_list &lt;- quantile( d2$year, probs = seq(0, 1, length.out = num_knots ) )
+years &lt;- seq(from=min(d2$year), to=max(d2$year), length.out = 100)
+
+B &lt;- bs(years,
+        knots=knot_list[-c(1, num_knots)],
+        degree=3, intercept=TRUE)
+
+N &lt;- 10
+w &lt;- rnorm(N*ncol(B), 0, 10 )
+w &lt;- matrix(w, nrow=ncol(B))</code></pre>
+<p>In the top, we have again the basis functions and in the bottom we see the basis functions multiplied with weight values samples from our prior:
+<img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-55-1.png" width="960" /></p>
+<p>Compare this for example with the curves we get for our wider prior:
+<img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-56-1.png" width="960" /></p>
+<p>With this wider prior, the curve go much higher and lower. With the standard deviation of the prior we can thus control how high or low the curve can wiggle away from the mean.</p>
+<p><strong>4H7.</strong> The cherry blossom spline in the chapter used an intercept <span class="math inline">\(\alpha\)</span>, but technically it doesn’t require one. The first basis functions could substitute for the intercept.
+Try refitting the cherry blossom spline without the intercept.</p>
+<p>Let’s see what happens if we just omit the intercept:</p>
+<pre class="r"><code>num_knots &lt;- 15
+knot_list &lt;- quantile( d2$year, probs = seq(0, 1, length.out = num_knots ) )
+
+B &lt;- bs(d2$year,
+        knots=knot_list[-c(1, num_knots)],
+        degree=3, intercept=TRUE)</code></pre>
+<pre class="r"><code>set.seed(20)
+m &lt;- quap(
+  alist(
+    D ~ dnorm( mu, sigma ),
+    mu &lt;- B %*% w,    # removed intercept
+    w ~ dnorm( 0, 10 ),
+    sigma ~ dexp(10)
+  ), data=list(D=d2$doy, B=B) ,
+  start = list( w=rep( 0, ncol(B)))
+)</code></pre>
+<p>Let’s see the result:
+<img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-59-1.png" width="960" /></p>
+<p>This alsmost worked, except that we now have that the splines seem to come from far down to the left. This is probably since we specified that the weights are distributed around 0: <span class="math inline">\(w \sim \text{Normal}(0, 10)\)</span>.
+Let’s fix this by changing the prior on <span class="math inline">\(w\)</span> to this:
+$ w (100, 10)$. This is basically the prior we before had on the intercept.</p>
+<pre class="r"><code>m &lt;- quap(
+  alist(
+    D ~ dnorm( mu, sigma ),
+    mu &lt;- B %*% w,    # removed intercept
+    w ~ dnorm( 100, 10 ),
+    sigma ~ dexp(10)
+  ), data=list(D=d2$doy, B=B) ,
+  start = list( w=rep( 0, ncol(B)))
+)</code></pre>
+<p>And the result:
+<img src="/projects/Statistical-Rethinking/Chapter_4/chapter4_Ex_files/figure-html/unnamed-chunk-61-1.png" width="960" /></p>
+<p>Now, we basically got the same model as before that included the intercept.</p>
 <p><small><a href="https://github.com/corriebar/Statistical-Rethinking/blob/master/Chapter_4/chapter4_Ex.Rmd">Full code.</a><small></p>
+</div>
 </div>
 
     
