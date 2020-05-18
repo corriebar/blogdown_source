@@ -3,13 +3,54 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/tags/bayesian/</loc>
-    <lastmod>2020-05-05T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+    <loc>/2020/ai-guild-podcast-data-science-interviews/</loc>
+    <lastmod>2020-05-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/categories/</loc>
+    <lastmod>2020-05-18T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/data-science/</loc>
+    <lastmod>2020-05-18T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2020-05-18T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2020-05-18T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-05-18T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/job-interviews/</loc>
+    <lastmod>2020-05-18T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/podcast/</loc>
+    <lastmod>2020-05-18T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/bayesian/</loc>
     <lastmod>2020-05-05T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -21,12 +62,6 @@
   
   <url>
     <loc>/categories/r/</loc>
-    <lastmod>2020-05-05T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/</loc>
     <lastmod>2020-05-05T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -49,19 +84,7 @@
   </url>
   
   <url>
-    <loc>/tags/</loc>
-    <lastmod>2020-05-05T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>/tags/data-viz/</loc>
-    <lastmod>2020-04-28T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
     <lastmod>2020-04-28T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>

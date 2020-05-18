@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Corrie Bartelheimer {year}</copyright>
-    <lastBuildDate>Tue, 28 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 18 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>AI Guild Podcast: Data Science Interviews</title>
+      <link>/2020/ai-guild-podcast-data-science-interviews/</link>
+      <pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/ai-guild-podcast-data-science-interviews/</guid>
+      <description>On turning the tables during job interviews as you experience grows Some time ago, I sat down with Leyla from the AI Guild to talk about my own Data Science path but also my experience in job interviews for data positions. Recently, as I&amp;rsquo;ve been interviewing for positions, I wondered how to find out some more sensitive topics. How is the company keeping it with diversity? Is diversity important for them and do they take active measures to increase e.</description>
+    </item>
     
     <item>
       <title>Visa Costs meet Data Viz</title>
