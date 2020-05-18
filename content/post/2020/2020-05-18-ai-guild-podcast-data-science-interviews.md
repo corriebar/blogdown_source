@@ -23,6 +23,8 @@ For me, these are issues that are important to me and I want to find out what st
 
 Either way, I prefer to find out about it before signing a contract. I currently don't have a good set of questions specifically for these issues, I generally try to find out about this when asking about projects they work on. Do you have experience in asking questions regarding these issues? Or other concerns you try to check during the interview? Would love to hear your experiences and opinions!
 
+P.S: We recorded the interview quite a while ago, before the COVID-19 pandemic started. My tip about going to meetups for networking thus became a bit more challenging. If you have some good tips on how to network while all events are online, let me know!
+
 Resources for Data Science interviews mentioned in the podcast: [DS Career Resources](https://github.com/conordewey3/DS-Career-Resources).
 
-P.S: We recorded the interview quite a while ago, before the COVID-19 pandemic started. My tip about going to meetups for networking thus became a bit more challenging. If you have some good tips on how to network while all events are online, let me know!
+<small>[Original post on Medium](https://medium.com/ai-guild/ai-guild-podcast-7-on-turning-the-tables-during-jobs-interviews-as-your-experience-grows-with-5a8b1f414152)<small>
