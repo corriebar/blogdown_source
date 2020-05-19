@@ -42,7 +42,7 @@ share: yes
 <pre class="r"><code>p &lt;- d %&gt;% 
   count(source, source_continent) %&gt;%
   ggplot(aes(x = source_continent, y = n )) +
-  geom_point(aes(fill=source_continent), 
+  geom_quasirandom(aes(fill=source_continent), 
              color = &quot;white&quot;, shape = 21 ) +
   coord_flip()</code></pre>
 </div>

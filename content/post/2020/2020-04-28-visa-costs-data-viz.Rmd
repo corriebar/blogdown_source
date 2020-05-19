@@ -256,7 +256,7 @@ There's a great [blog post](https://cedricscherer.netlify.app/2019/05/17/the-evo
 p <- d %>% 
   count(source, source_continent) %>%
   ggplot(aes(x = source_continent, y = n )) +
-  geom_point(aes(fill=source_continent), 
+  geom_quasirandom(aes(fill=source_continent), 
              color = "white", shape = 21 ) +
   coord_flip()
 ```
