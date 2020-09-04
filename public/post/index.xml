@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Corrie Bartelheimer {year}</copyright>
-    <lastBuildDate>Mon, 18 May 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 04 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Animated Facebook Messages</title>
+      <link>/2020/animated-facebook-messages/</link>
+      <pubDate>Fri, 04 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/animated-facebook-messages/</guid>
+      <description>I recently downloaded my own Facebook data and wanted to find out what kind of data gems I could find. There are some clear advantages when analyzing your own data, foremost, you’re the expert and know the “ground truth” behind the data. That said, there can still be big surprises!
+In my case, the most interesting parts of the analysis could be boiled down in two graphics. Since there’s also a time factor in the data, I thought this is a good opportunity to learn about animated plots and indeed, it works quite beautifully with the two plots.</description>
+    </item>
     
     <item>
       <title>AI Guild Podcast: Data Science Interviews</title>

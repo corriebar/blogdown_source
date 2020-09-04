@@ -1,0 +1,476 @@
+---
+title: Animated Facebook Messages
+author: Corrie
+date: '2020-09-04'
+slug: animated-facebook-messages
+categories:
+  - R
+tags:
+  - Data Viz
+  - R
+  - Animation
+  - racing bar chart
+  - ggchicklet
+  - gganimate
+comments: yes
+image: images/tea_with_books.jpg
+menu: ''
+share: yes
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, error=F, 
+                      message = F,
+                      dev = "svglite")
+library(tidyverse)
+library(here)
+library(gganimate)
+library(tweenr)
+library(ggchicklet)
+library(patchwork)
+library(animation)
+library(knitr)
+kable <- function(data, ...) {
+   knitr::kable(data, format = "html", digits=3, ...) %>% 
+    kableExtra::kable_styling(bootstrap_options = "striped", full_width = F, position = "center")
+}
+knit_print.data.frame <- function(x, ...) {
+  res <- paste(c("", "", kable(x)), collapse = "\n")
+  asis_output(res)
+}
+registerS3method("knit_print", "data.frame", knit_print.data.frame)
+registerS3method("knit_print", "tibble", knit_print.data.frame)
+
+
+# color scale adapted from https://github.com/johannesbjork/LaCroixColoR PeachPear
+scale_colour_discrete <- function(...)
+  scale_colour_manual(..., values = c("Berlin" = "#FF3200",
+                                    "Dancing" = "#E9A17C",
+                                    "Exchange & Travel" = "#f4ef9f",
+                                    "Home Town" = "#1BB6AF",
+                                    "Penpal & Tandem\npartners" = "#0076BB",
+                                    "University" = "#172869"), name = "", drop = F)
+
+scale_fill_discrete <- function(...)
+  scale_fill_manual(..., values = c("Berlin" = "#FF3200",
+                                    "Dancing" = "#E9A17C",
+                                    "Exchange & Travel" = "#f4ef9f",
+                                    "Home Town" = "#1BB6AF",
+                                    "Penpal & Tandem\npartners" = "#0076BB",
+                                    "University" = "#172869"), name = "", drop = F)
+
+bgcolor <- "#d3e4ea"
+
+theme_set( theme_gray() +
+             theme(
+                text = element_text(family = "Lato", size=16, colour = "grey30"),
+                plot.title = element_text(family = "Lobster Two", size=32, color="grey15", margin=margin(b=10)),
+                plot.caption = element_text(size=14, color="grey40", margin = margin(10, 0, 0, 0) ),
+                panel.background = element_rect(fill=bgcolor, colour=bgcolor),
+                plot.background = element_rect(fill=bgcolor, colour=bgcolor),
+                legend.position = "bottom",
+                legend.text.align = 0.5,
+                legend.text = element_text(size=14),
+                legend.background = element_rect(fill = bgcolor, colour = bgcolor),
+                legend.key = element_rect(fill = bgcolor),
+                strip.background = element_blank(),
+                plot.margin = margin(1,1,1,2,"cm"),
+                axis.ticks = element_blank() 
+                ) 
+           )
+
+
+source(here::here("scripts/read_facebook.R"))
+Sys.setlocale("LC_TIME", "en_US.UTF-8")
+```
+
+I recently [downloaded my own Facebook data](https://www.facebook.com/help/212802592074644) and wanted to find out what kind of data gems I could find. There are some clear advantages when analyzing your own data, foremost, you're the expert and know the "ground truth" behind the data. That said, there can still be big surprises! 
+
+In my case, the most interesting parts of the analysis could be boiled down in two graphics. Since there's also a time factor in the data, I thought this is a good opportunity to learn about animated plots and indeed, it works quite beautifully with the two plots. In this post, I'll outline how to make two animated plot, a [racing bar chart](https://michaeltoth.me/how-to-create-a-bar-chart-race-in-r-mapping-united-states-city-population-1790-2010.html), and a moving line plot. As a cherry on top, I also show how to combine the two animations!
+
+## Some data prep
+For this analysis, I only concentrated on the messenger data which can be found in the folder `messages`. The folder contains some further folders for message requests, stickers etc but the important one is the `inbox` folder containing the messages itself. For each conversation, there is at least one folder. If you ever sent media such as pictures, then there will be two folders, one for the message JSON and one for the media files. The message folder always starts with a lowercase-letter. Unfortunately, Facebook doesn't use [proper JSON encoding](https://stackoverflow.com/questions/50008296/facebook-json-badly-encoded) which makes it quite a hassle to load the data without any decoding errors. For this analysis, I'm actually only using the aggregated messages so I simply ignored any decoding mistakes in the text. I wrote a few functions that load all the data (using a lot of `{{purr}}`) and result in a data frame with the number of messages per chat and per (active) chat participant, per day:
+
+
+```{r, results='hide'}
+library(tidyverse)
+data_path <- "data/facebook-corrieaar"
+# script with functions can be found ###link
+d <- read_all_messages(data_path)
+```
+
+```{r, echo=F}
+d %>% 
+  filter(str_starts(chatname, "facebook")) %>%
+  select(chatname, day, sender_name, num_messages) %>%
+  head(3)
+```
+
+Normally, the chatname consists of the name of the Facebook friend but if they at some point deleted their account, it is replaced by the anonymous "Facebook User". You can still read the messages though, meaning, if you've deleted your Facebook data at some point, your conversations remain with Facebook.
+
+
+## Mirror, Mirror on the Wall Who Writes the Most
+The first plot I wanted to do is a ranking with which friend I exchange most messages. Since this certainly changes over time, this data perfectly lends itself for a racing bar chart.
+
+For this, we'll need to compute the total number of messages for each chat at any given time and check if at that time, the chat was among the top ten. 
+However, if we naively compute the messages per month, there will be some months where I didn't chat at all with a friend and thus there is no data point for this month. So I add a zero-message data point for missing months. For this, I generate a grid that for each chatpartner includes one row for each month which I then join to the message data set.
+```{r}
+first_month <- as.Date(min(d$day)) %>% floor_date(unit="month")
+last_month <- as.Date(max(d$day)) %>% floor_date(unit="month")
+all_months <- expand_grid(
+  month=seq.Date(from=first_month, to=last_month, 
+                                         by="month"),
+  chatname = d$chatname %>% unique
+  ) 
+```
+
+I use a monthly time step, so I first compute the number of messages per chat per month and then the cumulative sum for each chat and month:
+```{r}
+dcs <- d %>%
+  mutate(month = floor_date(day, unit="month") %>% as_date() ) %>%
+  select(month, chatname, num_messages) %>%
+  # full_join introduces NA values for num_message at missing time points
+  full_join(all_months, by=c("month", "chatname")) %>%
+  group_by(chatname, month) %>% 
+  # the sum of NA values is 0
+  summarise(num_messages = sum(num_messages, na.rm = T),
+            .groups = "drop_last") %>%
+  arrange(month) %>%
+  mutate(cs_messages = cumsum(num_messages)) %>% 
+  ungroup()
+```
+
+Next, we compute the ranks for each month:
+```{r}
+dcs <- dcs %>%
+  group_by(month) %>%
+  arrange(-cs_messages) %>%
+  mutate(rank = row_number()) %>%
+  ungroup()  
+```
+
+
+```{r, echo=F, message=F}
+friends <- read_csv(here::here("data/facebook-corrieaar/friends.csv")) 
+dcs <- dcs %>%
+  left_join(friends, by="chatname") %>%
+  filter(friend_cat != "Sales_Shop") %>%
+  mutate(friend_cat = as.factor(friend_cat)) %>%
+  replace_na(list(anon_label = "")) %>%
+  filter( month >= "2011-01-01" ) 
+```
+
+Now we restrict the data to include only chatpartners that, at any given time, were in the top 10:
+```{r}
+dcs_filtered <- dcs %>%
+  filter( rank <= 10  )
+```
+
+All other tutorials I found on racing bar charts in R use either `geom_bar()` or `geom_tile()`. However, I wasn't too happy with the hard corners and wanted to go for a rounder look, so I decided to use chicklets instead from the package `{{ggchicklet}}`. It works almost the same as `geom_bar()` but isn't as flexible with switching the `x` and `y` aesthetics so it is necessary to use it with `coord_flip()`. I manually added some friend categories to color the bars roughly by when and where I met the chatpartner.
+```{r, echo=F}
+plot_styling <-   list(
+  scale_y_continuous("Total Number of Messages", labels=scales::comma,
+                     limits = c(0, max(dcs$cs_messages)*1.14),
+                     expand = expansion(add = c(30, 0))),
+  labs(title="Top 10 Chat Partners",
+       x = "",
+       caption = "Source: Private Facebook Data\ncorriebartelheimer.com | @corrieaar"),
+  guides(
+    fill = guide_legend(nrow = 1,
+                        override.aes = list(size = 1))
+  ),
+  theme(panel.grid.minor.x=element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.text.y=element_blank(),
+        axis.title.x = element_text(margin = margin(t=20))) )
+```
+
+```{r}
+library(ggchicklet)
+
+p <- dcs_filtered %>%
+  ggplot(aes(y=cs_messages, x=-rank, group=chatname,
+             fill=friend_cat)) +
+  geom_chicklet( width=0.8, radius=unit(7, "pt"),
+           position = "identity")    +
+  coord_flip() +
+  geom_text(aes(label = anon_label), family="Lato",
+                  hjust = "left", colour = "grey30", 
+                  nudge_y = +100, size = 5)  +
+  geom_text(y=15000, x=-7.5,
+            aes(label=as.character(year(month))),
+            family="Lobster Two", size=30, color="grey30") +
+  plot_styling # full styling code on github
+```
+
+If you prefer bars instead of chicklets, simply replace `geom_chicklet()` in the code above with `geom_bar(stat = "identity")`.
+
+To animate the plot, we add the following commands from `{{gganimate}}`:
+```{r racing-bar-chart, fig.height=7, fig.width=10, eval=F}
+library(gganimate)
+
+p_anim <- p +
+  transition_time(month) +
+  ease_aes('linear') 
+p_anim
+```
+```{r, echo=F, message=F}
+p_anim <- p +
+  transition_time(month) +
+  ease_aes('linear') 
+width <- 12
+height <- 8
+res <- 70
+width_px <- width*res
+height_px <- height*res
+anim_save(here::here("static/post/2020/2020-09-04-animated-facebook-messages_files/race1.gif"), 
+          animation = p_anim, dev="png", width=width, height=height, units = "in", res = res )
+```
+
+![](/post/2020/2020-09-04-animated-facebook-messages_files/race1.gif)
+
+Voilà, a racing chicklet chart! `r emo::ji("tada")` I added anonymous labels to some of my most important chat partners so you can follow the story of the chart.
+
+## Getting a Smoother Look
+
+This is already looking not too bad but it isn't looking very smooth and we also don't have any control about the speed of the animation. It is possible to get a slightly smoother look by playing around with the parameters of how many frames per seconds `fps` and how many frames `nframes` should be computed in total. Note that the more frames you compute, the longer it takes. So during the creation of the animation, I recommend to use a small number for faster development iterations.
+```{r, results='hide', eval=F}
+duration <- 30  # in seconds
+fps <- 10
+nframes <- duration*fps
+
+animate(p_anim, 
+            nframes = nframes,
+            fps = fps, 
+            width = 1100, height = 700,
+            end_pause = 15)
+anim_save("race.gif") 
+```
+```{r, echo=F}
+duration <- 35
+fps <- 10
+nframes <- duration*fps
+```
+
+However, this only helps to a certain degree. The rank variable that determines the vertical position of a bar is an integer, meaning if a bar increases in rank, it simply swaps position with the bar above. To get a much smoother look, we can use the package `{{tweenr}}`. It interpolates values for both rank and the number of messages between two time points.
+
+The package can be used as follows:
+
+```{r tween_chunk}
+tween_dcs <- dcs %>%
+  select(chatname, month, cs_messages, rank) %>% 
+  mutate(ease = "linear", 
+         # tween_elements() doesn't work with date objects
+         month = as.integer(month)) %>% 
+  tween_elements(., time="month", group="chatname", ease="ease", 
+                 timerange = range(dcs$month %>% as.integer),
+                 nframes = nframes ) %>%
+  select(month, cs_messages, rank, .frame, chatname = .group) %>%
+  mutate(month = as_date(month)) %>%
+  filter( rank <= 10 )
+```
+
+The magic happens in the function `tween_elements()` where we specify which column holds the time variable (`month`), which one the group (`chatname`) and which column specifies the easing to be used. I'm using the same easing function for each group but technically one could specify different easings for the different groups.
+
+```{r, echo=F}
+tween_dcs <- tween_dcs %>%
+  left_join(friends, by="chatname") %>%
+  mutate(friend_cat = as.factor(friend_cat)) %>%
+  replace_na(list(anon_label = ""))
+```
+
+Since we're using the same plot as before and are just changing the data, we can use some ggplot magic by simply [adding the new data](https://ggplot2.tidyverse.org/reference/gg-add.html) to the plot:
+```{r, eval=F}
+p_anim %+% tween_dcs
+```
+
+
+```{r, echo=F, cache = T}
+anim_save(here::here("static/post/2020/2020-09-04-animated-facebook-messages_files/race_smooth3.gif"), 
+          animation = p_anim %+% tween_dcs, 
+          nframes = nframes,
+          fps = fps,
+          end_pause = 15,
+          dev="png", width=width, height=height, units = "in", res = res)
+```
+![](/post/2020/2020-09-04-animated-facebook-messages_files/race_smooth.gif)
+
+This trick is also useful when you want to get a static version of the plot without overplotting all time points:
+```{r static-barchart, fig.height=7, fig.width=10, eval=F}
+p %+% (tween_dcs %>% filter(month == "2020-01-01"))
+```
+```{r, echo=F}
+ggsave(here::here("static/post/2020/2020-09-04-animated-facebook-messages_files/static-barchart.png"), 
+       plot = p %+% ( tween_dcs %>% filter(month == "2020-01-01")), 
+       device = png() , width = width, height = height, units = "in", dpi = res)
+
+```
+
+![Static version of the racing bar chart](/post/2020/2020-09-04-animated-facebook-messages_files/static-barchart.png)
+I find it quite nice to see how different times of my life are reflected in the chart: In the beginning, I mostly chat with friends and family from my home town. Slowly, some new friends appear when I start university and then more friends I met during my exchange year. I started some new hobbies such as dancing and learning Portuguese in a way "diversifying" my friends. You can probably also guess from the plot when I met my partner.
+There were some surprises as well. For example, one of my best friends doesn't even appear in the top ten. We never used Facebook that much and either chatted on WhatsApp or went straight for a call. Other people that appeared in the top ten, I didn't even recognize at first: When I started studying Portuguese, I made some penpal friends to practice the language. We must have chatted quite a lot back then but we never managed to meet. Similarly with the second place, I was completely surprised. I met the person at a random event in Berlin, we hang out a few times but even though we were never really close, apparently we chatted a lot back then. 
+
+## Following the Time Line
+
+Parts of this story comes out better if we concentrate on the time line of the different friend categories instead of focusing on single chatpartners. Making an animated time line plot is actually easier than a racing bar chart. Let me walk you through the steps.
+
+As before, we aggregate the data again, only this time we aggregate by friend category and month (actually, I'm using every two month because the resulting plot looks smoother). Also, instead of the cumulative sum, we use a simple sum per month.
+```{r}
+dns <- dcs %>%
+  mutate(month = floor_date(month, unit="2 months")  ) %>%
+  select(month, friend_cat, num_messages) %>%
+  group_by(friend_cat, month) %>% 
+  summarise(num_messages = sum(num_messages, na.rm = T),
+            .groups = "drop") %>%
+  filter(month >= "2011-01-01" & num_messages != 0)
+```
+
+As before, we use the the `{{tweenr}}` package again to obtain a smoother look:
+```{r}
+tween_dns <- dns %>%
+  mutate(ease = "linear", month = as.integer(month)) %>% 
+  tween_elements(., time="month", group="friend_cat", ease="ease", 
+                 timerange = range(dns$month %>% as.integer),
+                 nframes = nframes ) %>%
+  select(month, num_messages, .frame, friend_cat = .group) %>%
+  mutate(month = as_date(month)) 
+```
+
+```{r, echo=F}
+line_styling <- list(guides(
+    color = guide_legend(nrow = 1, override.aes = list(size=2))
+  ),
+  scale_x_date(),
+  scale_y_continuous(),
+  labs(title= "Messages over Time",
+       x = "",
+       y = "Number of Messages",
+       caption = "Source: Private Facebook Data\ncorriebartelheimer.com | @corrieaar") ,
+  theme(panel.grid.minor.y=element_blank(),
+        panel.grid.minor.x=element_blank(),
+        panel.grid.major.x = element_blank(),
+        axis.title.y = element_text(margin = margin(r=20))) )
+```
+
+The basic code for the plot is only two lines:
+```{r}
+p_line <- tween_dns %>%
+  ggplot(aes(x=month, y=num_messages,  color=friend_cat)) +
+  geom_line(size=1.3) +
+  line_styling # full styling code on github
+```
+
+The advantage with this plot is that if we want to obtain a static version of it, we don't have to restrict the data we feed in:
+```{r, eval=F}
+p_line
+```
+```{r, echo=F}
+ggsave(here::here("static/post/2020/2020-09-04-animated-facebook-messages_files/static-linechart.png"), 
+       plot = p_line, 
+       device = png() , width = width, height = height, units = "in", dpi = res)
+```
+![](/post/2020/2020-09-04-animated-facebook-messages_files/static-linechart.png)
+
+That's because the plot itself doesn't change over time (like it did with the ranking) but rather more data is added, or revealed over time. So to animate it, we use `transition_reveal()`. The function `view_follow()` means that we use a dynamic `x` axis to follow the data.
+```{r, eval=F}
+p_line +
+  view_follow(fixed_y = TRUE) +
+  transition_reveal(month) +
+  ease_aes('linear')
+```
+
+```{r, echo=F}
+pl_anim <- p_line +
+  view_follow(fixed_y = TRUE) +
+  transition_reveal(month) +
+  ease_aes('linear')
+
+anim_save(here::here("static/post/2020/2020-09-04-animated-facebook-messages_files/anim-linechart.gif"), 
+          animation = pl_anim, 
+          nframes = nframes,
+          fps = 10,
+          end_pause = 15,
+          dev="png", width=width, height=height, units = "in", res = res)
+```
+![](/post/2020/2020-09-04-animated-facebook-messages_files/anim-linechart.gif)
+
+## Composing the Big Picture
+Now you might wonder, could we put both animations into one big animation? Well yes, but unfortunately not with `{{gganimate}}`. What we can do instead is to manually recreate what `{{gganimate}}` does under the hood: We iterate over each frame (as computed by `{{tweenr}}`) and save it as `.png` file. This gives you a flip book of your chart. I then used [ImageMagick](http://www.imagemagick.org/Usage/anim_basics/) to create the `.gif`. It is possible to also generate the animation this way using R (e.g. with [`{{animation}}`](https://mikeyharper.uk/animated-plots-with-r/)) but my RStudio crashed every time I tried (it's quite memory and computing intensive!) so I instead did it the manual way.
+```{r, echo=F}
+plot_styling <-   list(
+  scale_y_continuous("Total Number of Messages", labels=scales::comma,
+                     limits = c(0, max(dcs$cs_messages)*1.14),
+                     expand = expansion(add = c(30, 0))),
+  labs(title="Top 10 Chat Partners",
+       x = ""),
+  guides(
+    fill = guide_legend(nrow = 1,
+                        override.aes = list(size = 1))
+  ),
+  theme(panel.grid.minor.x=element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.text.y=element_blank(),
+        axis.title.x = element_text(margin = margin(t=20))) )
+
+p <- dcs_filtered %>%
+  ggplot(aes(y=cs_messages, x=-rank, group=chatname,
+             fill=friend_cat)) +
+  geom_chicklet( width=0.8, radius=unit(7, "pt"),
+           position = "identity")    +
+  coord_flip() +
+  geom_text(aes(label = anon_label), family="Lato",
+                  hjust = "left", colour = "grey30", 
+                  nudge_y = +100, size = 5.5)  +
+  geom_text(y=15000, x=-7.5,
+            aes(label=as.character(year(month))),
+            family="Lobster Two", size=34, color="grey30") +
+  plot_styling # full styling code on github
+
+p_line <- p_line + 
+  labs(caption = "") +
+  theme(legend.position = "none")
+caption = "Source: Private Facebook Data\ncorriebartelheimer.com | @corrieaar"
+folder_path <- "data/facebook-corrieaar/comp_gif/"
+comp_styling <- theme(plot.margin = margin(t=30, r=40, b=10, l=15),
+                      plot.title = element_text(family = "Lobster Two", size=34, color="grey15", margin=margin(b=10)), 
+                      text = element_text(family = "Lato", size=18, colour = "grey30"),
+                      axis.text = element_text(size = 16),
+                      legend.text = element_text(size = 16),
+                plot.caption = element_text(size=16, color="grey40", margin = margin(10, 0, 10, 0) )) 
+```
+
+I used [`{{patchwork}}`](https://patchwork.data-imaginist.com/) to combine the two plots (if you don't know the package yet, I recommend to go check it out, it's great!).
+Now let's generate the flip book:
+```{r, eval=F, fig.height=10}
+library(patchwork)
+
+# fix axes limits
+p_line <- p_line + scale_y_continuous(limits = c(1, 4098))
+p <- p + scale_x_continuous("", limits = c(-10.4, -0.6))
+
+# generate flip book
+for (i in 0:nframes) {
+  composition <- ( p %+% (tween_dcs %>% filter(.frame == i)) + 
+                     p_line %+% (tween_dns %>% filter(.frame <= i) ) + 
+                    plot_layout(nrow=2, guides = "collect") 
+                   ) +
+                plot_annotation(caption = caption) &
+                comp_styling # full styling code on github
+  
+  composition +
+  ggsave(here::here(paste0(folder_path, "composition-", str_pad(i,3, pad = "0"), ".png") ),
+         width = 12, height = 15, dpi = 50  )
+
+}
+```
+
+Afterwards (it takes a while to generate all images), I execute the following command in my bash in the folder with the images:
+```{bash, eval=FALSE}
+convert -delay 10 -loop 0 composition-*.png comp.gif
+```
+
+The loop option signifies how many times the `.gif` should loop around, 0 means that it loops indefinitely. The `delay` option gives in microseconds how long to wait until the next frame. One second has 100 microseconds so a delay of 10 should gives us 10 frames per seconds (consistent with the settings above).
+
+And voilà, here is the final animated plot:
+![](/post/2020/2020-09-04-animated-facebook-messages_files/comp.gif)

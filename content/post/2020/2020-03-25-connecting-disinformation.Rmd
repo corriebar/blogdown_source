@@ -18,7 +18,7 @@ share: yes
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, error=F, warning = F, message = F)
 library(tidyverse)
 library(tidygraph)
 library(ggraph)
@@ -254,7 +254,7 @@ org_edges %>%
     kableExtra::kable_styling(bootstrap_options = "striped")
 ```
 
-Each row in this data frame represents one edge between two organizations (that is, organizations that use the same ID). Notice that can be multiple edges between two organizations. This happens when they share IDs of different type, e.g. the same Google Analytics ID as well as the same Facebook Pixel ID.
+Each row in this data frame represents one edge between two organizations (that is, organizations that use the same ID). Notice that there can be multiple edges between two organizations. This happens when they share IDs of different type, e.g. the same Google Analytics ID as well as the same Facebook Pixel ID.
 
 ## Making the graph
 Last time I was working with graphs in R was for my master thesis and back then I was extensively using the package [`igrah`](https://igraph.org/r/). It is very comprehensive but getting the knack of it takes some time. While plotting is straight-forward, it is not as easy to get nice looking plots and one needs to do quite a bit of manual tweaking for features such as coloring by a category (at least last time I checked). Also, it uses base plot which I personally find more difficult to modify to my needs.
@@ -414,5 +414,4 @@ forceNetwork(Links = as.data.frame(edges_d3), Nodes = as.data.frame(nodes_d3),
 
 
 
-
-The full code for this post can be found [here](https://github.com/corriebar/blogdown_source/blob/master/content/post/2020/2020-03-25-connecting-disinformation.Rmd).
+<small>[Full code.](https://github.com/corriebar/blogdown_source/blob/master/content/post/2020/2020-03-25-connecting-disinformation.Rmd)<small>

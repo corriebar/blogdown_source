@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    
+    
+        
+            
+            <meta name="twitter:card" content="summary_large_image"/>
+            <meta name="twitter:image" content="/images/tea_with_books.jpg"/>
+        
+    
+
+
+
+<meta name="twitter:title" content="Animated Facebook Messages"/>
+<meta name="twitter:description" content=""/>
+<meta name="twitter:site" content="@corrieaar"/>
+
+
+
+  	<meta property="og:title" content="Animated Facebook Messages &middot; Samples of Thoughts" />
+  	<meta property="og:site_name" content="Samples of Thoughts" />
+  	<meta property="og:url" content="/2020/animated-facebook-messages/" />
+
+    
+        
+            <meta property="og:image" content="/images/tea_with_books.jpg"/>
+        
+    
+    
+    <meta property="og:description" content="" />
+  	<meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2020-09-04T00:00:00Z" />
+
+    
+    <meta property="article:tag" content="Data Viz" />
+    
+    <meta property="article:tag" content="R" />
+    
+    <meta property="article:tag" content="Animation" />
+    
+    <meta property="article:tag" content="racing bar chart" />
+    
+    <meta property="article:tag" content="ggchicklet" />
+    
+    <meta property="article:tag" content="gganimate" />
+    
+    
+
+    <title>Animated Facebook Messages &middot; Samples of Thoughts</title>
+
+    
+    <meta name="description" content="I recently downloaded my own Facebook data and wanted to find out what kind of data gems I could find. There are some clear advantages when analyzing your own d" />
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/css/nav.css" />
+
+    
+    
+    
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/googlecode.min.css' rel='stylesheet' type='text/css' />
+
+
+
+  
+     
+      
+          <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Samples of Thoughts" />
+      
+      
+    
+    <meta name="generator" content="Hugo 0.55.5" />
+
+    <link rel="canonical" href="/2020/animated-facebook-messages/" />
+
+    
+      
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name":  null 
+    },
+    "author": {
+        "@type": "Person",
+        "name":  null ,
+        
+        "url":  null ,
+        "sameAs": [
+            
+            
+             
+             
+             
+             
+             
+            
+        ]
+    },
+    "headline": "Animated Facebook Messages",
+    "name": "Animated Facebook Messages",
+    "wordCount":  2047 ,
+    "timeRequired": "PT10M",
+    "inLanguage": {
+      "@type": "Language",
+      "alternateName": "en"
+    },
+    "url": "/2020/animated-facebook-messages/",
+    "datePublished": "2020-09-04T00:00Z",
+    "dateModified": "2020-09-04T00:00Z",
+    
+    "image": {
+        "@type": "ImageObject",
+        "url": "/images/tea_with_books.jpg",
+        "width": 3000,
+        "height": 1445
+    },
+    
+    "keywords": "Data Viz, R, Animation, racing bar chart, ggchicklet, gganimate",
+    "description": "",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/2020/animated-facebook-messages/"
+    }
+}
+    </script>
+    
+
+
+    
+
+    
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140745376-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+
+    
+    
+    
+
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+<script>
+  window.addEventListener("load", function(){
+    window.cookieconsent.initialise({
+      "palette": {
+        "popup": {
+          "background": "#40485A",
+          "text": "#ffffff"
+        },
+        "button": {
+          "background": "#5B5A68",
+          "text": "#ffffff"
+        }
+      },
+      "content": {
+        "message": "This website uses cookies to ensure you get the best experience on my website.",
+        "dismiss": "Got it!",
+        "link": "Learn more",
+        "href": "https://cookies.insites.com"
+      }
+    })});
+</script>
+
+
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/projects">Projects</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/talks">Talks</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/about">About</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/">Home</a>
+            </li>
+        
+        
+    </ul>
+
+    
+    <a class="subscribe-button icon-feed" href="/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+  
+ <header class="main-header post-head" style="background-image: url(/images/tea_with_books.jpg)"> 
+  
+  <nav class="main-nav overlay clearfix">
+
+
+
+      <ul>
+        
+			<li> <a class="blog-logo" href="/">Home</a> </li>
+			  
+			<li> <a class="blog-logo" href="/about">About</a> </li>
+			  
+			<li> <a class="blog-logo" href="/talks">Talks</a> </li>
+			  
+			<li> <a class="blog-logo" href="/projects">Projects</a> </li>
+			  
+
+            
+              <a class="menu-button icon-feed" href="">&nbsp;&nbsp;Subscribe</a>
+            
+            
+      
+       </ul>
+    </nav>
+    
+     <div class="vertical">
+        <div class="main-header-content inner">
+            
+
+
+    <a class="bloglogo" href="https://github.com/corriebar" target="_blank">
+    <span class="icon-github" style="color:white;font-size:2em"></span>
+    </a>
+&nbsp;
+
+
+
+
+
+
+
+
+
+    <a class="bloglogo" href="https://twitter.com/corrieaar" target="_blank">
+        <span class="icon-twitter" style="color:white;font-size:2em"></span>
+    </a>
+&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <h1 class="page-title">Samples of Thoughts</h1>
+            <h2 class="page-description">about data, statistics  and everything in between</h2>
+        </div>
+    </div>  
+    
+
+
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post post">
+
+    <header class="post-header">
+        <h1 class="post-title">Animated Facebook Messages</h1>
+        <small></small>
+
+        <section class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 10 min</span>
+            </p>
+        
+        
+          <time class="post-date" datetime="2020-09-04T00:00:00Z">
+            Sep 4, 2020
+          </time>
+        
+        
+         
+          <span class="post-tag small"><a href="/tags/data-viz/">#Data Viz</a></span>
+         
+          <span class="post-tag small"><a href="/tags/r/">#R</a></span>
+         
+          <span class="post-tag small"><a href="/tags/animation/">#Animation</a></span>
+         
+          <span class="post-tag small"><a href="/tags/racing-bar-chart/">#racing bar chart</a></span>
+         
+          <span class="post-tag small"><a href="/tags/ggchicklet/">#ggchicklet</a></span>
+         
+          <span class="post-tag small"><a href="/tags/gganimate/">#gganimate</a></span>
+         
+        </section>
+    </header>
+
+    <section class="post-content">
+      
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<p>I recently <a href="https://www.facebook.com/help/212802592074644">downloaded my own Facebook data</a> and wanted to find out what kind of data gems I could find. There are some clear advantages when analyzing your own data, foremost, you’re the expert and know the “ground truth” behind the data. That said, there can still be big surprises!</p>
+<p>In my case, the most interesting parts of the analysis could be boiled down in two graphics. Since there’s also a time factor in the data, I thought this is a good opportunity to learn about animated plots and indeed, it works quite beautifully with the two plots. In this post, I’ll outline how to make two animated plot, a <a href="https://michaeltoth.me/how-to-create-a-bar-chart-race-in-r-mapping-united-states-city-population-1790-2010.html">racing bar chart</a>, and a moving line plot. As a cherry on top, I also show how to combine the two animations!</p>
+<div id="some-data-prep" class="section level2">
+<h2>Some data prep</h2>
+<p>For this analysis, I only concentrated on the messenger data which can be found in the folder <code>messages</code>. The folder contains some further folders for message requests, stickers etc but the important one is the <code>inbox</code> folder containing the messages itself. For each conversation, there is at least one folder. If you ever sent media such as pictures, then there will be two folders, one for the message JSON and one for the media files. The message folder always starts with a lowercase-letter. Unfortunately, Facebook doesn’t use <a href="https://stackoverflow.com/questions/50008296/facebook-json-badly-encoded">proper JSON encoding</a> which makes it quite a hassle to load the data without any decoding errors. For this analysis, I’m actually only using the aggregated messages so I simply ignored any decoding mistakes in the text. I wrote a few functions that load all the data (using a lot of <code>{{purr}}</code>) and result in a data frame with the number of messages per chat and per (active) chat participant, per day:</p>
+<pre class="r"><code>library(tidyverse)
+data_path &lt;- &quot;data/facebook-corrieaar&quot;
+# script with functions can be found ###link
+d &lt;- read_all_messages(data_path)</code></pre>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+chatname
+</th>
+<th style="text-align:left;">
+day
+</th>
+<th style="text-align:left;">
+sender_name
+</th>
+<th style="text-align:right;">
+num_messages
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+facebookuser_-5urgcq3-w
+</td>
+<td style="text-align:left;">
+2011-02-24
+</td>
+<td style="text-align:left;">
+Facebook User
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+facebookuser_0_mgnzvrba
+</td>
+<td style="text-align:left;">
+2015-07-09
+</td>
+<td style="text-align:left;">
+Facebook User
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+facebookuser_0_mgnzvrba
+</td>
+<td style="text-align:left;">
+2015-07-09
+</td>
+<td style="text-align:left;">
+Corrie Bartelheimer
+</td>
+<td style="text-align:right;">
+19
+</td>
+</tr>
+</tbody>
+</table>
+<p>Normally, the chatname consists of the name of the Facebook friend but if they at some point deleted their account, it is replaced by the anonymous “Facebook User”. You can still read the messages though, meaning, if you’ve deleted your Facebook data at some point, your conversations remain with Facebook.</p>
+</div>
+<div id="mirror-mirror-on-the-wall-who-writes-the-most" class="section level2">
+<h2>Mirror, Mirror on the Wall Who Writes the Most</h2>
+<p>The first plot I wanted to do is a ranking with which friend I exchange most messages. Since this certainly changes over time, this data perfectly lends itself for a racing bar chart.</p>
+<p>For this, we’ll need to compute the total number of messages for each chat at any given time and check if at that time, the chat was among the top ten.
+However, if we naively compute the messages per month, there will be some months where I didn’t chat at all with a friend and thus there is no data point for this month. So I add a zero-message data point for missing months. For this, I generate a grid that for each chatpartner includes one row for each month which I then join to the message data set.</p>
+<pre class="r"><code>first_month &lt;- as.Date(min(d$day)) %&gt;% floor_date(unit=&quot;month&quot;)
+last_month &lt;- as.Date(max(d$day)) %&gt;% floor_date(unit=&quot;month&quot;)
+all_months &lt;- expand_grid(
+  month=seq.Date(from=first_month, to=last_month, 
+                                         by=&quot;month&quot;),
+  chatname = d$chatname %&gt;% unique
+  ) </code></pre>
+<p>I use a monthly time step, so I first compute the number of messages per chat per month and then the cumulative sum for each chat and month:</p>
+<pre class="r"><code>dcs &lt;- d %&gt;%
+  mutate(month = floor_date(day, unit=&quot;month&quot;) %&gt;% as_date() ) %&gt;%
+  select(month, chatname, num_messages) %&gt;%
+  # full_join introduces NA values for num_message at missing time points
+  full_join(all_months, by=c(&quot;month&quot;, &quot;chatname&quot;)) %&gt;%
+  group_by(chatname, month) %&gt;% 
+  # the sum of NA values is 0
+  summarise(num_messages = sum(num_messages, na.rm = T),
+            .groups = &quot;drop_last&quot;) %&gt;%
+  arrange(month) %&gt;%
+  mutate(cs_messages = cumsum(num_messages)) %&gt;% 
+  ungroup()</code></pre>
+<p>Next, we compute the ranks for each month:</p>
+<pre class="r"><code>dcs &lt;- dcs %&gt;%
+  group_by(month) %&gt;%
+  arrange(-cs_messages) %&gt;%
+  mutate(rank = row_number()) %&gt;%
+  ungroup()  </code></pre>
+<p>Now we restrict the data to include only chatpartners that, at any given time, were in the top 10:</p>
+<pre class="r"><code>dcs_filtered &lt;- dcs %&gt;%
+  filter( rank &lt;= 10  )</code></pre>
+<p>All other tutorials I found on racing bar charts in R use either <code>geom_bar()</code> or <code>geom_tile()</code>. However, I wasn’t too happy with the hard corners and wanted to go for a rounder look, so I decided to use chicklets instead from the package <code>{{ggchicklet}}</code>. It works almost the same as <code>geom_bar()</code> but isn’t as flexible with switching the <code>x</code> and <code>y</code> aesthetics so it is necessary to use it with <code>coord_flip()</code>. I manually added some friend categories to color the bars roughly by when and where I met the chatpartner.</p>
+<pre class="r"><code>library(ggchicklet)
+
+p &lt;- dcs_filtered %&gt;%
+  ggplot(aes(y=cs_messages, x=-rank, group=chatname,
+             fill=friend_cat)) +
+  geom_chicklet( width=0.8, radius=unit(7, &quot;pt&quot;),
+           position = &quot;identity&quot;)    +
+  coord_flip() +
+  geom_text(aes(label = anon_label), family=&quot;Lato&quot;,
+                  hjust = &quot;left&quot;, colour = &quot;grey30&quot;, 
+                  nudge_y = +100, size = 5)  +
+  geom_text(y=15000, x=-7.5,
+            aes(label=as.character(year(month))),
+            family=&quot;Lobster Two&quot;, size=30, color=&quot;grey30&quot;) +
+  plot_styling # full styling code on github</code></pre>
+<p>If you prefer bars instead of chicklets, simply replace <code>geom_chicklet()</code> in the code above with <code>geom_bar(stat = "identity")</code>.</p>
+<p>To animate the plot, we add the following commands from <code>{{gganimate}}</code>:</p>
+<pre class="r"><code>library(gganimate)
+
+p_anim &lt;- p +
+  transition_time(month) +
+  ease_aes(&#39;linear&#39;) 
+p_anim</code></pre>
+<p><img src="/post/2020/2020-09-04-animated-facebook-messages_files/race1.gif" /></p>
+<p>Voilà, a racing chicklet chart! 🎉 I added anonymous labels to some of my most important chat partners so you can follow the story of the chart.</p>
+</div>
+<div id="getting-a-smoother-look" class="section level2">
+<h2>Getting a Smoother Look</h2>
+<p>This is already looking not too bad but it isn’t looking very smooth and we also don’t have any control about the speed of the animation. It is possible to get a slightly smoother look by playing around with the parameters of how many frames per seconds <code>fps</code> and how many frames <code>nframes</code> should be computed in total. Note that the more frames you compute, the longer it takes. So during the creation of the animation, I recommend to use a small number for faster development iterations.</p>
+<pre class="r"><code>duration &lt;- 30  # in seconds
+fps &lt;- 10
+nframes &lt;- duration*fps
+
+animate(p_anim, 
+            nframes = nframes,
+            fps = fps, 
+            width = 1100, height = 700,
+            end_pause = 15)
+anim_save(&quot;race.gif&quot;) </code></pre>
+<p>However, this only helps to a certain degree. The rank variable that determines the vertical position of a bar is an integer, meaning if a bar increases in rank, it simply swaps position with the bar above. To get a much smoother look, we can use the package <code>{{tweenr}}</code>. It interpolates values for both rank and the number of messages between two time points.</p>
+<p>The package can be used as follows:</p>
+<pre class="r"><code>tween_dcs &lt;- dcs %&gt;%
+  select(chatname, month, cs_messages, rank) %&gt;% 
+  mutate(ease = &quot;linear&quot;, 
+         # tween_elements() doesn&#39;t work with date objects
+         month = as.integer(month)) %&gt;% 
+  tween_elements(., time=&quot;month&quot;, group=&quot;chatname&quot;, ease=&quot;ease&quot;, 
+                 timerange = range(dcs$month %&gt;% as.integer),
+                 nframes = nframes ) %&gt;%
+  select(month, cs_messages, rank, .frame, chatname = .group) %&gt;%
+  mutate(month = as_date(month)) %&gt;%
+  filter( rank &lt;= 10 )</code></pre>
+<p>The magic happens in the function <code>tween_elements()</code> where we specify which column holds the time variable (<code>month</code>), which one the group (<code>chatname</code>) and which column specifies the easing to be used. I’m using the same easing function for each group but technically one could specify different easings for the different groups.</p>
+<p>Since we’re using the same plot as before and are just changing the data, we can use some ggplot magic by simply <a href="https://ggplot2.tidyverse.org/reference/gg-add.html">adding the new data</a> to the plot:</p>
+<pre class="r"><code>p_anim %+% tween_dcs</code></pre>
+<p><img src="/post/2020/2020-09-04-animated-facebook-messages_files/race_smooth.gif" /></p>
+<p>This trick is also useful when you want to get a static version of the plot without overplotting all time points:</p>
+<pre class="r"><code>p %+% (tween_dcs %&gt;% filter(month == &quot;2020-01-01&quot;))</code></pre>
+<p><img src="/post/2020/2020-09-04-animated-facebook-messages_files/static-barchart.png" alt="Static version of the racing bar chart" />
+I find it quite nice to see how different times of my life are reflected in the chart: In the beginning, I mostly chat with friends and family from my home town. Slowly, some new friends appear when I start university and then more friends I met during my exchange year. I started some new hobbies such as dancing and learning Portuguese in a way “diversifying” my friends. You can probably also guess from the plot when I met my partner.
+There were some surprises as well. For example, one of my best friends doesn’t even appear in the top ten. We never used Facebook that much and either chatted on WhatsApp or went straight for a call. Other people that appeared in the top ten, I didn’t even recognize at first: When I started studying Portuguese, I made some penpal friends to practice the language. We must have chatted quite a lot back then but we never managed to meet. Similarly with the second place, I was completely surprised. I met the person at a random event in Berlin, we hang out a few times but even though we were never really close, apparently we chatted a lot back then.</p>
+</div>
+<div id="following-the-time-line" class="section level2">
+<h2>Following the Time Line</h2>
+<p>Parts of this story comes out better if we concentrate on the time line of the different friend categories instead of focusing on single chatpartners. Making an animated time line plot is actually easier than a racing bar chart. Let me walk you through the steps.</p>
+<p>As before, we aggregate the data again, only this time we aggregate by friend category and month (actually, I’m using every two month because the resulting plot looks smoother). Also, instead of the cumulative sum, we use a simple sum per month.</p>
+<pre class="r"><code>dns &lt;- dcs %&gt;%
+  mutate(month = floor_date(month, unit=&quot;2 months&quot;)  ) %&gt;%
+  select(month, friend_cat, num_messages) %&gt;%
+  group_by(friend_cat, month) %&gt;% 
+  summarise(num_messages = sum(num_messages, na.rm = T),
+            .groups = &quot;drop&quot;) %&gt;%
+  filter(month &gt;= &quot;2011-01-01&quot; &amp; num_messages != 0)</code></pre>
+<p>As before, we use the the <code>{{tweenr}}</code> package again to obtain a smoother look:</p>
+<pre class="r"><code>tween_dns &lt;- dns %&gt;%
+  mutate(ease = &quot;linear&quot;, month = as.integer(month)) %&gt;% 
+  tween_elements(., time=&quot;month&quot;, group=&quot;friend_cat&quot;, ease=&quot;ease&quot;, 
+                 timerange = range(dns$month %&gt;% as.integer),
+                 nframes = nframes ) %&gt;%
+  select(month, num_messages, .frame, friend_cat = .group) %&gt;%
+  mutate(month = as_date(month)) </code></pre>
+<p>The basic code for the plot is only two lines:</p>
+<pre class="r"><code>p_line &lt;- tween_dns %&gt;%
+  ggplot(aes(x=month, y=num_messages,  color=friend_cat)) +
+  geom_line(size=1.3) +
+  line_styling # full styling code on github</code></pre>
+<p>The advantage with this plot is that if we want to obtain a static version of it, we don’t have to restrict the data we feed in:</p>
+<pre class="r"><code>p_line</code></pre>
+<p><img src="/post/2020/2020-09-04-animated-facebook-messages_files/static-linechart.png" /></p>
+<p>That’s because the plot itself doesn’t change over time (like it did with the ranking) but rather more data is added, or revealed over time. So to animate it, we use <code>transition_reveal()</code>. The function <code>view_follow()</code> means that we use a dynamic <code>x</code> axis to follow the data.</p>
+<pre class="r"><code>p_line +
+  view_follow(fixed_y = TRUE) +
+  transition_reveal(month) +
+  ease_aes(&#39;linear&#39;)</code></pre>
+<p><img src="/post/2020/2020-09-04-animated-facebook-messages_files/anim-linechart.gif" /></p>
+</div>
+<div id="composing-the-big-picture" class="section level2">
+<h2>Composing the Big Picture</h2>
+<p>Now you might wonder, could we put both animations into one big animation? Well yes, but unfortunately not with <code>{{gganimate}}</code>. What we can do instead is to manually recreate what <code>{{gganimate}}</code> does under the hood: We iterate over each frame (as computed by <code>{{tweenr}}</code>) and save it as <code>.png</code> file. This gives you a flip book of your chart. I then used <a href="http://www.imagemagick.org/Usage/anim_basics/">ImageMagick</a> to create the <code>.gif</code>. It is possible to also generate the animation this way using R (e.g. with <a href="https://mikeyharper.uk/animated-plots-with-r/"><code>{{animation}}</code></a>) but my RStudio crashed every time I tried (it’s quite memory and computing intensive!) so I instead did it the manual way.</p>
+<p>I used <a href="https://patchwork.data-imaginist.com/"><code>{{patchwork}}</code></a> to combine the two plots (if you don’t know the package yet, I recommend to go check it out, it’s great!).
+Now let’s generate the flip book:</p>
+<pre class="r"><code>library(patchwork)
+
+# fix axes limits
+p_line &lt;- p_line + scale_y_continuous(limits = c(1, 4098))
+p &lt;- p + scale_x_continuous(&quot;&quot;, limits = c(-10.4, -0.6))
+
+# generate flip book
+for (i in 0:nframes) {
+  composition &lt;- ( p %+% (tween_dcs %&gt;% filter(.frame == i)) + 
+                     p_line %+% (tween_dns %&gt;% filter(.frame &lt;= i) ) + 
+                    plot_layout(nrow=2, guides = &quot;collect&quot;) 
+                   ) +
+                plot_annotation(caption = caption) &amp;
+                comp_styling # full styling code on github
+  
+  composition +
+  ggsave(here::here(paste0(folder_path, &quot;composition-&quot;, str_pad(i,3, pad = &quot;0&quot;), &quot;.png&quot;) ),
+         width = 12, height = 15, dpi = 50  )
+
+}</code></pre>
+<p>Afterwards (it takes a while to generate all images), I execute the following command in my bash in the folder with the images:</p>
+<pre class="bash"><code>convert -delay 10 -loop 0 composition-*.png comp.gif</code></pre>
+<p>The loop option signifies how many times the <code>.gif</code> should loop around, 0 means that it loops indefinitely. The <code>delay</code> option gives in microseconds how long to wait until the next frame. One second has 100 microseconds so a delay of 10 should gives us 10 frames per seconds (consistent with the settings above).</p>
+<p>And voilà, here is the final animated plot:
+<img src="/post/2020/2020-09-04-animated-facebook-messages_files/comp.gif" /></p>
+</div>
+
+    
+    </section>
+
+
+  <aside class="read-next">
+  
+  
+      <a class="read-next-story prev" style="no-cover" href="/2020/ai-guild-podcast-data-science-interviews/">
+          <section class="post">
+              <h5>AI Guild Podcast: Data Science Interviews</h5>
+          </section>
+      </a>
+      
+
+</aside>
+
+
+
+  <footer class="post-footer">
+
+
+    
+
+
+
+
+
+
+
+
+
+<section class="author">
+  <h4><a href="/">Corrie</a></h4>
+  
+  <p>Read <a href="/">more posts</a> by this author.</p>
+  
+  <div class="author-meta">
+    
+    
+  </div>
+</section>
+
+
+
+
+    
+<section class="share">
+  <h4>Share this post</h4>
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Animated%20Facebook%20Messages&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2f2020%2fanimated-facebook-messages%2f"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=421');return false;">
+      <span class="hidden">Twitter</span>
+  </a>
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=%2f2020%2fanimated-facebook-messages%2f"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=551');return false;">
+      <span class="hidden">Facebook</span>
+  </a>
+  <a class="icon-linkedin" style="font-size: 1.4em" href="https://www.linkedin.com/shareArticle?mini=true&title=Animated%20Facebook%20Messages&url=%2f2020%2fanimated-facebook-messages%2f"
+               onclick="window.open(this.href, 'linkedin-share', 'width=554,height=571');return false;">
+    <span class="hidden">LinkedIn</span>
+    </a>
+
+</section>
+
+
+
+
+    
+
+<div id="disqus_thread"></div>
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "\/2020\/animated-facebook-messages\/";  
+this.page.identifier = "\/2020\/animated-facebook-messages\/"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://corriebar-github-io.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+
+
+
+  </footer>
+</article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Samples of Thoughts</a> 
+        &copy; Corrie Bartelheimer 2020 &middot; </section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+    
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+    
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+    
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140745376-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+
+    
+</body>
+</html>
+

@@ -19,7 +19,10 @@ share: yes
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
-                      dev = "svglite")
+                      dev = "svglite",
+                      error = FALSE,
+                      warning = FALSE,
+                      message = FALSE)
 library(matrixStats) # for the weighted median
 library(here)  # nice folder paths
 library(tidyverse)
@@ -33,7 +36,6 @@ library(shadowtext) # shadow geom text
 library(maps) # get different country iso codes and world map
 library(tidygraph) # for tidy graphing
 library(ggraph) # for geom graphs
-extrafont::loadfonts(device="pdf")
 
 kable <- function(data, ...) {
    knitr::kable(data, format = "html", digits=3, ...) %>% 
@@ -232,7 +234,7 @@ g +
     labs(y="", title="Travelling the world",
          subtitle="",
          x="Number of tourist visas",
-         caption = "Data: EUI Migration Policy Centre") 
+         caption = "Data: EUI Migration Policy Centre\nVisualization: Corrie Bartelheimer") 
 ```
 
 Each point represents one or multiple countries that get the same number of tourist visas. E.g. to the right, the field is led by the USA with 162 visas, closely followed by the grey dot representing Belgium, Finland, and France. 
@@ -251,7 +253,7 @@ p <- d %>%
   coord_flip()
 ```
 
-There's a great [blog post](https://cedricscherer.netlify.app/2019/05/17/the-evolution-of-a-ggplot-ep.-1/) by Cedric Scherer that walks through all the steps on how to prettify this plot, in particular, how to include the arrows and annotations. There are a few adaptions I made: Instead of `geom_point()`, I use `geom_quasirandom()` from `{ggbeeswarm}`. It packs points close together while trying to avoid overplotting. It doesn't solve the overplotting problem completely though. I therefore like to add a small border line to the points so they don't look like a big, weirdly shaped blob. The trick to getting these is to use a shape that has `fill` and `color` parameters. The only point shapes that have these are the shapes 21 to 25:
+There's a great [blog post](https://cedricscherer.netlify.app/2019/05/17/the-evolution-of-a-ggplot-ep.-1/) by Cedric Scherer that walks through all the steps on how to prettify this plot, in particular, how to include the arrows and annotations. There are a few adaptions I made: Instead of `geom_point()`, I use `geom_quasirandom()` from `{{ggbeeswarm}}`. It packs points close together while trying to avoid overplotting. It doesn't solve the overplotting problem completely though. I therefore like to add a small border line to the points so they don't look like a big, weirdly shaped blob. The trick to getting these is to use a shape that has `fill` and `color` parameters. The only point shapes that have these are the shapes 21 to 25:
 ```{r, eval = F}
 p <- d %>% 
   count(source, source_continent) %>%
@@ -322,7 +324,7 @@ g +
     labs(x="", title="Free Travel Visas",
          subtitle="Bubbles are sized by population",
          y="Number of free visas",
-         caption = "Data: EUI Migration Policy Centre")  
+         caption = "Data: EUI Migration Policy Centre\nVisualization: Corrie Bartelheimer")  
 ```
 
 The general distribution mostly stays the same, just shifted to the left. On the lower hand is Iraq (again) with only 11 free visas. The US has been overtaken by a whole group of European countries, led by Finland, Germany, and Sweden which all three get 119 free visas each. The US is now behind Canada and Singapore, Japan, and Korea, being on the same level as Brazil with 106 free visas.
@@ -337,9 +339,9 @@ Obviously, some countries are such popular destinations for studying that higher
 However, I was interested to see how visa policies regarding student visas are in the rest of the world. As the data set forms a directed network, I'm going to plot the student visa data as a network. And since the nodes are countries, I'll plot the network on top of a world map.
 
 #### Another technical note
-As this seems a rather complex plot, I was pleasantly surprised that `{ggraph}` makes this surprisingly simple.
+As this seems a rather complex plot, I was pleasantly surprised that `{{ggraph}}` makes this surprisingly simple.
 
-First, we built the graph using `{tidygraph}` by extracting the countries as nodes from our data set. The data set itself provides the edges. 
+First, we built the graph using `{{tidygraph}}` by extracting the countries as nodes from our data set. The data set itself provides the edges. 
 
 ```{r, eval=F}
 nodes <- d %>%
@@ -357,7 +359,7 @@ To build the plot, we first specify our layout manually by providing the coordin
 g <- graph %>%
   ggraph(layout = "manual", x=nodes$long, y=nodes$lat) 
 ```
-Next, we'll need the map which is provided in the `{maps}` package via `map_data("world")`
+Next, we'll need the map which is provided in the `{{maps}}` package via `map_data("world")`
 ```{r, eval=F}
 country_shapes <- geom_polygon(aes(x = long, y = lat, group = group),
                                data = map_data('world'))
@@ -429,7 +431,7 @@ graph %>%
   coord_fixed(ratio=1.2, xlim = c(-150, 180), ylim = c(-55, 80)) +
   labs(title="Free Exchange of Ideas", 
        subtitle="Where can students go to study with a free visa?\n\n",
-       caption = "Data: EUI Migration Policy Centre") 
+       caption = "Data: EUI Migration Policy Centre\nVisualization: Corrie Bartelheimer") 
 ```
 
 To make this visualization less crowded, I omitted countries with less than a million people. The edges are colored by the continent of the visiting country while the nodes are sized by the number of incoming edges, i.e. the number of free student visas it gives out.
@@ -496,7 +498,7 @@ graph %>%
   coord_fixed(ratio=1.2, xlim = c(-150, 180), ylim = c(-55, 80)) +
   labs(title="Free Exchange of Ideas", 
        subtitle="Where can students go and study with a free visa?\nCombining all EU countries into one node.\n",
-       caption = "Data: EUI Migration Policy Centre") 
+       caption = "Data: EUI Migration Policy Centre\nVisualization: Corrie Bartelheimer") 
 ```
 
 I found curious that both North and South America have almost no free visa relations inside their own continent. Especially for South America, I expected more free visa connections amongst the countries. 
