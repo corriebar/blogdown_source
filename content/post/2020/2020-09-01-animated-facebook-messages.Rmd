@@ -286,7 +286,7 @@ p_anim %+% tween_dcs
 
 
 ```{r, echo=F, cache = T}
-anim_save(here::here("static/post/2020/2020-09-04-animated-facebook-messages_files/race_smooth3.gif"), 
+anim_save(here::here("static/post/2020/2020-09-04-animated-facebook-messages_files/race_smooth.gif"), 
           animation = p_anim %+% tween_dcs, 
           nframes = nframes,
           fps = fps,
