@@ -27,7 +27,6 @@ library(gganimate)
 library(tweenr)
 library(ggchicklet)
 library(patchwork)
-library(animation)
 library(knitr)
 kable <- function(data, ...) {
    knitr::kable(data, format = "html", digits=3, ...) %>% 
@@ -88,13 +87,14 @@ I recently [downloaded my own Facebook data](https://www.facebook.com/help/21280
 In my case, the most interesting parts of the analysis could be boiled down in two graphics. Since there's also a time factor in the data, I thought this is a good opportunity to learn about animated plots and indeed, it works quite beautifully with the two plots. In this post, I'll outline how to make two animated plot, a [racing bar chart](https://michaeltoth.me/how-to-create-a-bar-chart-race-in-r-mapping-united-states-city-population-1790-2010.html), and a moving line plot. As a cherry on top, I also show how to combine the two animations!
 
 ## Some data prep
-For this analysis, I only concentrated on the messenger data which can be found in the folder `messages`. The folder contains some further folders for message requests, stickers etc but the important one is the `inbox` folder containing the messages itself. For each conversation, there is at least one folder. If you ever sent media such as pictures, then there will be two folders, one for the message JSON and one for the media files. The message folder always starts with a lowercase-letter. Unfortunately, Facebook doesn't use [proper JSON encoding](https://stackoverflow.com/questions/50008296/facebook-json-badly-encoded) which makes it quite a hassle to load the data without any decoding errors. For this analysis, I'm actually only using the aggregated messages so I simply ignored any decoding mistakes in the text. I wrote a few functions that load all the data (using a lot of `{{purr}}`) and result in a data frame with the number of messages per chat and per (active) chat participant, per day:
+For this analysis, I only concentrated on the messenger data which can be found in the folder `messages`. The folder contains some further folders for message requests, stickers etc but the important one is the `inbox` folder containing the messages itself. For each conversation, there is at least one folder. Unfortunately, Facebook doesn't use [proper JSON encoding](https://stackoverflow.com/questions/50008296/facebook-json-badly-encoded) which makes it quite a hassle to load the data without any decoding errors. For this analysis, I'm only using the aggregated messages so I simply ignored any decoding mistakes in the text. I wrote a [few functions](https://github.com/corriebar/blogdown_source/blob/master/scripts/read_facebook.R) that load all the data (using a lot of `{{purr}}`) and result in a data frame with the number of messages per chat and per (active) chat participant, per day:
 
 
 ```{r, results='hide'}
 library(tidyverse)
 data_path <- "data/facebook-corrieaar"
-# script with functions can be found ###link
+# script with functions can be found here:
+# https://github.com/corriebar/blogdown_source/blob/master/scripts/read_facebook.R
 d <- read_all_messages(data_path)
 ```
 
@@ -173,7 +173,7 @@ plot_styling <-   list(
                      expand = expansion(add = c(30, 0))),
   labs(title="Top 10 Chat Partners",
        x = "",
-       caption = "Source: Private Facebook Data\ncorriebartelheimer.com | @corrieaar"),
+       caption = "Source: Private Facebook Data\nVisualization: Corrie Bartelheimer"),
   guides(
     fill = guide_legend(nrow = 1,
                         override.aes = list(size = 1))
@@ -299,14 +299,7 @@ This trick is also useful when you want to get a static version of the plot with
 ```{r static-barchart, fig.height=7, fig.width=10, eval=F}
 p %+% (tween_dcs %>% filter(month == "2020-01-01"))
 ```
-```{r, echo=F}
-ggsave(here::here("static/post/2020/2020-09-04-animated-facebook-messages_files/static-barchart.png"), 
-       plot = p %+% ( tween_dcs %>% filter(month == "2020-01-01")), 
-       device = png() , width = width, height = height, units = "in", dpi = res)
 
-```
-
-![Static version of the racing bar chart](/post/2020/2020-09-04-animated-facebook-messages_files/static-barchart.png)
 I find it quite nice to see how different times of my life are reflected in the chart: In the beginning, I mostly chat with friends and family from my home town. Slowly, some new friends appear when I start university and then more friends I met during my exchange year. I started some new hobbies such as dancing and learning Portuguese in a way "diversifying" my friends. You can probably also guess from the plot when I met my partner.
 There were some surprises as well. For example, one of my best friends doesn't even appear in the top ten. We never used Facebook that much and either chatted on WhatsApp or went straight for a call. Other people that appeared in the top ten, I didn't even recognize at first: When I started studying Portuguese, I made some penpal friends to practice the language. We must have chatted quite a lot back then but we never managed to meet. Similarly with the second place, I was completely surprised. I met the person at a random event in Berlin, we hang out a few times but even though we were never really close, apparently we chatted a lot back then. 
 
@@ -345,7 +338,7 @@ line_styling <- list(guides(
   labs(title= "Messages over Time",
        x = "",
        y = "Number of Messages",
-       caption = "Source: Private Facebook Data\ncorriebartelheimer.com | @corrieaar") ,
+       caption = "Source: Private Facebook Data\nVisualization: Corrie Bartelheimer") ,
   theme(panel.grid.minor.y=element_blank(),
         panel.grid.minor.x=element_blank(),
         panel.grid.major.x = element_blank(),
@@ -459,13 +452,15 @@ for (i in 0:nframes) {
                 comp_styling # full styling code on github
   
   composition +
-  ggsave(here::here(paste0(folder_path, "composition-", str_pad(i,3, pad = "0"), ".png") ),
+  ggsave(
+    here::here(paste0(folder_path, 
+                      "composition-", str_pad(i, 3, pad = "0"), ".png") ),
          width = 12, height = 15, dpi = 50  )
 
 }
 ```
 
-Afterwards (it takes a while to generate all images), I execute the following command in my bash in the folder with the images:
+Afterwards (it takes a while to generate all images), I execute the following command in the folder with the images:
 ```{bash, eval=FALSE}
 convert -delay 10 -loop 0 composition-*.png comp.gif
 ```
@@ -474,3 +469,7 @@ The loop option signifies how many times the `.gif` should loop around, 0 means 
 
 And voilà, here is the final animated plot:
 ![](/post/2020/2020-09-04-animated-facebook-messages_files/comp.gif)
+
+
+<small>[Full code.](https://github.com/corriebar/blogdown_source/blob/master/content/post/2020/2020-09-01-animated-facebook-messages.Rmd)<small>
+

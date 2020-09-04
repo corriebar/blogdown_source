@@ -61,7 +61,7 @@ theme_set(theme_minimal(base_size = 12,
               plot.subtitle = element_text(family = "Montserrat ExtraLight", size = 13),
               plot.caption = element_text(size = 9, color = "gray50", family = "Montserrat"))  )
 ```
-```{r data-loading, echo=F, cache=TRUE, message=F, warning=F}
+```{r data-loading, echo=F, cache=T, message=F, warning=F}
 
 countries <- read_csv(here::here("data/visa_data/country-and-continent-codes-list.csv")) %>%
   clean_names() %>%

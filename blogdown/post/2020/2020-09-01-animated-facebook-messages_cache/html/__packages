@@ -1,4 +1,10 @@
 base
+methods
+datasets
+utils
+grDevices
+graphics
+stats
 tidyverse
 ggplot2
 tibble
@@ -13,9 +19,7 @@ gganimate
 tweenr
 ggchicklet
 patchwork
-animation
 knitr
-flair
 jsonlite
 anytime
 janitor

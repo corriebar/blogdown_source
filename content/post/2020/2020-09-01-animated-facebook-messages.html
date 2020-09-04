@@ -25,10 +25,11 @@ share: yes
 <p>In my case, the most interesting parts of the analysis could be boiled down in two graphics. Since there’s also a time factor in the data, I thought this is a good opportunity to learn about animated plots and indeed, it works quite beautifully with the two plots. In this post, I’ll outline how to make two animated plot, a <a href="https://michaeltoth.me/how-to-create-a-bar-chart-race-in-r-mapping-united-states-city-population-1790-2010.html">racing bar chart</a>, and a moving line plot. As a cherry on top, I also show how to combine the two animations!</p>
 <div id="some-data-prep" class="section level2">
 <h2>Some data prep</h2>
-<p>For this analysis, I only concentrated on the messenger data which can be found in the folder <code>messages</code>. The folder contains some further folders for message requests, stickers etc but the important one is the <code>inbox</code> folder containing the messages itself. For each conversation, there is at least one folder. If you ever sent media such as pictures, then there will be two folders, one for the message JSON and one for the media files. The message folder always starts with a lowercase-letter. Unfortunately, Facebook doesn’t use <a href="https://stackoverflow.com/questions/50008296/facebook-json-badly-encoded">proper JSON encoding</a> which makes it quite a hassle to load the data without any decoding errors. For this analysis, I’m actually only using the aggregated messages so I simply ignored any decoding mistakes in the text. I wrote a few functions that load all the data (using a lot of <code>{{purr}}</code>) and result in a data frame with the number of messages per chat and per (active) chat participant, per day:</p>
+<p>For this analysis, I only concentrated on the messenger data which can be found in the folder <code>messages</code>. The folder contains some further folders for message requests, stickers etc but the important one is the <code>inbox</code> folder containing the messages itself. For each conversation, there is at least one folder. Unfortunately, Facebook doesn’t use <a href="https://stackoverflow.com/questions/50008296/facebook-json-badly-encoded">proper JSON encoding</a> which makes it quite a hassle to load the data without any decoding errors. For this analysis, I’m only using the aggregated messages so I simply ignored any decoding mistakes in the text. I wrote a <a href="https://github.com/corriebar/blogdown_source/blob/master/scripts/read_facebook.R">few functions</a> that load all the data (using a lot of <code>{{purr}}</code>) and result in a data frame with the number of messages per chat and per (active) chat participant, per day:</p>
 <pre class="r"><code>library(tidyverse)
 data_path &lt;- &quot;data/facebook-corrieaar&quot;
-# script with functions can be found ###link
+# script with functions can be found here:
+# https://github.com/corriebar/blogdown_source/blob/master/scripts/read_facebook.R
 d &lt;- read_all_messages(data_path)</code></pre>
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -187,8 +188,7 @@ anim_save(&quot;race.gif&quot;) </code></pre>
 <p><img src="/post/2020/2020-09-04-animated-facebook-messages_files/race_smooth.gif" /></p>
 <p>This trick is also useful when you want to get a static version of the plot without overplotting all time points:</p>
 <pre class="r"><code>p %+% (tween_dcs %&gt;% filter(month == &quot;2020-01-01&quot;))</code></pre>
-<p><img src="/post/2020/2020-09-04-animated-facebook-messages_files/static-barchart.png" alt="Static version of the racing bar chart" />
-I find it quite nice to see how different times of my life are reflected in the chart: In the beginning, I mostly chat with friends and family from my home town. Slowly, some new friends appear when I start university and then more friends I met during my exchange year. I started some new hobbies such as dancing and learning Portuguese in a way “diversifying” my friends. You can probably also guess from the plot when I met my partner.
+<p>I find it quite nice to see how different times of my life are reflected in the chart: In the beginning, I mostly chat with friends and family from my home town. Slowly, some new friends appear when I start university and then more friends I met during my exchange year. I started some new hobbies such as dancing and learning Portuguese in a way “diversifying” my friends. You can probably also guess from the plot when I met my partner.
 There were some surprises as well. For example, one of my best friends doesn’t even appear in the top ten. We never used Facebook that much and either chatted on WhatsApp or went straight for a call. Other people that appeared in the top ten, I didn’t even recognize at first: When I started studying Portuguese, I made some penpal friends to practice the language. We must have chatted quite a lot back then but we never managed to meet. Similarly with the second place, I was completely surprised. I met the person at a random event in Berlin, we hang out a few times but even though we were never really close, apparently we chatted a lot back then.</p>
 </div>
 <div id="following-the-time-line" class="section level2">
@@ -246,13 +246,16 @@ for (i in 0:nframes) {
                 comp_styling # full styling code on github
   
   composition +
-  ggsave(here::here(paste0(folder_path, &quot;composition-&quot;, str_pad(i,3, pad = &quot;0&quot;), &quot;.png&quot;) ),
+  ggsave(
+    here::here(paste0(folder_path, 
+                      &quot;composition-&quot;, str_pad(i, 3, pad = &quot;0&quot;), &quot;.png&quot;) ),
          width = 12, height = 15, dpi = 50  )
 
 }</code></pre>
-<p>Afterwards (it takes a while to generate all images), I execute the following command in my bash in the folder with the images:</p>
+<p>Afterwards (it takes a while to generate all images), I execute the following command in the folder with the images:</p>
 <pre class="bash"><code>convert -delay 10 -loop 0 composition-*.png comp.gif</code></pre>
 <p>The loop option signifies how many times the <code>.gif</code> should loop around, 0 means that it loops indefinitely. The <code>delay</code> option gives in microseconds how long to wait until the next frame. One second has 100 microseconds so a delay of 10 should gives us 10 frames per seconds (consistent with the settings above).</p>
 <p>And voilà, here is the final animated plot:
 <img src="/post/2020/2020-09-04-animated-facebook-messages_files/comp.gif" /></p>
+<p><small><a href="https://github.com/corriebar/blogdown_source/blob/master/content/post/2020/2020-09-01-animated-facebook-messages.Rmd">Full code.</a><small></p>
 </div>
