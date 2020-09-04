@@ -13,7 +13,8 @@ tags:
   - ggchicklet
   - gganimate
 comments: yes
-image: images/tea_with_books.jpg
+image: 'images/tea_with_books.jpg'
+thumbnail: 'images/static-barchart.png'
 menu: ''
 share: yes
 ---
