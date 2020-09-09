@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    
+    
+        
+            
+            <meta name="twitter:card" content="summary_large_image"/>
+            <meta name="twitter:image" content="/images/tea_with_books.jpg"/>
+        
+    
+
+
+
+<meta name="twitter:title" content="Spurious Association"/>
+<meta name="twitter:description" content=""/>
+<meta name="twitter:site" content="@corrieaar"/>
+
+
+
+  	<meta property="og:title" content="Spurious Association &middot; Samples of Thoughts" />
+  	<meta property="og:site_name" content="Samples of Thoughts" />
+  	<meta property="og:url" content="/projects/statistical-rethinking/chapter_5/chp5-part-one/" />
+
+    
+        
+            <meta property="og:image" content="/images/tea_with_books.jpg"/>
+        
+    
+    
+    <meta property="og:description" content="" />
+  	<meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2020-09-09T00:00:00Z" />
+
+    
+    <meta property="article:tag" content="Statistical Rethinking" />
+    
+    <meta property="article:tag" content="Bayesian" />
+    
+    
+
+    <title>Spurious Association &middot; Samples of Thoughts</title>
+
+    
+    <meta name="description" content="Spurious Waffles (and Marriages) Yo, DAG Does this DAG fit? More than one predictor: Multiple regression  In Matrix Notation Simulating some Divorces  How do we" />
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/css/nav.css" />
+
+    
+    
+    
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/googlecode.min.css' rel='stylesheet' type='text/css' />
+
+
+
+  
+     
+      
+          <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Samples of Thoughts" />
+      
+      
+    
+    <meta name="generator" content="Hugo 0.55.5" />
+
+    <link rel="canonical" href="/projects/statistical-rethinking/chapter_5/chp5-part-one/" />
+
+    
+      
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name":  null 
+    },
+    "author": {
+        "@type": "Person",
+        "name":  null ,
+        
+        "url":  null ,
+        "sameAs": [
+            
+            
+             
+             
+             
+             
+             
+            
+        ]
+    },
+    "headline": "Spurious Association",
+    "name": "Spurious Association",
+    "wordCount":  3875 ,
+    "timeRequired": "PT19M",
+    "inLanguage": {
+      "@type": "Language",
+      "alternateName": "en"
+    },
+    "url": "/projects/statistical-rethinking/chapter_5/chp5-part-one/",
+    "datePublished": "2020-09-09T00:00Z",
+    "dateModified": "2020-09-09T00:00Z",
+    
+    "image": {
+        "@type": "ImageObject",
+        "url": "/images/tea_with_books.jpg",
+        "width": 3000,
+        "height": 1445
+    },
+    
+    "keywords": "Statistical Rethinking, Bayesian",
+    "description": "",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/projects/statistical-rethinking/chapter_5/chp5-part-one/"
+    }
+}
+    </script>
+    
+
+
+    
+
+    
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140745376-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+
+    
+    
+    
+
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+<script>
+  window.addEventListener("load", function(){
+    window.cookieconsent.initialise({
+      "palette": {
+        "popup": {
+          "background": "#40485A",
+          "text": "#ffffff"
+        },
+        "button": {
+          "background": "#5B5A68",
+          "text": "#ffffff"
+        }
+      },
+      "content": {
+        "message": "This website uses cookies to ensure you get the best experience on my website.",
+        "dismiss": "Got it!",
+        "link": "Learn more",
+        "href": "https://cookies.insites.com"
+      }
+    })});
+</script>
+
+
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/projects">Projects</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/talks">Talks</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/about">About</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/">Home</a>
+            </li>
+        
+        
+    </ul>
+
+    
+    <a class="subscribe-button icon-feed" href="/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+  
+ <header class="main-header post-head" style="background-image: url(/images/tea_with_books.jpg)"> 
+  
+  <nav class="main-nav overlay clearfix">
+
+
+
+      <ul>
+        
+			<li> <a class="blog-logo" href="/">Home</a> </li>
+			  
+			<li> <a class="blog-logo" href="/about">About</a> </li>
+			  
+			<li> <a class="blog-logo" href="/talks">Talks</a> </li>
+			  
+			<li> <a class="blog-logo" href="/projects">Projects</a> </li>
+			  
+
+            
+              <a class="menu-button icon-feed" href="">&nbsp;&nbsp;Subscribe</a>
+            
+            
+      
+       </ul>
+    </nav>
+    
+     <div class="vertical">
+        <div class="main-header-content inner">
+            
+
+
+    <a class="bloglogo" href="https://github.com/corriebar" target="_blank">
+    <span class="icon-github" style="color:white;font-size:2em"></span>
+    </a>
+&nbsp;
+
+
+
+
+
+
+
+
+
+    <a class="bloglogo" href="https://twitter.com/corrieaar" target="_blank">
+        <span class="icon-twitter" style="color:white;font-size:2em"></span>
+    </a>
+&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <h1 class="page-title">Samples of Thoughts</h1>
+            <h2 class="page-description">about data, statistics  and everything in between</h2>
+        </div>
+    </div>  
+    
+
+
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post projects">
+
+    <header class="post-header">
+        <h1 class="post-title">Spurious Association</h1>
+        <small></small>
+
+        <section class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 19 min</span>
+            </p>
+        
+        
+        
+         
+          <span class="post-tag small"><a href="/tags/statistical-rethinking/">#Statistical Rethinking</a></span>
+         
+          <span class="post-tag small"><a href="/tags/bayesian/">#Bayesian</a></span>
+         
+        </section>
+    </header>
+
+    <section class="post-content">
+      
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#spurious-waffles-and-marriages">Spurious Waffles (and Marriages)</a></li>
+<li><a href="#yo-dag">Yo, DAG</a></li>
+<li><a href="#does-this-dag-fit">Does this DAG fit?</a></li>
+<li><a href="#more-than-one-predictor-multiple-regression">More than one predictor: Multiple regression</a>
+<ul>
+<li><a href="#in-matrix-notation">In Matrix Notation</a></li>
+<li><a href="#simulating-some-divorces">Simulating some Divorces</a></li>
+</ul></li>
+<li><a href="#how-do-we-plot-these">How do we plot these?</a>
+<ul>
+<li><a href="#predictor-residual-plots">Predictor residual plots</a></li>
+<li><a href="#posterior-prediction-plots">Posterior prediction plots</a></li>
+<li><a href="#counterfactual-plot">Counterfactual plot</a></li>
+<li><a href="#simulating-spurious-associations">Simulating spurious associations</a></li>
+<li><a href="#simulating-counterfactuals">Simulating counterfactuals</a></li>
+</ul></li>
+</ul>
+</div>
+
+<p>These are code snippets and notes for the fifth chapter, <em>The Many Variables &amp; The Spurious Waffles</em>, section 1, of the book “Statistical Rethinking” (version 2) by Richard McElreath.</p>
+<p>I found the fifth chapter quite dense, so these notes are a bit more detailed.</p>
+<div id="spurious-waffles-and-marriages" class="section level2">
+<h2>Spurious Waffles (and Marriages)</h2>
+<p>In this chapter, we’re looking at spurious correlations and how to think formally about causal inference. For this section, we’ll work with the waffle-divorce data. The data contains the divorce rates of the 50 states of the US and various variables that could be used to explain their divorce rates. We’ll focus on the two variables median age at marriage and the marriage rates:</p>
+<pre class="r"><code>library(rethinking)
+data(&quot;WaffleDivorce&quot;)
+d &lt;- WaffleDivorce
+
+# standardize variables
+d$D &lt;- standardize( d$Divorce )
+d$M &lt;- standardize( d$Marriage )
+d$A &lt;- standardize( d$MedianAgeMarriage )</code></pre>
+<p>We start fitting a model using <code>quap()</code> to predict divorce rates using the median age at marriage as predictor.</p>
+<pre class="r"><code># fit model
+m5.1 &lt;- quap(
+  alist(
+    D ~ dnorm( mu, sigma),
+    mu &lt;- a + bA*A,
+    a ~ dnorm(0, 0.1),
+    bA ~ dnorm(0, 0.5),
+    sigma ~ dexp(1)
+  ), data=d
+)</code></pre>
+<div id="some-notes-on-the-priors" class="section level5">
+<h5>Some notes on the priors:</h5>
+<p>We standardized all our predictor variables, as well as the target variable. So if the (standardized) predictor variable <span class="math inline">\(A\)</span> is 1 for one observation, then this observation is one standard deviation away from the mean. If then <span class="math inline">\(\beta_A = 1\)</span>, this would imply that we predict a change of <span class="math inline">\(+1\)</span> for the target variable, and since this one is also standardized this implies a change of a whole standard deviation for the divorce rate. So to get a feeling of what would be a good prior, we also need to look at the standard deviations of the variables:</p>
+<pre class="r"><code>sd( d$MedianAgeMarriage )</code></pre>
+<pre><code>[1] 1.24</code></pre>
+<p>And for the target variable:</p>
+<pre class="r"><code>sd( d$Divorce )</code></pre>
+<pre><code>[1] 1.82</code></pre>
+<p>So a change of 1.2 years in median age at marriage is associated with a full standard deviation change in the divorce rate, i.e. the divorce rate increases by 1.8 divorces per 1000 adults. This seems rather strong which is why a prior of <span class="math inline">\(\text{Normal}(0, 0.5)\)</span> is probably better fitted for <span class="math inline">\(\beta_A\)</span>.</p>
+<p>We can also simulate from the priors:</p>
+<pre class="r"><code>set.seed(10)
+prior &lt;- extract.prior( m5.1 )
+mu &lt;- link( m5.1, post=prior, data=list( A=c(-2, 2)))</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5a_files/figure-html/unnamed-chunk-7-1.png" width="960" /></p>
+<p>If we compare the chosen prior with a just slightly flatter prior (right plot), we can see how the results get extreme very quick.</p>
+<p>Now, on to posterior predictions:</p>
+<pre class="r"><code># compute shaded confidence region
+A_seq &lt;- seq(from=-3, to=3.2, length.out = 30)
+mu &lt;- link( m5.1, data=list( A=A_seq ) )
+mu.mean &lt;- apply( mu, 2, mean )
+mu.PI &lt;- apply( mu, 2, PI )
+
+# plot it all
+plot( D ~ A, data=d, col=rangi2,
+      xlab=&quot;Median age marriage&quot;, ylab=&quot;Divorce rate&quot;)
+lines(A_seq, mu.mean, lwd=2 )
+shade( mu.PI, A_seq)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5a_files/figure-html/unnamed-chunk-9-1.png" width="960" /></p>
+<p>On the right, I’ve plotted the posterior predictions for a model using the marriage rate as predictor using this model:</p>
+<pre class="r"><code>m5.2 &lt;- quap(
+  alist(
+    D ~ dnorm( mu, sigma),
+    mu &lt;- a + bM*M,
+    a ~ dnorm( 0, 0.2 ),
+    bM ~ dnorm(0, 0.5 ),
+    sigma ~ dexp( 1 )
+  ), data=d
+)</code></pre>
+<p>We can see that both predictors have a relationship with the target variable, but just comparing the two bivariate regressions doesn’t tell us which predictor is better. From the two regressions, we cannot say if the two predictors provide independent value, or if they’re redundant, or if they eliminate each other.</p>
+<p>Before simply adding all variables into a single big regression model, let’s think about possible causal relations between the variables.</p>
+</div>
+</div>
+<div id="yo-dag" class="section level2">
+<h2>Yo, DAG</h2>
+<p>A <em>DAG</em>, short for <em>Directed Acyclic Graph</em> is a causal graph that describes qualitative causal relationships among variables.</p>
+<p>A possible DAG for our example would be the following:</p>
+<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5a_files/figure-html/unnamed-chunk-11-1.png" width="576" /></p>
+<p>This means that</p>
+<ol style="list-style-type: decimal">
+<li><strong>A</strong>ge directly influences <strong>D</strong>ivorce rate</li>
+<li><strong>M</strong>arriage rate directly influences <strong>D</strong>ivorce rate</li>
+<li><strong>A</strong>ge directly influences <strong>M</strong>arriage rates</li>
+</ol>
+<p>On top of the direct effect on the divorce rate, age of marriage also indirectly influences the divorce rate through its influence on the marriage.</p>
+<p>A DAG itself is only qualitative whereas the statistical model helps us determine the quantitative value that belongs to an arrow. However, if we take our model <code>m5.1</code> where we regressed <span class="math inline">\(D\)</span> on <span class="math inline">\(A\)</span>, the model can only tell us about the <em>total</em> influence of <span class="math inline">\(A\)</span> on <span class="math inline">\(D\)</span>. Total means that it accounts for every possible path from <span class="math inline">\(A\)</span> to <span class="math inline">\(D\)</span>, this includes the direct path <span class="math inline">\(A \to D\)</span> but also the indirect path <span class="math inline">\(A \to M \to D\)</span>.</p>
+<p>But we could also consider other DAGs for our problems. E.g.</p>
+<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5a_files/figure-html/unnamed-chunk-12-1.png" width="480" /></p>
+<p>In this causal model, the association between marriage rate <span class="math inline">\(M\)</span> and the divorce rate <span class="math inline">\(D\)</span> arises entirely from the influence of age <span class="math inline">\(A\)</span> on the marriage rate <span class="math inline">\(M\)</span>.</p>
+<p>Both DAGs are consistent with the output from our models <code>m5.1</code> and <code>m5.2</code>. To find out which DAG fits better, we need to carefully consider what each DAG implies and then check if the implications fit with the data we have.</p>
+<div id="plotting-dags" class="section level5">
+<h5>Plotting DAGs</h5>
+<p>To plot DAGs, you can use the package <a href="http://dagitty.net/">DAGitty</a>. It is both an R package as well as a browser-based tool. To plot the DAG from above, you write the following code:</p>
+<pre class="r"><code>library(dagitty)
+dag5.1 &lt;- dagitty( &quot;dag{ A -&gt; D; A -&gt; M; M -&gt; D}&quot; )
+coordinates(dag5.1) &lt;- list( x=c(A=0, D=1, M=2), y=c(A=0, D=1, M=0))
+drawdag( dag5.1 )</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5a_files/figure-html/unnamed-chunk-13-1.png" width="288" /></p>
+<p>The function <code>drawdag()</code> comes with the <code>{{rethinking}}</code> package and it changes some <code>par()</code> settings. If you use base plot functions afterwards, I recommend to reset it to the default settings:</p>
+<pre class="r"><code>dev.off()</code></pre>
+<p>It is a bit clunky to have to specify the coordinates manually for each node in the graph. There’s another R package that works on top of dagitty and uses ggplot to arrange the graph: <a href="https://cran.r-project.org/web/packages/ggdag/vignettes/intro-to-ggdag.html">ggdag</a>. This way you don’t have to specify the coordinates and can also use ggplot’s functionality to further manipulate the graph:</p>
+<pre class="r"><code>library(ggdag)
+dag &lt;- dagitty( &quot;dag{ A -&gt; D; A -&gt; M; M -&gt; D}&quot; )
+ggdag(dag, layout = &quot;circle&quot;) +
+  theme_dag()</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5a_files/figure-html/unnamed-chunk-15-1.png" width="297.6" /></p>
+</div>
+</div>
+<div id="does-this-dag-fit" class="section level2">
+<h2>Does this DAG fit?</h2>
+<p>To check which causal model implied by a DAG fits better with our data, we need to consider the <em>testable implications</em>.</p>
+<p>If we look at the two DAGs we considered so far:</p>
+<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5a_files/figure-html/unnamed-chunk-16-1.png" width="480" /></p>
+<p>Both of these imply that some variables are independent of others under certain conditions. So while none of the variables here are completely independent of each other but some of them are <em>conditionally independent</em>. These conditional independencies are the model’s testable implications.
+They come in two forms:</p>
+<ul>
+<li>statements about which variables should be associated with each other,</li>
+<li>statements about which variables become dis-associated when we condition on other variables.</li>
+</ul>
+<p>So if we have three variables <span class="math inline">\(X, Y\)</span> and <span class="math inline">\(Z\)</span>, then conditioning on <span class="math inline">\(Z\)</span> means that we learn the value of <span class="math inline">\(Z\)</span> and check if then learning <span class="math inline">\(X\)</span> adds any additional information about <span class="math inline">\(Y\)</span>. In this case we say <span class="math inline">\(X\)</span> is independent of <span class="math inline">\(Y\)</span> given <span class="math inline">\(Z\)</span>, or <span class="math inline">\(X {\perp\!\!\!\perp}Y | Z\)</span>.</p>
+<p>So let’s consider the DAG above on the left. In this DAG, all variables are connected and so everything is associated with everything else. This is one testable implication:
+<span class="math display">\[\begin{align*}
+D {\;\not\!\perp\!\!\!\perp\;}A &amp;&amp; D {\;\not\!\perp\!\!\!\perp\;}M &amp;&amp; A {\;\not\!\perp\!\!\!\perp\;}M
+\end{align*}\]</span>
+where <span class="math inline">\({\;\not\!\perp\!\!\!\perp\;}\)</span> means “not independent of”. So we can take these and check if they conform to our data. If we find that any of these pairs are not associated in the data then we know that this DAG doesn’t fit our data. Let’s check this in our data:</p>
+<pre class="r"><code>cor(d[,c(&quot;A&quot;, &quot;D&quot;, &quot;M&quot;)])</code></pre>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+A
+</th>
+<th style="text-align:right;">
+D
+</th>
+<th style="text-align:right;">
+M
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+<td style="text-align:right;">
+-0.597
+</td>
+<td style="text-align:right;">
+-0.721
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+D
+</td>
+<td style="text-align:right;">
+-0.597
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+<td style="text-align:right;">
+0.374
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+M
+</td>
+<td style="text-align:right;">
+-0.721
+</td>
+<td style="text-align:right;">
+0.374
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+</tr>
+</tbody>
+</table>
+<p>Indeed, all three variables are all strongly associated with each other. These are all testable implications for the first DAG.</p>
+<p>Let’s go and check the second DAG then where <span class="math inline">\(M\)</span> has no influence on <span class="math inline">\(D\)</span>.
+Again, we have all three variables are associated with each other. Unlike before, <span class="math inline">\(D\)</span> and <span class="math inline">\(M\)</span> are now associated with each other through <span class="math inline">\(A\)</span>. This means, if we condition on <span class="math inline">\(A\)</span> then <span class="math inline">\(M\)</span> can’t tell us any more about <span class="math inline">\(D\)</span>. Thus one testable implication is that <span class="math inline">\(D\)</span> is independent of <span class="math inline">\(M\)</span>, conditional on <span class="math inline">\(A\)</span>, or <span class="math inline">\(D {\perp\!\!\!\perp}M | A\)</span>.</p>
+<p>We can also use <code>{{dagitty}}</code> to find the conditional independencies implied by a DAG:</p>
+<pre class="r"><code>DMA_dag2 &lt;- dagitty(&#39;dag{ D &lt;- A -&gt; M }&#39;)
+impliedConditionalIndependencies( DMA_dag2 )</code></pre>
+<pre><code>D _||_ M | A</code></pre>
+<p>The same result as what we concluded manually.</p>
+<p>For the first DAG:</p>
+<pre class="r"><code>DMA_dag1 &lt;- dagitty(&#39;dag{ D &lt;- A -&gt; M -&gt; D}&#39;)
+impliedConditionalIndependencies( DMA_dag1 )</code></pre>
+<p>There are no conditional independencies.</p>
+<p>So this also the only implication in which the two DAGs differ from each other.
+How do we test this? With multiple regression.
+Fitting a model that predicts divorce using both marriage rate and age at marriage will address the following two questions:</p>
+<ol style="list-style-type: decimal">
+<li>After already knowing marriage rate (<span class="math inline">\(M\)</span>), what additional value is there in also knowing age at marriage (<span class="math inline">\(A\)</span>)?</li>
+<li>After already knowing age at marriage (<span class="math inline">\(A\)</span>), what additional value is there in also knowing marriage rate (<span class="math inline">\(M\)</span>)?</li>
+</ol>
+<p>The answer to these questions can be found in the parameter estimates.
+It is important to note that the question above and its answers from the parameter estimates are purely descriptive! They only obtain their causal meaning through the testable implications from the DAG.</p>
+</div>
+<div id="more-than-one-predictor-multiple-regression" class="section level2">
+<h2>More than one predictor: Multiple regression</h2>
+<p>The formula for a multiple regression is very similar to the univariate regression we’re already familiar with. Similarly to the polynomial regression from last chapter, they add some more parameters and variables to the definition of <span class="math inline">\(\mu_i\)</span>:
+<span class="math display">\[\begin{align*}
+D_i &amp;\sim \text{Normal}(\mu_i, \sigma) \\
+\mu_i &amp;= \alpha + \beta_M M_i + \beta_A A_i \\
+\alpha &amp;\sim \text{Normal}(0, 0.2) \\
+\beta_M &amp;\sim \text{Normal}(0, 0.5) \\
+\beta_A &amp;\sim \text{Normal}(0, 0.5) \\
+\sigma &amp;\sim \text{Exponential}(1)
+\end{align*}\]</span></p>
+<p>We fit the model using <code>quap()</code>:</p>
+<pre class="r"><code># fit model
+m5.3 &lt;- quap(
+  alist(
+    D ~ dnorm( mu, sigma),
+    mu &lt;- a + bM*M + bA*A,
+    a ~ dnorm(0, 0.2),
+    bM ~ dnorm(0, 0.5),
+    bA ~ dnorm(0, 0.5),
+    sigma ~ dexp(1)
+  ), data=d 
+)
+precis( m5.3 )</code></pre>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
+<th style="text-align:right;">
+5.5%
+</th>
+<th style="text-align:right;">
+94.5%
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+a
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.097
+</td>
+<td style="text-align:right;">
+-0.155
+</td>
+<td style="text-align:right;">
+0.155
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bM
+</td>
+<td style="text-align:right;">
+-0.065
+</td>
+<td style="text-align:right;">
+0.151
+</td>
+<td style="text-align:right;">
+-0.306
+</td>
+<td style="text-align:right;">
+0.176
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bA
+</td>
+<td style="text-align:right;">
+-0.614
+</td>
+<td style="text-align:right;">
+0.151
+</td>
+<td style="text-align:right;">
+-0.855
+</td>
+<td style="text-align:right;">
+-0.372
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sigma
+</td>
+<td style="text-align:right;">
+0.785
+</td>
+<td style="text-align:right;">
+0.078
+</td>
+<td style="text-align:right;">
+0.661
+</td>
+<td style="text-align:right;">
+0.910
+</td>
+</tr>
+</tbody>
+</table>
+<p>The estimate for <span class="math inline">\(\beta_M\)</span> is now very close to zero with plenty of probability of both sides of zero.</p>
+<pre class="r"><code>plot( coeftab( m5.1, m5.2, m5.3 ), par = c(&quot;bA&quot;, &quot;bM&quot;), prob = .89)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5a_files/figure-html/unnamed-chunk-23-1.png" width="576" /></p>
+<p>The upper part are the estimates for <span class="math inline">\(\beta_A\)</span> and the lower part the estimates for <span class="math inline">\(\beta_M\)</span>. While from <code>m5.2</code> to <code>m5.3</code> the parameter <span class="math inline">\(\beta_M\)</span> moves to zero, the parameter <span class="math inline">\(\beta_A\)</span> only grows a bit more uncertain going from <code>m5.1</code> to <code>m5.3</code>.
+So this means, once we know <span class="math inline">\(A\)</span>, the age at marriage, than learning about the marriage rate <span class="math inline">\(M\)</span> doesn’t add little to no information that helps predicting <span class="math inline">\(D\)</span>. We can say that <span class="math inline">\(D\)</span>, the divorce rate, is conditionally independent of <span class="math inline">\(M\)</span>, the marriage rate, once we know <span class="math inline">\(A\)</span>, the age at marriage, or <span class="math inline">\(D {\perp\!\!\!\perp}M | A\)</span>. This means, we can rule out the first DAG since it didn’t include this testable implication.</p>
+<p>This means that <span class="math inline">\(M\)</span> is predictive but not causal. If you don’t have <span class="math inline">\(A\)</span> it is still useful to know <span class="math inline">\(M\)</span> but once you know <span class="math inline">\(A\)</span>, there is not much added value in also knowing <span class="math inline">\(M\)</span>.</p>
+<div id="in-matrix-notation" class="section level3">
+<h3>In Matrix Notation</h3>
+<p>Often, linear models (that is, the second line the model above) are written as follows:
+<span class="math display">\[\mu_i = \alpha + \sum_{j=1}^n \beta_j x_{ji}\]</span>
+It’s possible to write this even more compact:
+<span class="math display">\[\mathbf{m} = \mathbf{Xb}\]</span>
+where <span class="math inline">\(\mathbf{m}\)</span> is a vector of predicted means, i.e. a vector containing the <span class="math inline">\(\mu_i\)</span> values, <span class="math inline">\(\mathbf{b}\)</span> is a (column) vector of parameters and <span class="math inline">\(\mathbf{X}\)</span> is a matrix, also called the <em>design matrix</em>. <span class="math inline">\(\mathbf{X}\)</span> has as many columns as there are predictors plus one. This plus one column is filled with 1s which are multiplied by the first parameter to give the intercept <span class="math inline">\(\alpha\)</span>.</p>
+</div>
+<div id="simulating-some-divorces" class="section level3">
+<h3>Simulating some Divorces</h3>
+<p>While the data is real, it is still useful to simulate data with the same causal relationships as in the DAG: <span class="math inline">\(M \gets A \to D\)</span></p>
+<pre class="r"><code>N &lt;- 50                        # number of simulated states
+age &lt;- rnorm(N)                # sim A
+mar &lt;- rnorm(N, -age )         # sim A -&gt; M
+div &lt;- rnorm(N, age )          # sim A -&gt; D</code></pre>
+<p>We can also simulate that both <span class="math inline">\(A\)</span> and <span class="math inline">\(M\)</span> influence <span class="math inline">\(D\)</span>, that is, the causal relationship implied by the first DAG:</p>
+<pre class="r"><code>N &lt;- 50                        # number of simulated states
+age &lt;- rnorm(N)                # sim A
+mar &lt;- rnorm(N, -age )         # sim A -&gt; M
+div &lt;- rnorm(N, age + mar)     # sim A -&gt; D &lt;- M</code></pre>
+</div>
+</div>
+<div id="how-do-we-plot-these" class="section level2">
+<h2>How do we plot these?</h2>
+<p>Visualizing multivariate regressions is a bit more involved and less straight-forward than visualizing bivariate regression. With bivariate regression, one scatter plot often already gave enough information. With multivariate regressions, we need a few more plots.</p>
+<p>We’ll do three different plots:</p>
+<ol style="list-style-type: decimal">
+<li><em>Predictor residual plots.</em> A plot of the outcome against <em>residual</em> predictor. Useful for understanding the statistical model.</li>
+<li><em>Posterior prediction plots.</em> Model-based predictions against raw data (or error in prediction). Useful for checking the predictive fit (not in any way causal).</li>
+<li><em>Counterfactual plots.</em> Implied predictions for imaginary experiments. Useful to explore causal implications.</li>
+</ol>
+<div id="predictor-residual-plots" class="section level3">
+<h3>Predictor residual plots</h3>
+<p>A predictor residual is the average prediction error when we use all of the other predictor variables to model a predictor of interest.</p>
+<p>In this example we only have two predictors, so we can use <span class="math inline">\(A\)</span>, the age at marriage, to predict <span class="math inline">\(M\)</span>, the marriage rate:
+<span class="math display">\[\begin{align*}
+M_i &amp;\sim \text{Normal}(\mu_i, \sigma) \\
+\mu_i &amp;= \alpha + \beta_A A_i \\
+\alpha &amp;\sim \text{Normal}(0, 0.2) \\
+\beta_A &amp;\sim \text{Normal}(0, 0.5) \\
+\sigma &amp;\sim \text{Exponential}(1)
+\end{align*}\]</span></p>
+<p>Does this seem weird to you? It certainly does for me but what it does, it kind of extracts how much information in <span class="math inline">\(M\)</span> is already contained in <span class="math inline">\(A\)</span>.
+Let’s see how this works in practice:</p>
+<pre class="r"><code>m5.4 &lt;- quap(
+  alist(
+    M ~ dnorm( mu , sigma),
+    mu &lt;- a +  bAM*A,
+    a ~ dnorm( 0, 0.2) ,
+    bAM ~ dnorm( 0, 0.5 ) ,
+    sigma ~ dexp( 1 ) 
+  ), data=d
+)</code></pre>
+<p>We then compute the residuals:</p>
+<pre class="r"><code>mu &lt;- link(m5.4)
+mu_meanM &lt;- apply(mu, 2, mean)
+mu_residM &lt;- d$M - mu_meanM</code></pre>
+<p>First, we plot the model, that is, we plot <span class="math inline">\(M\)</span> against <span class="math inline">\(A\)</span>:</p>
+<pre class="r"><code># plot residuals
+plot( M ~ A, d, col=rangi2,
+      xlab = &quot;Age at marriage (std)&quot;, ylab = &quot;Marriage rate (std)&quot;)
+abline( m5.4 )
+# loop over states
+for ( i in 1:length(mu_residM) ){
+  x &lt;- d$A[i]          # x location of line segment
+  y &lt;- d$M[i]                   # observed endpoint of line segment
+  # draw the line segment
+  lines( c(x,x), c(mu_meanM[i], y), lwd=0.5, col=col.alpha(&quot;black&quot;, 0.7))
+}</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5a_files/figure-html/unnamed-chunk-29-1.png" width="432" /></p>
+<p>The small lines are the residuals. Points below the line (residuals are negative) are states where the marriage rate is lower than expected given the median age at marriage. Points above the line (residuals are positive) are states where the marriage rate is higher than expected given the median age at marriage.</p>
+<p>We now plot the residuals against the divorce rate:</p>
+<pre class="r"><code>M_seq &lt;- seq(from=-3, to=3.2, length.out = 30)
+mu &lt;- link( m5.3, data=list( M=M_seq, A=0 ) )
+mu_mean &lt;- apply( mu, 2, mean )
+mu_PI &lt;- apply( mu, 2, PI )
+
+# predictor plot (Marriage rate)
+plot( d$D ~ mu_residM, col=rangi2,
+      xlab = &quot;Marriage rate residuals&quot;, ylab = &quot;Divorce rate (std)&quot;)
+abline(v=0, lty=2)
+lines(M_seq, mu_mean, lwd=2 )
+shade( mu_PI, M_seq)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5a_files/figure-html/unnamed-chunk-30-1.png" width="432" /></p>
+<p>The line is the regression line from our multivariate model <code>m5.3</code> keeping the age of marriage fixed at 0 (the mean). What this picture means is that once we take the variation explained by age at marriage out of the marriage rate, the remaining variance (that is the marriage rate residuals) does not help to predict the divorce rate.</p>
+<p>We can do the same thing the other way round, predict age at marriage using the marriage rate:</p>
+<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5a_files/figure-html/unnamed-chunk-33-1.png" width="864" /></p>
+<p>The right plot now changed. Whereas before, the marriage rate residuals didn’t show any predictive value for the divorce rate, the picture looks very different for age at marriage. The the age at marriage residuals (the variance remaining in age after taking out the variance explained by the marriage rate) still show predictive power for the divorce rate.</p>
+</div>
+<div id="posterior-prediction-plots" class="section level3">
+<h3>Posterior prediction plots</h3>
+<p>Posterior prediction plots are about checking how well your model fits the actual data.
+We will focus on two questions.</p>
+<ol style="list-style-type: decimal">
+<li>Did the model correctly approximate the posterior distributions?</li>
+<li>How does the model fail?</li>
+</ol>
+<p>We start by simulating predictions.</p>
+<pre class="r"><code>mu &lt;- link( m5.3 )
+
+mu_mean &lt;- apply( mu, 2, mean )
+mu_PI &lt;- apply(mu, 2, PI )
+
+# simulate observations (using original data)
+D_sim &lt;- sim( m5.3, n=1e4 )
+D_PI &lt;- apply( D_sim, 2, PI )</code></pre>
+<pre class="r"><code>plot( mu_mean ~ d$D, col=rangi2, ylim=range(mu_PI),
+      xlab = &quot;Observed divorce&quot;, ylab = &quot;Predicted divorce&quot;)
+abline( a = 0, b=1, lty=2)
+for ( i in 1:nrow(d) ) lines( rep(d$D[i],2), mu_PI[,i], col=rangi2)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5a_files/figure-html/unnamed-chunk-36-1.png" width="432" /></p>
+<p>The diagonal line shows where posterior predictions exactly match the sample. Any points below the line are states where the observed divorce rate is higher than the predicted divorce rate. Any points above the line are states where the observed divorce rate is lower than predicted. We can see that the model underpredicts for state with very high divorce rate and overpredicts for states with very low divorce rate. That’s normal and just what regression does, it regresses towards the mean for extreme values.</p>
+<p>Some states however with which the model has problems are Idaho and Utah, the points in the upper left. These states have many members of the Church of Jesus Christ of Latter-day Saints who generally have low rates of divorce. If we want to improve the model, this could be one direction to take.</p>
+</div>
+<div id="counterfactual-plot" class="section level3">
+<h3>Counterfactual plot</h3>
+<p>These plots display the causal implications of the model and ask questions such as, what if? E.g. what if this state had higher age at marriage?</p>
+<p>Now, if we change one predictor variable to see its effect on the outcome variable, we need to consider that changes on one predictor variable can also lead to changes in other predictor variables. So we need to take the causal structure (i.e. the DAG) into account.
+This is how we do this:</p>
+<ol style="list-style-type: decimal">
+<li>Pick a variable to manipulate</li>
+<li>Define the range of values of the intervention</li>
+<li>For each value, use the causal model to simulate the values of other variables, including the outcome.</li>
+</ol>
+<p>Let’s see this in practice! We assume the following DAG:</p>
+<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5a_files/figure-html/unnamed-chunk-37-1.png" width="288" /></p>
+<p>However, the DAG only gives the information if two variables are (causally) associated with each other, they don’t tell us <em>how</em> they are associated with each other, like as obtained through our model. But, our model <code>m5.3</code> only gave us information on how <span class="math inline">\(A\)</span> and <span class="math inline">\(M\)</span> influenced <span class="math inline">\(D\)</span>, it didn’t give us any information on how <span class="math inline">\(A\)</span> influences <span class="math inline">\(M\)</span>, that is the <span class="math inline">\(A \to M\)</span> connection. If we now want to manipulate <span class="math inline">\(A\)</span>, we also need to be able to estimate how this changes <span class="math inline">\(M\)</span>. We can thus extend our model to also regress <span class="math inline">\(A\)</span> on <span class="math inline">\(M\)</span>. It basically means we run two regressions at the same time:</p>
+<pre class="r"><code>m5.3_A &lt;- quap(
+  alist(
+    ## A -&gt; D &lt;- M
+      D ~ dnorm( mu, sigma ),
+      mu &lt;- a + bM*M + bA*A,
+      a ~ dnorm(0, 0.2),
+      bM ~ dnorm(0, 0.5),
+      bA ~ dnorm(0, 0.5),
+      sigma ~ dexp( 1 ),
+    ## A -&gt; M
+      M ~ dnorm( mu_M, sigma_M ),
+      mu_M &lt;- aM + bAM*A,
+      aM ~ dnorm( 0, 0.2 ),
+      bAM ~ dnorm( 0, 0.5 ),
+      sigma_M ~ dexp( 1 )
+  ), data = d
+)
+precis( m5.3_A )</code></pre>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
+<th style="text-align:right;">
+5.5%
+</th>
+<th style="text-align:right;">
+94.5%
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+a
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.097
+</td>
+<td style="text-align:right;">
+-0.155
+</td>
+<td style="text-align:right;">
+0.155
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bM
+</td>
+<td style="text-align:right;">
+-0.065
+</td>
+<td style="text-align:right;">
+0.151
+</td>
+<td style="text-align:right;">
+-0.306
+</td>
+<td style="text-align:right;">
+0.176
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bA
+</td>
+<td style="text-align:right;">
+-0.614
+</td>
+<td style="text-align:right;">
+0.151
+</td>
+<td style="text-align:right;">
+-0.855
+</td>
+<td style="text-align:right;">
+-0.372
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sigma
+</td>
+<td style="text-align:right;">
+0.785
+</td>
+<td style="text-align:right;">
+0.078
+</td>
+<td style="text-align:right;">
+0.661
+</td>
+<td style="text-align:right;">
+0.910
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+aM
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.087
+</td>
+<td style="text-align:right;">
+-0.139
+</td>
+<td style="text-align:right;">
+0.139
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bAM
+</td>
+<td style="text-align:right;">
+-0.695
+</td>
+<td style="text-align:right;">
+0.096
+</td>
+<td style="text-align:right;">
+-0.848
+</td>
+<td style="text-align:right;">
+-0.542
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sigma_M
+</td>
+<td style="text-align:right;">
+0.682
+</td>
+<td style="text-align:right;">
+0.068
+</td>
+<td style="text-align:right;">
+0.574
+</td>
+<td style="text-align:right;">
+0.790
+</td>
+</tr>
+</tbody>
+</table>
+<p>The estimate for <code>bAM</code> is strongly negative so <span class="math inline">\(M\)</span> and <span class="math inline">\(A\)</span> are strongly negatively associated. Interpreted causally, this means that increasing <span class="math inline">\(A\)</span> reduces <span class="math inline">\(M\)</span>.</p>
+<p>The goal is to manipulate <span class="math inline">\(A\)</span> so we define some values for it:</p>
+<pre class="r"><code>A_seq &lt;- seq( from = -2, to=2, length.out = 30 )</code></pre>
+<p>We now use these values to simulate both <span class="math inline">\(M\)</span> and <span class="math inline">\(D\)</span>. It’s basically the same as before but because our model includes two regressions, we simulate two variables at the same time.</p>
+<pre class="r"><code>sim_dat &lt;- data.frame( A = A_seq )
+
+# the vars argument tells it to first simulate M
+# then use the simulated M to simulate D
+s &lt;- sim( m5.3_A, data = sim_dat, vars=c(&quot;M&quot;, &quot;D&quot;))
+str(s)</code></pre>
+<pre><code>List of 2
+ $ M: num [1:1000, 1:30] 0.795 1.826 2.538 2.169 1.519 ...
+ $ D: num [1:1000, 1:30] 1.4504 0.8421 -0.0555 1.396 2.3927 ...</code></pre>
+<p>Then we plot these:</p>
+<pre class="r"><code>plot( sim_dat$A, colMeans(s$D), ylim=c(-2,2), type=&quot;l&quot;,
+      xlab = &quot;manipulated A&quot;, ylab = &quot;counterfactual D&quot;)
+shade(apply(s$D,2,PI), sim_dat$A )
+mtext( &quot;Total counterfactual effect of A on D&quot;)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5a_files/figure-html/unnamed-chunk-42-1.png" width="432" /></p>
+<p>The predicted counterfactual value of <span class="math inline">\(D\)</span> includes both paths from the DAG: <span class="math inline">\(A \to D\)</span> as well as <span class="math inline">\(A \to M \to D\)</span>. Since our model found that the effect of <span class="math inline">\(M \to D\)</span> is very small (to maybe not existent), so the second path doesn’t contribute much.</p>
+<p>And the counterfactual effect on <span class="math inline">\(M\)</span>:</p>
+<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5a_files/figure-html/unnamed-chunk-43-1.png" width="432" /></p>
+<p>We can also do numerical summaries. E.g. the effect of increasing the median age at marriage from 20 to 30 can be computed as follows</p>
+<pre class="r"><code>sim2_dat &lt;- data.frame( A = ( c(20,30) - mean(d$MedianAgeMarriage) ) / sd(d$MedianAgeMarriage) )
+s2 &lt;- sim( m5.3_A, data=sim2_dat, vars=c(&quot;M&quot;, &quot;D&quot;))
+mean( s2$D[,2] - s2$D[,1] )</code></pre>
+<pre><code>[1] -4.57</code></pre>
+<p>Note that an effect of four and a half standard deviations is huge (possibly not realistic).</p>
+<p>If we’d instead manipulate the variable <span class="math inline">\(M\)</span> then this means we would break the causal influence of other variables on <span class="math inline">\(M\)</span>. This would imply this DAG:</p>
+<pre class="r"><code>dag5.3 &lt;- dagitty( &quot;dag{ A -&gt; D; M -&gt; D}&quot; )
+coordinates(dag5.3) &lt;- list( x=c(A=0, D=1, M=2), y=c(A=0, D=1, M=0))
+drawdag( dag5.3 )</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5a_files/figure-html/unnamed-chunk-45-1.png" width="288" /></p>
+<p>It’s like we deleted the arrow between <span class="math inline">\(A\)</span> and <span class="math inline">\(M\)</span>. We’ll manipulate <span class="math inline">\(M\)</span> to a range of values and keep <span class="math inline">\(A = 0\)</span>, i.e. <span class="math inline">\(A\)</span> is kept on its average state.</p>
+<pre class="r"><code>sim_dat &lt;- data.frame( M = seq(from=-2, to=2, length.out = 30), A = 0 )
+s &lt;- sim(m5.3_A, data=sim_dat, vars = &quot;D&quot; )
+
+plot( sim_dat$M, colMeans(s), ylim=c(-2,2), type=&quot;l&quot;,
+      xlab=&quot;manipulated M&quot;, ylab=&quot;counterfactual D&quot;)
+shade( apply(s, 2, PI), sim_dat$M)
+mtext(&quot;Total counterfactual effect of M on D&quot;)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5a_files/figure-html/unnamed-chunk-47-1.png" width="432" /></p>
+<p>As our model estimated the effect of <span class="math inline">\(M\)</span> on <span class="math inline">\(D\)</span> with small, there’s no real trend here.</p>
+</div>
+<div id="simulating-spurious-associations" class="section level3">
+<h3>Simulating spurious associations</h3>
+<p>We could also simulate our own spurious associatins:</p>
+<pre class="r"><code>N &lt;- 100
+x_real &lt;- rnorm( N )
+x_spur &lt;- rnorm( N, x_real )
+y &lt;- rnorm( N, x_real )
+d &lt;- data.frame(y, x_real, x_spur)</code></pre>
+</div>
+<div id="simulating-counterfactuals" class="section level3">
+<h3>Simulating counterfactuals</h3>
+<p>Instead of using <code>sim()</code>, we could also simulate the counterfactuals manually:</p>
+<pre class="r"><code>A_seq &lt;- seq( from=-2, to=2, length.out = 30)</code></pre>
+<p>We first extract the posterior</p>
+<pre class="r"><code>post &lt;- extract.samples( m5.3_A )
+M_sim &lt;- with(post, sapply( 1:30,
+                            function(i) rnorm(1e3, aM + bAM*A_seq[i], sigma_M)))
+str(M_sim)</code></pre>
+<pre><code> num [1:1000, 1:30] 1.83 1.6 1.1 1.96 1.57 ...</code></pre>
+<p>For each value of <code>A_seq</code>, we used the posterior to draw a value for <span class="math inline">\(M\)</span>. We now use this value of <span class="math inline">\(M\)</span> to simulate <span class="math inline">\(D\)</span>:</p>
+<pre class="r"><code>D_sim &lt;- with( post, sapply( 1:30,
+                             function(i) rnorm(1e3, a + bA*A_seq[i] + bM*M_sim[,i], sigma)))
+str(D_sim)</code></pre>
+<pre><code> num [1:1000, 1:30] 1.67 1.774 1.313 -0.141 3.245 ...</code></pre>
+<p><small><a href="https://github.com/corriebar/Statistical-Rethinking/blob/master/Chapter_5/chapter5a.Rmd">Full code.</a><small></p>
+</div>
+</div>
+
+    
+    </section>
+
+  <footer class="post-footer">
+
+
+    
+
+
+
+
+
+
+
+
+
+<section class="author">
+  <h4><a href="/">Corrie</a></h4>
+  
+  <p>Read <a href="/">more posts</a> by this author.</p>
+  
+  <div class="author-meta">
+    
+    
+  </div>
+</section>
+
+
+
+
+    
+<section class="share">
+  <h4>Share this projects</h4>
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Spurious%20Association&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2fprojects%2fstatistical-rethinking%2fchapter_5%2fchp5-part-one%2f"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=421');return false;">
+      <span class="hidden">Twitter</span>
+  </a>
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=%2fprojects%2fstatistical-rethinking%2fchapter_5%2fchp5-part-one%2f"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=551');return false;">
+      <span class="hidden">Facebook</span>
+  </a>
+  <a class="icon-linkedin" style="font-size: 1.4em" href="https://www.linkedin.com/shareArticle?mini=true&title=Spurious%20Association&url=%2fprojects%2fstatistical-rethinking%2fchapter_5%2fchp5-part-one%2f"
+               onclick="window.open(this.href, 'linkedin-share', 'width=554,height=571');return false;">
+    <span class="hidden">LinkedIn</span>
+    </a>
+
+</section>
+
+
+
+
+    
+
+<div id="disqus_thread"></div>
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "\/projects\/statistical-rethinking\/chapter_5\/chp5-part-one\/";  
+this.page.identifier = "\/projects\/statistical-rethinking\/chapter_5\/chp5-part-one\/"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://corriebar-github-io.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+
+
+
+  </footer>
+</article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Samples of Thoughts</a> 
+        &copy; Corrie Bartelheimer 2020 &middot; </section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+    
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+    
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+    
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140745376-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+
+    
+</body>
+</html>
+

@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Corrie Bartelheimer {year}</copyright>
-    <lastBuildDate>Tue, 05 May 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 09 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/statistical-rethinking/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Spurious Association</title>
+      <link>/projects/statistical-rethinking/chapter_5/chp5-part-one/</link>
+      <pubDate>Wed, 09 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_5/chp5-part-one/</guid>
+      <description>Spurious Waffles (and Marriages) Yo, DAG Does this DAG fit? More than one predictor: Multiple regression  In Matrix Notation Simulating some Divorces  How do we plot these?  Predictor residual plots Posterior prediction plots Counterfactual plot Simulating spurious associations Simulating counterfactuals    These are code snippets and notes for the fifth chapter, The Many Variables &amp;amp; The Spurious Waffles, section 1, of the book “Statistical Rethinking” (version 2) by Richard McElreath.</description>
+    </item>
     
     <item>
       <title>Curvy Regression</title>
@@ -18,7 +27,7 @@
       <pubDate>Tue, 05 May 2020 00:00:00 +0000</pubDate>
       
       <guid>/projects/statistical-rethinking/chapter_4/chp4-part-three/</guid>
-      <description>These are code snippets and notes for the fourth chapter, Geocentric Models, , sections 5, of the book “Statistical Rethinking” (version 2) by Richard McElreath.
+      <description>Polynomial Regression Splines   These are code snippets and notes for the fourth chapter, Geocentric Models, , sections 5, of the book “Statistical Rethinking” (version 2) by Richard McElreath.
 Polynomial Regression Standard linear models using a straight line to fit data are nice for their simplicity but a straight line is also very restrictive. Most data does not come in a straight line. We can use polynomial regression to extend the linear model.</description>
     </item>
     
@@ -28,7 +37,7 @@ Polynomial Regression Standard linear models using a straight line to fit data a
       <pubDate>Wed, 22 Apr 2020 00:00:00 +0000</pubDate>
       
       <guid>/projects/statistical-rethinking/chapter_4/chp4-ex/</guid>
-      <description>These are my solutions to the practice questions of chapter 4, Linear Models, of the book “Statistical Rethinking” (version 2) by Richard McElreath.
+      <description>Easy. Medium. Hard.   These are my solutions to the practice questions of chapter 4, Linear Models, of the book “Statistical Rethinking” (version 2) by Richard McElreath.
 Easy. 4E1. In the model definition below, which line is the likelihood: \[ \begin{align*} y_i &amp;amp;\sim \text{Normal}(\mu, \sigma) &amp;amp; &amp;amp; \text{This is the likelihood}\\ \mu &amp;amp;\sim \text{Normal}(0, 10) \\ \sigma &amp;amp;\sim \text{Exponential}(1) \end{align*} \]
 4E2. In the model definition just above, how many parameters are in the posterior distribution?</description>
     </item>
@@ -39,9 +48,8 @@ Easy. 4E1. In the model definition below, which line is the likelihood: \[ \begi
       <pubDate>Wed, 22 Apr 2020 00:00:00 +0000</pubDate>
       
       <guid>/projects/statistical-rethinking/chapter_4/chp4-part-two/</guid>
-      <description>These are code snippets and notes for the fourth chapter, Geocentric Models, , sections 4, of the book “Statistical Rethinking” (version 2) by Richard McElreath.
-In this section, we work with our first prediction model where we use the weight to predict the height of a person. We again use the !Kung data and restrict to adults above 18.
-library(rethinking) data(&amp;quot;Howell1&amp;quot;) d &amp;lt;- Howell1 d2 &amp;lt;- d[ d$age &amp;gt;= 18, ] plot(height ~ weight, data=d2) It looks like there is a nice, clear linear relationship between the weight and height of a person.</description>
+      <description>Prior Predictive Checks Running the Model in R Visualize our Model All the Uncertainty   These are code snippets and notes for the fourth chapter, Geocentric Models, , sections 4, of the book “Statistical Rethinking” (version 2) by Richard McElreath.
+In this section, we work with our first prediction model where we use the weight to predict the height of a person. We again use the !</description>
     </item>
     
     <item>
@@ -50,9 +58,8 @@ library(rethinking) data(&amp;quot;Howell1&amp;quot;) d &amp;lt;- Howell1 d2 &am
       <pubDate>Tue, 21 Apr 2020 00:00:00 +0000</pubDate>
       
       <guid>/projects/statistical-rethinking/chapter_4/chp4-part-one/</guid>
-      <description>These are code snippets and notes for the fourth chapter, Geocentric Models, , sections 1 to 3, of the book “Statistical Rethinking” (version 2) by Richard McElreath.
-Why normal distributions are normal The chapter discusses linear models and starts with a recap on the normal distributions. Why is it such a commonly used distribution and how does it arise?
- Normal by addition Normalcy arises when we sum up random variables:  pos &amp;lt;- replicate( 1000, sum( runif(16, -1, 1))) dens(pos, norm.</description>
+      <description>Why normal distributions are normal A Gaussian Model of Height Quadratic Approximation and Prior Predictive Checks   These are code snippets and notes for the fourth chapter, Geocentric Models, sections 1 to 3, of the book “Statistical Rethinking” (version 2) by Richard McElreath.
+Why normal distributions are normal The chapter discusses linear models and starts with a recap on the normal distributions. Why is it such a commonly used distribution and how does it arise?</description>
     </item>
     
     <item>

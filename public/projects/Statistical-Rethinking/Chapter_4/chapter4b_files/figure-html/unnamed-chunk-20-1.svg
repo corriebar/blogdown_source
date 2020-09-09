@@ -20,27 +20,27 @@
 <line x1='217.71' y1='286.56' x2='217.71' y2='293.76' style='stroke-width: 0.75;' />
 <line x1='256.97' y1='286.56' x2='256.97' y2='293.76' style='stroke-width: 0.75;' />
 <line x1='296.23' y1='286.56' x2='296.23' y2='293.76' style='stroke-width: 0.75;' />
-<text x='53.98' y='312.48' style='font-size: 12.00px; font-family: Arimo;' textLength='13.35px' lengthAdjust='spacingAndGlyphs'>30</text>
-<text x='93.25' y='312.48' style='font-size: 12.00px; font-family: Arimo;' textLength='13.35px' lengthAdjust='spacingAndGlyphs'>35</text>
-<text x='132.51' y='312.48' style='font-size: 12.00px; font-family: Arimo;' textLength='13.35px' lengthAdjust='spacingAndGlyphs'>40</text>
-<text x='171.77' y='312.48' style='font-size: 12.00px; font-family: Arimo;' textLength='13.35px' lengthAdjust='spacingAndGlyphs'>45</text>
-<text x='211.03' y='312.48' style='font-size: 12.00px; font-family: Arimo;' textLength='13.35px' lengthAdjust='spacingAndGlyphs'>50</text>
-<text x='250.30' y='312.48' style='font-size: 12.00px; font-family: Arimo;' textLength='13.35px' lengthAdjust='spacingAndGlyphs'>55</text>
-<text x='289.56' y='312.48' style='font-size: 12.00px; font-family: Arimo;' textLength='13.35px' lengthAdjust='spacingAndGlyphs'>60</text>
+<text x='53.98' y='312.48' style='font-size: 12.00px; font-family: Arial;' textLength='13.35px' lengthAdjust='spacingAndGlyphs'>30</text>
+<text x='93.25' y='312.48' style='font-size: 12.00px; font-family: Arial;' textLength='13.35px' lengthAdjust='spacingAndGlyphs'>35</text>
+<text x='132.51' y='312.48' style='font-size: 12.00px; font-family: Arial;' textLength='13.35px' lengthAdjust='spacingAndGlyphs'>40</text>
+<text x='171.77' y='312.48' style='font-size: 12.00px; font-family: Arial;' textLength='13.35px' lengthAdjust='spacingAndGlyphs'>45</text>
+<text x='211.03' y='312.48' style='font-size: 12.00px; font-family: Arial;' textLength='13.35px' lengthAdjust='spacingAndGlyphs'>50</text>
+<text x='250.30' y='312.48' style='font-size: 12.00px; font-family: Arial;' textLength='13.35px' lengthAdjust='spacingAndGlyphs'>55</text>
+<text x='289.56' y='312.48' style='font-size: 12.00px; font-family: Arial;' textLength='13.35px' lengthAdjust='spacingAndGlyphs'>60</text>
 <line x1='59.04' y1='260.93' x2='59.04' y2='62.86' style='stroke-width: 0.75;' />
 <line x1='59.04' y1='260.93' x2='51.84' y2='260.93' style='stroke-width: 0.75;' />
 <line x1='59.04' y1='211.41' x2='51.84' y2='211.41' style='stroke-width: 0.75;' />
 <line x1='59.04' y1='161.89' x2='51.84' y2='161.89' style='stroke-width: 0.75;' />
 <line x1='59.04' y1='112.38' x2='51.84' y2='112.38' style='stroke-width: 0.75;' />
 <line x1='59.04' y1='62.86' x2='51.84' y2='62.86' style='stroke-width: 0.75;' />
-<text transform='translate(41.76,270.94) rotate(-90)' style='font-size: 12.00px; font-family: Arimo;' textLength='20.02px' lengthAdjust='spacingAndGlyphs'>140</text>
-<text transform='translate(41.76,221.42) rotate(-90)' style='font-size: 12.00px; font-family: Arimo;' textLength='20.02px' lengthAdjust='spacingAndGlyphs'>150</text>
-<text transform='translate(41.76,171.90) rotate(-90)' style='font-size: 12.00px; font-family: Arimo;' textLength='20.02px' lengthAdjust='spacingAndGlyphs'>160</text>
-<text transform='translate(41.76,122.39) rotate(-90)' style='font-size: 12.00px; font-family: Arimo;' textLength='20.02px' lengthAdjust='spacingAndGlyphs'>170</text>
-<text transform='translate(41.76,72.87) rotate(-90)' style='font-size: 12.00px; font-family: Arimo;' textLength='20.02px' lengthAdjust='spacingAndGlyphs'>180</text>
+<text transform='translate(41.76,270.94) rotate(-90)' style='font-size: 12.00px; font-family: Arial;' textLength='20.02px' lengthAdjust='spacingAndGlyphs'>140</text>
+<text transform='translate(41.76,221.42) rotate(-90)' style='font-size: 12.00px; font-family: Arial;' textLength='20.02px' lengthAdjust='spacingAndGlyphs'>150</text>
+<text transform='translate(41.76,171.90) rotate(-90)' style='font-size: 12.00px; font-family: Arial;' textLength='20.02px' lengthAdjust='spacingAndGlyphs'>160</text>
+<text transform='translate(41.76,122.39) rotate(-90)' style='font-size: 12.00px; font-family: Arial;' textLength='20.02px' lengthAdjust='spacingAndGlyphs'>170</text>
+<text transform='translate(41.76,72.87) rotate(-90)' style='font-size: 12.00px; font-family: Arial;' textLength='20.02px' lengthAdjust='spacingAndGlyphs'>180</text>
 <polyline points='59.04,286.56 329.76,286.56 329.76,59.04 59.04,59.04 59.04,286.56 ' style='stroke-width: 0.75;' />
-<text x='177.06' y='341.28' style='font-size: 12.00px; font-family: Arimo;' textLength='34.69px' lengthAdjust='spacingAndGlyphs'>weight</text>
-<text transform='translate(12.96,189.15) rotate(-90)' style='font-size: 12.00px; font-family: Arimo;' textLength='32.70px' lengthAdjust='spacingAndGlyphs'>height</text>
+<text x='177.06' y='341.28' style='font-size: 12.00px; font-family: Arial;' textLength='34.69px' lengthAdjust='spacingAndGlyphs'>weight</text>
+<text transform='translate(12.96,189.15) rotate(-90)' style='font-size: 12.00px; font-family: Arial;' textLength='32.70px' lengthAdjust='spacingAndGlyphs'>height</text>
 <defs>
   <clipPath id='cpNTkuMDR8MzI5Ljc2fDI4Ni41Nnw1OS4wNA=='>
     <rect x='59.04' y='59.04' width='270.72' height='227.52' />
