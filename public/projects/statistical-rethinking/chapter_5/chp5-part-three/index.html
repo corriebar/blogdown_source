@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    
+    
+        
+            
+            <meta name="twitter:card" content="summary_large_image"/>
+            <meta name="twitter:image" content="/images/tea_with_books.jpg"/>
+        
+    
+
+
+
+<meta name="twitter:title" content="Categorical Variables"/>
+<meta name="twitter:description" content=""/>
+<meta name="twitter:site" content="@corrieaar"/>
+
+
+
+  	<meta property="og:title" content="Categorical Variables &middot; Samples of Thoughts" />
+  	<meta property="og:site_name" content="Samples of Thoughts" />
+  	<meta property="og:url" content="/projects/statistical-rethinking/chapter_5/chp5-part-three/" />
+
+    
+        
+            <meta property="og:image" content="/images/tea_with_books.jpg"/>
+        
+    
+    
+    <meta property="og:description" content="" />
+  	<meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2020-09-17T00:00:00Z" />
+
+    
+    <meta property="article:tag" content="Statistical Rethinking" />
+    
+    <meta property="article:tag" content="Bayesian" />
+    
+    
+
+    <title>Categorical Variables &middot; Samples of Thoughts</title>
+
+    
+    <meta name="description" content="The Problem with Dummies The Index Variable Approach More Categories Even More Categories Notes of Caution   These are code snippets and notes for the fifth cha" />
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/css/nav.css" />
+
+    
+    
+    
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/googlecode.min.css' rel='stylesheet' type='text/css' />
+
+
+
+  
+     
+      
+          <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Samples of Thoughts" />
+      
+      
+    
+    <meta name="generator" content="Hugo 0.55.5" />
+
+    <link rel="canonical" href="/projects/statistical-rethinking/chapter_5/chp5-part-three/" />
+
+    
+      
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name":  null 
+    },
+    "author": {
+        "@type": "Person",
+        "name":  null ,
+        
+        "url":  null ,
+        "sameAs": [
+            
+            
+             
+             
+             
+             
+             
+            
+        ]
+    },
+    "headline": "Categorical Variables",
+    "name": "Categorical Variables",
+    "wordCount":  1290 ,
+    "timeRequired": "PT7M",
+    "inLanguage": {
+      "@type": "Language",
+      "alternateName": "en"
+    },
+    "url": "/projects/statistical-rethinking/chapter_5/chp5-part-three/",
+    "datePublished": "2020-09-17T00:00Z",
+    "dateModified": "2020-09-17T00:00Z",
+    
+    "image": {
+        "@type": "ImageObject",
+        "url": "/images/tea_with_books.jpg",
+        "width": 3000,
+        "height": 1445
+    },
+    
+    "keywords": "Statistical Rethinking, Bayesian",
+    "description": "",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/projects/statistical-rethinking/chapter_5/chp5-part-three/"
+    }
+}
+    </script>
+    
+
+
+    
+
+    
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140745376-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+
+    
+    
+    
+
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+<script>
+  window.addEventListener("load", function(){
+    window.cookieconsent.initialise({
+      "palette": {
+        "popup": {
+          "background": "#40485A",
+          "text": "#ffffff"
+        },
+        "button": {
+          "background": "#5B5A68",
+          "text": "#ffffff"
+        }
+      },
+      "content": {
+        "message": "This website uses cookies to ensure you get the best experience on my website.",
+        "dismiss": "Got it!",
+        "link": "Learn more",
+        "href": "https://cookies.insites.com"
+      }
+    })});
+</script>
+
+
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/projects">Projects</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/talks">Talks</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/about">About</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="/">Home</a>
+            </li>
+        
+        
+    </ul>
+
+    
+    <a class="subscribe-button icon-feed" href="/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+  
+ <header class="main-header post-head" style="background-image: url(/images/tea_with_books.jpg)"> 
+  
+  <nav class="main-nav overlay clearfix">
+
+
+
+      <ul>
+        
+			<li> <a class="blog-logo" href="/">Home</a> </li>
+			  
+			<li> <a class="blog-logo" href="/about">About</a> </li>
+			  
+			<li> <a class="blog-logo" href="/talks">Talks</a> </li>
+			  
+			<li> <a class="blog-logo" href="/projects">Projects</a> </li>
+			  
+
+            
+              <a class="menu-button icon-feed" href="">&nbsp;&nbsp;Subscribe</a>
+            
+            
+      
+       </ul>
+    </nav>
+    
+     <div class="vertical">
+        <div class="main-header-content inner">
+            
+
+
+    <a class="bloglogo" href="https://github.com/corriebar" target="_blank">
+    <span class="icon-github" style="color:white;font-size:2em"></span>
+    </a>
+&nbsp;
+
+
+
+
+
+
+
+
+
+    <a class="bloglogo" href="https://twitter.com/corrieaar" target="_blank">
+        <span class="icon-twitter" style="color:white;font-size:2em"></span>
+    </a>
+&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <h1 class="page-title">Samples of Thoughts</h1>
+            <h2 class="page-description">about data, statistics  and everything in between</h2>
+        </div>
+    </div>  
+    
+
+
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post projects">
+
+    <header class="post-header">
+        <h1 class="post-title">Categorical Variables</h1>
+        <small></small>
+
+        <section class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 7 min</span>
+            </p>
+        
+        
+        
+         
+          <span class="post-tag small"><a href="/tags/statistical-rethinking/">#Statistical Rethinking</a></span>
+         
+          <span class="post-tag small"><a href="/tags/bayesian/">#Bayesian</a></span>
+         
+        </section>
+    </header>
+
+    <section class="post-content">
+      
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#the-problem-with-dummies">The Problem with Dummies</a></li>
+<li><a href="#the-index-variable-approach">The Index Variable Approach</a></li>
+<li><a href="#more-categories">More Categories</a></li>
+<li><a href="#even-more-categories">Even More Categories</a></li>
+<li><a href="#notes-of-caution">Notes of Caution</a></li>
+</ul>
+</div>
+
+<p>These are code snippets and notes for the fifth chapter, <em>The Many Variables &amp; The Spurious Waffles</em>, section 2, of the book <a href="https://xcelab.net/rm/statistical-rethinking/">Statistical Rethinking</a> (version 2) by Richard McElreath.</p>
+<p>In this section, we go through different ways how to add categorical variables to our models.</p>
+<div id="the-problem-with-dummies" class="section level2">
+<h2>The Problem with Dummies</h2>
+<p>In the simplest case we only have two categories, e.g. male and female. We are going to use the Kalahari data again to illustrate how to add binary categorical variables.</p>
+<pre class="r"><code>library(rethinking)
+data(&quot;Howell1&quot;)
+d &lt;- Howell1
+str(d)</code></pre>
+<pre><code>&#39;data.frame&#39;:   544 obs. of  4 variables:
+ $ height: num  152 140 137 157 145 ...
+ $ weight: num  47.8 36.5 31.9 53 41.3 ...
+ $ age   : num  63 63 65 41 51 35 32 27 19 54 ...
+ $ male  : int  1 0 0 1 0 1 0 1 0 1 ...</code></pre>
+<p>There is the variable <code>male</code> that consists of 0’s and 1’s. It is 1 if the individual is male and 0 if female. This is called an <strong>Indicator Variable</strong> or in an ML context also known as <strong>Dummy Variable</strong>.
+One way to include the <code>male</code> variable in our model is to use the indicator variable directly:</p>
+<p><span class="math display">\[\begin{align*}
+h_i &amp;\sim \text{Normal}(\mu_i, \sigma) \\
+\mu_i &amp;= \alpha + \beta_m m_i \\
+\alpha &amp;\sim \text{Normal}(178, 20) \\
+\beta_m &amp;\sim \text{Normal}(0, 10) \\
+\sigma &amp;\sim \text{Uniform}(0, 50)
+\end{align*}\]</span></p>
+<p>Now what happens in this model? If <span class="math inline">\(m_i = 0\)</span>, that is, an individual is female, then the <span class="math inline">\(\beta_m m_i\)</span> term is 0 and the predicted mean (for women) is <span class="math inline">\(\alpha\)</span>. If however <span class="math inline">\(m_i = 1\)</span> then the predicted mean (for men) is <span class="math inline">\(\alpha + \beta_m\)</span>. This means <span class="math inline">\(\alpha\)</span> does not represent the average height of the total population anymore but the average height for one of our categories, in this case the female category. <span class="math inline">\(\beta_m\)</span> then gives us the difference between average female and average male height.</p>
+<p>This can make it harder to assign sensible priors. We can’t just assign the same prior for each category since one category is encoded in <span class="math inline">\(\alpha\)</span> and the other category is encoded as the difference in the slope <span class="math inline">\(\beta\)</span>.</p>
+<p>Another important point to take into account with this approach is that we assume more uncertainty for male height. The male height is constructed from two parameters and two priors and thus has more uncertainty than female height which only uses one parameter and one prior.</p>
+<p>Let’s simulate this from the prior:</p>
+<pre class="r"><code>mu_female &lt;- rnorm( 1e4, 178, 20 )
+mu_male &lt;- rnorm( 1e4, 178, 20 ) + rnorm( 1e4, 0, 10 )
+precis( data.frame( mu_female, mu_male ))</code></pre>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
+<th style="text-align:right;">
+5.5%
+</th>
+<th style="text-align:right;">
+94.5%
+</th>
+<th style="text-align:left;">
+histogram
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+mu_female
+</td>
+<td style="text-align:right;">
+178
+</td>
+<td style="text-align:right;">
+20.0
+</td>
+<td style="text-align:right;">
+146
+</td>
+<td style="text-align:right;">
+210
+</td>
+<td style="text-align:left;">
+▁▁▁▂▃▇▇▇▅▃▁▁▁▁
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mu_male
+</td>
+<td style="text-align:right;">
+178
+</td>
+<td style="text-align:right;">
+22.7
+</td>
+<td style="text-align:right;">
+142
+</td>
+<td style="text-align:right;">
+215
+</td>
+<td style="text-align:left;">
+▁▁▁▃▇▇▃▁▁
+</td>
+</tr>
+</tbody>
+</table>
+<p>The standard deviation of <code>mu_male</code> is slightly higher than the one for <code>mu_female</code>.</p>
+<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5d_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<div id="the-index-variable-approach" class="section level2">
+<h2>The Index Variable Approach</h2>
+<p>Instead of using dummy variables, we can also use an index variable.</p>
+<pre class="r"><code>d$sex &lt;- ifelse( d$male == 1, 2, 1)
+str(d$sex)</code></pre>
+<pre><code> num [1:544] 2 1 1 2 1 2 1 2 1 2 ...</code></pre>
+<p>We assign each category an integer. In this example “1” means female and “2” means male. The ordering doesn’t matter, it could be either way, the integers are just labels (that are easier to read for the machine than strings).
+The mathematical model to incorporate this variable than looks like this:
+<span class="math display">\[\begin{align*}
+h_i &amp;\sim \text{Normal}(\mu_i, \sigma) \\
+\mu_i &amp;= \alpha_{sex[i]} \\
+\alpha_j &amp;\sim \text{Normal}(178, 20) \\
+\beta_m &amp;\sim \text{Normal}(0, 10) \\
+\sigma &amp;\sim \text{Uniform}(0, 50)
+\end{align*}\]</span></p>
+<p>We now fit one <span class="math inline">\(\alpha\)</span> parameter for each category so <span class="math inline">\(\alpha\)</span> is actually a vector consisting of <span class="math inline">\(\alpha_1\)</span> and <span class="math inline">\(\alpha_2\)</span>. Now we can assign the same prior to both categories.</p>
+<p>Let’s fit this model:</p>
+<pre class="r"><code>m5.8 &lt;- quap(
+  alist(
+    height ~ dnorm( mu, sigma ),
+    mu &lt;- a[sex],
+    a[sex] ~ dnorm( 178, 20),
+    sigma ~ dunif(0, 50)
+  ), data = d
+)
+precis( m5.8, depth = 2)</code></pre>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
+<th style="text-align:right;">
+5.5%
+</th>
+<th style="text-align:right;">
+94.5%
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+a[1]
+</td>
+<td style="text-align:right;">
+134.9
+</td>
+<td style="text-align:right;">
+1.607
+</td>
+<td style="text-align:right;">
+132
+</td>
+<td style="text-align:right;">
+137.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a[2]
+</td>
+<td style="text-align:right;">
+142.6
+</td>
+<td style="text-align:right;">
+1.697
+</td>
+<td style="text-align:right;">
+140
+</td>
+<td style="text-align:right;">
+145.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sigma
+</td>
+<td style="text-align:right;">
+27.3
+</td>
+<td style="text-align:right;">
+0.828
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+28.6
+</td>
+</tr>
+</tbody>
+</table>
+<p>Now the interpretation of the parameters is also easier: <code>a[1]</code> is the average height for women and <code>a[2]</code> is the average height for men, no need to first compute the difference.
+If we are interested in the difference, we can directly calculate it like this from the posterior:</p>
+<pre class="r"><code>post &lt;- extract.samples( m5.8 )
+post$diff_fm &lt;- post$a[,1] - post$a[,2]
+precis( post, depth = 2)</code></pre>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
+<th style="text-align:right;">
+5.5%
+</th>
+<th style="text-align:right;">
+94.5%
+</th>
+<th style="text-align:left;">
+histogram
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+sigma
+</td>
+<td style="text-align:right;">
+27.32
+</td>
+<td style="text-align:right;">
+0.826
+</td>
+<td style="text-align:right;">
+26.0
+</td>
+<td style="text-align:right;">
+28.64
+</td>
+<td style="text-align:left;">
+▁▁▁▁▃▅▇▇▃▂▁▁▁
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a[1]
+</td>
+<td style="text-align:right;">
+134.92
+</td>
+<td style="text-align:right;">
+1.614
+</td>
+<td style="text-align:right;">
+132.4
+</td>
+<td style="text-align:right;">
+137.54
+</td>
+<td style="text-align:left;">
+▁▁▁▁▂▅▇▇▅▂▁▁▁
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+a[2]
+</td>
+<td style="text-align:right;">
+142.59
+</td>
+<td style="text-align:right;">
+1.716
+</td>
+<td style="text-align:right;">
+139.8
+</td>
+<td style="text-align:right;">
+145.35
+</td>
+<td style="text-align:left;">
+▁▁▁▂▃▇▇▇▃▂▁▁▁▁
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+diff_fm
+</td>
+<td style="text-align:right;">
+-7.67
+</td>
+<td style="text-align:right;">
+2.375
+</td>
+<td style="text-align:right;">
+-11.5
+</td>
+<td style="text-align:right;">
+-3.88
+</td>
+<td style="text-align:left;">
+▁▁▁▃▇▇▃▁▁▁
+</td>
+</tr>
+</tbody>
+</table>
+<p>This kind of calculation, computing the difference, is also called a <strong>contrast</strong>.</p>
+</div>
+<div id="more-categories" class="section level2">
+<h2>More Categories</h2>
+<p>Very often, we have more than two categories. If we wanted to use the indicator approach, we have to add new variables for each category but one. So if there are <span class="math inline">\(k\)</span> categories, we’d need <span class="math inline">\(k-1\)</span> dummy variables. This can very quickly become unfeasible and it also is difficult to assign reasonable priors to each. The index approach scales better in this case.</p>
+<p>Let’s show this with an example using the <code>milk</code> data.</p>
+<pre class="r"><code>data(milk)
+d &lt;- milk
+levels(d$clade)</code></pre>
+<pre><code>[1] &quot;Ape&quot;              &quot;New World Monkey&quot; &quot;Old World Monkey&quot; &quot;Strepsirrhine&quot;   </code></pre>
+<p>The variable <code>clade</code> encodes the taxonomy membership of each species. We can compute an index variable as follow:</p>
+<pre class="r"><code>d$clade_id &lt;- as.integer(d$clade)</code></pre>
+<p>We will fit this mathematical model:
+<span class="math display">\[\begin{align*}
+K_i &amp;\sim \text{Normal}(\mu_i, \sigma)\\
+\mu_i &amp;= \alpha_{CLADE[i]} &amp; \text{for } j = 1..4\\
+\alpha_j &amp;\sim \text{Normal}(0, 0.5) \\
+\sigma &amp;\sim \text{Exponential}(1)
+\end{align*}\]</span>
+And in R:</p>
+<pre class="r"><code>d$K &lt;- standardize( d$kcal.per.g )
+m5.9 &lt;- quap(
+  alist(
+    K ~ dnorm( mu, sigma) ,
+    mu &lt;- a[clade_id],
+    a[clade_id] ~ dnorm(0, 0.5),
+    sigma ~ dexp(1)
+  ), data=d
+)
+labels &lt;- paste( &quot;a[&quot;, 1:4, &quot;]: &quot;, levels(d$clade), sep=&quot;&quot;)
+plot(precis( m5.9, depth=2, pars=&quot;a&quot;), labels = labels,
+     xlab = &quot;expected kcal (std)&quot;)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5d_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</div>
+<div id="even-more-categories" class="section level2">
+<h2>Even More Categories</h2>
+<p>We can also add more than one categorical variable. Imagine, these primates would be sorted into the Harry Potter houses: [1] Gryffindor, [2] Hufflepuff, [3] Ravenclaw, [4] Slytherin.
+We could add this variable as follow:</p>
+<pre class="r"><code>set.seed(63)
+d$house &lt;- sample( rep(1:4, each = 8), size=nrow(d))
+m5.10 &lt;- quap(
+  alist(
+    K ~ dnorm( mu, sigma),
+    mu &lt;- a[clade_id] + h[house],
+    a[clade_id]  ~ dnorm(0, 0.5),
+    h[house] ~ dnorm(0, 0.5),
+    sigma ~ dexp(1)
+  ), data=d
+)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5d_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>Using this random seed, only Slytherin has an effect on the expected kcal.</p>
+</div>
+<div id="notes-of-caution" class="section level2">
+<h2>Notes of Caution</h2>
+<p>There are a few things to be aware of when working with categorical variables:</p>
+<ul>
+<li>Don’t accidentally encode your categorical variables in the model as continuous. If we’d for example use the index variable for the clade variable in the model, this would apply that New World Monkeys are somehow twice as “clade” as Apes. This is obviously meaningless.</li>
+<li>If two categories are both different from 0 this still does not mean that there difference is different from 0. Same when having two categories where only one is far away from zero. The difference might still not be “significant”. We always must compute the difference explicitly using the posterior.</li>
+<li><strong>Categories are itself a model decision.</strong> Nothing in the world is really categorical and pretty much all categorical variables are man-made. When working with survey data for example, using only male and female as categories might not be enough and e.g. non-binary should be added. Categorization can also have funny side-effects such as when deciding for kids in which group they compete in sports. If the birth year is used, kids born early in the year have an advantage over kids born later in the year and thus <a href="https://www.sciencedaily.com/releases/2010/02/100202101251.htm">sport stars are more often born in January</a>. <br>
+Sometimes, it can make sense to merge categories. This should always be guided by scientific theory and not by if a category is significant or not.</li>
+</ul>
+<p><small><a href="https://github.com/corriebar/Statistical-Rethinking/blob/master/Chapter_5/chapter5d.Rmd">Full code.</a><small></p>
+</div>
+
+    
+    </section>
+
+  <footer class="post-footer">
+
+
+    
+
+
+
+
+
+
+
+
+
+<section class="author">
+  <h4><a href="/">Corrie</a></h4>
+  
+  <p>Read <a href="/">more posts</a> by this author.</p>
+  
+  <div class="author-meta">
+    
+    
+  </div>
+</section>
+
+
+
+
+    
+<section class="share">
+  <h4>Share this projects</h4>
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Categorical%20Variables&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2fprojects%2fstatistical-rethinking%2fchapter_5%2fchp5-part-three%2f"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=421');return false;">
+      <span class="hidden">Twitter</span>
+  </a>
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=%2fprojects%2fstatistical-rethinking%2fchapter_5%2fchp5-part-three%2f"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=551');return false;">
+      <span class="hidden">Facebook</span>
+  </a>
+  <a class="icon-linkedin" style="font-size: 1.4em" href="https://www.linkedin.com/shareArticle?mini=true&title=Categorical%20Variables&url=%2fprojects%2fstatistical-rethinking%2fchapter_5%2fchp5-part-three%2f"
+               onclick="window.open(this.href, 'linkedin-share', 'width=554,height=571');return false;">
+    <span class="hidden">LinkedIn</span>
+    </a>
+
+</section>
+
+
+
+
+    
+
+<div id="disqus_thread"></div>
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "\/projects\/statistical-rethinking\/chapter_5\/chp5-part-three\/";  
+this.page.identifier = "\/projects\/statistical-rethinking\/chapter_5\/chp5-part-three\/"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://corriebar-github-io.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+
+
+
+  </footer>
+</article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Samples of Thoughts</a> 
+        &copy; Corrie Bartelheimer 2020 &middot; </section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+    
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+    
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+    
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140745376-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+
+    
+</body>
+</html>
+

@@ -7,19 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Corrie Bartelheimer {year}</copyright>
-    <lastBuildDate>Wed, 16 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 17 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Categorical Variables</title>
-      <link>/projects/statistical-rethinking/chapter_5/chp5-part-two/</link>
-      <pubDate>Wed, 16 Sep 2020 00:00:00 +0000</pubDate>
+      <link>/projects/statistical-rethinking/chapter_5/chp5-part-three/</link>
+      <pubDate>Thu, 17 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>/projects/statistical-rethinking/chapter_5/chp5-part-two/</guid>
-      <description>These are code snippets and notes for the fifth chapter, The Many Variables &amp;amp; The Spurious Waffles, section 2, of the book Statistical Rethinking (version 2) by Richard McElreath.
-# Chapter 5 - Categorical variables library(rethinking) # binary categories data(&amp;quot;Howell1&amp;quot;) d &amp;lt;- Howell1 str(d) &amp;#39;data.frame&amp;#39;: 544 obs. of 4 variables: $ height: num 152 140 137 157 145 ... $ weight: num 47.8 36.5 31.9 53 41.3 ... $ age : num 63 63 65 41 51 35 32 27 19 54 .</description>
+      <guid>/projects/statistical-rethinking/chapter_5/chp5-part-three/</guid>
+      <description>The Problem with Dummies The Index Variable Approach More Categories Even More Categories Notes of Caution   These are code snippets and notes for the fifth chapter, The Many Variables &amp;amp; The Spurious Waffles, section 2, of the book Statistical Rethinking (version 2) by Richard McElreath.
+In this section, we go through different ways how to add categorical variables to our models.
+The Problem with Dummies In the simplest case we only have two categories, e.</description>
     </item>
     
     <item>

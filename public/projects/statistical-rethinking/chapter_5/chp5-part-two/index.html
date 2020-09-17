@@ -17,13 +17,13 @@
 
 
 
-<meta name="twitter:title" content="Categorical Variables"/>
+<meta name="twitter:title" content="Masked Relationship"/>
 <meta name="twitter:description" content=""/>
 <meta name="twitter:site" content="@corrieaar"/>
 
 
 
-  	<meta property="og:title" content="Categorical Variables &middot; Samples of Thoughts" />
+  	<meta property="og:title" content="Masked Relationship &middot; Samples of Thoughts" />
   	<meta property="og:site_name" content="Samples of Thoughts" />
   	<meta property="og:url" content="/projects/statistical-rethinking/chapter_5/chp5-part-two/" />
 
@@ -42,12 +42,14 @@
     
     <meta property="article:tag" content="Bayesian" />
     
+    <meta property="article:tag" content="Causal Inference" />
+    
     
 
-    <title>Categorical Variables &middot; Samples of Thoughts</title>
+    <title>Masked Relationship &middot; Samples of Thoughts</title>
 
     
-    <meta name="description" content="These are code snippets and notes for the fifth chapter, The Many Variables &amp;amp; The Spurious Waffles, section 2, of the book Statistical Rethinking (version 2" />
+    <meta name="description" content="Hidden Influence in Milk The Causal Reasoning behind it  Markov Equivalence  Simulating a Masking Ball   These are code snippets and notes for the fifth chapter" />
     
 
     <meta name="HandheldFriendly" content="True" />
@@ -106,10 +108,10 @@
             
         ]
     },
-    "headline": "Categorical Variables",
-    "name": "Categorical Variables",
-    "wordCount":  797 ,
-    "timeRequired": "PT4M",
+    "headline": "Masked Relationship",
+    "name": "Masked Relationship",
+    "wordCount":  1414 ,
+    "timeRequired": "PT7M",
     "inLanguage": {
       "@type": "Language",
       "alternateName": "en"
@@ -125,7 +127,7 @@
         "height": 1445
     },
     
-    "keywords": "Statistical Rethinking, Bayesian",
+    "keywords": "Statistical Rethinking, Bayesian, Causal Inference",
     "description": "",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -313,13 +315,13 @@ if (!doNotTrack) {
   <article class="post projects">
 
     <header class="post-header">
-        <h1 class="post-title">Categorical Variables</h1>
+        <h1 class="post-title">Masked Relationship</h1>
         <small></small>
 
         <section class="post-meta">
         
             <p class="post-reading post-line">
-            <span>Estimated reading time: 4 min</span>
+            <span>Estimated reading time: 7 min</span>
             </p>
         
         
@@ -329,6 +331,8 @@ if (!doNotTrack) {
          
           <span class="post-tag small"><a href="/tags/bayesian/">#Bayesian</a></span>
          
+          <span class="post-tag small"><a href="/tags/causal-inference/">#Causal Inference</a></span>
+         
         </section>
     </header>
 
@@ -336,220 +340,73 @@ if (!doNotTrack) {
       
 <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
+<div id="TOC">
+<ul>
+<li><a href="#hidden-influence-in-milk">Hidden Influence in Milk</a></li>
+<li><a href="#the-causal-reasoning-behind-it">The Causal Reasoning behind it</a>
+<ul>
+<li><a href="#markov-equivalence">Markov Equivalence</a></li>
+</ul></li>
+<li><a href="#simulating-a-masking-ball">Simulating a Masking Ball</a></li>
+</ul>
+</div>
 
 <p>These are code snippets and notes for the fifth chapter, <em>The Many Variables &amp; The Spurious Waffles</em>, section 2, of the book <a href="https://xcelab.net/rm/statistical-rethinking/">Statistical Rethinking</a> (version 2) by Richard McElreath.</p>
-<pre class="r"><code># Chapter 5 - Categorical variables
-library(rethinking)
-# binary categories
-data(&quot;Howell1&quot;)
-d &lt;- Howell1
-str(d)</code></pre>
-<pre><code>&#39;data.frame&#39;:   544 obs. of  4 variables:
- $ height: num  152 140 137 157 145 ...
- $ weight: num  47.8 36.5 31.9 53 41.3 ...
- $ age   : num  63 63 65 41 51 35 32 27 19 54 ...
- $ male  : int  1 0 0 1 0 1 0 1 0 1 ...</code></pre>
-<pre class="r"><code># fit model using the variable male as predictor
-m5.15 &lt;- map(
-  alist(
-    height ~ dnorm(mu, sigma),
-    mu &lt;- a + bm*male,
-    a ~ dnorm(178, 100),
-    bm ~ dnorm(0, 10),
-    sigma ~ dunif(0, 50)
-  ), data=d
-)
-precis(m5.15)</code></pre>
-<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:right;">
-mean
-</th>
-<th style="text-align:right;">
-sd
-</th>
-<th style="text-align:right;">
-5.5%
-</th>
-<th style="text-align:right;">
-94.5%
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-a
-</td>
-<td style="text-align:right;">
-134.83
-</td>
-<td style="text-align:right;">
-1.592
-</td>
-<td style="text-align:right;">
-132.29
-</td>
-<td style="text-align:right;">
-137.4
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-bm
-</td>
-<td style="text-align:right;">
-7.28
-</td>
-<td style="text-align:right;">
-2.283
-</td>
-<td style="text-align:right;">
-3.63
-</td>
-<td style="text-align:right;">
-10.9
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-sigma
-</td>
-<td style="text-align:right;">
-27.31
-</td>
-<td style="text-align:right;">
-0.828
-</td>
-<td style="text-align:right;">
-25.99
-</td>
-<td style="text-align:right;">
-28.6
-</td>
-</tr>
-</tbody>
-</table>
-<pre class="r"><code>plot(precis(m5.15))</code></pre>
-<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5d_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<pre class="r"><code># to get average heigt of males, use sample:
-post &lt;- extract.samples(m5.15)
-mu.male &lt;- post$a + post$bm
-PI(mu.male)</code></pre>
-<pre><code> 5% 94% 
-139 145 </code></pre>
-<pre class="r"><code>m5.15b &lt;- map(
-  alist(
-    height ~ dnorm(mu, sigma),
-    mu &lt;- af*(1-male) + am*male,
-    af ~ dnorm( 178, 100),
-    am ~ dnorm( 178, 100),
-    sigma ~ dunif(0, 50)
-  ), data=d
-)
-precis(m5.15b)</code></pre>
-<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:right;">
-mean
-</th>
-<th style="text-align:right;">
-sd
-</th>
-<th style="text-align:right;">
-5.5%
-</th>
-<th style="text-align:right;">
-94.5%
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-af
-</td>
-<td style="text-align:right;">
-134.6
-</td>
-<td style="text-align:right;">
-1.612
-</td>
-<td style="text-align:right;">
-132
-</td>
-<td style="text-align:right;">
-137.2
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-am
-</td>
-<td style="text-align:right;">
-142.3
-</td>
-<td style="text-align:right;">
-1.703
-</td>
-<td style="text-align:right;">
-140
-</td>
-<td style="text-align:right;">
-145.1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-sigma
-</td>
-<td style="text-align:right;">
-27.3
-</td>
-<td style="text-align:right;">
-0.828
-</td>
-<td style="text-align:right;">
-26
-</td>
-<td style="text-align:right;">
-28.6
-</td>
-</tr>
-</tbody>
-</table>
-<pre class="r"><code>plot(precis(m5.15b))</code></pre>
-<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5d_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
-<pre class="r"><code># Many categories
+<div id="hidden-influence-in-milk" class="section level2">
+<h2>Hidden Influence in Milk</h2>
+<p>In the previous section about <a href="../chp5-part-one">spurious associations</a> we used multiple regression to eliminate variables that seemed to have an influence when comparing bivariate relationships but whose association vanishes when introducing more variables to the regression. Now the opposite can also happen: there might be no bivariate association between variables because two variables mask each other. We will explore this using the <code>milk</code> data set to compare the caloric content of milk in primates with their brain size. We will see later that the variable of the body mass also plays a role.</p>
+<pre class="r"><code>library(rethinking)
 data(milk)
 d &lt;- milk
-unique(d$clade)</code></pre>
-<pre><code>[1] Strepsirrhine    New World Monkey Old World Monkey Ape             
-Levels: Ape New World Monkey Old World Monkey Strepsirrhine</code></pre>
-<pre class="r"><code># create a dummy variable for new world monkey
-( d$clade.NWM &lt;- ifelse( d$clade == &quot;New World Monkey&quot;, 1, 0) )</code></pre>
-<pre><code> [1] 0 0 0 0 0 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</code></pre>
-<pre class="r"><code># more dummy variables
-d$clade.OWM &lt;- ifelse( d$clade == &quot;Old World Monkey&quot;, 1, 0 )
-d$clade.S &lt;- ifelse( d$clade == &quot;Strepsirrhine&quot;, 0, 1 )
-
-
-m5.16 &lt;- map(
+str(d)</code></pre>
+<pre><code>&#39;data.frame&#39;:   29 obs. of  8 variables:
+ $ clade         : Factor w/ 4 levels &quot;Ape&quot;,&quot;New World Monkey&quot;,..: 4 4 4 4 4 2 2 2 2 2 ...
+ $ species       : Factor w/ 29 levels &quot;A palliata&quot;,&quot;Alouatta seniculus&quot;,..: 11 8 9 10 16 2 1 6 28 27 ...
+ $ kcal.per.g    : num  0.49 0.51 0.46 0.48 0.6 0.47 0.56 0.89 0.91 0.92 ...
+ $ perc.fat      : num  16.6 19.3 14.1 14.9 27.3 ...
+ $ perc.protein  : num  15.4 16.9 16.9 13.2 19.5 ...
+ $ perc.lactose  : num  68 63.8 69 71.9 53.2 ...
+ $ mass          : num  1.95 2.09 2.51 1.62 2.19 5.25 5.37 2.51 0.71 0.68 ...
+ $ neocortex.perc: num  55.2 NA NA NA NA ...</code></pre>
+<p>Let’s first standardize the necessary variables:</p>
+<pre class="r"><code>d$K &lt;- standardize( d$kcal.per.g )
+d$N &lt;- standardize( d$neocortex.perc )
+d$M &lt;- standardize( log(d$mass ) )</code></pre>
+<p>We first try a bivariate regression:
+<span class="math display">\[\begin{align*} 
+K_i &amp;\sim \text{Normal}(\mu_i, \sigma) \\
+\mu_i &amp;= \alpha + \beta_N N_i
+\end{align*}\]</span></p>
+<p>We first run this as a <code>quap()</code> model with vague priors. However, there are some missing values in the data and we need to take care of them first (otherwise the model will throw an error)</p>
+<pre class="r"><code>dcc &lt;- d[ complete.cases(d$K, d$N, d$M), ]</code></pre>
+<p>So now the model with the new data frame without the missing values:</p>
+<pre class="r"><code>m5.5_draft &lt;- quap(
   alist(
-    kcal.per.g ~ dnorm( mu, sigma),
-    mu &lt;- a + b.NWM*clade.NWM + b.OWM*clade.OWM + b.S*clade.S,
-    a ~ dnorm( 0.6, 10),
-    c(b.NWM, b.OWM, b.S) ~ dnorm(0, 1),
-    sigma ~ dunif( 0, 10)
-  ), data = d
+    K ~ dnorm( mu, sigma ),
+    mu &lt;- a + bN*N,
+    a ~ dnorm(0, 1),
+    bN ~ dnorm(0, 1),
+    sigma ~ dexp( 1 )
+  ), data=dcc
+)</code></pre>
+<p>Let’s do a quick check first how reasonable these priors are. While these models are still quite simple so these probably won’t hurt but once we do more complex models, good priors become more important.</p>
+<pre class="r"><code>prior &lt;- extract.prior( m5.5_draft )
+xseq &lt;- c(-2, 2)
+mu &lt;- link( m5.5_draft, post=prior, data=list(N=xseq))
+plot(NULL, xlim=xseq, ylim=xseq)
+for (i in 1:50) lines( xseq, mu[i,], col=col.alpha(&quot;black&quot;, 0.3))</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5b_files/figure-html/unnamed-chunk-7-1.png" width="864" /></p>
+<p>The prior on the left is rather crazy: for the average value of <span class="math inline">\(K\)</span>, we can end up with very extreme values of <span class="math inline">\(N\)</span>. It would be better to tighten <span class="math inline">\(\alpha\)</span> so that it’s closer to the average value of the outcome variable (i.e. 0). Also, the slope can be extremely steep suggesting very unrealistic associations between the two variables, better to tigthen <span class="math inline">\(\beta\)</span> as well. Better priors (more realistic priors) would be the one in the right plot, coming from this model:</p>
+<pre class="r"><code>m5.5 &lt;- quap(
+  alist(
+    K ~ dnorm( mu, sigma),
+    mu &lt;- a + bN*N,
+    a ~ dnorm(0, 0.2),
+    bN ~ dnorm(0, 0.5),
+    sigma ~ dexp( 1 )
+  ), data=dcc
 )
-precis( m5.16)</code></pre>
+precis(m5.5)</code></pre>
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -575,67 +432,33 @@ sd
 a
 </td>
 <td style="text-align:right;">
-0.508
+0.040
 </td>
 <td style="text-align:right;">
-0.051
+0.154
 </td>
 <td style="text-align:right;">
-0.426
+-0.207
 </td>
 <td style="text-align:right;">
-0.590
+0.287
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-b.NWM
+bN
 </td>
 <td style="text-align:right;">
-0.168
+0.133
 </td>
 <td style="text-align:right;">
-0.054
+0.224
 </td>
 <td style="text-align:right;">
-0.082
+-0.224
 </td>
 <td style="text-align:right;">
-0.254
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b.OWM
-</td>
-<td style="text-align:right;">
-0.242
-</td>
-<td style="text-align:right;">
-0.060
-</td>
-<td style="text-align:right;">
-0.145
-</td>
-<td style="text-align:right;">
-0.338
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b.S
-</td>
-<td style="text-align:right;">
-0.038
-</td>
-<td style="text-align:right;">
-0.064
-</td>
-<td style="text-align:right;">
--0.064
-</td>
-<td style="text-align:right;">
-0.140
+0.491
 </td>
 </tr>
 <tr>
@@ -643,50 +466,46 @@ b.S
 sigma
 </td>
 <td style="text-align:right;">
-0.114
+1.000
 </td>
 <td style="text-align:right;">
-0.015
+0.165
 </td>
 <td style="text-align:right;">
-0.090
+0.737
 </td>
 <td style="text-align:right;">
-0.139
+1.263
 </td>
 </tr>
 </tbody>
 </table>
-<pre class="r"><code># compare: all dummy variables included
-d$clade.Ape &lt;- ifelse( d$clade == &quot;Ape&quot;, 1, 0)
-m5.16b &lt;- map(
+<p>The estimate for <span class="math inline">\(\beta\)</span> is not very strong and its uncertainty interval includes 0. Let’s look at this in a bit more visual.</p>
+<p>The parameter coefficient estimates:</p>
+<pre class="r"><code>plot( precis( m5.5))</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5b_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+And the model together with the posterior mean line and interval:</p>
+<pre class="r"><code>xseq &lt;- seq( from=min(dcc$N) - 0.15, to=max(dcc$N) + 0.15, length.out = 30)
+mu &lt;- link( m5.5, data=list(N=xseq))
+mu_mean &lt;- apply(mu, 2, mean)
+mu_PI &lt;- apply(mu, 2, PI)
+plot( K ~ N, data=dcc,
+      xlab=&quot;neocortex percent (std)&quot;, ylab=&quot;kilocal per g (std)&quot;)
+lines( xseq, mu_mean, lwd=2 )
+shade( mu_PI, xseq)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5b_files/figure-html/unnamed-chunk-11-1.png" width="432" /></p>
+<p>The relationship is very weak and the uncertainty interval also includes lines with no slope or even slight negative slope.</p>
+<p>Let’s consider a model with the (log) body mass instead:</p>
+<pre class="r"><code>m5.6 &lt;- quap(
   alist(
-    kcal.per.g ~ dnorm( mu, sigma),
-    mu &lt;- a + b.NWM*clade.NWM + b.OWM*clade.OWM + b.S*clade.S + b.Ape*clade.Ape,
-    a ~ dnorm( 0.6, 10),
-    c(b.NWM, b.OWM, b.S,b.Ape) ~ dnorm(0, 1),
-    sigma ~ dunif( 0, 10)
-  ), data = d
+    K ~ dnorm( mu, sigma) ,
+    mu &lt;- a + bM*M,
+    a ~ dnorm(0, 0.2),
+    bM ~ dnorm(0, 0.5),
+    sigma ~ dexp(1)
+  ), data=dcc
 )
-
-m5.16c &lt;- map(
-  alist(
-    kcal.per.g ~ dnorm( mu, sigma),
-    mu &lt;- b.NWM*clade.NWM + b.OWM*clade.OWM + b.S*clade.S + b.Ape*clade.Ape,
-    c(b.NWM, b.OWM, b.S,b.Ape) ~ dnorm(0, 10),
-    sigma ~ dunif( 0, 10)
-  ), data = d
-)
-m5.16d &lt;- map(
-  alist(
-    kcal.per.g ~ dnorm( mu, sigma),
-    mu &lt;- b.NWM*(1 - clade.OWM - clade.S - clade.Ape) + b.OWM*clade.OWM + b.S*clade.S + b.Ape*clade.Ape,
-    c(b.NWM, b.OWM, b.S,b.Ape) ~ dnorm(0, 10),
-    sigma ~ dunif( 0, 10)
-  ), data = d
-)
-
-precis( m5.16b)</code></pre>
+precis(m5.6)</code></pre>
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -710,338 +529,35 @@ sd
 <tr>
 <td style="text-align:left;">
 a
-</td>
-<td style="text-align:right;">
-0.508
-</td>
-<td style="text-align:right;">
-0.051
-</td>
-<td style="text-align:right;">
-0.427
-</td>
-<td style="text-align:right;">
-0.590
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b.NWM
-</td>
-<td style="text-align:right;">
-0.075
-</td>
-<td style="text-align:right;">
-0.501
-</td>
-<td style="text-align:right;">
--0.726
-</td>
-<td style="text-align:right;">
-0.876
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b.OWM
-</td>
-<td style="text-align:right;">
-0.149
-</td>
-<td style="text-align:right;">
-0.502
-</td>
-<td style="text-align:right;">
--0.653
-</td>
-<td style="text-align:right;">
-0.951
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b.S
-</td>
-<td style="text-align:right;">
-0.131
-</td>
-<td style="text-align:right;">
-0.502
-</td>
-<td style="text-align:right;">
--0.671
-</td>
-<td style="text-align:right;">
-0.933
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b.Ape
-</td>
-<td style="text-align:right;">
--0.093
-</td>
-<td style="text-align:right;">
-0.501
-</td>
-<td style="text-align:right;">
--0.894
-</td>
-<td style="text-align:right;">
-0.708
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-sigma
-</td>
-<td style="text-align:right;">
-0.115
-</td>
-<td style="text-align:right;">
-0.015
-</td>
-<td style="text-align:right;">
-0.090
-</td>
-<td style="text-align:right;">
-0.139
-</td>
-</tr>
-</tbody>
-</table>
-<pre class="r"><code>par(mfrow=c(4,1))
-plot(precis( m5.16))
-plot(precis( m5.16b))
-plot(precis( m5.16c))
-plot(precis(m5.16d))</code></pre>
-<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5d_files/figure-html/unnamed-chunk-2-3.png" width="672" /></p>
-<pre class="r"><code>par(mfrow=c(1,1))
-# we get a non-identifiable model with huge standard deviations
-
-# to get the average milk energy in each category use samples
-post &lt;- extract.samples(m5.16)
-
-# compute averages for each category
-mu.ape &lt;- post$a
-mu.NWM &lt;- post$a + post$b.NWM
-mu.OWM &lt;- post$a + post$b.OWM
-mu.S &lt;- post$a + post$b.S
-
-# summarize using precis
-precis( data.frame( mu.ape, mu.NWM, mu.OWM, mu.S))</code></pre>
-<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:right;">
-mean
-</th>
-<th style="text-align:right;">
-sd
-</th>
-<th style="text-align:right;">
-5.5%
-</th>
-<th style="text-align:right;">
-94.5%
-</th>
-<th style="text-align:left;">
-histogram
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-mu.ape
-</td>
-<td style="text-align:right;">
-0.508
-</td>
-<td style="text-align:right;">
-0.051
-</td>
-<td style="text-align:right;">
-0.425
-</td>
-<td style="text-align:right;">
-0.589
-</td>
-<td style="text-align:left;">
-▁▁▂▇▇▃▁▁
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-mu.NWM
-</td>
-<td style="text-align:right;">
-0.675
-</td>
-<td style="text-align:right;">
-0.073
-</td>
-<td style="text-align:right;">
-0.557
-</td>
-<td style="text-align:right;">
-0.792
-</td>
-<td style="text-align:left;">
-▁▁▁▃▇▇▇▃▁▁▁
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-mu.OWM
-</td>
-<td style="text-align:right;">
-0.749
-</td>
-<td style="text-align:right;">
-0.077
-</td>
-<td style="text-align:right;">
-0.624
-</td>
-<td style="text-align:right;">
-0.872
-</td>
-<td style="text-align:left;">
-▁▁▁▂▅▇▇▅▂▁▁▁
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-mu.S
-</td>
-<td style="text-align:right;">
-0.547
-</td>
-<td style="text-align:right;">
-0.038
-</td>
-<td style="text-align:right;">
-0.488
-</td>
-<td style="text-align:right;">
-0.608
-</td>
-<td style="text-align:left;">
-▁▁▁▁▂▃▇▇▇▃▂▁▁▁▁
-</td>
-</tr>
-</tbody>
-</table>
-<pre class="r"><code>plot( precis( data.frame( mu.ape, mu.NWM, mu.OWM, mu.S) ))</code></pre>
-<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5d_files/figure-html/unnamed-chunk-2-4.png" width="672" /></p>
-<pre class="r"><code># to get estimated difference between two monkey groups:
-diff.NWM.OWM &lt;- mu.NWM - mu.OWM
-quantile( diff.NWM.OWM, probs=c(0.025, 0.5, 0.975))</code></pre>
-<pre><code>   2.5%     50%   97.5% 
--0.1932 -0.0733  0.0445 </code></pre>
-<pre class="r"><code># Unique intercepts approach
-(d$clade_id &lt;- coerce_index(d$clade))</code></pre>
-<pre><code> [1] 4 4 4 4 4 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 1 1 1 1 1 1 1 1 1</code></pre>
-<pre class="r"><code># fit model with one intercept for each group
-m5.16_alt &lt;- map(
-  alist(
-    kcal.per.g ~ dnorm( mu, sigma ),
-    mu &lt;- a[clade_id],
-    a[clade_id] ~ dnorm( 0.6, 10),
-    sigma ~ dunif(0, 10)
-  ), data=d
-)
-precis(m5.16_alt, depth=2)</code></pre>
-<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:right;">
-mean
-</th>
-<th style="text-align:right;">
-sd
-</th>
-<th style="text-align:right;">
-5.5%
-</th>
-<th style="text-align:right;">
-94.5%
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-a[1]
-</td>
-<td style="text-align:right;">
-0.546
-</td>
-<td style="text-align:right;">
-0.038
-</td>
-<td style="text-align:right;">
-0.485
-</td>
-<td style="text-align:right;">
-0.607
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-a[2]
-</td>
-<td style="text-align:right;">
-0.714
-</td>
-<td style="text-align:right;">
-0.038
-</td>
-<td style="text-align:right;">
-0.653
-</td>
-<td style="text-align:right;">
-0.775
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-a[3]
-</td>
-<td style="text-align:right;">
-0.788
 </td>
 <td style="text-align:right;">
 0.047
 </td>
 <td style="text-align:right;">
-0.714
+0.151
 </td>
 <td style="text-align:right;">
-0.863
+-0.195
+</td>
+<td style="text-align:right;">
+0.288
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-a[4]
+bM
 </td>
 <td style="text-align:right;">
-0.508
+-0.283
 </td>
 <td style="text-align:right;">
-0.051
+0.193
 </td>
 <td style="text-align:right;">
-0.426
+-0.591
 </td>
 <td style="text-align:right;">
-0.590
+0.026
 </td>
 </tr>
 <tr>
@@ -1049,20 +565,203 @@ a[4]
 sigma
 </td>
 <td style="text-align:right;">
-0.115
+0.949
 </td>
 <td style="text-align:right;">
-0.015
+0.157
 </td>
 <td style="text-align:right;">
-0.090
+0.698
 </td>
 <td style="text-align:right;">
-0.139
+1.200
 </td>
 </tr>
 </tbody>
 </table>
+<p>And again the model together with the posterior mean line and interval. For easier comparison, I also add the posterior plot from the neocortex model.
+<img src="/projects/Statistical-Rethinking/Chapter_5/chapter5b_files/figure-html/unnamed-chunk-13-1.png" width="864" /></p>
+<p>The association seems stronger than for the neocortex percent but it is still highly uncertain and includes many possible weaker (as well as stronger) relationships.</p>
+<p>Now let’s see what happens when we use both variables in a regression:</p>
+<p><span class="math display">\[\begin{align*} 
+K_i &amp;\sim \text{Normal}(\mu_i, \sigma) \\
+\mu_i &amp;= \alpha + \beta_N N_i + \beta_K K_i \\
+\alpha &amp;\sim \text{Normal}(0, 0.2) \\
+\beta_N &amp;\sim \text{Normal}(0, 0.5) \\
+\beta_M &amp;\sim \text{Normal}(0, 0.5) \\
+\sigma &amp;\sim \text{Exponential}(1)
+\end{align*}\]</span>
+And the code for the model:</p>
+<pre class="r"><code>m5.7 &lt;- quap(
+  alist(
+    K ~ dnorm( mu, sigma),
+    mu &lt;- a + bN*N + bM*M,
+    a ~ dnorm(0, 0.2),
+    bN ~ dnorm(0, 0.5),
+    bM ~ dnorm(0, 0.5),
+    sigma ~ dexp( 1 )
+  ), data=dcc
+)
+precis(m5.7)</code></pre>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
+<th style="text-align:right;">
+5.5%
+</th>
+<th style="text-align:right;">
+94.5%
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+a
+</td>
+<td style="text-align:right;">
+0.068
+</td>
+<td style="text-align:right;">
+0.134
+</td>
+<td style="text-align:right;">
+-0.146
+</td>
+<td style="text-align:right;">
+0.282
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bN
+</td>
+<td style="text-align:right;">
+0.675
+</td>
+<td style="text-align:right;">
+0.248
+</td>
+<td style="text-align:right;">
+0.278
+</td>
+<td style="text-align:right;">
+1.072
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bM
+</td>
+<td style="text-align:right;">
+-0.703
+</td>
+<td style="text-align:right;">
+0.221
+</td>
+<td style="text-align:right;">
+-1.056
+</td>
+<td style="text-align:right;">
+-0.350
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sigma
+</td>
+<td style="text-align:right;">
+0.738
+</td>
+<td style="text-align:right;">
+0.132
+</td>
+<td style="text-align:right;">
+0.526
+</td>
+<td style="text-align:right;">
+0.950
+</td>
+</tr>
+</tbody>
+</table>
+<p>For both variables, the observed effect increased:</p>
+<pre class="r"><code>plot( coeftab( m5.5, m5.6, m5.7 ), pars=c(&quot;bM&quot;, &quot;bN&quot;) )</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5b_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p>In the upper part are the coefficients for the body mass and in the lower part the coefficients for the neocortex.</p>
+</div>
+<div id="the-causal-reasoning-behind-it" class="section level2">
+<h2>The Causal Reasoning behind it</h2>
+<p>So what does this mean?</p>
+<p>What happened is that both variables are correlated with the outcome but one is positively correlated (neocortex percent) and one is negatively correlated (body mass). On top of that, they’re both positively correlated with each other. In this specific situation, bigger species such as apes (high body mass) have milks will less energy. But species with more neocortex (“smarter ones”) tend to have richer milk. These correlations make it hard to see what’s really happening.</p>
+<pre class="r"><code>pairs( ~ K + M + N, dcc)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5b_files/figure-html/unnamed-chunk-17-1.png" width="528" /></p>
+<p>While the association between <span class="math inline">\(K\)</span> and <span class="math inline">\(M\)</span> and <span class="math inline">\(K\)</span> and <span class="math inline">\(N\)</span> are not as clear in the plot, the positive correlation between <span class="math inline">\(M\)</span> and <span class="math inline">\(N\)</span> is quite strong.</p>
+<p>Let’s get some DAGs going. There are at least three DAGs consistent with these data:
+<img src="/projects/Statistical-Rethinking/Chapter_5/chapter5b_files/figure-html/unnamed-chunk-18-1.png" width="768" /></p>
+<ol style="list-style-type: decimal">
+<li>The body mass influences the neocortex and both influence the milk energy content.</li>
+<li>The neocortex influences the body mass and both influence the milk energy content.</li>
+<li>An unobserved variable <span class="math inline">\(U\)</span> influences both the body mass and the neocortex which both influence the milk energy content.</li>
+</ol>
+<p>How do we know which one is the correct one? The (not so satisfying) answer is we can’t know, at least not from the data alone. All three graphs imply the same set of conditional independencies (there are none). To pick one, we need to make use of our scientific knowledge.</p>
+<p>Let’s make some more counterfactual plots.
+<img src="/projects/Statistical-Rethinking/Chapter_5/chapter5b_files/figure-html/unnamed-chunk-20-1.png" width="864" /></p>
+<div id="markov-equivalence" class="section level3">
+<h3>Markov Equivalence</h3>
+<p>A set of DAGs is known as a <em>Markov Equivalence</em> set if they all have the same implied conditional independencies.
+We can use <code>{{daggity}}</code> to compute the <em>Markov Equivalence</em> set of a specific DAG.</p>
+<pre class="r"><code>dag5.7 &lt;- dagitty( &quot;dag{
+                   M -&gt; K &lt;- N
+                   M -&gt; N }&quot;)
+coordinates(dag5.7) &lt;- list(x=c(M=0,K=1,N=2), y=c(M=0.5, K=1,N=0.5))
+MElist &lt;- equivalentDAGs(dag5.7)</code></pre>
+<p>The object <code>MElist</code> then contains all DAGs with the same implied conditional independencies:
+<img src="/projects/Statistical-Rethinking/Chapter_5/chapter5b_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p>Most of these DAGs are probably not reasonable from a scientific standpoint. That’s where domain knowledge is needed to distinguish the reasonable DAG from the silly one.</p>
+</div>
+</div>
+<div id="simulating-a-masking-ball" class="section level2">
+<h2>Simulating a Masking Ball</h2>
+<p>Sometimes it helps to better understand the DAGs and their implied associations by using some simulations.</p>
+<p>Let’s simulate data for the first DAG:
+<img src="/projects/Statistical-Rethinking/Chapter_5/chapter5b_files/figure-html/unnamed-chunk-24-1.png" width="268.8" /></p>
+<pre class="r"><code>n &lt;- 100
+M &lt;- rnorm( n )
+N &lt;- rnorm( n, M )
+K &lt;- rnorm( n, N - M)
+d_sim &lt;- data.frame(K=K, N=N, M=M)
+pairs(d_sim)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5b_files/figure-html/unnamed-chunk-26-1.png" width="480" /></p>
+<p>The second DAG:
+<img src="/projects/Statistical-Rethinking/Chapter_5/chapter5b_files/figure-html/unnamed-chunk-27-1.png" width="268.8" /></p>
+<pre class="r"><code>n &lt;- 100
+N &lt;- rnorm( n )
+M &lt;- rnorm( n, N )
+K &lt;- rnorm( n, N - M)
+d_sim2 &lt;- data.frame(K=K, N=N, M=N)
+pairs(d_sim2)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5b_files/figure-html/unnamed-chunk-29-1.png" width="480" /></p>
+<p>And the third DAG:
+<img src="/projects/Statistical-Rethinking/Chapter_5/chapter5b_files/figure-html/unnamed-chunk-30-1.png" width="268.8" /></p>
+<pre class="r"><code>n &lt;- 100
+U &lt;- rnorm ( n )
+N &lt;- rnorm( n, U )
+M &lt;- rnorm( n, U )
+K &lt;- rnorm( n, N - M)
+d_sim2 &lt;- data.frame(K=K, N=N, M=N)
+pairs(d_sim2)</code></pre>
+<p><img src="/projects/Statistical-Rethinking/Chapter_5/chapter5b_files/figure-html/unnamed-chunk-32-1.png" width="480" /></p>
+<p><small><a href="https://github.com/corriebar/Statistical-Rethinking/blob/master/Chapter_5/chapter5b.Rmd">Full code.</a><small></p>
+</div>
 
     
     </section>
@@ -1097,7 +796,7 @@ sigma
     
 <section class="share">
   <h4>Share this projects</h4>
-  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Categorical%20Variables&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2fprojects%2fstatistical-rethinking%2fchapter_5%2fchp5-part-two%2f"
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Masked%20Relationship&nbsp;-&nbsp;Samples%20of%20Thoughts&amp;url=%2fprojects%2fstatistical-rethinking%2fchapter_5%2fchp5-part-two%2f"
       onclick="window.open(this.href, 'twitter-share', 'width=550,height=421');return false;">
       <span class="hidden">Twitter</span>
   </a>
@@ -1105,7 +804,7 @@ sigma
       onclick="window.open(this.href, 'facebook-share','width=580,height=551');return false;">
       <span class="hidden">Facebook</span>
   </a>
-  <a class="icon-linkedin" style="font-size: 1.4em" href="https://www.linkedin.com/shareArticle?mini=true&title=Categorical%20Variables&url=%2fprojects%2fstatistical-rethinking%2fchapter_5%2fchp5-part-two%2f"
+  <a class="icon-linkedin" style="font-size: 1.4em" href="https://www.linkedin.com/shareArticle?mini=true&title=Masked%20Relationship&url=%2fprojects%2fstatistical-rethinking%2fchapter_5%2fchp5-part-two%2f"
                onclick="window.open(this.href, 'linkedin-share', 'width=554,height=571');return false;">
     <span class="hidden">LinkedIn</span>
     </a>
