@@ -284,14 +284,95 @@ if (!doNotTrack) {
 	
 	   <article class="post projects">
     <header class="post-header">
+        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_4/chp4-part-two/">First Linear Predictions</a></h2>
+    </header>
+    <section class="post-excerpt">
+        
+            <p>Prior Predictive Checks Running the Model in R Visualize our Model All the Uncertainty   These are code snippets and notes for the fourth chapter, Geocentric Models, , sections 4, of the book Statistical Rethinking (version 2) by Richard McElreath.
+In this section, we work with our first prediction model where we use the weight to predict the height of a person. We again use the ! <a class="read-more" href="/projects/statistical-rethinking/chapter_4/chp4-part-two/">&raquo;</a></p>
+        
+    </section>
+    <footer class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 6 min</span>
+            </p>
+        
+        
+            
+            
+
+            
+            
+            
+            Corrie
+                 
+        
+
+        on
+            
+                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
+            
+                <a href="/tags/bayesian/">#Bayesian</a>,
+            
+        
+        <time class="post-date" datetime="2020-04-22T00:00:00Z">
+            22 Apr 2020
+        </time>
+    </footer>
+</article>
+
+	
+	   <article class="post projects">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_4/chp4-part-one/">Why everything so normal</a></h2>
+    </header>
+    <section class="post-excerpt">
+        
+            <p>Why normal distributions are normal A Gaussian Model of Height Quadratic Approximation and Prior Predictive Checks   These are code snippets and notes for the fourth chapter, Geocentric Models, sections 1 to 3, of the book Statistical Rethinking (version 2) by Richard McElreath.
+Why normal distributions are normal The chapter discusses linear models and starts with a recap on the normal distributions. Why is it such a commonly used distribution and how does it arise? <a class="read-more" href="/projects/statistical-rethinking/chapter_4/chp4-part-one/">&raquo;</a></p>
+        
+    </section>
+    <footer class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 8 min</span>
+            </p>
+        
+        
+            
+            
+
+            
+            
+            
+            Corrie
+                 
+        
+
+        on
+            
+                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
+            
+                <a href="/tags/bayesian/">#Bayesian</a>,
+            
+        
+        <time class="post-date" datetime="2020-04-21T00:00:00Z">
+            21 Apr 2020
+        </time>
+    </footer>
+</article>
+
+	
+	   <article class="post projects">
+    <header class="post-header">
         <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_2/chp2-ex/">Chapter 2 - Exercises</a></h2>
     </header>
     <section class="post-excerpt">
         
-            <p>These are my solutions to the practice questions of chapter 2, Small Words and Large Worlds, of the book “Statistical Rethinking” (version 2) by Richard McElreath.
+            <p>Easy. Medium. Hard.   These are my solutions to the practice questions of chapter 2, Small Words and Large Worlds, of the book Statistical Rethinking (version 2) by Richard McElreath.
 Easy. 2E1. Which of the expressions below correspond to the statement: the probability of rain on Monday?
-Pr(rain) Pr(rain | Monday) Pr(Monday | rain) Pr(rain, Monday) / Pr(Monday)  Statement (4) is equivalent to (2) by Bayes theorem using joint probability.
-2E2. Which of the following statements corresponds to the expression: Pr(Monday | rain )? <a class="read-more" href="/projects/statistical-rethinking/chapter_2/chp2-ex/">&raquo;</a></p>
+Pr(rain) Pr(rain | Monday) Pr(Monday | rain) Pr(rain, Monday) / Pr(Monday)  Statement (4) is equivalent to (2) by Bayes theorem using joint probability. <a class="read-more" href="/projects/statistical-rethinking/chapter_2/chp2-ex/">&raquo;</a></p>
         
     </section>
     <footer class="post-meta">
@@ -331,9 +412,9 @@ Pr(rain) Pr(rain | Monday) Pr(Monday | rain) Pr(rain, Monday) / Pr(Monday)  Stat
     </header>
     <section class="post-excerpt">
         
-            <p>These are my solutions to the practice questions of chapter 3, Sampling the Imaginary, of the book “Statistical Rethinking” (version 2) by Richard McElreath.
+            <p>Easy. Medium. Hard.   These are my solutions to the practice questions of chapter 3, Sampling the Imaginary, of the book Statistical Rethinking (version 2) by Richard McElreath.
 Easy. The Easy problems use the samples from the globe tossing example:
-p_grid &lt;- seq( from=0, to=1, length.out=1000 ) prior &lt;- rep( 1, 1000 ) likelihood &lt;- dbinom( 6, size=9, prob=p_grid) posterior &lt;- likelihood * prior posterior &lt;- posterior / sum(posterior) set.seed(100) samples &lt;- sample( p_grid, prob=posterior, size=1e4, replace=TRUE ) 3E1. <a class="read-more" href="/projects/statistical-rethinking/chapter_3/chp3-ex/">&raquo;</a></p>
+p_grid &lt;- seq( from=0, to=1, length.out=1000 ) prior &lt;- rep( 1, 1000 ) likelihood &lt;- dbinom( 6, size=9, prob=p_grid) posterior &lt;- likelihood * prior posterior &lt;- posterior / sum(posterior) set. <a class="read-more" href="/projects/statistical-rethinking/chapter_3/chp3-ex/">&raquo;</a></p>
         
     </section>
     <footer class="post-meta">
@@ -403,91 +484,6 @@ simplehist( d$response, xlim=c(1,7), xlab=&quot;response&quot;) Describing an or
         
         <time class="post-date" datetime="2019-07-28T00:00:00Z">
             28 Jul 2019
-        </time>
-    </footer>
-</article>
-
-	
-	   <article class="post projects">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_12/chp12-part-one/">Of Monsters and Mixtures</a></h2>
-    </header>
-    <section class="post-excerpt">
-        
-            <p>Over-dispersed outcomes For the beta-binomial model, we’ll make use of the beta distribution. The beta distribution is a probability distribution over probabilities (over the interval \([0, 1]\)).
-library(rethinking) pbar &lt;- 0.5 theta &lt;- 5 curve( dbeta2( x, pbar, theta), from=0, to=1, xlab=&quot;probability&quot;, ylab=&quot;Density&quot;) There are different ways to parametrize the beta distribution:
-dbeta2 &lt;- function( x , prob , theta , log=FALSE ) { a &lt;- prob * theta b &lt;- (1-prob) * theta dbeta( x , shape1=a , shape2=b , log=log ) } We use the beta-binomial for the UCBadmit data, which is over-dispersed if we ignore department (since the admission rate varied quite a lot for different departments). <a class="read-more" href="/projects/statistical-rethinking/chapter_12/chp12-part-one/">&raquo;</a></p>
-        
-    </section>
-    <footer class="post-meta">
-        
-            <p class="post-reading post-line">
-            <span>Estimated reading time: 8 min</span>
-            </p>
-        
-        
-            
-            
-
-            
-            
-            
-            Corrie
-                 
-        
-
-        on
-            
-                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
-            
-                <a href="/tags/bayesian/">#Bayesian</a>,
-            
-        
-        <time class="post-date" datetime="2019-04-14T00:00:00Z">
-            14 Apr 2019
-        </time>
-    </footer>
-</article>
-
-	
-	   <article class="post projects">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_10/chp10-ex/">Chapter 10 - Exercises</a></h2>
-    </header>
-    <section class="post-excerpt">
-        
-            <p>Easy. 10E1. If an event has probability 0.35, what are the log-odds of this event?
-log( 0.35 / (1 - 0.35)) [1] -0.6190392 10E2. If an event has log-odds 3.2, what is the probabiity of this event?
-1 / (1 + exp(-3.2)) [1] 0.9608343 10E3. A coefficient in a logistic regression has value 1.7. What does this imply about the proportional change in odds of the outcome?
-exp(1.7) [1] 5. <a class="read-more" href="/projects/statistical-rethinking/chapter_10/chp10-ex/">&raquo;</a></p>
-        
-    </section>
-    <footer class="post-meta">
-        
-            <p class="post-reading post-line">
-            <span>Estimated reading time: 23 min</span>
-            </p>
-        
-        
-            
-            
-
-            
-            
-            
-            Corrie
-                 
-        
-
-        on
-            
-                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
-            
-                <a href="/tags/bayesian/">#Bayesian</a>,
-            
-        
-        <time class="post-date" datetime="2018-11-17T00:00:00Z">
-            17 Nov 2018
         </time>
     </footer>
 </article>

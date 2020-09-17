@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Causal Inference on Samples of Thoughts</title>
+    <link>/tags/causal-inference/</link>
+    <description>Recent content in Causal Inference on Samples of Thoughts</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Corrie Bartelheimer {year}</copyright>
+    <lastBuildDate>Wed, 16 Sep 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/causal-inference/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Masked Relationship</title>
+      <link>/projects/statistical-rethinking/chapter_5/chp5-part-two/</link>
+      <pubDate>Wed, 16 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_5/chp5-part-two/</guid>
+      <description>Hidden Influence in Milk The Causal Reasoning behind it  Markov Equivalence  Simulating a Masking Ball   These are code snippets and notes for the fifth chapter, The Many Variables &amp;amp; The Spurious Waffles, section 2, of the book Statistical Rethinking (version 2) by Richard McElreath.
+Hidden Influence in Milk In the previous section about spurious associations we used multiple regression to eliminate variables that seemed to have an influence when comparing bivariate relationships but whose association vanishes when introducing more variables to the regression.</description>
+    </item>
+    
+    <item>
+      <title>Spurious Association</title>
+      <link>/projects/statistical-rethinking/chapter_5/chp5-part-one/</link>
+      <pubDate>Wed, 09 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/statistical-rethinking/chapter_5/chp5-part-one/</guid>
+      <description>Spurious Waffles (and Marriages) Yo, DAG Does this DAG fit? More than one predictor: Multiple regression  In Matrix Notation Simulating some Divorces  How do we plot these?  Predictor residual plots Posterior prediction plots Counterfactual plot Simulating spurious associations Simulating counterfactuals    These are code snippets and notes for the fifth chapter, The Many Variables &amp;amp; The Spurious Waffles, section 1, of the book Statistical Rethinking (version 2) by Richard McElreath.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,133 @@
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<div id="chapter-5---categorical-variables" class="section level1">
+<h1>Chapter 5 - Categorical variables</h1>
+<p>library(rethinking)
+# binary categories
+data(“Howell1”)
+d &lt;- Howell1
+str(d)</p>
+</div>
+<div id="fit-model-using-the-variable-male-as-predictor" class="section level1">
+<h1>fit model using the variable male as predictor</h1>
+<p>m5.15 &lt;- map(
+alist(
+height ~ dnorm(mu, sigma),
+mu &lt;- a + bm*male,
+a ~ dnorm(178, 100),
+bm ~ dnorm(0, 10),
+sigma ~ dunif(0, 50)
+), data=d
+)
+precis(m5.15)
+plot(precis(m5.15))
+# to get average heigt of males, use sample:
+post &lt;- extract.samples(m5.15)
+mu.male &lt;- post<span class="math inline">\(a + post\)</span>bm
+PI(mu.male)</p>
+<p>m5.15b &lt;- map(
+alist(
+height ~ dnorm(mu, sigma),
+mu &lt;- af<em>(1-male) + am</em>male,
+af ~ dnorm( 178, 100),
+am ~ dnorm( 178, 100),
+sigma ~ dunif(0, 50)
+), data=d
+)
+precis(m5.15b)
+plot(precis(m5.15b))</p>
+</div>
+<div id="many-categories" class="section level1">
+<h1>Many categories</h1>
+<p>data(milk)
+d &lt;- milk
+unique(d$clade)</p>
+</div>
+<div id="create-a-dummy-variable-for-new-world-monkey" class="section level1">
+<h1>create a dummy variable for new world monkey</h1>
+<p>( d<span class="math inline">\(clade.NWM &lt;- ifelse( d\)</span>clade == “New World Monkey”, 1, 0) )
+# more dummy variables
+d<span class="math inline">\(clade.OWM &lt;- ifelse( d\)</span>clade == “Old World Monkey”, 1, 0 )
+d<span class="math inline">\(clade.S &lt;- ifelse( d\)</span>clade == “Strepsirrhine”, 0, 1 )</p>
+<p>m5.16 &lt;- map(
+alist(
+kcal.per.g ~ dnorm( mu, sigma),
+mu &lt;- a + b.NWM<em>clade.NWM + b.OWM</em>clade.OWM + b.S*clade.S,
+a ~ dnorm( 0.6, 10),
+c(b.NWM, b.OWM, b.S) ~ dnorm(0, 1),
+sigma ~ dunif( 0, 10)
+), data = d
+)
+precis( m5.16)</p>
+</div>
+<div id="compare-all-dummy-variables-included" class="section level1">
+<h1>compare: all dummy variables included</h1>
+<p>d<span class="math inline">\(clade.Ape &lt;- ifelse( d\)</span>clade == “Ape”, 1, 0)
+m5.16b &lt;- map(
+alist(
+kcal.per.g ~ dnorm( mu, sigma),
+mu &lt;- a + b.NWM<em>clade.NWM + b.OWM</em>clade.OWM + b.S<em>clade.S + b.Ape</em>clade.Ape,
+a ~ dnorm( 0.6, 10),
+c(b.NWM, b.OWM, b.S,b.Ape) ~ dnorm(0, 1),
+sigma ~ dunif( 0, 10)
+), data = d
+)</p>
+<p>m5.16c &lt;- map(
+alist(
+kcal.per.g ~ dnorm( mu, sigma),
+mu &lt;- b.NWM<em>clade.NWM + b.OWM</em>clade.OWM + b.S<em>clade.S + b.Ape</em>clade.Ape,
+c(b.NWM, b.OWM, b.S,b.Ape) ~ dnorm(0, 10),
+sigma ~ dunif( 0, 10)
+), data = d
+)
+m5.16d &lt;- map(
+alist(
+kcal.per.g ~ dnorm( mu, sigma),
+mu &lt;- b.NWM<em>(1 - clade.OWM - clade.S - clade.Ape) + b.OWM</em>clade.OWM + b.S<em>clade.S + b.Ape</em>clade.Ape,
+c(b.NWM, b.OWM, b.S,b.Ape) ~ dnorm(0, 10),
+sigma ~ dunif( 0, 10)
+), data = d
+)</p>
+<p>precis( m5.16b)
+par(mfrow=c(4,1))
+plot(precis( m5.16))
+plot(precis( m5.16b))
+plot(precis( m5.16c))
+plot(precis(m5.16d))
+par(mfrow=c(1,1))
+# we get a non-identifiable model with huge standard deviations</p>
+</div>
+<div id="to-get-the-average-milk-energy-in-each-category-use-samples" class="section level1">
+<h1>to get the average milk energy in each category use samples</h1>
+<p>post &lt;- extract.samples(m5.16)</p>
+</div>
+<div id="compute-averages-for-each-category" class="section level1">
+<h1>compute averages for each category</h1>
+<p>mu.ape &lt;- post<span class="math inline">\(a mu.NWM &lt;- post\)</span>a + post<span class="math inline">\(b.NWM mu.OWM &lt;- post\)</span>a + post<span class="math inline">\(b.OWM mu.S &lt;- post\)</span>a + post$b.S</p>
+</div>
+<div id="summarize-using-precis" class="section level1">
+<h1>summarize using precis</h1>
+<p>precis( data.frame( mu.ape, mu.NWM, mu.OWM, mu.S))
+plot( precis( data.frame( mu.ape, mu.NWM, mu.OWM, mu.S) ))</p>
+</div>
+<div id="to-get-estimated-difference-between-two-monkey-groups" class="section level1">
+<h1>to get estimated difference between two monkey groups:</h1>
+<p>diff.NWM.OWM &lt;- mu.NWM - mu.OWM
+quantile( diff.NWM.OWM, probs=c(0.025, 0.5, 0.975))</p>
+</div>
+<div id="unique-intercepts-approach" class="section level1">
+<h1>Unique intercepts approach</h1>
+<p>(d<span class="math inline">\(clade_id &lt;- coerce_index(d\)</span>clade))
+# fit model with one intercept for each group
+m5.16_alt &lt;- map(
+alist(
+kcal.per.g ~ dnorm( mu, sigma ),
+mu &lt;- a[clade_id],
+a[clade_id] ~ dnorm( 0.6, 10),
+sigma ~ dunif(0, 10)
+), data=d
+)
+precis(m5.16_alt, depth=2)</p>
+</div>

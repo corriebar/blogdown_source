@@ -28,7 +28,7 @@ Topics I'm interested in:
   - e.g. to topics such as disinformation
 - Topological Data Analysis
 - Machine Learning
-- Effective Data Organizations
+- Data Culture
 
 
 In my freetime, I enjoy reading a good book, growing tomatoes on my balcony and a good cup of tea or coffee.

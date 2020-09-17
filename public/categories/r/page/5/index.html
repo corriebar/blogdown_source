@@ -273,13 +273,99 @@ if (!doNotTrack) {
 	
 	    <a class="newer-posts" href="/categories/r/page/4/">&larr; Newer Posts</a>
 	
-	<span class="page-number">Page 5 of 6</span>
+	<span class="page-number">Page 5 of 7</span>
 	
 	    <a class="older-posts" href="/categories/r/page/6/">Older Posts &rarr;</a>
 	
 </nav>
 
 	</div>
+
+	
+	   <article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/2018/scraping-the-web-or-how-to-find-a-flat/">Scraping the web or how to find a flat</a></h2>
+    </header>
+    <section class="post-excerpt">
+        
+            <p>Berlin is a great city that used to have the reputation of affordable rents. While for sure other cities are still much more expensive, the rents in Berlin have risen considerably. Or so says everyone of my friends and my colleagues and so does it feel looking at renting listings. I decided to have a look myself at the data to find out if there’s still a secret neighborhood in Berlin resisting the raising prices and who knows, maybe the data can even tell us if the neighborhood Wedding is indeed “coming”. <a class="read-more" href="/2018/scraping-the-web-or-how-to-find-a-flat/">&raquo;</a></p>
+        
+    </section>
+    <footer class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 9 min</span>
+            </p>
+        
+        
+            
+            
+
+            
+            
+            
+            Corrie
+                 
+        
+
+        on
+            
+                <a href="/tags/r/">#R</a>,
+            
+                <a href="/tags/scraping/">#scraping</a>,
+            
+                <a href="/tags/berlin/">#Berlin</a>,
+            
+                <a href="/tags/flats/">#flats</a>,
+            
+        
+        <time class="post-date" datetime="2018-10-03T00:00:00Z">
+            3 Oct 2018
+        </time>
+    </footer>
+</article>
+
+	
+	   <article class="post projects">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_8/chp8-ex/">Chapter 8 - Exercises</a></h2>
+    </header>
+    <section class="post-excerpt">
+        
+            <p>Chapter 8 - Exercises Easy. 8E1. Which of the following is a requirement of the simple Metropolis algorithm?
+ The proposal distribution must be symmetric  8E2. Gibbs sampling is more efficient than the Metropolis algorithm. How does it achieve this extra efficiency? Are there any limitations?
+Gibbs sampling uses conjugate priors which allows it to make smarter proposals and is thus more efficient. The downside to this, is that it uses conjugate priors which might not be a good or valid prior from a scientific perspective. <a class="read-more" href="/projects/statistical-rethinking/chapter_8/chp8-ex/">&raquo;</a></p>
+        
+    </section>
+    <footer class="post-meta">
+        
+            <p class="post-reading post-line">
+            <span>Estimated reading time: 16 min</span>
+            </p>
+        
+        
+            
+            
+
+            
+            
+            
+            Corrie
+                 
+        
+
+        on
+            
+                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
+            
+                <a href="/tags/bayesian/">#Bayesian</a>,
+            
+        
+        <time class="post-date" datetime="2018-09-11T00:00:00Z">
+            11 Sep 2018
+        </time>
+    </footer>
+</article>
 
 	
 	   <article class="post projects">
@@ -406,96 +492,12 @@ Bread dough rises because of yeast.   sugar, since the yeast needs some food to 
 </article>
 
 	
-	   <article class="post projects">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_6/chp6-ex/">Chapter 6 - Exercises</a></h2>
-    </header>
-    <section class="post-excerpt">
-        
-            <p>Chapter 6 - Exercises These are my solutions to the exercises from chapter 6.
-Easy. 6E1. State the three motivating criteria that define information entropy.
-Information entropy (a measure of uncertainty) should be
- continous. A small change in probability should also lead to only a small change in uncertainty. We don’t want to allow for sudden jumps. increasing as the number of possible events increases. That means, if only one event has a very high chance of happening and all other have only a very small chance, then there is little uncertainty in what comes next and thus more less information. <a class="read-more" href="/projects/statistical-rethinking/chapter_6/chp6-ex/">&raquo;</a></p>
-        
-    </section>
-    <footer class="post-meta">
-        
-            <p class="post-reading post-line">
-            <span>Estimated reading time: 17 min</span>
-            </p>
-        
-        
-            
-            
-
-            
-            
-            
-            Corrie
-                 
-        
-
-        on
-            
-                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
-            
-                <a href="/tags/bayesian/">#Bayesian</a>,
-            
-        
-        <time class="post-date" datetime="2018-07-08T00:00:00Z">
-            8 Jul 2018
-        </time>
-    </footer>
-</article>
-
-	
-	   <article class="post projects">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/projects/statistical-rethinking/chapter_6/chp6-part-three/">Using Information Criteria</a></h2>
-    </header>
-    <section class="post-excerpt">
-        
-            <p>Using information criteria Model comparison library(rethinking) data(milk) d &lt;- milk[ complete.cases(milk), ] # remove NA values d$neocortex &lt;- d$neocortex.perc / 100 dim(d) head(d) We will predict kcal.per.g using the predictors neocortex and the logarithm of mass. For this, we use four different models (all with flat priors):
-a.start &lt;- mean(d$kcal.per.g) sigma.start &lt;- log( sd( d$kcal.per.g )) m6.11 &lt;- map( alist( kcal.per.g ~ dnorm( a, exp(log.sigma) ) ), data=d, start=list(a=a.start, log. <a class="read-more" href="/projects/statistical-rethinking/chapter_6/chp6-part-three/">&raquo;</a></p>
-        
-    </section>
-    <footer class="post-meta">
-        
-            <p class="post-reading post-line">
-            <span>Estimated reading time: 4 min</span>
-            </p>
-        
-        
-            
-            
-
-            
-            
-            
-            Corrie
-                 
-        
-
-        on
-            
-                <a href="/tags/statistical-rethinking/">#Statistical Rethinking</a>,
-            
-                <a href="/tags/bayesian/">#Bayesian</a>,
-            
-        
-        <time class="post-date" datetime="2018-07-04T00:00:00Z">
-            4 Jul 2018
-        </time>
-    </footer>
-</article>
-
-	
 
 	<nav class="pagination" role="navigation">
 	
 	    <a class="newer-posts" href="/categories/r/page/4/">&larr; Newer Posts</a>
 	
-	<span class="page-number">Page 5 of 6</span>
+	<span class="page-number">Page 5 of 7</span>
 	
 	    <a class="older-posts" href="/categories/r/page/6/">Older Posts &rarr;</a>
 	
