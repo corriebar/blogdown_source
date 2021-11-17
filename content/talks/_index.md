@@ -9,6 +9,9 @@ author: ""
 ---
 I've given a few talks and workshops in the past:
 
+##### 2021
+- __Brand Tracking with Bayesian Models and Metaflow__ Berlin Bayesians [slides](https://www.slideshare.net/CorrieBartelheimer/brand-tracking-with-bayesian-models-and-metaflow/CorrieBartelheimer/brand-tracking-with-bayesian-models-and-metaflow)
+
 ##### 2020
 - __Getting started with PyMC and Bayesian Modelling__ Workshop for PyLadies Berlin [code](https://github.com/corriebar/PyLadies-Bayesian-Tutorial)
 
