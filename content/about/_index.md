@@ -10,7 +10,7 @@ author: ""
 
 <img src="/about/_index_files/circle-cropped.png" alt="" width="50%"/ id="aboutpic">
 
-Hey there, I am Corrie and this is my blog. I am a Freelance Data Scientist and these are my musings about a range of topics, somehow all related to Data. 
+Hey there, I am Corrie and this is my blog. I am a Data Scientist and these are my musings about a range of topics, somehow all related to Data. 
 
 
 As a trained Mathematician, I put great focus on understanding the methods I apply. This not only means, that I want to understand the theory behind a certain algorithm but also that I strive to understand why an algorithm outputs a certain result. 
