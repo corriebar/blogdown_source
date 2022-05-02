@@ -1,0 +1,30 @@
+---
+title: "Memory Efficiency in Pandas"
+author: "Corrie Bartelheimer"
+date: "1/26/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+- Type of Columns matters
+- category better than object
+
+object can be beliebig bad
+```{python}
+bla = pd.DataFrame({'integer':[1], 'float': [2.0], 
+                    'object': ['v'*100]} )
+bla.dtypes
+```
+
+```{r}
+bla.memory_usage(deep=True)
+```
+
+
+some not so efficient functions:
+- pd.melt
+  - can be chunked
+  - check type of index columns and value columns
