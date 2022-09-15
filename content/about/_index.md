@@ -8,7 +8,11 @@ share: false
 author: ""
 ---
 
-<img src="/about/_index_files/circle-cropped.png" alt="" width="50%"/ id="aboutpic">
+{{< rawhtml >}}
+<img src="/about/_index_files/circle-cropped.png" alt="" width="50%" id="aboutpic">
+{{</rawhtml>}}
+
+
 
 Hey there, I am Corrie and this is my blog. I am a Data Scientist and these are my musings about a range of topics, somehow all related to Data. 
 
