@@ -1,0 +1,149 @@
+---
+title: 'Piping in Pandas: Group By and Mutate'
+author: Corrie
+date: '2022-09-16'
+slug: piping-in-pandas-group-by-and-mutate
+categories:
+  - Python
+  - Data Science
+tags:
+  - pandas
+  - python
+  - tidyverse
+comments: yes
+image: images/tea_with_books.jpg
+menu: ''
+share: yes
+---
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo=F)
+library(reticulate)
+library(tidyverse)
+library(palmerpenguins)
+use_python("~/.pyenv/versions/notebooks/bin/python")
+df <- penguins %>% filter(!is.na(sex))
+```
+I am a big fan of the `tidyverse` in R but most of the time, I actually use Python. If the rest of your team uses Python, your production code is in Python, it simply doesn't make much sense to use R.
+Anyway, I started to like working with `pandas` much better once I figured out how to pipe with pandas and how to "translate" from tidyverse to pandas. Then this code in R
+
+```{r, echo=TRUE}
+df %>%
+  filter(year >= 2009  & species %in% c("Adelie", "Gentoo")) %>%
+  mutate(body_mass_kg = body_mass_g / 1000) %>%
+  group_by(island, sex) %>%
+  summarise(avg_weight = mean(body_mass_kg), .groups='drop')
+```
+
+becomes this code in Python:
+
+```{python}
+import pandas as pd
+df = r.df
+```
+```{python, echo=TRUE}
+(df
+  .query('year >= 2009 & species.isin(["Adelie", "Gentoo"])')
+  .assign(body_mass_kg = lambda x: x.body_mass_g / 1000 )
+  .groupby(['island', 'sex'])
+  .agg(avg_weight = ('body_mass_kg', 'mean'))
+  .reset_index()
+)
+```
+
+There is however one type of transformation that whenever it comes up, I have to google it, read through the same question on StackOverflow again, and am, again, not very satisfied with the answer.
+That transformation is the `group_by` and `mutate` combo. In R, it works so seamlessly, one either uses a `mutate` or `summarise` after a `group_by` statement and everything is nice and neat. In Pandas, there is a confusing range of functions to be used after `groupby` and somehow they all work a bit different. So in this post, I want to go through the different ways how one can `group_by` and `mutate` in pandas.
+
+One example where this task frequently came up for me is when normalizing count data. In the [penguin data](https://allisonhorst.github.io/palmerpenguins/) I'm using here, this could be for example the proportions of male/female penguins over the different islands for the three different species. In R, we would proceed as follows to compute this:
+```{r, echo=TRUE}
+df %>%
+  group_by(species, island, sex) %>%
+  count() %>%
+  group_by(species) %>%
+  mutate(prop = n/ sum(n))
+```
+
+Et voila, we got counts and proportions for each species for the different islands and sexes, summing up to 1 per species.
+
+In pandas, we got a few options to achieve the same result:
+
+## Using transform
+
+One common suggestion for this problem is to use `transform()`:
+```{python, echo=TRUE}
+(df
+  .groupby(['species', 'island', 'sex'], observed=True)
+  .size().rename('n')
+  .reset_index()
+  .groupby('species')
+  .n
+  .transform(lambda x: x / x.sum() )
+)
+```
+
+Can you guess why I don't like this approach?
+It returns a `Series` and not a `DataFrame`, meaning I have to assign it to its original data frame to see the species and island information. Buuuut, what original data frame? I cannot assign this `Series` to `df` because `df` actually has a different index. So I would have to save a copy of just the counts data and then assign this to the counts data frame and then I can keep working with that. Such a flow interruption! Surely, there must be better ways!
+
+## Combining transform with assign
+One option is to put the whole `groupby()` and `transform()` action inside an `assign()` statement:
+```{python, echo=TRUE}
+(df
+  .groupby(['species', 'island', 'sex'], observed=True)
+  .size().rename('n')
+  .reset_index()
+  .assign(prop = lambda x: (x
+                            .groupby('species')
+                            .n.transform(lambda x: x / x.sum() )
+                            ) 
+          )
+)
+```
+
+Nice! No need to make some copies in between and if we wanted to, we could keep on chaining more functions after this.
+Downside: the groupby statement is quite nested and if we'd want to do multiple transformations for this grouping, we could also end up with quite a lot of repeated code.
+
+## Using apply and assign
+
+A slight variant on the example above: this time we move the `assign()` inside the nested statement:
+```{python, echo=TRUE}
+(df
+  .groupby(['species', 'island', 'sex'], observed=True)
+  .size().rename('n')
+  .reset_index()
+  .groupby('species')
+  .apply(lambda grp: grp.assign(prop = lambda x: x.n / x.n.sum() ) )
+)
+```
+
+A bit nicer, isn't it? It is still a rather nested statement (compared with the beauty of the short three lines with `dplyr`) but it has a few advantages over the previous options: it easily allows multiple aggregate statements inside the `assign` and also, in my eyes the biggest advantage, it also allows to combine multiple columns.
+
+If, for example, we have another columns with some kind of weights, then we could use them as follows:
+```{python, echo=TRUE}
+(df
+  .groupby(['species', 'island', 'sex'], observed=True)
+  .size().rename('n')
+  .reset_index()
+  .assign(weight = range(10) )
+  .groupby('species')
+  .apply(lambda grp: grp.assign(prop = lambda x: x.weight * x.n / x.n.sum() ) )
+)
+```
+
+
+## Honorable mentions: siuba and datar
+The tidyverse has become so successful and popular that by now there is a whole range of ports from its packages to Python. For `dplyr`, the two biggest one are `siuba` and `datar`. They both work very similar, so I will only briefly show `siuba`. With these two packages, the task above becomes a breeze:
+```{python, echo=TRUE}
+from siuba import group_by, filter, count, mutate, _
+(df >> 
+  group_by(_.species, _.island, _.sex) >>
+  count() >>
+  filter(_.n > 0 ) >>
+  group_by(_.species) >>
+  mutate(prop = _.n/ _.n.sum() )
+)
+```
+
+The code is very similar to the R code and the package even provides a pipe operator as well!
+
+Now, you might ask, why is this only a honorable mention? One problem is, that not everything has been ported to this package. Any of the `pivot_*` functions have not been ported yet though one would still need to use the pivot functionality from pandas. However, I could not find a way to make pandas functions work in the same chain as `siuba` functions (same with `datar`). Also, you  might noticed that I added a line that filters out any rows with a count of 0. That is, by default, the pandas `groupby` uses `observed=False` and lists grouping combinations even the one that don't exist in the data. `siuba` still uses the pandas implementation of `groupby` underneath but doesn't actually forward any arguments to it.
+
+So in the end, I still prefer working with pandas directly instead of using one of the ports. And while, in my eyes, it doesn't quite reach the beauty of the tidyverse and dplyr, it gets you pretty close.
