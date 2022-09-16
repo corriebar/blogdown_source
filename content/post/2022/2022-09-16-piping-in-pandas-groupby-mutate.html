@@ -1,0 +1,197 @@
+---
+title: 'Piping in Pandas: Group By and Mutate'
+author: Corrie
+date: '2022-09-16'
+slug: piping-in-pandas-group-by-and-mutate
+categories:
+  - Python
+  - Data Science
+tags:
+  - pandas
+  - python
+  - tidyverse
+comments: yes
+image: images/tea_with_books.jpg
+menu: ''
+share: yes
+---
+
+
+
+<p>I am a big fan of the <code>tidyverse</code> in R but most of the time, I actually use Python. If the rest of your team uses Python, your production code is in Python, it simply doesn’t make much sense to use R.
+Anyway, I started to like working with <code>pandas</code> much better once I figured out how to pipe with pandas and how to “translate” from tidyverse to pandas. Then this code in R</p>
+<pre class="r"><code>df %&gt;%
+  filter(year &gt;= 2009  &amp; species %in% c(&quot;Adelie&quot;, &quot;Gentoo&quot;)) %&gt;%
+  mutate(body_mass_kg = body_mass_g / 1000) %&gt;%
+  group_by(island, sex) %&gt;%
+  summarise(avg_weight = mean(body_mass_kg), .groups=&#39;drop&#39;)</code></pre>
+<pre><code>## # A tibble: 6 × 3
+##   island    sex    avg_weight
+##   &lt;fct&gt;     &lt;fct&gt;       &lt;dbl&gt;
+## 1 Biscoe    female       4.40
+## 2 Biscoe    male         5.17
+## 3 Dream     female       3.36
+## 4 Dream     male         3.94
+## 5 Torgersen female       3.19
+## 6 Torgersen male         3.78</code></pre>
+<p>becomes this code in Python:</p>
+<pre class="python"><code>(df
+  .query(&#39;year &gt;= 2009 &amp; species.isin([&quot;Adelie&quot;, &quot;Gentoo&quot;])&#39;)
+  .assign(body_mass_kg = lambda x: x.body_mass_g / 1000 )
+  .groupby([&#39;island&#39;, &#39;sex&#39;])
+  .agg(avg_weight = (&#39;body_mass_kg&#39;, &#39;mean&#39;))
+  .reset_index()
+)</code></pre>
+<pre><code>##       island     sex  avg_weight
+## 0     Biscoe  female    4.403571
+## 1     Biscoe    male    5.168103
+## 2      Dream  female    3.357500
+## 3      Dream    male    3.945000
+## 4  Torgersen  female    3.193750
+## 5  Torgersen    male    3.784375</code></pre>
+<p>There is however one type of transformation that whenever it comes up, I have to google it, read through the same question on StackOverflow again, and am, again, not very satisfied with the answer.
+That transformation is the <code>group_by</code> and <code>mutate</code> combo. In R, it works so seamlessly, one either uses a <code>mutate</code> or <code>summarise</code> after a <code>group_by</code> statement and everything is nice and neat. In Pandas, there is a confusing range of functions to be used after <code>groupby</code> and somehow they all work a bit different. So in this post, I want to go through the different ways how one can <code>group_by</code> and <code>mutate</code> in pandas.</p>
+<p>One example where this task frequently came up for me is when normalizing count data. In the <a href="https://allisonhorst.github.io/palmerpenguins/">penguin data</a> I’m using here, this could be for example the proportions of male/female penguins over the different islands for the three different species. In R, we would proceed as follows to compute this:</p>
+<pre class="r"><code>df %&gt;%
+  group_by(species, island, sex) %&gt;%
+  count() %&gt;%
+  group_by(species) %&gt;%
+  mutate(prop = n/ sum(n))</code></pre>
+<pre><code>## # A tibble: 10 × 5
+## # Groups:   species [3]
+##    species   island    sex        n  prop
+##    &lt;fct&gt;     &lt;fct&gt;     &lt;fct&gt;  &lt;int&gt; &lt;dbl&gt;
+##  1 Adelie    Biscoe    female    22 0.151
+##  2 Adelie    Biscoe    male      22 0.151
+##  3 Adelie    Dream     female    27 0.185
+##  4 Adelie    Dream     male      28 0.192
+##  5 Adelie    Torgersen female    24 0.164
+##  6 Adelie    Torgersen male      23 0.158
+##  7 Chinstrap Dream     female    34 0.5  
+##  8 Chinstrap Dream     male      34 0.5  
+##  9 Gentoo    Biscoe    female    58 0.487
+## 10 Gentoo    Biscoe    male      61 0.513</code></pre>
+<p>Et voila, we got counts and proportions for each species for the different islands and sexes, summing up to 1 per species.</p>
+<p>In pandas, we got a few options to achieve the same result:</p>
+<div id="using-transform" class="section level2">
+<h2>Using transform</h2>
+<p>One common suggestion for this problem is to use <code>transform()</code>:</p>
+<pre class="python"><code>(df
+  .groupby([&#39;species&#39;, &#39;island&#39;, &#39;sex&#39;], observed=True)
+  .size().rename(&#39;n&#39;)
+  .reset_index()
+  .groupby(&#39;species&#39;)
+  .n
+  .transform(lambda x: x / x.sum() )
+)</code></pre>
+<pre><code>## 0    0.157534
+## 1    0.164384
+## 2    0.150685
+## 3    0.150685
+## 4    0.191781
+## 5    0.184932
+## 6    0.512605
+## 7    0.487395
+## 8    0.500000
+## 9    0.500000
+## Name: n, dtype: float64</code></pre>
+<p>Can you guess why I don’t like this approach?
+It returns a <code>Series</code> and not a <code>DataFrame</code>, meaning I have to assign it to its original data frame to see the species and island information. Buuuut, what original data frame? I cannot assign this <code>Series</code> to <code>df</code> because <code>df</code> actually has a different index. So I would have to save a copy of just the counts data and then assign this to the counts data frame and then I can keep working with that. Such a flow interruption! Surely, there must be better ways!</p>
+</div>
+<div id="combining-transform-with-assign" class="section level2">
+<h2>Combining transform with assign</h2>
+<p>One option is to put the whole <code>groupby()</code> and <code>transform()</code> action inside an <code>assign()</code> statement:</p>
+<pre class="python"><code>(df
+  .groupby([&#39;species&#39;, &#39;island&#39;, &#39;sex&#39;], observed=True)
+  .size().rename(&#39;n&#39;)
+  .reset_index()
+  .assign(prop = lambda x: (x
+                            .groupby(&#39;species&#39;)
+                            .n.transform(lambda x: x / x.sum() )
+                            ) 
+          )
+)</code></pre>
+<pre><code>##      species     island     sex   n      prop
+## 0     Adelie  Torgersen    male  23  0.157534
+## 1     Adelie  Torgersen  female  24  0.164384
+## 2     Adelie     Biscoe    male  22  0.150685
+## 3     Adelie     Biscoe  female  22  0.150685
+## 4     Adelie      Dream    male  28  0.191781
+## 5     Adelie      Dream  female  27  0.184932
+## 6     Gentoo     Biscoe    male  61  0.512605
+## 7     Gentoo     Biscoe  female  58  0.487395
+## 8  Chinstrap      Dream    male  34  0.500000
+## 9  Chinstrap      Dream  female  34  0.500000</code></pre>
+<p>Nice! No need to make some copies in between and if we wanted to, we could keep on chaining more functions after this.
+Downside: the groupby statement is quite nested and if we’d want to do multiple transformations for this grouping, we could also end up with quite a lot of repeated code.</p>
+</div>
+<div id="using-apply-and-assign" class="section level2">
+<h2>Using apply and assign</h2>
+<p>A slight variant on the example above: this time we move the <code>assign()</code> inside the nested statement:</p>
+<pre class="python"><code>(df
+  .groupby([&#39;species&#39;, &#39;island&#39;, &#39;sex&#39;], observed=True)
+  .size().rename(&#39;n&#39;)
+  .reset_index()
+  .groupby(&#39;species&#39;)
+  .apply(lambda grp: grp.assign(prop = lambda x: x.n / x.n.sum() ) )
+)</code></pre>
+<pre><code>##      species     island     sex   n      prop
+## 0     Adelie  Torgersen    male  23  0.157534
+## 1     Adelie  Torgersen  female  24  0.164384
+## 2     Adelie     Biscoe    male  22  0.150685
+## 3     Adelie     Biscoe  female  22  0.150685
+## 4     Adelie      Dream    male  28  0.191781
+## 5     Adelie      Dream  female  27  0.184932
+## 6     Gentoo     Biscoe    male  61  0.512605
+## 7     Gentoo     Biscoe  female  58  0.487395
+## 8  Chinstrap      Dream    male  34  0.500000
+## 9  Chinstrap      Dream  female  34  0.500000</code></pre>
+<p>A bit nicer, isn’t it? It is still a rather nested statement (compared with the beauty of the short three lines with <code>dplyr</code>) but it has a few advantages over the previous options: it easily allows multiple aggregate statements inside the <code>assign</code> and also, in my eyes the biggest advantage, it also allows to combine multiple columns.</p>
+<p>If, for example, we have another columns with some kind of weights, then we could use them as follows:</p>
+<pre class="python"><code>(df
+  .groupby([&#39;species&#39;, &#39;island&#39;, &#39;sex&#39;], observed=True)
+  .size().rename(&#39;n&#39;)
+  .reset_index()
+  .assign(weight = range(10) )
+  .groupby(&#39;species&#39;)
+  .apply(lambda grp: grp.assign(prop = lambda x: x.weight * x.n / x.n.sum() ) )
+)</code></pre>
+<pre><code>##      species     island     sex   n  weight      prop
+## 0     Adelie  Torgersen    male  23       0  0.000000
+## 1     Adelie  Torgersen  female  24       1  0.164384
+## 2     Adelie     Biscoe    male  22       2  0.301370
+## 3     Adelie     Biscoe  female  22       3  0.452055
+## 4     Adelie      Dream    male  28       4  0.767123
+## 5     Adelie      Dream  female  27       5  0.924658
+## 6     Gentoo     Biscoe    male  61       6  3.075630
+## 7     Gentoo     Biscoe  female  58       7  3.411765
+## 8  Chinstrap      Dream    male  34       8  4.000000
+## 9  Chinstrap      Dream  female  34       9  4.500000</code></pre>
+</div>
+<div id="honorable-mentions-siuba-and-datar" class="section level2">
+<h2>Honorable mentions: siuba and datar</h2>
+<p>The tidyverse has become so successful and popular that by now there is a whole range of ports from its packages to Python. For <code>dplyr</code>, the two biggest one are <code>siuba</code> and <code>datar</code>. They both work very similar, so I will only briefly show <code>siuba</code>. With these two packages, the task above becomes a breeze:</p>
+<pre class="python"><code>from siuba import group_by, filter, count, mutate, _
+(df &gt;&gt; 
+  group_by(_.species, _.island, _.sex) &gt;&gt;
+  count() &gt;&gt;
+  filter(_.n &gt; 0 ) &gt;&gt;
+  group_by(_.species) &gt;&gt;
+  mutate(prop = _.n/ _.n.sum() )
+)</code></pre>
+<pre><code>## (grouped data frame)
+##       species     island     sex   n      prop
+## 0      Adelie     Biscoe  female  22  0.150685
+## 1      Adelie     Biscoe    male  22  0.150685
+## 2      Adelie      Dream  female  27  0.184932
+## 3      Adelie      Dream    male  28  0.191781
+## 4      Adelie  Torgersen  female  24  0.164384
+## 5      Adelie  Torgersen    male  23  0.157534
+## 8   Chinstrap      Dream  female  34  0.500000
+## 9   Chinstrap      Dream    male  34  0.500000
+## 12     Gentoo     Biscoe  female  58  0.487395
+## 13     Gentoo     Biscoe    male  61  0.512605</code></pre>
+<p>The code is very similar to the R code and the package even provides a pipe operator as well!</p>
+<p>Now, you might ask, why is this only a honorable mention? One problem is, that not everything has been ported to this package. Any of the <code>pivot_*</code> functions have not been ported yet though one would still need to use the pivot functionality from pandas. However, I could not find a way to make pandas functions work in the same chain as <code>siuba</code> functions (same with <code>datar</code>). Also, you might noticed that I added a line that filters out any rows with a count of 0. That is, by default, the pandas <code>groupby</code> uses <code>observed=False</code> and lists grouping combinations even the one that don’t exist in the data. <code>siuba</code> still uses the pandas implementation of <code>groupby</code> underneath but doesn’t actually forward any arguments to it.</p>
+<p>So in the end, I still prefer working with pandas directly instead of using one of the ports. And while, in my eyes, it doesn’t quite reach the beauty of the tidyverse and dplyr, it gets you pretty close.</p>
+</div>
