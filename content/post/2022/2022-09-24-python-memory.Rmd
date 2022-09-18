@@ -1,0 +1,249 @@
+---
+title: 'Memory Efficiency in Pandas'
+author: Corrie
+date: '2022-09-24'
+slug: memory-efficiency-in-pandas
+categories:
+  - Python
+  - Data Science
+tags:
+  - memory usage
+  - memory efficiency
+  - pandas
+  - python
+comments: yes
+image: images/tea_with_books.jpg
+menu: ''
+share: yes
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(reticulate)
+library(tidyverse)
+use_python("~/.pyenv/versions/notebooks/bin/python")
+```
+
+
+If you're working with big data in pandas you can run into memory problems very quickly. When working locally, your machine might slow down or you even get this lovely message that asks you to please kill some applications. If working in the cloud, one can of course always ramp up memory but trust me, having to restart a couple of thousand killed jobs because of Out-of-Memory errors is not fun and also pricey!
+
+In this post, I will talk about how to measure size of a data frame, then show on an example how to use categories and chunking to optimize memory usage, as well as give some tips on how to find the cause of an Out-of-Memory error at the end.
+
+## Some Basics first: What's your Type?
+How much memory space a data frame needs, is mostly determined by its content and in particular the type of the content.
+
+There are four main data types that can be stored in a pandas data frame: `integer`, `bool`, `float` and `object`. Integers are nice since they only need a couple of bits to represent any whole number. A boolean is even simpler than an integer and only needs a single bit. Floats are internally represented as two integers ([exponent and the significand](https://en.wikipedia.org/wiki/Floating-point_arithmetic)) so they need a similar amount of memory as integers. 
+`object` is usually used for string types and a bit more tricky.
+
+Let's construct a small test data frame with the three different types:
+```{python}
+import pandas as pd
+data = pd.DataFrame({'integer':[1], 'float': [2.0], 'bool': [True],
+                     'object': ['some text']} )
+data.dtypes
+```
+
+The `64` means the type uses 64 bits. 
+
+To check how much memory is used per column, we use `memory_usage()`:
+```{python}
+data.memory_usage(deep=True)
+```
+
+Note that by default, pandas gives the space in bytes (1 byte = 8 bits, so 8 bytes = 64 bits). Also, if we don't use `deep=True`, Python won't give the true memory space allocated to objects.
+
+## Oh So Big
+
+So `object` type uses much more memory space than `integer` or `float`. Strings can also be arbitrarily long which also means arbitrarily large in terms of memory space:
+```{python}
+larger = pd.DataFrame({'integer':[1], 'float': [2.0], 
+                        'object': ['some text, but really long '*100 ]} )
+larger.memory_usage(deep=True)
+```
+
+In  most cases, memory issues are due to string columns.
+
+Let's look at more realistic example data.
+I simulated survey data with 50,000 respondents from different European countries with 12 different attributes for the respondents:
+```{python, echo=FALSE}
+pd.set_option('display.max_columns', 4)
+pd.set_option('display.max_rows', 10)
+import numpy as np
+import re
+np.random.seed(202209)
+n = 50000
+countries = ["France (FR)", "Belgium (BE)", "Spain (ES)", "Portugal (PT)",
+             "Germany (DE)", "Italy (IT)", "Netherlands (NL)", "Austria (AT)",
+             "Poland (PO)", "Sweden (SE)"]
+df = pd.DataFrame({
+    "gender": np.random.choice(["Male", "Female", "Other", "Don't want to say"], size=n),
+    "age": np.random.randint(18, 90, size=n),
+    "country": np.random.choice(countries, size=n),
+    "city_rural": np.random.choice(["City", "Suburbs", "Rural area"], size=n),
+    "edu": np.random.choice(["High school", "University with Bachelor degree", 
+                             "University with Master degree", "No School"], size=n),
+    "employment_status": np.random.choice(["I'm a student (full-time)", "I'm a student (part-time)",
+                                           "I'm employed (full-time)", "I'm employed (part-time)",
+                                           "I'm self-employed", "I'm unemployed",
+                                           "I am a business owner"], size=n),
+    "owns_cat": np.random.choice(["I don't own a cat", "I have one cat", "I have two or more cats"], size=n),
+    "likes_dogs": np.random.choice(["Yes", "No"], size=n),
+    "household_type": np.random.choice(["I live alone", "I live in a shared flat", 
+                                        "I live with my partner", "I live with my family"], size=n),
+    "has_kids": np.random.choice(["No Kids", "1 Kid", "2 Kids", "3 or more kids"], size=n),
+    "home_type": np.random.choice(["I rent a flat", "I rent a house", "I own a flat", "I own a house"], size=n),
+    "has_garden": np.random.choice(["There is no garden",
+                                    "There is only a small terrace or balcony",
+                                    "There is a small garden (less than 20sqm)", 
+                                    "There is a large garden (bigger than 20sqm)"], size=n)
+})
+df.head(2)
+```
+
+I then simulate some questions about political leaning and vote intentions for different candidates and parties. You can find the code to simulate the data [here](https://github.com/corriebar/blogdown_source/blob/master/scripts/simulated_survey_data.py).
+```{python, echo=FALSE}
+import string
+LETTERS = string.ascii_uppercase
+countries = ["FR", "DE", "IT", "ES", "BE", "NL", "AT", "PT", "PO", "SE"]
+# add candidate questions
+candidates = [f"candidate {x} ({country})" for x in LETTERS[0:10] for country in countries ]
+cols = {}
+for candidate in candidates:
+    cd = candidate.replace(" ", "_").replace("(","").replace(")","")
+    cols[f"q_knows_{cd}"] = np.random.choice([None, f"I have heard of {candidate}", 
+                                           "I don't know who that is"], size=n)
+    cols[f"q_vote_for_{cd}"] = np.random.choice([None, f"I consider to vote for {candidate}", 
+                                             f"I will not vote for {candidate}"], size=n)
+    cols[f"q_agrees_with_{cd}"] = np.random.choice([None, f"I strongly disagree with {candidate}",
+                                                f"I disagree with {candidate}",
+                                                "I neither agree nor disagree",
+                                                f"I agree with {candidate}",
+                                                f"I strongly agree with {candidate}"], size=n)
+                                                
+parties = [f"party {x} ({country})" for x in ["Left", "Center", "Right"] for country in countries ]                  
+for party in parties:
+  prty = party.replace(" ", "_").replace("(","").replace(")","")
+  cols[f"q_voted_{prty}_before"] = np.random.choice([None, f"I have voted {party} once or twice before",
+                                                  f"I have always voted {party} in the past",
+                                                  f"I have never voted {party} before"], size=n)
+  cols[f"q_agrees_with_{prty}"] = np.random.choice([None, f"I strongly disagree with {party}",
+                                            f"I disagree with {party}",
+                                            "I neither agree nor disagree",
+                                            f"I agree with {party}",
+                                            f"I strongly agree with {party}"], size=n)
+  
+
+df = pd.concat([df, pd.DataFrame(cols)], axis=1)
+df.head(2)
+```
+
+Since I simulated three questions per candidate, 10 candidates per country with 10 countries, similar for the parties, we end up with quite a few questions columns, 360 in total plus the 12 attribute columns.
+
+Even though the data is not very big in terms of rows (50,000 observations, does that even count as Big Data?), the data frame is already big enough to slow down most laptops.
+
+To get the memory usage in a meaningful unit, we divide by `1e6` or `1e9` to get MB or GB respectively:
+```{python}
+df.memory_usage(deep=True) / 1e6
+```
+
+Most columns are 3 to 5MB big. To get the total memory usage of the whole data frame, we use the `info()` function:
+```{python}
+df.info(memory_usage='deep')
+```
+
+Not only does this size significantly slow down your local machine but worse, many operations and transformations will need additional memory space. This makes working with this data difficult if not impossible.
+
+## Categorize It
+One simple trick solves this problem almost instantly. Since all of the survey questions only have a limited number of answer options we can map each answer option to an integer value. As we've seen before, integers can be stored much more memory efficiently. 
+
+The pandas type `pd.Categorical` does exactly that. It transforms strings into discrete categories and maps each of the categories to an integer internally and thus storing strings in a very efficient way:
+```{python}
+str_cols = df.select_dtypes('object').columns # select all string columns
+df[str_cols] = df[str_cols].apply(pd.Categorical)
+df.info(memory_usage='deep')
+```
+
+Some little magic! With just two lines, we went from more than 1GB to less than 20MB! These two lines can easily save you a few hundred dollars in cloud computing bills.
+
+Obviously, it's always better to start out with a memory efficient type instead of transforming into one later. In this example, it probably makes sense to either store the answers in a different format to begin with (e.g. integer coded) or transform them into categories when loading the data. 
+
+## Chunk Chunk Chunk
+
+Sometimes, the data frame itself is already memory optimized but certain data transformations still lead to Out-of-Memory errors.
+
+Imagine we want to unpivot all question columns so we can group by attributes and count how many people answered the different questions. This could be useful for example when we want to group multiple questions together that are of the same format.
+
+```{python}
+question_cols = [col for col in df.columns if col.startswith("q_")]
+attribute_cols = [col for col in df.columns if not col.startswith("q_")]
+melted = df.melt(id_vars=attribute_cols,
+                    value_vars=question_cols)
+```
+
+But alas, it looks like things are slowing down again. Let's check the memory again:
+```{python}
+melted.info(memory_usage='deep')
+```
+
+What before was sweet 18MB now suddenly exploded to 3GB! Crap!
+
+While all the attribute columns are still categories and thus small in terms of memory, the three new columns are all `object` again. 
+Since melting the data frame also transformed it into long format,the frame has 18 million rows with three columns of type `object`. Big enough to kill some machines.
+
+```{python, echo=FALSE}
+del melted
+```
+The problem is that `pd.melt()` doesn't preserve the category type of the question columns. Since each question column has different categories, pandas just merges them into the more general `object` again. 
+
+The solution: We write a light wrapper around `pd.melt()` that works on a smaller chunk of the data. After melting each chunk, we transform the `object` columns into categories and then concatenate all melted chunks together:
+```{python}
+from pandas.api.types import union_categoricals
+
+def chunked_melt(df, id_vars, value_vars, chunk_size=1000):
+  dfs = []
+  value_cat = union_categoricals([df[col] for col in value_vars]).categories
+  for chunk in np.array_split(df, len(df) // chunk_size):
+    d = pd.melt(chunk, id_vars=id_vars, value_vars=value_vars)
+    d['variable'] = pd.Categorical(d['variable'], categories=value_vars)
+    d['value'] = pd.Categorical(d['value'], categories=value_cat)
+    dfs.append(d)
+  return pd.concat(dfs, axis=0, ignore_index=True)
+```
+
+Note that we now need to explicitly set the categories. The single chunks might not contain all categories from the final data frame so we explicitly set the union of all categories for each chunk.
+If any of the chunks would have different categories than the other chunks, then `pd.concat()` would transform the column to type again. 
+```{python}
+melted = chunked_melt(df, id_vars=attribute_cols, value_vars=question_cols)
+melted.info(memory_usage='deep')
+```
+
+The data frame is still relatively big (compared with the 20MB before) but much easier to handle.
+
+
+## Some Final Tips On Hunting Down Out-Of-Memory Errors
+
+Once you have an Out-Of-Memory (OoM) error, it can be tricky to find the cause of it. When trying to identify a memory issue in a data science context, we're interested in the peak memory of the whole program. That is, the moment where the most memory is needed.
+However, this moment might be different for small data than for bigger data.
+
+So what can we do?
+
+- Generously log memory size of the main data frames.
+- Log peak memory of the program with the inbuilt package [resource](https://docs.python.org/3/library/resource.html#resource-usage):
+```{python, eval=FALSE}
+import resource
+# .. all your code
+...
+# end of script
+peak_memory = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+# gives memory in kb for linux, bytes for OSX
+```
+
+  Obviously, you can only log the final memory usage for runs that don't get killed early.
+  
+- Step through your code with an example data frame reasonably big to be able to see memory problems but small enough to still comfortably work with.
+- Do some back-of-the-envelope calculations. Sometimes one can already find the problem by computing the expected memory of the final data frame based on type and size.
+- In Jupyter, there are some cell magic commands to profile memory: `%memit` for a single statement and `%mprun` for a full script. For more info on how to use it, see e.g. [here](https://jakevdp.github.io/PythonDataScienceHandbook/01.07-timing-and-profiling.html). In my experience however, they aren't always accurate and might miss memory usage from non-python processes, e.g. numpy mostly uses C internally. It can give some good leads though.
+- Memory profilers like [Fil](https://pythonspeed.com/fil/) promise to also track memory allocation from C and focuses on peak memory, making it well-suited for OoM errors in data science. Personally, I often had the problem that my smaller sample data I used for profiling didn't show the peaks that caused the error but bigger data was difficult to profile.
+
+
+It still remains a bit of a detective hunt to find the cause of an OoM error but I hope my tips can help a bit on where and how to look.
+
